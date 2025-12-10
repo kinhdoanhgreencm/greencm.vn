@@ -4,9 +4,9 @@ import SlugPageClient from '@/components/SlugPageClient';
 import type { Metadata } from 'next';
 
 interface SlugPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 // Generate static params cho tất cả các slug hợp lệ (tùy chọn - để tối ưu performance)
@@ -18,7 +18,7 @@ export function generateStaticParams() {
 
 // Generate metadata cho SEO
 export async function generateMetadata({ params }: SlugPageProps): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const mapping = URL_MAPPINGS.find(m => m.slug === slug);
   
   return {
@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   };
 }
 
-export default function SlugPage({ params }: SlugPageProps) {
-  const { slug } = params;
+export default async function SlugPage({ params }: SlugPageProps) {
+  const { slug } = await params;
 
   if (!slug) {
     notFound();

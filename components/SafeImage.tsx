@@ -13,7 +13,9 @@ const SafeImage: React.FC<SafeImageProps> = ({
   className,
   ...props 
 }) => {
-  const [imgSrc, setImgSrc] = useState<string | undefined>(src);
+  const [imgSrc, setImgSrc] = useState<string | undefined>(
+    typeof src === 'string' ? src : src instanceof Blob ? URL.createObjectURL(src) : undefined
+  );
   const [hasError, setHasError] = useState(false);
 
   const handleError = () => {

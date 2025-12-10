@@ -31,7 +31,7 @@ interface FormState {
   [key: string]: string;
   name: string;
   phone: string;
-  email?: string;
+  email: string;
 }
 
 const CustomerForm: React.FC<CustomerFormProps> = ({

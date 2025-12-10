@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AuthModal from '@/components/AuthModal';
@@ -37,7 +37,7 @@ function PageWrapper({ children }: PageWrapperProps) {
 }
 
 // Mapping từ route đến component
-export const routeComponents: Record<string, () => JSX.Element> = {
+export const routeComponents: Record<string, () => React.ReactElement> = {
   '/': () => (
     <PageWrapper>
       <Hero />
@@ -95,7 +95,7 @@ export const routeComponents: Record<string, () => JSX.Element> = {
 /**
  * Lấy component tương ứng với route
  */
-export function getComponentForRoute(route: string): (() => JSX.Element) | null {
+export function getComponentForRoute(route: string): (() => React.ReactElement) | null {
   return routeComponents[route] || null;
 }
 

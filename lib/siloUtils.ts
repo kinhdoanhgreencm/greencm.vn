@@ -168,8 +168,9 @@ export function getCategoryHierarchy(categoryId: string): SiloCategory[] {
   while (currentCategory) {
     hierarchy.unshift(currentCategory);
     
-    if (currentCategory.parentId) {
-      currentCategory = SILO_CATEGORIES.find(cat => cat.id === currentCategory.parentId);
+    const parentId = currentCategory.parentId;
+    if (parentId) {
+      currentCategory = SILO_CATEGORIES.find(cat => cat.id === parentId);
     } else {
       break;
     }
