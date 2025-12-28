@@ -18,56 +18,23 @@ const LimoGreenPage: React.FC = () => {
 
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&h=1080&fit=crop&q=80",
+      image: "https://cafefcdn.com/2018/9/6/photo-1-15362011763561528162705.jpg",
       alt: "Limo Green MPV điện 7 chỗ - Xe dịch vụ chở khách hiện đại"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1920&h=1080&fit=crop&q=80",
-      alt: "Limo Green xe điện dịch vụ - Thiết kế sang trọng, không gian rộng rãi"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80",
-      alt: "Nội thất Limo Green 7 chỗ - Khoang hành khách tiện nghi, hiện đại"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1550136513-548af4445338?w=1920&h=1080&fit=crop&q=80",
-      alt: "Ghế ngồi Limo Green - Chỗ ngồi thoải mái cho dịch vụ vận tải"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1646709849206-38290376774a?w=1920&h=1080&fit=crop&q=80",
-      alt: "Limo Green sạc pin - Xe điện sạc nhanh 30 phút, quãng đường 450km"
     }
   ];
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, []);
+    if (slides.length > 1) {
+      const timer = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length);
+      }, 4000);
+      return () => clearInterval(timer);
+    }
+  }, [slides.length]);
 
   return (
     <div className="pt-20 bg-white min-h-screen font-sans">
       
-      {/* 1. Sub-Header / Sticky Bar */}
-      <div className="sticky top-[72px] z-40 bg-white shadow-md border-b border-gray-100 py-3 px-4 md:px-8 flex justify-between items-center animate-slide-down">
-        <div className="flex items-center gap-2">
-          <span className="bg-gcm-green text-black font-extrabold px-2 py-1 rounded text-xs">LIMO GREEN</span>
-          <span className="hidden md:inline text-sm font-bold text-gray-600">Vua Xe Dịch Vụ 7 Chỗ</span>
-        </div>
-        <div className="flex items-center gap-4">
-           <a href="tel:0941498894" className="flex items-center gap-2 text-red-600 font-bold animate-pulse">
-             <Phone size={18} fill="currentColor" />
-             <span className="hidden md:inline">0969 99 11 77</span>
-           </a>
-           <button 
-             onClick={() => document.getElementById('consultant')?.scrollIntoView({behavior: 'smooth'})}
-             className="bg-black text-white text-xs md:text-sm font-bold px-4 py-2 rounded-full hover:bg-gcm-green hover:text-black transition-colors"
-           >
-             Đăng Ký Lái Thử
-           </button>
-        </div>
-      </div>
 
       {/* 2. Hero Section */}
       <section className="relative h-[650px] md:h-[700px] w-full bg-black overflow-hidden">

@@ -2,16 +2,18 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
 import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users, Truck, CheckCircle, DollarSign, MessageCircle, X } from 'lucide-react';
 import { ProductSchema } from './SchemaMarkup';
 import CustomerForm, { FormField } from './CustomerForm';
 
 const CarSales: React.FC = () => {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'family' | 'service'>('family');
   const [roiKm, setRoiKm] = useState<number>(100);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
-  
+
   // Cost Estimate State
   const [showCostModal, setShowCostModal] = useState(false);
   const [selectedCarForCost, setSelectedCarForCost] = useState<any>(null);
@@ -266,13 +268,21 @@ const CarSales: React.FC = () => {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                    {NEW_CARS_SERVICE.map((car, index) => (
-                      <motion.div 
-                        key={car.id} 
-                        className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col md:flex-row gap-6 hover:border-gcm-green transition-all"
+                      <motion.div
+                        key={car.id}
+                        className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col md:flex-row gap-6 hover:border-gcm-green transition-all cursor-pointer"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
                         whileHover={{ x: 5, scale: 1.02 }}
+                        onClick={() => {
+                          if(car.id === 'limo') {
+                            router.push('/limo-green');
+                          } else {
+                            setSelectedCarForQuote(car);
+                            setShowQuoteModal(true);
+                          }
+                        }}
                       >
                          <div className="w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
                             <img 
@@ -293,19 +303,9 @@ const CarSales: React.FC = () => {
                             </div>
                             <div className="flex items-center justify-between">
                                <span className="text-xl font-bold text-red-600">Từ {car.displayPrice}</span>
-                               <button 
-                                 onClick={() => {
-                                   if(car.id === 'limo') {
-                                     window.location.hash = '#limo-green';
-                                   } else {
-                                     setSelectedCarForQuote(car); 
-                                     setShowQuoteModal(true);
-                                   }
-                                 }}
-                                 className="text-sm font-bold border-b-2 border-black pb-1 hover:text-gcm-green hover:border-gcm-green transition-all"
-                               >
+                               <span className="text-sm font-bold border-b-2 border-black pb-1 text-gcm-green">
                                   {car.id === 'limo' ? 'Xem chi tiết Limo' : 'Nhận báo giá'}
-                               </button>
+                               </span>
                             </div>
                          </div>
                       </motion.div>
