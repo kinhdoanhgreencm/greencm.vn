@@ -590,7 +590,7 @@ export const BLOG_POSTS: BlogPost[] = [
   <p class="mb-4"><strong>🚀 Nhanh Tay — Ưu Đãi Kết Thúc 31/12!</strong></p>
   <p class="mb-4">Liên hệ GreenCM ngay để kiểm tra xe Limo sẵn có và hoàn tất hồ sơ nhận xe trong ngày.</p>
   <ul class="list-none space-y-3">
-    <li class="flex items-center"><span class="text-xl mr-2">📞</span> <strong>Tổng Đài Hỗ Trợ:</strong> <a href="tel:0969991177" class="ml-2 text-white font-semibold hover:opacity-80 transition">0969 99 11 77</a></li>
+    <li class="flex items-center"><span class="text-xl mr-2">📞</span> <strong>Tổng Đài Hỗ Trợ:</strong> <a href="tel:0941498894" class="ml-2 text-white font-semibold hover:opacity-80 transition">0969 99 11 77</a></li>
     <li class="flex items-center"><span class="text-xl mr-2">📧</span> <strong>Email Kinh Doanh:</strong> <a href="mailto:kinhdoanhgreencm@gmail.com" class="ml-2 text-white font-semibold hover:opacity-80 transition">kinhdoanhgreencm@gmail.com</a></li>
     <li class="mt-4"><a href="/lien-he" class="inline-block bg-white text-gcm-green px-6 py-2 rounded-lg font-bold hover:bg-gray-100 transition">🔗 Mở Form Liên Hệ</a></li>
   </ul>

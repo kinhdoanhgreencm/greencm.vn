@@ -75,7 +75,7 @@ export default function ContactPage() {
       icon: Phone,
       label: 'Tổng Đài Hỗ Trợ',
       value: '0969 99 11 77',
-      link: 'tel:0969991177',
+      link: 'tel:0941498894',
       color: 'text-blue-500'
     },
     {
@@ -311,7 +311,7 @@ export default function ContactPage() {
                     Gọi hotline của chúng tôi để được tư vấn ngay lập tức.
                   </p>
                   <a
-                    href="tel:0969991177"
+                    href="tel:0941498894"
                     className="inline-block bg-white text-gcm-green px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                   >
                     📞 Gọi: 0969 99 11 77
