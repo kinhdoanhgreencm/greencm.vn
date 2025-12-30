@@ -119,7 +119,7 @@ export default function ContactPage() {
             <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1200&h=600&fit=crop&q=80" alt="background" className="w-full h-full object-cover" />
           </div>
           <div className="container mx-auto px-4 relative z-10">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Liên Hệ Với GCM</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Liên hệ với chúng tôi</h1>
             <p className="text-lg opacity-90 max-w-2xl">
               Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ ngay để được tư vấn về các dịch vụ và sản phẩm của GCM.
             </p>
