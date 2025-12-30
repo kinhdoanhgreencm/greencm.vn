@@ -3,7 +3,6 @@ import { NavItem, ServiceCard, CarModel, UsedCar, RentalCar, AccessoryProduct, F
 import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Trang chủ', href: '/' },
   { label: 'Giới thiệu', href: '#about' },
   { label: 'Mua bán xe', href: '#sales' },
   { label: 'Sàn xe cũ', href: '#exchange' },
