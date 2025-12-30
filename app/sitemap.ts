@@ -89,26 +89,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      slug: 've-sinh-xe',
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      slug: 'spa-xe',
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      slug: 'cham-soc-xe',
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      slug: 'danh-bong-xe',
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
       slug: 'tin-tuc',
       changeFrequency: 'daily' as const,
       priority: 0.8,

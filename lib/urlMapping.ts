@@ -34,11 +34,6 @@ export const URL_MAPPINGS: RouteMapping[] = [
   { slug: 'phu-kien-o-to', route: '/accessories', title: 'Phụ kiện ô tô' },
   { slug: 'do-choi-xe', route: '/accessories', title: 'Đồ chơi xe' },
   
-  // Dịch vụ vệ sinh
-  { slug: 've-sinh-xe', route: '/spa', title: 'Vệ sinh xe' },
-  { slug: 'spa-xe', route: '/spa', title: 'Spa xe' },
-  { slug: 'cham-soc-xe', route: '/spa', title: 'Chăm sóc xe' },
-  { slug: 'danh-bong-xe', route: '/spa', title: 'Đánh bóng xe' },
   
   // Tin tức
   { slug: 'tin-tuc', route: '/news', title: 'Tin tức' },

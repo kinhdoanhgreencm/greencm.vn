@@ -9,7 +9,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Sàn xe cũ', href: '#exchange' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
-  { label: 'Vệ sinh xe', href: '#spa' },
   { label: 'Tin tức', href: '#news' },
 ];
 
