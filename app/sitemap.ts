@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
-      slug: 'mua-ban-xe',
+      slug: 'oto-vinfast',
       changeFrequency: 'daily' as const,
       priority: 0.9,
     },

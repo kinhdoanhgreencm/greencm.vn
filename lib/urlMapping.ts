@@ -16,7 +16,7 @@ export const URL_MAPPINGS: RouteMapping[] = [
   { slug: 'gioi-thieu', route: '/about', title: 'Giới thiệu' },
   
   // Dịch vụ mua bán
-  { slug: 'mua-ban-xe', route: '/sales', title: 'Mua bán xe' },
+  { slug: 'oto-vinfast', route: '/sales', title: 'Mua bán xe' },
   { slug: 'ban-xe', route: '/sales', title: 'Bán xe' },
   { slug: 'xe-moi', route: '/sales', title: 'Xe mới' },
   { slug: 'xe-cu', route: '/exchange', title: 'Xe cũ' },
@@ -33,6 +33,7 @@ export const URL_MAPPINGS: RouteMapping[] = [
   { slug: 'phu-kien', route: '/accessories', title: 'Phụ kiện' },
   { slug: 'phu-kien-o-to', route: '/accessories', title: 'Phụ kiện ô tô' },
   { slug: 'do-choi-xe', route: '/accessories', title: 'Đồ chơi xe' },
+  { slug: 'tram-sac-vinfast', route: '/accessories', title: 'Trạm sạc VinFast' },
   
   
   // Tin tức

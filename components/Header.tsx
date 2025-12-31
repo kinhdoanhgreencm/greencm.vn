@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '../constants';
 import { createFriendlyUrl } from '@/lib/urlUtils';
-import { Menu, X, Car, ChevronRight, LogIn, Phone, Info, ShoppingBag, Repeat, Calendar, Zap, Newspaper, Home } from 'lucide-react';
+import { Menu, X, Car, ChevronRight, LogIn, Phone, Info, ShoppingBag, Repeat, Calendar, Zap, Newspaper, Home, Battery } from 'lucide-react';
 
 interface HeaderProps {
   onLoginClick: () => void;
@@ -58,8 +58,9 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     // Kiểm tra cả route thực tế và friendly URL
     if (href === '/') return pathname === '/';
     if (href === '#about') return pathname === '/about' || pathname === '/gioi-thieu';
-    if (href === '#sales') return pathname === '/sales' || pathname === '/mua-ban-xe' || pathname === '/ban-xe' || pathname === '/xe-moi';
+    if (href === '#sales') return pathname === '/sales' || pathname === '/oto-vinfast' || pathname === '/ban-xe' || pathname === '/xe-moi';
     if (href === '#exchange') return pathname === '/exchange' || pathname === '/xe-cu' || pathname === '/san-xe-cu' || pathname === '/giao-dich-xe';
+    if (href === '#charging') return pathname === '/accessories' || pathname === '/tram-sac-vinfast' || pathname === '/phu-kien' || pathname === '/phu-kien-o-to' || pathname === '/do-choi-xe';
     if (href === '#rental') return pathname === '/rental' || pathname === '/thue-xe' || pathname === '/cho-thue-xe' || pathname === '/thue-xe-tu-lai' || pathname === '/thue-xe-co-tai-xe';
     if (href === '#accessories') return pathname === '/accessories' || pathname === '/phu-kien' || pathname === '/phu-kien-o-to' || pathname === '/do-choi-xe';
     if (href === '#news') return pathname === '/news' || pathname === '/tin-tuc' || pathname === '/bai-viet' || pathname === '/blog';
@@ -73,6 +74,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
       case '#sales': return <ShoppingBag size={20} />;
       case '#exchange': return <Repeat size={20} />;
       case '#rental': return <Calendar size={20} />;
+      case '#charging': return <Battery size={20} />;
       case '#accessories': return <Zap size={20} />;
       case '#news': return <Newspaper size={20} />;
       default: return <Car size={20} />;
@@ -84,6 +86,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     if (href === '#about') return createFriendlyUrl('/about');
     if (href === '#sales') return createFriendlyUrl('/sales');
     if (href === '#exchange') return createFriendlyUrl('/exchange');
+    if (href === '#charging') return '/tram-sac-vinfast';
     if (href === '#rental') return createFriendlyUrl('/rental');
     if (href === '#accessories') return createFriendlyUrl('/accessories');
     if (href === '#news') return createFriendlyUrl('/news');

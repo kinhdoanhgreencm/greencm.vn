@@ -3,7 +3,7 @@ import { getSlugFromRoute, getRouteFromSlug } from './urlMapping';
 /**
  * Tạo URL thân thiện từ route
  * @param route - Route thực tế (ví dụ: '/sales')
- * @returns URL thân thiện (ví dụ: '/mua-ban-xe')
+ * @returns URL thân thiện (ví dụ: '/oto-vinfast')
  */
 export function createFriendlyUrl(route: string): string {
   const slug = getSlugFromRoute(route);
@@ -12,7 +12,7 @@ export function createFriendlyUrl(route: string): string {
 
 /**
  * Lấy route thực tế từ URL thân thiện
- * @param slug - Slug từ URL (ví dụ: 'mua-ban-xe')
+ * @param slug - Slug từ URL (ví dụ: 'oto-vinfast')
  * @returns Route thực tế (ví dụ: '/sales')
  */
 export function getRouteFromFriendlyUrl(slug: string): string | null {

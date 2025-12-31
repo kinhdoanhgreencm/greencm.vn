@@ -4,8 +4,9 @@ import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Giới thiệu', href: '#about' },
-  { label: 'Mua bán xe', href: '#sales' },
+  { label: 'Ô tô VinFast', href: '#sales' },
   { label: 'Sàn xe cũ', href: '#exchange' },
+  { label: 'Trạm sạc VinFast', href: '#charging' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
   { label: 'Tin tức', href: '#news' },
@@ -14,13 +15,13 @@ export const NAV_ITEMS: NavItem[] = [
 export const SERVICES: ServiceCard[] = [
   {
     id: 1,
-    title: 'Mua bán ô tô',
+    title: 'Ô tô VinFast',
     description: 'Showroom ô tô uy tín cung cấp các dòng xe mới và cũ chất lượng cao, cam kết chính hãng và bảo hành dài hạn.',
     image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop&q=80',
   },
   {
     id: 2,
-    title: 'Sàn giao dịch xe cũ',
+    title: 'Xe siêu lướt',
     description: 'Nền tảng kết nối người mua và người bán minh bạch. Thẩm định chất lượng xe nghiêm ngặt 160 điểm.',
     image: 'https://images.unsplash.com/photo-1493238792000-8113da705763?w=800&h=600&fit=crop&q=80',
   },
@@ -32,7 +33,7 @@ export const SERVICES: ServiceCard[] = [
   },
   {
     id: 3,
-    title: 'Dịch vụ cho thuê xe',
+    title: 'Cho thuê xe tự lái',
     description: 'Đa dạng hình thức: Thuê xe tự lái, có tài xế, xe hoa, xe sự kiện và đưa đón chuyên gia, sân bay.',
     image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&h=600&fit=crop&q=80',
   },

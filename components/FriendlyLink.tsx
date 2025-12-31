@@ -18,7 +18,7 @@ interface FriendlyLinkProps {
  * 
  * @example
  * <FriendlyLink href="/sales">Mua bán xe</FriendlyLink>
- * // Sẽ tạo link: /mua-ban-xe
+ * // Sẽ tạo link: /oto-vinfast
  */
 export default function FriendlyLink({ 
   href, 

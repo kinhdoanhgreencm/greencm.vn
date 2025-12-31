@@ -222,7 +222,7 @@ export default function ContactPage() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gcm-green"
                     >
                       <option value="">Chọn chủ đề liên hệ</option>
-                      <option value="mua-ban-xe">Mua bán ô tô</option>
+                      <option value="oto-vinfast">Mua bán ô tô</option>
                       <option value="thuê-xe">Dịch vụ cho thuê xe</option>
                       <option value="phụ-kiện">Phụ kiện & đồ chơi</option>
                       <option value="dang-ky">Đăng ký & Đăng kiểm</option>
