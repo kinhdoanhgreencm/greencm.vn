@@ -33,7 +33,7 @@ export const URL_MAPPINGS: RouteMapping[] = [
   { slug: 'phu-kien', route: '/accessories', title: 'Phụ kiện' },
   { slug: 'phu-kien-o-to', route: '/accessories', title: 'Phụ kiện ô tô' },
   { slug: 'do-choi-xe', route: '/accessories', title: 'Đồ chơi xe' },
-  { slug: 'tram-sac-vinfast', route: '/accessories', title: 'Trạm sạc VinFast' },
+  { slug: 'tram-sac-vinfast', route: '/charging', title: 'Trạm sạc VinFast' },
   
   
   // Tin tức
