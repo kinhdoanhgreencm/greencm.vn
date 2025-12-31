@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{ 
-          backgroundImage: 'url("/Banner hero homepage.png")',
+          backgroundImage: 'url("/Banner%20hero%20homepage.png")',
         }}
         role="img"
         aria-label="GCM All About Cars - Hệ sinh thái ô tô điện toàn diện, showroom xe điện hiện đại"
