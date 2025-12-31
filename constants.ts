@@ -5,7 +5,7 @@ import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Giới thiệu', href: '#about' },
   { label: 'Ô tô VinFast', href: '#sales' },
-  { label: 'Sàn xe cũ', href: '#exchange' },
+  { label: 'Xe siêu lướt', href: '#exchange' },
   { label: 'Trạm sạc VinFast', href: '#charging' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
@@ -17,7 +17,7 @@ export const SERVICES: ServiceCard[] = [
     id: 1,
     title: 'Ô tô VinFast',
     description: 'Showroom ô tô uy tín cung cấp các dòng xe mới và cũ chất lượng cao, cam kết chính hãng và bảo hành dài hạn.',
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop&q=80',
+    image: 'https://static-cms-prod.vinfastauto.com/about-us.png',
   },
   {
     id: 2,

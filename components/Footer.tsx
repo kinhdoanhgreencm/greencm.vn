@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
                 <li><Link href={createFriendlyUrl('/about')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Giới thiệu</Link></li>
                 <li><Link href={createFriendlyUrl('/news')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tin tức & Sự kiện</Link></li>
                 <li><Link href={createFriendlyUrl('/careers')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tuyển dụng</Link></li>
-                <li><Link href={createFriendlyUrl('/about')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Liên hệ</Link></li>
+                <li><Link href={createFriendlyUrl('/lien-he')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Liên hệ</Link></li>
               </ul>
             </div>
 
