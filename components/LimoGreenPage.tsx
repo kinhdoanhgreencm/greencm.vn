@@ -60,7 +60,7 @@ const LimoGreenPage: React.FC = () => {
           {/* Text Hook */}
           <div className="text-white text-center md:text-left max-w-2xl">
             <div className="inline-block bg-gcm-green text-black font-bold px-4 py-1 rounded-full mb-4 animate-bounce">
-              🔥 HOT DEAL THÁNG 11
+              🔥 HOT DEAL THÁNG 01/2026
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
               LIMO GREEN<br/>
@@ -125,7 +125,7 @@ const LimoGreenPage: React.FC = () => {
                  <p className="text-gray-600 mb-6 text-sm italic">"Tôi cam kết hỗ trợ anh/chị chọn được chiếc xe ưng ý nhất với bài toán tài chính tối ưu. Hỗ trợ vay ngân hàng tới 90%."</p>
                  <div className="flex flex-wrap justify-center md:justify-start gap-4">
                     <a href="tel:0941498894" className="flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full hover:bg-black transition-colors font-bold">
-                       <Phone size={18} /> 0969 99 11 77
+                       <Phone size={18} /> 0941 498 894
                     </a>
                     <a href="https://zalo.me/0941498894" target="_blank" className="flex items-center gap-2 bg-[#0068FF] text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors font-bold shadow-lg shadow-blue-200">
                        <MessageCircle size={18} /> Chat Zalo Ngay

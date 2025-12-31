@@ -183,7 +183,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     } catch (error: any) {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
-      setSubmitMessage(error.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau hoặc liên hệ hotline: 0969 99 11 77');
+      setSubmitMessage(error.message || 'Đã có lỗi xảy ra. Vui lòng thử lại sau hoặc liên hệ hotline: 0941 498 894');
     } finally {
       setIsSubmitting(false);
     }

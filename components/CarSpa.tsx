@@ -302,7 +302,7 @@ const CarSpa: React.FC = () => {
                </div>
                <div className="mt-10">
                  <p className="text-sm font-bold opacity-60 uppercase tracking-widest mb-1">Hotline</p>
-                 <p className="text-3xl font-black">0969 99 11 77</p>
+                 <p className="text-3xl font-black">0941 498 894</p>
                </div>
             </div>
             

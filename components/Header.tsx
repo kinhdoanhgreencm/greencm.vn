@@ -209,7 +209,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
             <div className="flex flex-col items-center gap-2 text-gray-400 text-xs">
                <a href="tel:0941498894" className="flex items-center gap-2 hover:text-white transition-colors">
                   <Phone size={14} className="text-gcm-green" />
-                  Hotline: <span className="text-white font-bold text-sm">0969 99 11 77</span>
+                  Hotline: <span className="text-white font-bold text-sm">0941 498 894</span>
                </a>
                <span className="opacity-50">v1.0.0</span>
             </div>

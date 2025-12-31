@@ -74,7 +74,7 @@ export default function ContactPage() {
     {
       icon: Phone,
       label: 'Tổng Đài Hỗ Trợ',
-      value: '0969 99 11 77',
+      value: '0941 498 894',
       link: 'tel:0941498894',
       color: 'text-blue-500'
     },
@@ -314,7 +314,7 @@ export default function ContactPage() {
                     href="tel:0941498894"
                     className="inline-block bg-white text-gcm-green px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                   >
-                    📞 Gọi: 0969 99 11 77
+                    📞 Gọi: 0941 498 894
                   </a>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default function ContactPage() {
                 },
                 {
                   q: 'Tôi có thể đặt lịch hẹn trước không?',
-                  a: 'Có, bạn có thể gọi hotline 0969 99 11 77 hoặc gửi form liên hệ để đặt lịch hẹn.'
+                  a: 'Có, bạn có thể gọi hotline 0941 498 894 hoặc gửi form liên hệ để đặt lịch hẹn.'
                 },
                 {
                   q: 'GCM có hỗ trợ vay tài chính không?',

@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Error processing form submission:', error);
     return NextResponse.json(
-      { error: 'Đã có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại sau hoặc liên hệ hotline: 0969 99 11 77' },
+      { error: 'Đã có lỗi xảy ra khi xử lý yêu cầu. Vui lòng thử lại sau hoặc liên hệ hotline: 0941 498 894' },
       { status: 500 }
     );
   }
