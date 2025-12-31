@@ -25,6 +25,12 @@ export const SERVICES: ServiceCard[] = [
     image: 'https://images.unsplash.com/photo-1493238792000-8113da705763?w=800&h=600&fit=crop&q=80',
   },
   {
+    id: 6,
+    title: 'Trạm sạc VinFast',
+    description: 'Hệ thống trạm sạc VinFast phủ khắp toàn quốc. Hỗ trợ tìm trạm sạc, hướng dẫn sử dụng và tư vấn lắp đặt bộ sạc tại nhà.',
+    image: 'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&h=600&fit=crop&q=80',
+  },
+  {
     id: 3,
     title: 'Dịch vụ cho thuê xe',
     description: 'Đa dạng hình thức: Thuê xe tự lái, có tài xế, xe hoa, xe sự kiện và đưa đón chuyên gia, sân bay.',
@@ -41,12 +47,6 @@ export const SERVICES: ServiceCard[] = [
     title: 'Đăng ký & Đăng kiểm',
     description: 'Dịch vụ hỗ trợ thủ tục pháp lý, đăng ký sang tên và đăng kiểm xe trọn gói, nhanh chóng.',
     image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    id: 6,
-    title: 'Vệ sinh xe tổng thể',
-    description: 'Dịch vụ chăm sóc xe chuyên sâu: vệ sinh nội ngoại thất, khoang máy, đánh bóng và phủ ceramic bảo vệ sơn.',
-    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&h=600&fit=crop&q=80',
   }
 ];
 
@@ -1127,7 +1127,7 @@ Các dịch vụ chính của GCM bao gồm:
 3. Cho thuê ô tô: Tự lái, Có tài xế, Xe sự kiện, Đưa đón sân bay.
 4. Phụ kiện ô tô: Mua bán và lắp đặt đồ chơi xe, phụ kiện chính hãng.
 5. Dịch vụ pháp lý: Hỗ trợ đăng ký, đăng kiểm, sang tên đổi chủ.
-6. Vệ sinh xe tổng thể: Chăm sóc xe chuyên sâu, spa nội ngoại thất, phủ ceramic, an toàn cho xe điện.
+6. Trạm sạc VinFast: Hệ thống trạm sạc phủ khắp toàn quốc, hỗ trợ tìm trạm và tư vấn lắp đặt bộ sạc tại nhà.
 
 Phong cách trả lời: Chuyên nghiệp, am hiểu về xe, thân thiện. 
 Nếu khách hàng hỏi về giá xe hoặc chi phí dịch vụ, hãy mời họ để lại thông tin hoặc liên hệ hotline 1900 1877 để được tư vấn chi tiết nhất.`;
