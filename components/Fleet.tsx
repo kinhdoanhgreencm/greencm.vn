@@ -54,13 +54,6 @@ const Fleet: React.FC = () => {
                </div>
              ))}
            </div>
-
-           {/* Pagination dots */}
-           <div className="flex justify-center gap-2 mt-12">
-             <div className="w-2 h-2 rounded-full bg-gcm-green"></div>
-             <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-             <div className="w-2 h-2 rounded-full bg-gray-300"></div>
-           </div>
         </div>
     </section>
   );

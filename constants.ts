@@ -17,31 +17,31 @@ export const SERVICES: ServiceCard[] = [
     id: 1,
     title: 'Ô tô VinFast',
     description: 'Showroom ô tô uy tín cung cấp các dòng xe mới và cũ chất lượng cao, cam kết chính hãng và bảo hành dài hạn.',
-    image: 'https://static-cms-prod.vinfastauto.com/about-us.png',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png',
   },
   {
     id: 2,
     title: 'Xe siêu lướt',
     description: 'Nền tảng kết nối người mua và người bán minh bạch. Thẩm định chất lượng xe nghiêm ngặt 160 điểm.',
-    image: 'https://images.unsplash.com/photo-1493238792000-8113da705763?w=800&h=600&fit=crop&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20VF7.png',
   },
   {
     id: 6,
     title: 'Trạm sạc VinFast',
     description: 'Hệ thống trạm sạc VinFast phủ khắp toàn quốc. Hỗ trợ tìm trạm sạc, hướng dẫn sử dụng và tư vấn lắp đặt bộ sạc tại nhà.',
-    image: 'https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=800&h=600&fit=crop&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png',
   },
   {
     id: 3,
     title: 'Cho thuê xe tự lái',
     description: 'Đa dạng hình thức: Thuê xe tự lái, có tài xế, xe hoa, xe sự kiện và đưa đón chuyên gia, sân bay.',
-    image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&h=600&fit=crop&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Cho%20thue%20xe%20tu%20lai.png',
   },
   {
     id: 4,
     title: 'Phụ kiện ô tô',
     description: 'Cung cấp và lắp đặt đồ chơi, phụ kiện nâng cấp xe hơi công nghệ cao, chính hãng.',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Phu%20Kien.png',
   },
   {
     id: 5,
@@ -53,22 +53,22 @@ export const SERVICES: ServiceCard[] = [
 
 export const FLEET: CarModel[] = [
   {
-    id: 'mercedes',
-    name: 'Mercedes-Benz EQS',
-    category: 'Xe Sang (Bán/Thuê)',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&h=800&fit=crop&q=80'
+    id: 'limo',
+    name: 'Limo Green',
+    category: 'MPV 7 CHỖ DỊCH VỤ',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Limo%20Green.png'
   },
   {
-    id: 'vf9',
-    name: 'VinFast VF 9',
-    category: 'SUV Điện (Có sẵn)',
-    image: 'https://images.unsplash.com/photo-1550136513-548af4445338?w=1200&h=800&fit=crop&q=80'
+    id: 'ecvan',
+    name: 'EC Van',
+    category: 'VẬN CHUYỂN THƯƠNG MẠI ĐỘT PHÁ',
+    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
   },
   {
-    id: 'kia',
-    name: 'Kia Carnival',
-    category: 'MPV Gia đình',
-    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1200&h=800&fit=crop&q=80'
+    id: 'vf5',
+    name: 'VinFast VF 5 Plus',
+    category: 'SUV HẠNG A LINH HOẠT',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20VF5.png'
   }
 ];
 
