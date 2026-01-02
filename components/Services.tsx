@@ -25,7 +25,7 @@ const Services: React.FC = () => {
       3: '/rental',     // Dịch vụ cho thuê xe
       4: '/accessories', // Phụ kiện ô tô
       5: '/sales',      // Đăng ký & Đăng kiểm (link to sales page)
-      6: '/accessories',        // Trạm sạc VinFast
+      6: '/charging',   // Trạm sạc VinFast
     };
     return routeMap[serviceId] || '/';
   };

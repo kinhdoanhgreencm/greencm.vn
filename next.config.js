@@ -36,6 +36,11 @@ const nextConfig = {
         destination: '/',
         permanent: true, // 301 redirect - tốt cho SEO
       },
+      {
+        source: '/mua-ban-xe',
+        destination: '/oto-vinfast',
+        permanent: true, // 301 redirect - tốt cho SEO
+      },
     ];
   },
 };
