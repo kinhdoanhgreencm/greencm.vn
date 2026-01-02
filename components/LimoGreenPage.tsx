@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageCircle, CheckCircle, Battery, Zap, Gauge, Wind, Shield, MapPin, ChevronRight, Star, User } from 'lucide-react';
+import { Phone, MessageCircle, CheckCircle, Battery, Zap, Gauge, Wind, Shield, MapPin, ChevronRight, Star, User, X, ChevronLeft } from 'lucide-react';
 import CustomerForm, { FormField } from './CustomerForm';
 
 const LimoGreenPage: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const handleImageError = (imageId: string) => {
     setImageErrors(prev => ({ ...prev, [imageId]: true }));
@@ -32,6 +34,71 @@ const LimoGreenPage: React.FC = () => {
     }
   }, [slides.length]);
 
+  const galleryImages = [
+    {
+      src: "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom.png",
+      alt: "Limo Green xe dịch vụ - Xe điện 7 chỗ chở khách chuyên nghiệp",
+      id: 'thumb1'
+    },
+    {
+      src: "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%202.png",
+      alt: "Limo Green xe taxi - Xe điện vận tải hành khách hiện đại",
+      id: 'thumb2'
+    },
+    {
+      src: "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%203.png",
+      alt: "Limo Green MPV - Xe điện 7 chỗ đẳng cấp, tiết kiệm chi phí vận hành",
+      id: 'thumb3'
+    },
+    {
+      src: "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%204.png",
+      alt: "Nội thất Limo Green - Ghế ngồi rộng rãi, tiện nghi cho dịch vụ vận tải",
+      id: 'thumb4'
+    }
+  ];
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const nextImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const prevImage = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
+  useEffect(() => {
+    if (!lightboxOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLightboxOpen(false);
+        document.body.style.overflow = 'unset';
+      } else if (e.key === 'ArrowRight') {
+        setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+      } else if (e.key === 'ArrowLeft') {
+        setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [lightboxOpen, galleryImages.length]);
+
   return (
     <div className="bg-white min-h-screen font-sans">
       {/* 2. Hero Section */}
@@ -53,7 +120,7 @@ const LimoGreenPage: React.FC = () => {
         ))}
         
         {/* Overlay Content */}
-        <div className="absolute inset-0 z-10 container mx-auto px-4 flex flex-col md:flex-row items-center justify-center md:justify-between pt-10 pb-10 md:pb-0 gap-10">
+        <div className="absolute inset-0 z-10 container mx-auto px-4 flex flex-col md:flex-row items-center justify-center md:justify-between pt-20 md:pt-10 pb-10 md:pb-0 gap-10">
           
           {/* Text Hook */}
           <div className="text-white text-center md:text-left max-w-2xl">
@@ -85,6 +152,7 @@ const LimoGreenPage: React.FC = () => {
                      name: 'address',
                      label: 'ĐỊA CHỈ',
                      type: 'select',
+                     required: true,
                      options: [
                         { value: '', label: 'Chọn địa chỉ' },
                         { value: 'hanoi', label: 'Hà Nội' },
@@ -308,37 +376,79 @@ const LimoGreenPage: React.FC = () => {
          <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-center mb-10">Hình Ảnh Thực Tế</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-               <img 
-                 src={imageErrors['thumb1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom.png"} 
-                 alt="Limo Green xe dịch vụ - Xe điện 7 chỗ chở khách chuyên nghiệp"
-                 className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
-                 onError={() => handleImageError('thumb1')}
-                 loading="lazy"
-               />
-               <img 
-                 src={imageErrors['thumb2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%202.png"} 
-                 alt="Limo Green xe taxi - Xe điện vận tải hành khách hiện đại"
-                 className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
-                 onError={() => handleImageError('thumb2')}
-                 loading="lazy"
-               />
-               <img 
-                 src={imageErrors['thumb3'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%203.png"} 
-                 alt="Limo Green MPV - Xe điện 7 chỗ đẳng cấp, tiết kiệm chi phí vận hành"
-                 className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
-                 onError={() => handleImageError('thumb3')}
-                 loading="lazy"
-               />
-               <img 
-                 src={imageErrors['thumb4'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%204.png"} 
-                 alt="Nội thất Limo Green - Ghế ngồi rộng rãi, tiện nghi cho dịch vụ vận tải"
-                 className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
-                 onError={() => handleImageError('thumb4')}
-                 loading="lazy"
-               />
+               {galleryImages.map((image, index) => (
+                 <img 
+                   key={image.id}
+                   src={imageErrors[image.id] ? getFallbackImage() : image.src} 
+                   alt={image.alt}
+                   className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity cursor-pointer"
+                   onError={() => handleImageError(image.id)}
+                   onClick={() => openLightbox(index)}
+                   loading="lazy"
+                 />
+               ))}
             </div>
          </div>
       </section>
+
+      {/* Lightbox Modal */}
+      {lightboxOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+          {/* Backdrop - Click to close */}
+          <div 
+            className="absolute inset-0"
+            onClick={closeLightbox}
+          ></div>
+
+          {/* Close Button */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 md:top-8 md:right-8 z-20 p-2 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+            aria-label="Đóng"
+          >
+            <X size={24} />
+          </button>
+
+          {/* Previous Button */}
+          {galleryImages.length > 1 && (
+            <button
+              onClick={prevImage}
+              className="absolute left-4 md:left-8 z-20 p-3 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+              aria-label="Ảnh trước"
+            >
+              <ChevronLeft size={28} />
+            </button>
+          )}
+
+          {/* Next Button */}
+          {galleryImages.length > 1 && (
+            <button
+              onClick={nextImage}
+              className="absolute right-4 md:right-8 z-20 p-3 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+              aria-label="Ảnh sau"
+            >
+              <ChevronRight size={28} />
+            </button>
+          )}
+
+          {/* Image Container */}
+          <div className="relative z-10 w-full h-full flex items-center justify-center max-w-7xl mx-auto" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={imageErrors[galleryImages[lightboxIndex].id] ? getFallbackImage() : galleryImages[lightboxIndex].src}
+              alt={galleryImages[lightboxIndex].alt}
+              className="max-w-full max-h-full object-contain rounded-lg"
+              onError={() => handleImageError(galleryImages[lightboxIndex].id)}
+            />
+          </div>
+
+          {/* Image Counter */}
+          {galleryImages.length > 1 && (
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
+              {lightboxIndex + 1} / {galleryImages.length}
+            </div>
+          )}
+        </div>
+      )}
 
     </div>
   );

@@ -56,8 +56,15 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   const [submitMessage, setSubmitMessage] = useState('');
 
   const validateField = (name: string, value: string, field: FormField): string | null => {
-    if (field.required && !value.trim()) {
-      return `${field.label} là bắt buộc`;
+    if (field.required) {
+      if (field.type === 'select') {
+        // For select fields, empty string means no selection
+        if (!value || value.trim() === '') {
+          return `${field.label} là bắt buộc`;
+        }
+      } else if (!value.trim()) {
+        return `${field.label} là bắt buộc`;
+      }
     }
 
     if (field.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
