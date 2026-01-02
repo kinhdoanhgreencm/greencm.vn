@@ -82,7 +82,7 @@ const CarSales: React.FC = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1920&h=1080&fit=crop&q=80")',
+            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png")',
           }}
           role="img"
           aria-label="GCM & VinFast - Kỷ Nguyên Di Chuyển Xanh Toàn Diện"

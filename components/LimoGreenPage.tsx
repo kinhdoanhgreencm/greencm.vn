@@ -18,7 +18,7 @@ const LimoGreenPage: React.FC = () => {
 
   const slides = [
     {
-      image: "https://cafefcdn.com/2018/9/6/photo-1-15362011763561528162705.jpg",
+      image: "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Banner%20Hero%20Limo%20Green.png",
       alt: "Limo Green MPV điện 7 chỗ - Xe dịch vụ chở khách hiện đại"
     }
   ];
@@ -33,9 +33,7 @@ const LimoGreenPage: React.FC = () => {
   }, [slides.length]);
 
   return (
-    <div className="pt-20 bg-white min-h-screen font-sans">
-      
-
+    <div className="bg-white min-h-screen font-sans">
       {/* 2. Hero Section */}
       <section className="relative h-[650px] md:h-[700px] w-full bg-black overflow-hidden">
         {/* Slider */}
@@ -71,7 +69,7 @@ const LimoGreenPage: React.FC = () => {
             </h2>
             <ul className="text-gray-300 space-y-2 mb-8 hidden md:block">
               <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> 450km/lần sạc (Chuẩn NEDC)</li>
-              <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> Chi phí vận hành chỉ bằng 1/3 xe xăng</li>
+              <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> Tiết kiệm chi phí vận hành</li>
               <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> Bảo hành chính hãng 7 năm</li>
             </ul>
           </div>
@@ -84,13 +82,15 @@ const LimoGreenPage: React.FC = () => {
                formType="limo-quote"
                fields={[
                   {
-                     name: 'purpose',
-                     label: 'Mục đích sử dụng',
+                     name: 'address',
+                     label: 'ĐỊA CHỈ',
                      type: 'select',
                      options: [
-                        { value: 'service-taxi', label: 'Mục đích: Chạy dịch vụ / Taxi' },
-                        { value: 'family', label: 'Mục đích: Xe gia đình' },
-                        { value: 'company', label: 'Mục đích: Xe đưa đón công ty' },
+                        { value: '', label: 'Chọn địa chỉ' },
+                        { value: 'hanoi', label: 'Hà Nội' },
+                        { value: 'hcm', label: 'TP Hồ Chí Minh' },
+                        { value: 'cantho', label: 'Cần Thơ' },
+                        { value: 'other', label: 'Khác' },
                      ],
                   },
                ]}
@@ -169,7 +169,7 @@ const LimoGreenPage: React.FC = () => {
                   <Shield size={28} />
                </div>
                <h3 className="font-bold text-lg mb-2">Bảo Hành Uy Tín</h3>
-               <p className="text-sm text-gray-500">An tâm tuyệt đối với chính sách hậu mãi và cứu hộ 24/7 từ GCM.</p>
+               <p className="text-sm text-gray-500">Bảo hành theo chính sách của VinFast</p>
             </div>
          </div>
       </section>
@@ -229,7 +229,7 @@ const LimoGreenPage: React.FC = () => {
                <div className="lg:w-1/2 flex flex-col gap-6">
                    <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
                       <img 
-                        src={imageErrors['gallery1'] ? getFallbackImage() : "https://images.unsplash.com/photo-1629896746816-72488a706179?w=1200&h=800&fit=crop&q=80"} 
+                        src={imageErrors['gallery1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Lai%20Limo%20Green.png"} 
                         alt="Khoang lái Limo Green - Bảng điều khiển hiện đại, công nghệ cao"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={() => handleImageError('gallery1')}
@@ -239,7 +239,7 @@ const LimoGreenPage: React.FC = () => {
                    </div>
                    <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
                       <img 
-                        src={imageErrors['gallery2'] ? getFallbackImage() : "https://images.unsplash.com/photo-1550136513-548af4445338?w=1200&h=800&fit=crop&q=80"} 
+                        src={imageErrors['gallery2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Hanh%20Khach%20Limo%20Green.png"} 
                         alt="Khoang hành khách Limo Green - Không gian rộng rãi 7 chỗ ngồi tiện nghi"
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                         onError={() => handleImageError('gallery2')}
@@ -309,21 +309,21 @@ const LimoGreenPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-center mb-10">Hình Ảnh Thực Tế</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                <img 
-                 src={imageErrors['thumb1'] ? getFallbackImage() : "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=300&fit=crop&q=80"} 
+                 src={imageErrors['thumb1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom.png"} 
                  alt="Limo Green xe dịch vụ - Xe điện 7 chỗ chở khách chuyên nghiệp"
                  className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
                  onError={() => handleImageError('thumb1')}
                  loading="lazy"
                />
                <img 
-                 src={imageErrors['thumb2'] ? getFallbackImage() : "https://images.unsplash.com/photo-1617788138017-80ad40651399?w=400&h=300&fit=crop&q=80"} 
+                 src={imageErrors['thumb2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%202.png"} 
                  alt="Limo Green xe taxi - Xe điện vận tải hành khách hiện đại"
                  className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
                  onError={() => handleImageError('thumb2')}
                  loading="lazy"
                />
                <img 
-                 src={imageErrors['thumb3'] ? getFallbackImage() : "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop&q=80"} 
+                 src={imageErrors['thumb3'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%203.png"} 
                  alt="Limo Green MPV - Xe điện 7 chỗ đẳng cấp, tiết kiệm chi phí vận hành"
                  className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
                  onError={() => handleImageError('thumb3')}
