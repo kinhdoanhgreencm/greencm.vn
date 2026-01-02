@@ -31,6 +31,11 @@ const nextConfig = {
         destination: '/limo-green',
         permanent: true, // 301 redirect - tốt cho SEO
       },
+      {
+        source: '/cham-soc-xe',
+        destination: '/',
+        permanent: true, // 301 redirect - tốt cho SEO
+      },
     ];
   },
 };
