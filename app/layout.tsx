@@ -6,7 +6,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
-  title: 'GCM - All About Cars',
+  title: {
+    template: '%s - GCM - All About Cars',
+    default: 'GCM - All About Cars',
+  },
   description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
   alternates: {
     canonical: '/',

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: SlugPageProps): Promise<Metad
   const mapping = URL_MAPPINGS.find(m => m.slug === slug);
   
   return {
-    title: mapping?.title || 'GCM - All About Cars',
+    title: mapping?.title || slug,
     description: `Trang ${mapping?.title || slug} của GCM - Hệ sinh thái ô tô toàn diện`,
   };
 }
