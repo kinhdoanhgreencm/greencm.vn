@@ -16,11 +16,10 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/png' },
-      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: 'any' },
     ],
-    shortcut: '/favicon.png',
-    apple: '/favicon.png',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
   other: {
     'sitemap': `${baseUrl}/sitemap.xml`,
