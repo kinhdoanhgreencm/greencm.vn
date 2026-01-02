@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
 import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users, Truck, CheckCircle, DollarSign, MessageCircle, X } from 'lucide-react';
@@ -10,7 +10,6 @@ import CustomerForm, { FormField } from './CustomerForm';
 
 const CarSales: React.FC = () => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'family' | 'service'>('family');
   const [roiKm, setRoiKm] = useState<number>(100);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
@@ -78,19 +77,15 @@ const CarSales: React.FC = () => {
         />
       ))}
       
-      {/* 1. Hero Section & Split Toggle */}
+      {/* 1. Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
         <div 
-          className="absolute inset-0 bg-cover bg-center z-0 transition-opacity duration-700"
+          className="absolute inset-0 bg-cover bg-center z-0"
           style={{ 
-            backgroundImage: activeTab === 'family' 
-              ? 'url("https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1920&h=1080&fit=crop&q=80")' 
-              : 'url("https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1920&h=1080&fit=crop&q=80")',
+            backgroundImage: 'url("https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1920&h=1080&fit=crop&q=80")',
           }}
           role="img"
-          aria-label={activeTab === 'family' 
-            ? 'GCM & VinFast - Xe điện gia đình, sống xanh sống đẳng cấp' 
-            : 'GCM & VinFast - Giải pháp vận tải xanh, tối ưu chi phí cho doanh nghiệp'}
+          aria-label="GCM & VinFast - Kỷ Nguyên Di Chuyển Xanh Toàn Diện"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80"></div>
         </div>
@@ -102,296 +97,228 @@ const CarSales: React.FC = () => {
           </h1>
           
           <div className="flex flex-col md:flex-row gap-6 justify-center mt-10">
-            <motion.button 
-              onClick={() => setActiveTab('family')}
-              className={`relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 ${activeTab === 'family' ? 'bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]' : 'bg-black/50 border-white/20 hover:bg-black/70'}`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              animate={{
-                scale: activeTab === 'family' ? 1.05 : 1,
-                boxShadow: activeTab === 'family' ? '0 0 30px rgba(0,210,106,0.4)' : 'none'
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
-              <motion.div 
-                className="relative z-10"
-                initial={false}
-                animate={{
-                  color: activeTab === 'family' ? '#000000' : '#ffffff'
-                }}
-                transition={{ duration: 0.2 }}
-              >
+            <div className="relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]">
+              <div className="relative z-10 text-black">
                 <div className="flex items-center gap-4 mb-3">
-                  <motion.div
-                    animate={{
-                      color: activeTab === 'family' ? '#000000' : '#ffffff'
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Users size={28} className="flex-shrink-0" />
-                  </motion.div>
+                  <Users size={28} className="flex-shrink-0" />
                   <h3 className="text-xl font-bold whitespace-nowrap">Dành Cho Gia Đình</h3>
                 </div>
-                <p className={`text-sm font-medium ${activeTab === 'family' ? 'text-black/80' : 'text-gray-400'}`}>Sống Xanh - Sống Đẳng Cấp</p>
-              </motion.div>
-            </motion.button>
+                <p className="text-sm font-medium text-black/80">Sống Xanh - Sống Đẳng Cấp</p>
+              </div>
+            </div>
 
-            <motion.button 
-              onClick={() => setActiveTab('service')}
-              className={`relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 ${activeTab === 'service' ? 'bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]' : 'bg-black/50 border-white/20 hover:bg-black/70'}`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              animate={{
-                scale: activeTab === 'service' ? 1.05 : 1,
-                boxShadow: activeTab === 'service' ? '0 0 30px rgba(0,210,106,0.4)' : 'none'
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-            >
-              <motion.div 
-                className="relative z-10"
-                initial={false}
-                animate={{
-                  color: activeTab === 'service' ? '#000000' : '#ffffff'
-                }}
-                transition={{ duration: 0.2 }}
-              >
+            <div className="relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]">
+              <div className="relative z-10 text-black">
                 <div className="flex items-center gap-4 mb-3">
-                  <motion.div
-                    animate={{
-                      color: activeTab === 'service' ? '#000000' : '#ffffff'
-                    }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Truck size={28} className="flex-shrink-0" />
-                  </motion.div>
+                  <Truck size={28} className="flex-shrink-0" />
                   <h3 className="text-xl font-bold whitespace-nowrap">Vận Tải & Dịch Vụ</h3>
                 </div>
-                <p className={`text-sm font-medium ${activeTab === 'service' ? 'text-black/80' : 'text-gray-400'}`}>Giải Pháp Kinh Doanh Tối Ưu</p>
-              </motion.div>
-            </motion.button>
+                <p className="text-sm font-medium text-black/80">Giải Pháp Kinh Doanh Tối Ưu</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* 2. FAMILY ZONE */}
-      <AnimatePresence mode="wait">
-        {activeTab === 'family' && (
-          <motion.section 
-            className="py-20 container mx-auto px-4"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          >
-          <div className="mb-12 text-center">
-            <h2 className="text-3xl font-bold text-gcm-dark mb-4">Bộ Sưu Tập Xe Gia Đình</h2>
-            <p className="text-gray-500">Thiết kế tương lai - Công nghệ thông minh - An toàn vượt trội</p>
-          </div>
+      <section className="py-20 container mx-auto px-4">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold text-gcm-dark mb-4">Bộ Sưu Tập Xe Gia Đình</h2>
+          <p className="text-gray-500">Thiết kế tương lai - Công nghệ thông minh - An toàn vượt trội</p>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {NEW_CARS_FAMILY.map((car, index) => (
-              <motion.div 
-                key={car.id} 
-                className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <div className="relative h-64 overflow-hidden bg-gray-100">
-                  <img 
-                    src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                    alt={`${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice}`} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    onError={() => handleImageError(car.id)}
-                    loading="lazy"
-                  />
-                  <div className="absolute top-4 left-4 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                    {car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV Cỡ Trung' : 'Hạng Sang'}
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {NEW_CARS_FAMILY.map((car, index) => (
+            <motion.div 
+              key={car.id} 
+              className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <div className="relative h-64 overflow-hidden bg-gray-100">
+                <img 
+                  src={imageErrors[car.id] ? getFallbackImage() : car.image} 
+                  alt={`${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice}`} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  onError={() => handleImageError(car.id)}
+                  loading="lazy"
+                />
+                <div className="absolute top-4 left-4 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
+                  {car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV Cỡ Trung' : 'Hạng Sang'}
                 </div>
+              </div>
+              
+              <div className="p-6 flex flex-col flex-1">
+                <h3 className="text-2xl font-bold text-gray-800 mb-1">{car.name}</h3>
+                <p className="text-xl font-extrabold text-gcm-green mb-4">{car.displayPrice}</p>
                 
-                <div className="p-6 flex flex-col flex-1">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-1">{car.name}</h3>
-                  <p className="text-xl font-extrabold text-gcm-green mb-4">{car.displayPrice}</p>
-                  
-                  <div className="grid grid-cols-2 gap-4 mb-6 border-t border-gray-100 pt-4">
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Zap size={18} className="text-yellow-500" />
-                      <span className="text-sm font-semibold">{car.range}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <Users size={18} className="text-blue-500" />
-                      <span className="text-sm font-semibold">{car.seats} chỗ</span>
-                    </div>
+                <div className="grid grid-cols-2 gap-4 mb-6 border-t border-gray-100 pt-4">
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Zap size={18} className="text-yellow-500" />
+                    <span className="text-sm font-semibold">{car.range}</span>
                   </div>
-
-                  <div className="mt-auto flex gap-3">
-                    <button 
-                      onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
-                      className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 rounded-xl transition-colors text-sm"
-                    >
-                      Dự toán chi phí
-                    </button>
-                    <button 
-                      onClick={() => { setSelectedCarForTestDrive(car); setShowTestDriveModal(true); }}
-                      className="flex-1 bg-black hover:bg-gcm-green hover:text-black text-white font-bold py-3 rounded-xl transition-colors text-sm"
-                    >
-                      Đăng ký lái thử
-                    </button>
+                  <div className="flex items-center gap-2 text-gray-600">
+                    <Users size={18} className="text-blue-500" />
+                    <span className="text-sm font-semibold">{car.seats} chỗ</span>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
+
+                <div className="mt-auto flex gap-3">
+                  <button 
+                    onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
+                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 rounded-xl transition-colors text-sm"
+                  >
+                    Dự toán chi phí
+                  </button>
+                  <button 
+                    onClick={() => { setSelectedCarForTestDrive(car); setShowTestDriveModal(true); }}
+                    className="flex-1 bg-black hover:bg-gcm-green hover:text-black text-white font-bold py-3 rounded-xl transition-colors text-sm"
+                  >
+                    Đăng ký lái thử
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* 3. SERVICE ZONE */}
-      <AnimatePresence mode="wait">
-        {activeTab === 'service' && (
-          <motion.section 
-            className="py-20"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          >
-          <div className="container mx-auto px-4">
-             {/* Solutions Grid */}
-             <div className="mb-20">
-                <div className="text-center mb-12">
-                   <h2 className="text-3xl font-bold text-gcm-dark mb-4">Giải Pháp Vận Tải Xanh</h2>
-                   <p className="text-gray-500">Tối ưu chi phí vận hành - Gia tăng lợi nhuận cho doanh nghiệp</p>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                   {NEW_CARS_SERVICE.map((car, index) => (
-                      <motion.div
-                        key={car.id}
-                        className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col md:flex-row gap-6 hover:border-gcm-green transition-all cursor-pointer"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.1 }}
-                        whileHover={{ x: 5, scale: 1.02 }}
-                        onClick={() => {
-                          if(car.id === 'limo') {
-                            router.push('/limo-green');
-                          } else {
-                            setSelectedCarForQuote(car);
-                            setShowQuoteModal(true);
-                          }
-                        }}
-                      >
-                         <div className="w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
-                            <img 
-                              src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                              alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`} 
-                              className="w-full h-full object-cover"
-                              onError={() => handleImageError(car.id)}
-                              loading="lazy"
-                            />
-                         </div>
-                         <div className="flex-1 flex flex-col justify-center">
-                            <span className="text-xs font-bold text-gcm-green uppercase tracking-wider mb-2">{car.solutionName}</span>
-                            <h3 className="text-2xl font-bold text-gray-800 mb-2">{car.name}</h3>
-                            <p className="text-gray-500 text-sm mb-4 leading-relaxed">{car.description}</p>
-                            <div className="flex items-center gap-4 mb-6">
-                               <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.seats} chỗ</span>
-                               <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.range}</span>
-                            </div>
-                            <div className="flex items-center justify-between">
-                               <span className="text-xl font-bold text-red-600">Từ {car.displayPrice}</span>
-                               <span className="text-sm font-bold border-b-2 border-black pb-1 text-gcm-green">
-                                  {car.id === 'limo' ? 'Xem chi tiết Limo' : 'Nhận báo giá'}
-                               </span>
-                            </div>
-                         </div>
-                      </motion.div>
-                   ))}
-                </div>
-             </div>
+      <section className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+           {/* Solutions Grid */}
+           <div className="mb-20">
+              <div className="text-center mb-12">
+                 <h2 className="text-3xl font-bold text-gcm-dark mb-4">Giải Pháp Vận Tải Xanh</h2>
+                 <p className="text-gray-500">Tối ưu chi phí vận hành - Gia tăng lợi nhuận cho doanh nghiệp</p>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                 {NEW_CARS_SERVICE.map((car, index) => (
+                    <motion.div
+                      key={car.id}
+                      className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col md:flex-row gap-6 hover:border-gcm-green transition-all cursor-pointer"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.1 }}
+                      whileHover={{ x: 5, scale: 1.02 }}
+                      onClick={() => {
+                        if(car.id === 'limo') {
+                          router.push('/limo-green');
+                        } else {
+                          setSelectedCarForQuote(car);
+                          setShowQuoteModal(true);
+                        }
+                      }}
+                    >
+                       <div className="w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
+                          <img 
+                            src={imageErrors[car.id] ? getFallbackImage() : car.image} 
+                            alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`} 
+                            className="w-full h-full object-cover"
+                            onError={() => handleImageError(car.id)}
+                            loading="lazy"
+                          />
+                       </div>
+                       <div className="flex-1 flex flex-col justify-center">
+                          <span className="text-xs font-bold text-gcm-green uppercase tracking-wider mb-2">{car.solutionName}</span>
+                          <h3 className="text-2xl font-bold text-gray-800 mb-2">{car.name}</h3>
+                          <p className="text-gray-500 text-sm mb-4 leading-relaxed">{car.description}</p>
+                          <div className="flex items-center gap-4 mb-6">
+                             <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.seats} chỗ</span>
+                             <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.range}</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                             <span className="text-xl font-bold text-red-600">Từ {car.displayPrice}</span>
+                             <span className="text-sm font-bold border-b-2 border-black pb-1 text-gcm-green">
+                                {car.id === 'limo' ? 'Xem chi tiết Limo' : 'Nhận báo giá'}
+                             </span>
+                          </div>
+                       </div>
+                    </motion.div>
+                 ))}
+              </div>
+           </div>
 
-             {/* ROI Calculator */}
-             <div className="bg-black rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-gcm-green/20 to-transparent pointer-events-none"></div>
-                
-                <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                   <div>
-                      <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                         <TrendingUp className="text-gcm-green" size={32} />
-                         Tính Toán Hiệu Quả Đầu Tư
-                      </h3>
-                      <p className="text-gray-400 mb-8 text-lg">
-                         Nhập số km di chuyển trung bình mỗi ngày để thấy số tiền bạn tiết kiệm được khi chuyển sang xe điện.
-                      </p>
-                      
-                      <div className="space-y-6">
-                         <div>
-                            <label className="block text-sm font-bold text-gray-400 mb-2">Quãng đường di chuyển (Km/ngày)</label>
-                            <div className="flex items-center gap-4">
-                               <input 
-                                 type="range" 
-                                 min="50" max="500" step="10" 
-                                 value={roiKm} 
-                                 onChange={(e) => setRoiKm(Number(e.target.value))}
-                                 className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gcm-green"
-                               />
-                               <span className="text-2xl font-bold text-gcm-green w-20 text-right">{roiKm}</span>
-                            </div>
-                         </div>
-                         
-                         <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
-                            <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                               <span className="text-gray-300">Chi phí Xăng (Dự kiến)</span>
-                               <span className="text-xl font-bold text-red-400">{(gasCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
-                            </div>
-                            <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                               <span className="text-gray-300">Chi phí Điện (Sạc)</span>
-                               <span className="text-xl font-bold text-gcm-green">{(evCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
-                            </div>
-                            <div className="pt-2">
-                               <span className="block text-sm text-gray-400 mb-1">Tiết kiệm mỗi năm</span>
-                               <span className="text-4xl font-extrabold text-white">{savingsPerYear.toLocaleString()} VNĐ</span>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                   
-                   <div className="bg-white text-black rounded-3xl p-8 shadow-2xl">
-                      <h4 className="text-xl font-bold mb-6">Liên hệ Báo Giá Dự Án</h4>
-                      <CustomerForm
-                         formType="quote-request"
-                         fields={[
-                            {
-                               name: 'companyName',
-                               label: 'Tên doanh nghiệp',
-                               type: 'text',
-                               placeholder: 'Tên doanh nghiệp',
-                            },
-                            {
-                               name: 'carInterest',
-                               label: 'Quan tâm dòng xe nào?',
-                               type: 'select',
-                               options: [
-                                  { value: '', label: 'Quan tâm dòng xe nào?' },
-                                  { value: 'taxi', label: 'Taxi (Minio/Herio)' },
-                                  { value: 'transport', label: 'Vận tải (EC Van/Ebus)' },
-                               ],
-                            },
-                         ]}
-                         submitButtonText="Gửi Yêu Cầu Tư Vấn"
-                         submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg"
-                         showSuccessMessage={false}
-                      />
-                   </div>
-                </div>
-             </div>
-          </div>
-          </motion.section>
-        )}
-      </AnimatePresence>
+           {/* ROI Calculator */}
+           <div className="bg-black rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-gcm-green/20 to-transparent pointer-events-none"></div>
+              
+              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                 <div>
+                    <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
+                       <TrendingUp className="text-gcm-green" size={32} />
+                       Tính Toán Hiệu Quả Đầu Tư
+                    </h3>
+                    <p className="text-gray-400 mb-8 text-lg">
+                       Nhập số km di chuyển trung bình mỗi ngày để thấy số tiền bạn tiết kiệm được khi chuyển sang xe điện.
+                    </p>
+                    
+                    <div className="space-y-6">
+                       <div>
+                          <label className="block text-sm font-bold text-gray-400 mb-2">Quãng đường di chuyển (Km/ngày)</label>
+                          <div className="flex items-center gap-4">
+                             <input 
+                               type="range" 
+                               min="50" max="500" step="10" 
+                               value={roiKm} 
+                               onChange={(e) => setRoiKm(Number(e.target.value))}
+                               className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gcm-green"
+                             />
+                             <span className="text-2xl font-bold text-gcm-green w-20 text-right">{roiKm}</span>
+                          </div>
+                       </div>
+                       
+                       <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
+                          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+                             <span className="text-gray-300">Chi phí Xăng (Dự kiến)</span>
+                             <span className="text-xl font-bold text-red-400">{(gasCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
+                          </div>
+                          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
+                             <span className="text-gray-300">Chi phí Điện (Sạc)</span>
+                             <span className="text-xl font-bold text-gcm-green">{(evCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
+                          </div>
+                          <div className="pt-2">
+                             <span className="block text-sm text-gray-400 mb-1">Tiết kiệm mỗi năm</span>
+                             <span className="text-4xl font-extrabold text-white">{savingsPerYear.toLocaleString()} VNĐ</span>
+                          </div>
+                       </div>
+                    </div>
+                 </div>
+                 
+                 <div className="bg-white text-black rounded-3xl p-8 shadow-2xl">
+                    <h4 className="text-xl font-bold mb-6">Liên hệ Báo Giá Dự Án</h4>
+                    <CustomerForm
+                       formType="quote-request"
+                       fields={[
+                          {
+                             name: 'companyName',
+                             label: 'Tên doanh nghiệp',
+                             type: 'text',
+                             placeholder: 'Tên doanh nghiệp',
+                          },
+                          {
+                             name: 'carInterest',
+                             label: 'Quan tâm dòng xe nào?',
+                             type: 'select',
+                             options: [
+                                { value: '', label: 'Quan tâm dòng xe nào?' },
+                                { value: 'taxi', label: 'Taxi (Minio/Herio)' },
+                                { value: 'transport', label: 'Vận tải (EC Van/Ebus)' },
+                             ],
+                          },
+                       ]}
+                       submitButtonText="Gửi Yêu Cầu Tư Vấn"
+                       submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg"
+                       showSuccessMessage={false}
+                    />
+                 </div>
+              </div>
+           </div>
+        </div>
+      </section>
 
       {/* 4. Sales Support Tools (Test Drive Form) */}
       <section className="py-20 bg-white">
