@@ -1,13 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Search, Navigation, Plug, Shield } from 'lucide-react';
+import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User } from 'lucide-react';
 import { createFriendlyUrl } from '@/lib/urlUtils';
 import Link from 'next/link';
 import { ServiceSchema } from './SchemaMarkup';
 
 const ChargingStationPage: React.FC = () => {
-  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -23,7 +22,7 @@ const ChargingStationPage: React.FC = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1593941707882-a5bac6861d75?w=1920&h=1080&fit=crop&q=80")',
+            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png")',
           }}
           role="img"
           aria-label="Trạm sạc VinFast - Hệ thống sạc phủ khắp toàn quốc"
@@ -34,35 +33,45 @@ const ChargingStationPage: React.FC = () => {
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center pb-8">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Trạm Sạc VinFast
+              Đầu Tư Trạm Sạc VinFast Nhượng Quyền
             </h1>
             <p className="text-2xl md:text-4xl font-semibold text-white mb-6">
-              <span className="text-gcm-green">Hệ Thống Sạc Phủ Khắp Toàn Quốc</span>
+              <span className="text-gcm-green">Phương Án Kinh Doanh Siêu Lợi Nhuận</span>
             </p>
             <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-6 font-light">
-              Tìm trạm sạc gần nhất • Sạc nhanh DC 120kW • Thanh toán tiện lợi
-              <br/>
-              <span className="text-gray-400 text-base mt-2 block">Hỗ trợ tư vấn lắp đặt bộ sạc tại nhà</span>
+              Hỗ trợ tư vấn đầu tư - Đăng ký thủ tục - Triển khai lắp đặt 100%
             </p>
           </div>
 
-          {/* Search Box */}
+          {/* Contact Box */}
           <div className="max-w-2xl mx-auto w-full">
-            <div className="bg-white p-6 rounded-2xl shadow-2xl">
-              <div className="flex flex-col md:flex-row gap-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-                  <input
-                    type="text"
-                    placeholder="Tìm trạm sạc theo tỉnh/thành phố..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-gray-100 rounded-lg p-4 pl-12 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green"
-                  />
+            <div className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
+              <div className="text-center mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gcm-green/20 rounded-full mb-4">
+                  <User className="text-gcm-green" size={32} />
                 </div>
-                <button className="bg-gcm-green hover:bg-green-500 text-black font-bold py-4 px-8 rounded-lg shadow-lg transition-all whitespace-nowrap">
-                  Tìm Trạm Gần Nhất
-                </button>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">Chuyên Viên Tư Vấn</h3>
+                <p className="text-gcm-green font-semibold text-base mb-2">Khu vực Miền Nam</p>
+                <p className="text-gray-600 text-sm">Đội ngũ chuyên gia sẵn sàng hỗ trợ 24/7</p>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a 
+                  href="tel:0362634904"
+                  className="flex-1 flex items-center justify-center gap-3 bg-gcm-green hover:bg-green-500 text-black font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
+                >
+                  <Phone size={22} className="group-hover:scale-110 transition-transform" />
+                  <span>0362 634 904</span>
+                </a>
+                <a 
+                  href="https://zalo.me/0362634904"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 flex items-center justify-center gap-3 bg-[#0068FF] hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
+                >
+                  <MessageCircle size={22} className="group-hover:scale-110 transition-transform" />
+                  <span>Chat Zalo</span>
+                </a>
               </div>
             </div>
           </div>
