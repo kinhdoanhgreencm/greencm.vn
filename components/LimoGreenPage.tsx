@@ -330,7 +330,7 @@ const LimoGreenPage: React.FC = () => {
                  loading="lazy"
                />
                <img 
-                 src={imageErrors['thumb4'] ? getFallbackImage() : "https://images.unsplash.com/photo-1550136513-548af4445338?w=400&h=300&fit=crop&q=80"} 
+                 src={imageErrors['thumb4'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%204.png"} 
                  alt="Nội thất Limo Green - Ghế ngồi rộng rãi, tiện nghi cho dịch vụ vận tải"
                  className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity"
                  onError={() => handleImageError('thumb4')}
