@@ -1,12 +1,72 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User } from 'lucide-react';
+import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User, Building2, Layout } from 'lucide-react';
 import { createFriendlyUrl } from '@/lib/urlUtils';
 import Link from 'next/link';
 import { ServiceSchema } from './SchemaMarkup';
 
 const ChargingStationPage: React.FC = () => {
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  const handleImageError = (imageId: string) => {
+    setImageErrors(prev => ({ ...prev, [imageId]: true }));
+  };
+
+  const getFallbackImage = () => {
+    return 'https://via.placeholder.com/600x400/0B0F19/00D26A?text=Trụ+Sạc+VinFast';
+  };
+
+  const chargingPoles = [
+    {
+      id: 'pole-120kw',
+      name: 'Trụ 120kW',
+      description: 'Trụ sạc nhanh DC công suất cao, phù hợp cho trạm sạc công cộng, sạc từ 10% đến 80% chỉ trong 30-40 phút',
+      price: 'Liên hệ',
+      ports: 2,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%20120kW.png',
+    },
+    {
+      id: 'pole-60kw',
+      name: 'Trụ 60kW',
+      description: 'Trụ sạc nhanh DC công suất trung bình, lý tưởng cho trạm sạc đô thị và khu vực có mật độ giao thông cao',
+      price: 'Liên hệ',
+      ports: 2,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2060kW.png',
+    },
+    {
+      id: 'pole-30kw',
+      name: 'Trụ 30kW',
+      description: 'Trụ sạc nhanh DC công suất vừa, phù hợp cho bãi đỗ xe, trung tâm thương mại',
+      price: 'Liên hệ',
+      ports: 1,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2030kW.png',
+    },
+    {
+      id: 'pole-20kw',
+      name: 'Trụ 20kW',
+      description: 'Trụ sạc AC công suất cao, thích hợp cho sạc tại nhà hoặc văn phòng, sạc đầy pin trong 4-6 giờ',
+      price: 'Liên hệ',
+      ports: 1,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2020kW.png',
+    },
+    {
+      id: 'pole-11kw',
+      name: 'Trụ 11kW',
+      description: 'Trụ sạc AC tiêu chuẩn, phù hợp cho sạc tại nhà, sạc đầy pin trong 6-8 giờ',
+      price: 'Liên hệ',
+      ports: 1,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2011kW.png',
+    },
+    {
+      id: 'pole-7.4kw',
+      name: 'Trụ 7,4kW',
+      description: 'Trụ sạc AC công suất thấp, lý tưởng cho sạc qua đêm tại nhà, sạc đầy pin trong 8-10 giờ',
+      price: 'Liên hệ',
+      ports: 1,
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%207.4kW.png',
+    },
+  ];
 
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -57,14 +117,14 @@ const ChargingStationPage: React.FC = () => {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:0362634904"
+                  href="tel:0941498894"
                   className="flex-1 flex items-center justify-center gap-3 bg-gcm-green hover:bg-green-500 text-black font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
                 >
                   <Phone size={22} className="group-hover:scale-110 transition-transform" />
-                  <span>0362 634 904</span>
+                  <span>0941 498 894</span>
                 </a>
                 <a 
-                  href="https://zalo.me/0362634904"
+                  href="https://zalo.me/0941498894"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-3 bg-[#0068FF] hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
@@ -88,89 +148,86 @@ const ChargingStationPage: React.FC = () => {
       {/* 2. Features Section */}
       <section className="py-16 container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Tại Sao Chọn Trạm Sạc VinFast?</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Các Vấn Đề Cần Lưu Ý Khi Đầu Tư Trạm Sạc VinFast</h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Hệ thống trạm sạc hiện đại, an toàn và tiện lợi nhất Việt Nam
+            Để giảm tối đa chi phí đầu tư và thời gian hoàn vốn, nhà đầu tư cần lưu ý 4 yếu tố sau:
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
-            <div className="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center mb-4 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
-              <Zap size={28} />
+            <div className="w-14 h-14 bg-orange-50 text-orange-600 rounded-full flex items-center justify-center mb-4 group-hover:bg-orange-600 group-hover:text-white transition-colors">
+              <Building2 size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-2">Sạc Siêu Nhanh</h3>
-            <p className="text-gray-500 text-sm">Công suất lên đến 120kW, sạc từ 10% đến 80% chỉ trong 30-40 phút</p>
+            <h3 className="text-xl font-bold mb-2">Trạm Biến Áp</h3>
+            <p className="text-gray-500 text-sm">Đảm bảo công suất và ổn định nguồn điện, yếu tố quan trọng khi đầu tư trạm sạc</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
             <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
               <MapPin size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-2">Phủ Khắp Toàn Quốc</h3>
-            <p className="text-gray-500 text-sm">Hơn 500 trạm sạc trên khắp 63 tỉnh thành, đặc biệt dày đặc trên các tuyến quốc lộ</p>
+            <h3 className="text-xl font-bold mb-2">Vị Trí Mặt Bằng</h3>
+            <p className="text-gray-500 text-sm">Lựa chọn vị trí chiến lược, dễ tiếp cận, thuận tiện cho người dùng</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
             <div className="w-14 h-14 bg-green-50 text-gcm-green rounded-full flex items-center justify-center mb-4 group-hover:bg-gcm-green group-hover:text-black transition-colors">
-              <Shield size={28} />
+              <Battery size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-2">An Toàn Tuyệt Đối</h3>
-            <p className="text-gray-500 text-sm">Tiêu chuẩn an toàn quốc tế, hệ thống bảo vệ đa lớp, bảo hành toàn diện</p>
+            <h3 className="text-xl font-bold mb-2">Công Suất Trụ Sạc</h3>
+            <p className="text-gray-500 text-sm">Lựa chọn công suất phù hợp với nhu cầu thực tế và khả năng đầu tư</p>
           </div>
 
           <div className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-xl transition-all border border-gray-100 group">
             <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-full flex items-center justify-center mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-              <Navigation size={28} />
+              <Layout size={28} />
             </div>
-            <h3 className="text-xl font-bold mb-2">Dễ Dàng Tìm Kiếm</h3>
-            <p className="text-gray-500 text-sm">Ứng dụng VinFast tích hợp bản đồ, hiển thị trạm gần nhất và tình trạng sử dụng real-time</p>
+            <h3 className="text-xl font-bold mb-2">Bố Trí Layout Hợp Lý</h3>
+            <p className="text-gray-500 text-sm">Thiết kế không gian tối ưu, đảm bảo an toàn và hiệu quả vận hành</p>
           </div>
         </div>
       </section>
 
-      {/* 3. Charging Station Map/Locations */}
+      {/* 3. Charging Pole Types */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Mạng Lưới Trạm Sạc</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Các Loại Trụ Sạc</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Tìm trạm sạc VinFast gần bạn nhất
+              Đa dạng loại trụ sạc phù hợp với mọi nhu cầu từ sạc tại nhà đến trạm sạc công cộng
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Sample charging stations - có thể thay bằng dữ liệu thực từ API */}
-            {[
-              { name: 'Trạm VinFast Hà Nội', location: 'Số 1 Phạm Hùng, Nam Từ Liêm, Hà Nội', power: '120kW', available: true },
-              { name: 'Trạm VinFast TP.HCM', location: '123 Điện Biên Phủ, Bình Thạnh, TP.HCM', power: '120kW', available: true },
-              { name: 'Trạm VinFast Đà Nẵng', location: '456 Nguyễn Văn Linh, Đà Nẵng', power: '120kW', available: false },
-              { name: 'Trạm VinFast Cần Thơ', location: '789 Mậu Thân, Ninh Kiều, Cần Thơ', power: '120kW', available: true },
-              { name: 'Trạm VinFast Nha Trang', location: '321 Trần Phú, Nha Trang, Khánh Hòa', power: '120kW', available: true },
-              { name: 'Trạm VinFast Huế', location: '654 Lê Lợi, Huế, Thừa Thiên Huế', power: '120kW', available: true },
-            ].map((station, index) => (
-              <div key={index} className="bg-gray-50 p-6 rounded-2xl border border-gray-200 hover:shadow-lg transition-all">
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gcm-dark mb-2">{station.name}</h3>
-                    <p className="text-sm text-gray-600 mb-3 flex items-start gap-2">
-                      <MapPin size={16} className="mt-0.5 flex-shrink-0" />
-                      {station.location}
-                    </p>
-                  </div>
-                  <div className={`px-3 py-1 rounded-full text-xs font-bold ${station.available ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                    {station.available ? 'Trống' : 'Đang dùng'}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {chargingPoles.map((pole) => (
+              <div key={pole.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100 overflow-hidden group">
+                <div className="relative h-48 bg-gray-100 overflow-hidden">
+                  <img
+                    src={imageErrors[pole.id] ? getFallbackImage() : pole.image}
+                    alt={pole.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    onError={() => handleImageError(pole.id)}
+                  />
+                  <div className="absolute top-4 right-4 bg-gcm-green text-black px-3 py-1 rounded-full text-sm font-bold">
+                    {pole.name}
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Zap size={16} />
-                    <span>{station.power}</span>
+                <div className="p-6">
+                  <p className="text-gray-600 text-sm mb-4 min-h-[60px]">
+                    {pole.description}
+                  </p>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 text-gray-600">
+                        <Plug size={18} />
+                        <span className="text-sm font-medium">{pole.ports} cổng sạc</span>
+                      </div>
+                    </div>
+                    <div className="text-gcm-green font-bold text-lg">
+                      {pole.price}
+                    </div>
                   </div>
-                  <button className="text-gcm-green font-semibold text-sm hover:underline flex items-center gap-1">
-                    Chỉ đường
-                    <Navigation size={16} />
-                  </button>
                 </div>
               </div>
             ))}
@@ -184,18 +241,54 @@ const ChargingStationPage: React.FC = () => {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Lắp Đặt Bộ Sạc Tại Nhà</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Sạc xe tại nhà tiện lợi, tiết kiệm thời gian và chi phí
+              Sạc xe miễn phí tại nhà, vẫn được hưởng lợi nhuận theo số điện (kw)
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             <div className="bg-white p-8 rounded-2xl shadow-lg">
               <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
+                  <Plug size={32} />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gcm-dark">Bộ Sạc AC 11kW</h3>
+                  <p className="text-gray-600">Wallbox - Treo tường</p>
+                </div>
+              </div>
+              <ul className="space-y-3 mb-6">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
+                  <span className="text-gray-700">Sạc đầy pin VF8 trong 6-8 giờ</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
+                  <span className="text-gray-700">An toàn tuyệt đối, tiết kiệm điện</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
+                  <span className="text-gray-700">Lắp đặt chuyên nghiệp, bảo hành dài hạn</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
+                  <span className="text-gray-700">Giá: Liên hệ</span>
+                </li>
+              </ul>
+              <Link 
+                href={createFriendlyUrl('/accessories')}
+                className="block w-full bg-gcm-green text-black font-bold py-3 px-6 rounded-lg text-center hover:bg-green-500 transition-colors"
+              >
+                Xem Sản Phẩm & Đặt Hàng
+              </Link>
+            </div>
+
+            <div className="bg-white p-8 rounded-2xl shadow-lg">
+              <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center">
                   <Plug size={32} />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gcm-dark">Bộ Sạc 7.4kW</h3>
+                  <h3 className="text-2xl font-bold text-gcm-dark">Bộ Sạc AC 7.4kW</h3>
                   <p className="text-gray-600">Wallbox - Treo tường</p>
                 </div>
               </div>
@@ -214,43 +307,7 @@ const ChargingStationPage: React.FC = () => {
                 </li>
                 <li className="flex items-start gap-3">
                   <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-700">Giá: 9-12 triệu đồng (chưa lắp đặt)</span>
-                </li>
-              </ul>
-              <Link 
-                href={createFriendlyUrl('/accessories')}
-                className="block w-full bg-gcm-green text-black font-bold py-3 px-6 rounded-lg text-center hover:bg-green-500 transition-colors"
-              >
-                Xem Sản Phẩm & Đặt Hàng
-              </Link>
-            </div>
-
-            <div className="bg-white p-8 rounded-2xl shadow-lg">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
-                  <Battery size={32} />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gcm-dark">Bộ Sạc Di Động 3.5kW</h3>
-                  <p className="text-gray-600">Portable Charger</p>
-                </div>
-              </div>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-700">Tiện lợi, có thể mang theo khi đi xa</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-700">Cắm trực tiếp vào ổ cắm 220V</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-700">Phù hợp sử dụng khẩn cấp hoặc qua đêm</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="text-gcm-green flex-shrink-0 mt-0.5" size={20} />
-                  <span className="text-gray-700">Giá: 3-4 triệu đồng</span>
+                  <span className="text-gray-700">Giá: Liên hệ</span>
                 </li>
               </ul>
               <Link 
@@ -264,22 +321,38 @@ const ChargingStationPage: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. How to Use */}
+      {/* 5. Franchise Process */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Hướng Dẫn Sử Dụng</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Quy Trình ON Trạm Nhượng Quyền</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Cách sạc xe tại trạm VinFast đơn giản và nhanh chóng
+              Quy trình đơn giản và minh bạch để bắt đầu kinh doanh trạm sạc VinFast
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {[
-              { step: '1', title: 'Tìm Trạm', desc: 'Mở app VinFast, tìm trạm sạc gần nhất' },
-              { step: '2', title: 'Kết Nối', desc: 'Kết nối cáp sạc với xe của bạn' },
-              { step: '3', title: 'Thanh Toán', desc: 'Quét mã QR hoặc thanh toán qua app' },
-              { step: '4', title: 'Hoàn Tất', desc: 'Sạc xong, ngắt kết nối và tiếp tục hành trình' },
+              { 
+                step: '1', 
+                title: 'Liên Hệ & Kiểm Tra', 
+                desc: 'Liên hệ nhân viên check quy hoạch mật độ trạm lên layout' 
+              },
+              { 
+                step: '2', 
+                title: 'Đăng Ký Kinh Doanh', 
+                desc: 'Đăng ký kinh doanh' 
+              },
+              { 
+                step: '3', 
+                title: 'Thực Hiện Hợp Đồng', 
+                desc: 'Hạ Trạm biến áp, Mua bán trụ, Thi công lắp đặt' 
+              },
+              { 
+                step: '4', 
+                title: 'Nghiệm Thu', 
+                desc: 'Nghiệm thu ON trạm' 
+              },
             ].map((item, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-gcm-green text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
