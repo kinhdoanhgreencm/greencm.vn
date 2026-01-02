@@ -23,3 +23,9 @@
   background: #555;
 }
 
+/* Next.js portal positioning reset */
+nextjs-portal {
+  left: unset !important;
+  top: unset !important;
+}
+
