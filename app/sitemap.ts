@@ -109,11 +109,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
-      slug: 'xe-dien-doanh-nghiep',
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
       slug: 'tuyen-dung',
       changeFrequency: 'weekly' as const,
       priority: 0.6,

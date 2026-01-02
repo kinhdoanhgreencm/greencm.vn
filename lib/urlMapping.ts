@@ -43,7 +43,6 @@ export const URL_MAPPINGS: RouteMapping[] = [
   
   // Limo Green
   { slug: 'limo-green', route: '/limo-green', title: 'Limo Green' },
-  { slug: 'xe-dien-doanh-nghiep', route: '/limo-green', title: 'Xe điện doanh nghiệp' },
   
   // Tuyển dụng
   { slug: 'tuyen-dung', route: '/careers', title: 'Tuyển dụng' },
