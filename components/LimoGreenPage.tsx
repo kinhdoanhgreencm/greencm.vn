@@ -35,7 +35,7 @@ const LimoGreenPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen font-sans">
       {/* 2. Hero Section */}
-      <section className="relative h-[650px] md:h-[700px] w-full bg-black overflow-hidden">
+      <section className="relative min-h-[850px] md:h-[700px] w-full bg-black overflow-hidden">
         {/* Slider */}
         {slides.map((slide, index) => (
           <div 
@@ -53,7 +53,7 @@ const LimoGreenPage: React.FC = () => {
         ))}
         
         {/* Overlay Content */}
-        <div className="absolute inset-0 z-10 container mx-auto px-4 flex flex-col md:flex-row items-center justify-center md:justify-between pt-10 gap-10">
+        <div className="absolute inset-0 z-10 container mx-auto px-4 flex flex-col md:flex-row items-center justify-center md:justify-between pt-10 pb-10 md:pb-0 gap-10">
           
           {/* Text Hook */}
           <div className="text-white text-center md:text-left max-w-2xl">
