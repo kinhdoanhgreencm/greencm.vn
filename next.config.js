@@ -41,6 +41,11 @@ const nextConfig = {
         destination: '/oto-vinfast',
         permanent: true, // 301 redirect - tốt cho SEO
       },
+      {
+        source: '/trang-chu',
+        destination: '/',
+        permanent: true, // 301 redirect - tốt cho SEO
+      },
     ];
   },
 };
