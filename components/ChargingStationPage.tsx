@@ -22,49 +22,55 @@ const ChargingStationPage: React.FC = () => {
       id: 'pole-120kw',
       name: 'Trụ 120kW',
       description: 'Trụ sạc nhanh DC công suất cao, phù hợp cho trạm sạc công cộng, sạc từ 10% đến 80% chỉ trong 30-40 phút',
-      price: 'Liên hệ',
+      price: '416.000.000đ',
+      listedPrice: '416.000.000đ',
       ports: 2,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%20120kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png',
     },
     {
       id: 'pole-60kw',
       name: 'Trụ 60kW',
       description: 'Trụ sạc nhanh DC công suất trung bình, lý tưởng cho trạm sạc đô thị và khu vực có mật độ giao thông cao',
-      price: 'Liên hệ',
+      price: '278.000.000đ',
+      listedPrice: '278.000.000đ',
       ports: 2,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2060kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%2060kw%20VinFast.png',
     },
     {
       id: 'pole-30kw',
       name: 'Trụ 30kW',
       description: 'Trụ sạc nhanh DC công suất vừa, phù hợp cho bãi đỗ xe, trung tâm thương mại',
-      price: 'Liên hệ',
+      price: '143.000.000đ',
+      listedPrice: '143.000.000đ',
       ports: 1,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2030kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%2030kw%20VinFast.png',
     },
     {
       id: 'pole-20kw',
       name: 'Trụ 20kW',
       description: 'Trụ sạc AC công suất cao, thích hợp cho sạc tại nhà hoặc văn phòng, sạc đầy pin trong 4-6 giờ',
-      price: 'Liên hệ',
+      price: '100.000.000đ',
+      listedPrice: '100.000.000đ',
       ports: 1,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2020kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%2020kw%20VinFast.png',
     },
     {
       id: 'pole-11kw',
       name: 'Trụ 11kW',
       description: 'Trụ sạc AC tiêu chuẩn, phù hợp cho sạc tại nhà, sạc đầy pin trong 6-8 giờ',
-      price: 'Liên hệ',
+      price: '12.000.000đ',
+      listedPrice: '12.000.000đ',
       ports: 1,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%2011kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%2011kw%20VinFast.png',
     },
     {
       id: 'pole-7.4kw',
       name: 'Trụ 7,4kW',
       description: 'Trụ sạc AC công suất thấp, lý tưởng cho sạc qua đêm tại nhà, sạc đầy pin trong 8-10 giờ',
-      price: 'Liên hệ',
+      price: '11.000.000đ',
+      listedPrice: '11.000.000đ',
       ports: 1,
-      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20sac%207.4kW.png',
+      image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%207.4kw%20VinFast.png',
     },
   ];
 
@@ -209,8 +215,13 @@ const ChargingStationPage: React.FC = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     onError={() => handleImageError(pole.id)}
                   />
-                  <div className="absolute top-4 right-4 bg-gcm-green text-black px-3 py-1 rounded-full text-sm font-bold">
-                    {pole.name}
+                  <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
+                    <div className="bg-gcm-green text-black px-3 py-1 rounded-full text-sm font-bold">
+                      {pole.name}
+                    </div>
+                    <div className="bg-white/95 backdrop-blur-sm text-gray-900 px-3 py-1 rounded-lg text-xs font-semibold">
+                      Giá niêm yết: {pole.listedPrice}
+                    </div>
                   </div>
                 </div>
                 <div className="p-6">
@@ -224,9 +235,12 @@ const ChargingStationPage: React.FC = () => {
                         <span className="text-sm font-medium">{pole.ports} cổng sạc</span>
                       </div>
                     </div>
-                    <div className="text-gcm-green font-bold text-lg">
-                      {pole.price}
-                    </div>
+                    <a 
+                      href="tel:0941489894"
+                      className="text-gcm-green font-bold text-lg hover:underline"
+                    >
+                      Liên hệ
+                    </a>
                   </div>
                 </div>
               </div>
