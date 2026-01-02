@@ -423,7 +423,7 @@ export const NEW_CARS_SERVICE: NewCar[] = [
     range: '600 km/sạc',
     seats: 7,
     segment: 'vip-transit',
-    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%202.png',
     description: 'Khoang thương gia đẳng cấp 5 sao, ghế massage toàn thân.'
   },
   {
@@ -435,7 +435,7 @@ export const NEW_CARS_SERVICE: NewCar[] = [
     range: '280 km/sạc',
     seats: 2,
     segment: 'cargo',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20EC%20Van.png',
     description: 'Không cấm giờ nội đô. Thùng hàng rộng rãi 2.5m3.'
   },
   {
