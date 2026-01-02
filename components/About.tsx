@@ -10,7 +10,7 @@ const About: React.FC = () => {
         <div 
           className="absolute inset-0 bg-cover bg-center z-0"
           style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1920&h=1080&fit=crop&q=80")',
+            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png")',
           }}
           role="img"
           aria-label="GCM All About Cars - Hệ sinh thái ô tô điện toàn diện, tiên phong kiến tạo tương lai di chuyển xanh"
