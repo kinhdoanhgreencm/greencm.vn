@@ -62,7 +62,7 @@ export const FLEET: CarModel[] = [
     id: 'ecvan',
     name: 'EC Van',
     category: 'VẬN CHUYỂN THƯƠNG MẠI ĐỘT PHÁ',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20EC%20Van.png'
   },
   {
     id: 'vf5',
