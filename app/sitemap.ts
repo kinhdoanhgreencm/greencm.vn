@@ -5,11 +5,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `${baseUrl}/sitemap-pages.xml`,
+      url: `${baseUrl}/sitemap/pages.xml`,
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/sitemap-posts.xml`,
+      url: `${baseUrl}/sitemap/posts.xml`,
       lastModified: new Date(),
     },
   ];
