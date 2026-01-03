@@ -12,11 +12,9 @@ export async function GET() {
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${baseUrl}/sitemap/pages.xml</loc>
-    <lastmod>${pagesLastUpdated}</lastmod>
   </sitemap>
   <sitemap>
     <loc>${baseUrl}/sitemap/posts.xml</loc>
-    <lastmod>${lastPostUpdated}</lastmod>
   </sitemap>
 </sitemapindex>`;
 

@@ -37,7 +37,6 @@ export async function GET(
         <loc>${baseUrl}/${page.path}</loc>
         <changefreq>${page.changefreq}</changefreq>
         <priority>${page.priority}</priority>
-        <lastmod>${now}</lastmod>
       </url>`;
     });
   }
@@ -72,7 +71,6 @@ export async function GET(
         <loc>${postUrl}</loc>
         <changefreq>${changefreq}</changefreq>
         <priority>${priority}</priority>
-        <lastmod>${postLastMod}</lastmod>
       </url>`;
     });
   }
