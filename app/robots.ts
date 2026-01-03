@@ -1,3 +1,4 @@
+// app/robots.ts
 import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
@@ -11,6 +12,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/', '/_next/', '/private/'],
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    // Dòng này rất quan trọng để Google tìm thấy Index
+    sitemap: `${baseUrl}/sitemap.xml`, 
   };
 }
