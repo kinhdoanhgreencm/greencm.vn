@@ -38,9 +38,9 @@ export default function RootLayout({
             reviewCount: 150
           }}
           sameAs={[
-            'https://www.facebook.com/gcm',
-            'https://www.instagram.com/gcm',
-            'https://www.youtube.com/gcm'
+            'https://www.facebook.com/kinhdoanhgreencm',
+            'https://www.tiktok.com/@gcm.all.about.car',
+            'https://www.youtube.com/@Green-CM'
           ]}
         />
         {children}

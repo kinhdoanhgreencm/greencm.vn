@@ -380,7 +380,7 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   description,
   provider = {
     name: 'GCM - All About Cars',
-    url: 'https://gcm.com.vn',
+    url: 'https://greencm.vn',
   },
   areaServed = 'Vietnam',
   serviceType,
