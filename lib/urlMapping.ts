@@ -18,8 +18,8 @@ export const URL_MAPPINGS: RouteMapping[] = [
   // Dịch vụ mua bán
   { slug: 'oto-vinfast', componentKey: 'sales', title: 'Mua bán xe' },
   
-  // Xe siêu lướt (Limo Green)
-  { slug: 'xe-sieu-luot', componentKey: 'limo-green', title: 'Xe siêu lướt' },
+  // Xe siêu lướt (Sàn giao dịch xe điện cũ)
+  { slug: 'xe-sieu-luot', componentKey: 'used-car-exchange', title: 'Xe siêu lướt' },
   
   // Trạm sạc
   { slug: 'tram-sac-vinfast', componentKey: 'charging', title: 'Trạm sạc VinFast' },

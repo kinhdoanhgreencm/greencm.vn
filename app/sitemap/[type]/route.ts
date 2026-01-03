@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { BLOG_POSTS } from '../../../constants';
 
 export async function GET(
   request: Request,
@@ -41,10 +42,39 @@ export async function GET(
     });
   }
 
-  // Loại bỏ phần posts.xml vì tin-tuc đã có trong pages.xml
   if (typeKey === 'posts') {
-    // Không trả về gì vì posts đã được bao gồm trong pages
-    return new NextResponse('Not Found', { status: 404 });
+    BLOG_POSTS.forEach((post) => {
+      const postUrl = post.slug ? `${baseUrl}/tin-tuc/${post.slug}` : `${baseUrl}/tin-tuc?post=${post.id}`;
+      // Xử lý date format dd/mm/yyyy
+      const [day, month, year] = post.date.split('/');
+      const postLastMod = new Date(`${year}-${month}-${day}`).toISOString();
+
+      // Xác định priority dựa trên isFeatured và views
+      let priority = '0.6'; // Mặc định
+      if (post.isFeatured) {
+        priority = '0.9';
+      } else if (post.views && post.views > 2000) {
+        priority = '0.8';
+      } else if (post.views && post.views > 500) {
+        priority = '0.7';
+      }
+
+      // Xác định changefreq dựa trên category
+      let changefreq = 'monthly';
+      if (post.category === 'promo') {
+        changefreq = 'weekly'; // Khuyến mãi thay đổi thường xuyên
+      } else if (post.category === 'market') {
+        changefreq = 'weekly'; // Tin thị trường thay đổi nhanh
+      }
+
+      urls += `
+      <url>
+        <loc>${postUrl}</loc>
+        <changefreq>${changefreq}</changefreq>
+        <priority>${priority}</priority>
+        <lastmod>${postLastMod}</lastmod>
+      </url>`;
+    });
   }
 
   if (!urls) {

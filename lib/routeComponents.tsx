@@ -16,6 +16,7 @@ import AccessoriesPage from '@/components/AccessoriesPage';
 import ChargingStationPage from '@/components/ChargingStationPage';
 import NewsPage from '@/components/NewsPage';
 import LimoGreenPage from '@/components/LimoGreenPage';
+import UsedCarExchange from '@/components/UsedCarExchange';
 import CareersPage from '@/components/CareersPage';
 
 interface PageWrapperProps {
@@ -65,6 +66,11 @@ export const routeComponents: Record<string, () => React.ReactElement> = {
   'limo-green': () => (
     <PageWrapper>
       <LimoGreenPage />
+    </PageWrapper>
+  ),
+  'used-car-exchange': () => (
+    <PageWrapper>
+      <UsedCarExchange />
     </PageWrapper>
   ),
   'careers': () => (

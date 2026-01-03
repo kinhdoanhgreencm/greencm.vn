@@ -11,6 +11,10 @@ export async function GET() {
       <loc>${baseUrl}/sitemap/pages.xml</loc>
       <lastmod>${now}</lastmod>
     </sitemap>
+    <sitemap>
+      <loc>${baseUrl}/sitemap/posts.xml</loc>
+      <lastmod>${now}</lastmod>
+    </sitemap>
   </sitemapindex>`;
 
   return new NextResponse(xml, {
