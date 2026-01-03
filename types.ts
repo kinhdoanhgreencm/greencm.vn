@@ -83,21 +83,6 @@ export interface NewCar {
   features?: string[];
 }
 
-export interface SpaService {
-  id: string;
-  title: string;
-  description: string;
-  features: string[];
-  icon: any; // React Node
-  image: string;
-}
-
-export interface SpaPricing {
-  serviceName: string;
-  sedan: string;
-  suv: string;
-  mpv: string;
-}
 
 export interface BlogPost {
   id: string;

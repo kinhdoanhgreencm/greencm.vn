@@ -1,5 +1,5 @@
 
-import { NavItem, ServiceCard, CarModel, UsedCar, RentalCar, AccessoryProduct, FaqItem, NewCar, SpaService, SpaPricing, BlogPost, JobOpening } from './types';
+import { NavItem, ServiceCard, CarModel, UsedCar, RentalCar, AccessoryProduct, FaqItem, NewCar, BlogPost, JobOpening } from './types';
 import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 
 export const NAV_ITEMS: NavItem[] = [
@@ -9,7 +9,6 @@ export const NAV_ITEMS: NavItem[] = [
   { label: 'Sàn xe cũ', href: '#exchange' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
-  { label: 'Vệ sinh xe', href: '#spa' },
   { label: 'Tin tức', href: '#news' },
 ];
 
@@ -453,67 +452,6 @@ export const NEW_CARS_SERVICE: NewCar[] = [
   }
 ];
 
-export const SPA_SERVICES: SpaService[] = [
-  {
-    id: 'standard',
-    title: 'Gói 1: Rửa Xe Chi Tiết',
-    description: 'Quy trình rửa 3 xô tiêu chuẩn Detailing, an toàn cho lớp sơn.',
-    features: ['Rửa chạm & không chạm 3 bước', 'Vệ sinh mâm, lồng vè', 'Hút bụi nội thất cơ bản', 'Dưỡng lốp Nano'],
-    icon: Droplets,
-    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 'interior',
-    title: 'Gói 2: Vệ Sinh Nội Thất',
-    description: 'Làm sạch sâu từng chi tiết, khử mùi hôi và diệt khuẩn.',
-    features: ['Tháo ghế, giặt ghế da/nỉ', 'Vệ sinh trần, sàn 5D/6D', 'Khử mùi ozone', 'Dưỡng nhựa chống lão hóa'],
-    icon: Wind,
-    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 'exterior',
-    title: 'Gói 3: Đánh Bóng & Ceramic',
-    description: 'Khôi phục vẻ đẹp nguyên bản, xóa xước dăm và bảo vệ sơn.',
-    features: ['Tẩy ố kính, nhựa đường', 'Đánh bóng hiệu chỉnh sơn', 'Phủ Ceramic 2 lớp', 'Bảo hành độ bóng'],
-    icon: Sparkles,
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
-  },
-  {
-    id: 'engine',
-    title: 'Gói 4: Vệ Sinh Khoang Máy',
-    description: 'Công nghệ hơi nước nóng/đá khô an toàn tuyệt đối cho xe điện.',
-    features: ['Vệ sinh chi tiết ngóc ngách', 'Dưỡng nhựa, cao su', 'Phủ chống chuột', 'Kiểm tra rò rỉ điện'],
-    icon: Wrench,
-    image: 'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
-  }
-];
-
-export const SPA_PRICING: SpaPricing[] = [
-  {
-    serviceName: 'Rửa xe chi tiết',
-    sedan: '150.000₫',
-    suv: '200.000₫',
-    mpv: '250.000₫'
-  },
-  {
-    serviceName: 'Vệ sinh nội thất',
-    sedan: '1.200.000₫',
-    suv: '1.500.000₫',
-    mpv: '1.800.000₫'
-  },
-  {
-    serviceName: 'Vệ sinh khoang máy',
-    sedan: '600.000₫',
-    suv: '800.000₫',
-    mpv: '900.000₫'
-  },
-  {
-    serviceName: 'Đánh bóng & Ceramic',
-    sedan: '2.500.000₫',
-    suv: '3.500.000₫',
-    mpv: '4.000.000₫'
-  }
-];
 
 export const BLOG_POSTS: BlogPost[] = [
   {
@@ -1028,7 +966,7 @@ Các dịch vụ chính của GCM bao gồm:
 3. Cho thuê ô tô: Tự lái, Có tài xế, Xe sự kiện, Đưa đón sân bay.
 4. Phụ kiện ô tô: Mua bán và lắp đặt đồ chơi xe, phụ kiện chính hãng.
 5. Dịch vụ pháp lý: Hỗ trợ đăng ký, đăng kiểm, sang tên đổi chủ.
-6. Vệ sinh xe tổng thể: Chăm sóc xe chuyên sâu, spa nội ngoại thất, phủ ceramic, an toàn cho xe điện.
+6. Dịch vụ pháp lý: Hỗ trợ đăng ký, đăng kiểm, sang tên đổi chủ.
 
 Phong cách trả lời: Chuyên nghiệp, am hiểu về xe, thân thiện. 
 Nếu khách hàng hỏi về giá xe hoặc chi phí dịch vụ, hãy mời họ để lại thông tin hoặc liên hệ hotline 1900 1877 để được tư vấn chi tiết nhất.`;

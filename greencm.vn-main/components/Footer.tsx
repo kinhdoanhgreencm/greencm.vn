@@ -40,8 +40,6 @@ const Footer: React.FC = () => {
                 <li><Link href={createFriendlyUrl('/exchange')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Sàn xe cũ uy tín</Link></li>
                 <li><Link href={createFriendlyUrl('/rental')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Cho thuê xe</Link></li>
                 <li><Link href={createFriendlyUrl('/accessories')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Phụ kiện & Đồ chơi</Link></li>
-                <li><Link href={createFriendlyUrl('/spa')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Đăng kiểm xe</Link></li>
-                <li><Link href={createFriendlyUrl('/spa')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Vệ sinh & Chăm sóc xe</Link></li>
               </ul>
             </div>
 

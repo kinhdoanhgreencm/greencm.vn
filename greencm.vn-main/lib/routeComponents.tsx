@@ -14,7 +14,6 @@ import About from '@/components/About';
 import UsedCarExchange from '@/components/UsedCarExchange';
 import RentalService from '@/components/RentalService';
 import AccessoriesPage from '@/components/AccessoriesPage';
-import CarSpa from '@/components/CarSpa';
 import NewsPage from '@/components/NewsPage';
 import LimoGreenPage from '@/components/LimoGreenPage';
 import CareersPage from '@/components/CareersPage';
@@ -68,11 +67,6 @@ export const routeComponents: Record<string, () => React.ReactElement> = {
   '/accessories': () => (
     <PageWrapper>
       <AccessoriesPage />
-    </PageWrapper>
-  ),
-  '/spa': () => (
-    <PageWrapper>
-      <CarSpa />
     </PageWrapper>
   ),
   '/news': () => (

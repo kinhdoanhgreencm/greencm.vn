@@ -8,7 +8,6 @@ export type FormType =
   | 'rental-booking'       // Đặt thuê xe
   | 'sell-car'             // Đăng ký bán xe / Định giá
   | 'find-car'             // Tìm xe theo yêu cầu
-  | 'spa-booking'          // Đặt lịch spa
   | 'limo-quote'           // Báo giá Limo Green
   | 'job-application'     // Ứng tuyển
   | 'consultation';        // Tư vấn chung
