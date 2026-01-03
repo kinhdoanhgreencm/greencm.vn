@@ -162,13 +162,14 @@ interface WebsiteSchemaProps {
 
 export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   name = 'GCM - All About Cars',
-  url = 'https://gcm.com.vn',
-  logo = 'https://gcm.com.vn/logo.png',
+  url = 'https://greencm.vn',
+  logo = 'https://greencm.vn/logo.png',
   description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
   address = {
     streetAddress: '59, Đường Số 10, KDC Diệu Hiền',
     addressLocality: 'Phường Cái Răng',
     addressRegion: 'Cần Thơ',
+    postalCode: '900000',
     addressCountry: 'VN',
   },
   contactPoint = {
