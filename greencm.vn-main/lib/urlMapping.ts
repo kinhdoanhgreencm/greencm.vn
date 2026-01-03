@@ -74,6 +74,31 @@ export function getAllSlugs(): string[] {
 }
 
 /**
+ * Mapping từ route sang component key
+ */
+const ROUTE_TO_COMPONENT_KEY: Record<string, string> = {
+  '/': 'home',
+  '/about': 'about',
+  '/sales': 'sales',
+  '/exchange': 'used-car-exchange',
+  '/rental': 'rental',
+  '/accessories': 'accessories',
+  '/news': 'news',
+  '/limo-green': 'limo-green',
+  '/careers': 'careers',
+};
+
+/**
+ * Tìm component key từ slug
+ */
+export function getComponentKeyFromSlug(slug: string): string | null {
+  const mapping = URL_MAPPINGS.find(m => m.slug === slug);
+  if (!mapping) return null;
+
+  return ROUTE_TO_COMPONENT_KEY[mapping.route] || null;
+}
+
+/**
  * Kiểm tra xem slug có tồn tại không
  */
 export function isValidSlug(slug: string): boolean {

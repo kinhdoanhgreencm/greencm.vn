@@ -87,9 +87,32 @@ export const routeComponents: Record<string, () => React.ReactElement> = {
 };
 
 /**
+ * Mapping từ component key sang route
+ */
+const COMPONENT_KEY_TO_ROUTE: Record<string, string> = {
+  'home': '/',
+  'about': '/about',
+  'sales': '/sales',
+  'used-car-exchange': '/exchange',
+  'rental': '/rental',
+  'accessories': '/accessories',
+  'news': '/news',
+  'limo-green': '/limo-green',
+  'careers': '/careers',
+};
+
+/**
  * Lấy component tương ứng với route
  */
 export function getComponentForRoute(route: string): (() => React.ReactElement) | null {
   return routeComponents[route] || null;
+}
+
+/**
+ * Lấy component tương ứng với component key
+ */
+export function getComponentForKey(componentKey: string): (() => React.ReactElement) | null {
+  const route = COMPONENT_KEY_TO_ROUTE[componentKey];
+  return route ? routeComponents[route] : null;
 }
 
