@@ -34,10 +34,10 @@ const Hero: React.FC = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
           <Link href="/oto-vinfast" className="flex-1 bg-gcm-green text-black font-bold py-4 px-8 rounded-full hover:bg-green-400 transition-transform transform hover:scale-105 shadow-lg shadow-green-900/20 text-center">
-            Xem xe đang bán
+            Ô tô VinFast
           </Link>
-          <Link href="/thue-xe" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
-            Dịch vụ thuê xe
+          <Link href="http://localhost:3001/tram-sac-vinfast" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
+            Trạm sạc VinFast
           </Link>
         </div>
       </div>
