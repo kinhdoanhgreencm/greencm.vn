@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
               </div>
               
               <h3 className="font-bold text-sm uppercase text-gray-400">Công ty cổ phần Green CM</h3>
-              <p className="text-xs text-gray-500">MST/MSDN: 1801813513</p>
+              <p className="text-xs text-gray-500" data-nosnippet style={{textDecoration: 'none', pointerEvents: 'none'}}>MST/MSDN: 1801813513</p>
               
               <div className="text-xs text-gray-400 space-y-2">
                 <p>Địa chỉ: 59, Đường Số 10, KDC Diệu Hiền, Phường Cái Răng, TP Cần Thơ</p>
