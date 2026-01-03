@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { getRouteFromSlug, isValidSlug, URL_MAPPINGS } from '@/lib/urlMapping';
+import { getComponentKeyFromSlug, isValidSlug, URL_MAPPINGS } from '@/lib/urlMapping';
 import SlugPageClient from '@/components/SlugPageClient';
 import type { Metadata } from 'next';
 
@@ -41,14 +41,14 @@ export default async function SlugPage({ params }: SlugPageProps) {
   }
 
   // Lấy route thực tế từ slug
-  const actualRoute = getRouteFromSlug(slug);
+  const componentKey = getComponentKeyFromSlug(slug);
   
-  if (!actualRoute) {
+  if (!componentKey) {
     // Fallback về 404 nếu không tìm thấy
     notFound();
   }
 
   // Render component client với route tương ứng
-  return <SlugPageClient route={actualRoute} />;
+  return <SlugPageClient componentKey={componentKey} />;
 }
 

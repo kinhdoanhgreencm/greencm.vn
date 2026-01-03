@@ -11,11 +11,9 @@ import Services from '@/components/Services';
 import Fleet from '@/components/Fleet';
 import CarSales from '@/components/CarSales';
 import About from '@/components/About';
-import UsedCarExchange from '@/components/UsedCarExchange';
 import RentalService from '@/components/RentalService';
 import AccessoriesPage from '@/components/AccessoriesPage';
 import ChargingStationPage from '@/components/ChargingStationPage';
-import CarSpa from '@/components/CarSpa';
 import NewsPage from '@/components/NewsPage';
 import LimoGreenPage from '@/components/LimoGreenPage';
 import CareersPage from '@/components/CareersPage';
@@ -37,61 +35,39 @@ function PageWrapper({ children }: PageWrapperProps) {
   );
 }
 
-// Mapping từ route đến component
+// Mapping từ component key đến component
 export const routeComponents: Record<string, () => React.ReactElement> = {
-  '/': () => (
-    <PageWrapper>
-      <Hero />
-      <Services />
-      <Fleet />
-    </PageWrapper>
-  ),
-  '/about': () => (
+  'about': () => (
     <PageWrapper>
       <About />
     </PageWrapper>
   ),
-  '/sales': () => (
+  'sales': () => (
     <PageWrapper>
       <CarSales />
     </PageWrapper>
   ),
-  '/exchange': () => (
-    <PageWrapper>
-      <UsedCarExchange />
-    </PageWrapper>
-  ),
-  '/rental': () => (
+  'rental': () => (
     <PageWrapper>
       <RentalService />
     </PageWrapper>
   ),
-  '/accessories': () => (
+  'accessories': () => (
     <PageWrapper>
       <AccessoriesPage />
     </PageWrapper>
   ),
-  '/charging': () => (
+  'charging': () => (
     <PageWrapper>
       <ChargingStationPage />
     </PageWrapper>
   ),
-  '/spa': () => (
-    <PageWrapper>
-      <CarSpa />
-    </PageWrapper>
-  ),
-  '/news': () => (
-    <PageWrapper>
-      <NewsPage />
-    </PageWrapper>
-  ),
-  '/limo-green': () => (
+  'limo-green': () => (
     <PageWrapper>
       <LimoGreenPage />
     </PageWrapper>
   ),
-  '/careers': () => (
+  'careers': () => (
     <PageWrapper>
       <CareersPage />
     </PageWrapper>
@@ -99,9 +75,9 @@ export const routeComponents: Record<string, () => React.ReactElement> = {
 };
 
 /**
- * Lấy component tương ứng với route
+ * Lấy component tương ứng với component key
  */
-export function getComponentForRoute(route: string): (() => React.ReactElement) | null {
-  return routeComponents[route] || null;
+export function getComponentForKey(componentKey: string): (() => React.ReactElement) | null {
+  return routeComponents[componentKey] || null;
 }
 

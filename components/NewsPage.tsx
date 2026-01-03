@@ -38,7 +38,7 @@ const NewsPage: React.FC = () => {
     : BLOG_POSTS.filter(p => p.category === activeCategory);
 
   const getPostUrl = (post: BlogPost) => {
-    return post.slug ? `/news/${post.slug}` : `/news?post=${post.id}`;
+    return post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
   };
 
   // --- SUB-COMPONENT: Sidebar ---
@@ -109,7 +109,7 @@ const NewsPage: React.FC = () => {
   // Main Feed View
   const categoryBreadcrumbs = activeCategory !== 'all' 
     ? getBreadcrumbsFromCategory(activeCategory)
-    : [{ label: 'Trang chủ', href: '/' }, { label: 'Tin tức', href: '/news' }];
+    : [{ label: 'Trang chủ', href: '/' }, { label: 'Tin tức', href: '/tin-tuc' }];
 
   return (
     <div className="pt-20 bg-gray-50 min-h-screen">

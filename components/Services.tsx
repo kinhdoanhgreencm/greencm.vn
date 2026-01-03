@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { SERVICES } from '../constants';
 import { ServiceSchema } from './SchemaMarkup';
-import { createFriendlyUrl } from '@/lib/urlUtils';
 
 const Services: React.FC = () => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
@@ -17,17 +16,17 @@ const Services: React.FC = () => {
     return 'https://via.placeholder.com/800x600/0B0F19/00D26A?text=GCM+Service';
   };
 
-  // Mapping service ID to route
-  const getServiceRoute = (serviceId: number): string => {
-    const routeMap: Record<number, string> = {
-      1: '/sales',      // Mua bán ô tô
-      2: '/exchange',   // Sàn giao dịch xe cũ
-      3: '/rental',     // Dịch vụ cho thuê xe
-      4: '/accessories', // Phụ kiện ô tô
-      5: '/sales',      // Đăng ký & Đăng kiểm (link to sales page)
-      6: '/charging',   // Trạm sạc VinFast
+  // Mapping service ID to slug (friendly URL)
+  const getServiceSlug = (serviceId: number): string => {
+    const slugMap: Record<number, string> = {
+      1: '/oto-vinfast',      // Mua bán ô tô
+      2: '/xe-sieu-luot',     // Xe siêu lướt
+      3: '/thue-xe',          // Dịch vụ cho thuê xe
+      4: '/phu-kien',         // Phụ kiện ô tô
+      5: '/oto-vinfast',      // Đăng ký & Đăng kiểm (link to sales page)
+      6: '/tram-sac-vinfast', // Trạm sạc VinFast
     };
-    return routeMap[serviceId] || '/';
+    return slugMap[serviceId] || '/';
   };
 
   return (
@@ -51,8 +50,7 @@ const Services: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
           {SERVICES.map((service) => {
-            const serviceRoute = getServiceRoute(service.id);
-            const serviceUrl = createFriendlyUrl(serviceRoute);
+            const serviceUrl = getServiceSlug(service.id);
             
             return (
               <Link

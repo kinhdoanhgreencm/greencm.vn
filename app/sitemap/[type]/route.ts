@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { URL_MAPPINGS } from '@/lib/urlMapping';
 
 export async function GET(
   request: Request,
@@ -7,7 +6,7 @@ export async function GET(
 ) {
   const { type } = await params; // Giá trị nhận được là "pages.xml" hoặc "posts.xml"
   
-  // BƯỚC QUAN TRỌNG NHẤT: Xóa đuôi .xml để so sánh
+  // Xóa đuôi .xml để so sánh
   const typeKey = type.replace('.xml', ''); 
   
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
@@ -17,54 +16,35 @@ export async function GET(
 
   // Sử dụng biến typeKey đã xử lý để so sánh
   if (typeKey === 'pages') {
-    // Trang chủ
-    urls += `
-      <url>
-        <loc>${baseUrl}/</loc>
-        <changefreq>daily</changefreq>
-        <priority>1.0</priority>
-        <lastmod>${now}</lastmod>
-      </url>`;
+    // Danh sách 10 URLs được chỉ định với priority và changefreq
+    const pages = [
+      { path: '', changefreq: 'daily', priority: '1.0' }, // Trang chủ
+      { path: 'gioi-thieu', changefreq: 'yearly', priority: '0.8' },
+      { path: 'oto-vinfast', changefreq: 'weekly', priority: '0.9' },
+      { path: 'xe-sieu-luot', changefreq: 'monthly', priority: '0.7' },
+      { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
+      { path: 'thue-xe', changefreq: 'weekly', priority: '0.9' },
+      { path: 'phu-kien', changefreq: 'weekly', priority: '0.8' },
+      { path: 'tin-tuc', changefreq: 'daily', priority: '0.8' },
+      { path: 'lien-he', changefreq: 'monthly', priority: '0.7' },
+      { path: 'tuyen-dung', changefreq: 'weekly', priority: '0.6' },
+    ];
 
-    const mainPages = URL_MAPPINGS.filter(m => m.slug !== 'trang-chu');
-    
-    // Giữ nguyên logic config của bạn
-    const getPageConfig = (slug: string, route: string) => {
-      if (slug === 'gioi-thieu') return { changefreq: 'yearly', priority: '0.8' };
-      if (route === '/sales') return { changefreq: 'weekly', priority: '0.9' };
-      if (route === '/rental') return { changefreq: 'weekly', priority: '0.9' };
-      if (route === '/accessories') return { changefreq: 'weekly', priority: '0.8' };
-      if (route === '/charging') return { changefreq: 'weekly', priority: '0.8' };
-      if (route === '/news') return { changefreq: 'daily', priority: '0.8' };
-      if (route === '/limo-green') return { changefreq: 'monthly', priority: '0.7' };
-      if (route === '/careers') return { changefreq: 'weekly', priority: '0.6' };
-      if (route === '/spa') return { changefreq: 'weekly', priority: '0.8' };
-      if (route === '/exchange') return { changefreq: 'daily', priority: '0.9' };
-      return { changefreq: 'monthly', priority: '0.7' };
-    };
-
-    mainPages.forEach((mapping) => {
-      const config = getPageConfig(mapping.slug, mapping.route);
+    pages.forEach((page) => {
       urls += `
       <url>
-        <loc>${baseUrl}/${mapping.slug}</loc>
-        <changefreq>${config.changefreq}</changefreq>
-        <priority>${config.priority}</priority>
+        <loc>${baseUrl}/${page.path}</loc>
+        <changefreq>${page.changefreq}</changefreq>
+        <priority>${page.priority}</priority>
         <lastmod>${now}</lastmod>
       </url>`;
     });
   }
 
-  // Sử dụng biến typeKey đã xử lý để so sánh
+  // Loại bỏ phần posts.xml vì tin-tuc đã có trong pages.xml
   if (typeKey === 'posts') {
-    urls += `
-      <url>
-        <loc>${baseUrl}/tin-tuc</loc>
-        <changefreq>daily</changefreq>
-        <priority>0.6</priority>
-        <lastmod>${now}</lastmod>
-      </url>
-    `;
+    // Không trả về gì vì posts đã được bao gồm trong pages
+    return new NextResponse('Not Found', { status: 404 });
   }
 
   if (!urls) {
@@ -79,7 +59,6 @@ export async function GET(
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
-      // Thêm cache control để tránh browser lưu lại lỗi 404 cũ
       'Cache-Control': 'no-store, max-age=0',
     },
   });

@@ -26,8 +26,9 @@ export default function FriendlyLink({
   className,
   ...props 
 }: FriendlyLinkProps) {
-  // Tạo URL thân thiện từ route
-  const friendlyUrl = createFriendlyUrl(href);
+  // Giờ chỉ dùng URL thân thiện trực tiếp
+  // createFriendlyUrl chỉ đảm bảo có / ở đầu
+  const friendlyUrl = href.startsWith('/') ? href : `/${href}`;
   
   return (
     <Link href={friendlyUrl} className={className} {...props}>

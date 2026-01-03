@@ -5,7 +5,7 @@ import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Giới thiệu', href: '#about' },
   { label: 'Ô tô VinFast', href: '#sales' },
-  { label: 'Xe siêu lướt', href: '#exchange' },
+  { label: 'Xe siêu lướt', href: '#limo-green' },
   { label: 'Trạm sạc VinFast', href: '#charging' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },

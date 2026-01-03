@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User, Building2, Layout } from 'lucide-react';
-import { createFriendlyUrl } from '@/lib/urlUtils';
 import Link from 'next/link';
 import { ServiceSchema } from './SchemaMarkup';
 
@@ -289,7 +288,7 @@ const ChargingStationPage: React.FC = () => {
                 </li>
               </ul>
               <Link 
-                href={createFriendlyUrl('/accessories')}
+                href="/phu-kien"
                 className="block w-full bg-gcm-green text-black font-bold py-3 px-6 rounded-lg text-center hover:bg-green-500 transition-colors"
               >
                 Xem Sản Phẩm & Đặt Hàng
@@ -325,7 +324,7 @@ const ChargingStationPage: React.FC = () => {
                 </li>
               </ul>
               <Link 
-                href={createFriendlyUrl('/accessories')}
+                href="/phu-kien"
                 className="block w-full bg-gcm-green text-black font-bold py-3 px-6 rounded-lg text-center hover:bg-green-500 transition-colors"
               >
                 Xem Sản Phẩm & Đặt Hàng
@@ -397,7 +396,7 @@ const ChargingStationPage: React.FC = () => {
                 0941 498 894
               </a>
               <Link 
-                href={createFriendlyUrl('/lien-he')}
+                href="/lien-he"
                 className="flex items-center justify-center gap-3 bg-white text-black font-bold py-4 px-8 rounded-lg hover:bg-gray-100 transition-colors"
               >
                 <Mail size={20} />

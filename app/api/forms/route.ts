@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend (only if API key is provided)
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Types for different form types
-export type FormType = 
+export type FormType =
   | 'test-drive'           // Đăng ký lái thử
   | 'quote-request'        // Yêu cầu báo giá
   | 'cost-estimate'        // Dự toán chi phí
@@ -87,42 +87,46 @@ export async function POST(request: NextRequest) {
       `;
     };
 
-    // Send email via Resend
-    try {
-      await resend.emails.send({
-        from: 'GCM <onboarding@resend.dev>',
-        to: 'kinhdoanhgreencm@gmail.com',
-        replyTo: data.email || 'onboarding@resend.dev',
-        subject: `[${data.formType.toUpperCase()}] Yêu cầu từ ${data.name}`,
-        html: `
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <meta charset="utf-8">
-              <style>
-                body { font-family: Arial, sans-serif; color: #333; }
-                h2, h3 { color: #00D26A; }
-                p { margin: 10px 0; }
-                strong { color: #333; }
-                a { color: #00D26A; text-decoration: none; }
-                .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #999; }
-              </style>
-            </head>
-            <body>
-              ${getEmailContent()}
-              <div class="footer">
-                <p>Email này được gửi từ hệ thống liên hệ của GCM (Green Car Management).</p>
-                <p>Vui lòng trả lời email hoặc gọi khách hàng qua số điện thoại: <strong>${cleanPhone}</strong></p>
-              </div>
-            </body>
-          </html>
-        `
-      });
+    // Send email via Resend (if configured)
+    if (resend) {
+      try {
+        await resend.emails.send({
+          from: 'GCM <onboarding@resend.dev>',
+          to: 'kinhdoanhgreencm@gmail.com',
+          replyTo: data.email || 'onboarding@resend.dev',
+          subject: `[${data.formType.toUpperCase()}] Yêu cầu từ ${data.name}`,
+          html: `
+            <!DOCTYPE html>
+            <html>
+              <head>
+                <meta charset="utf-8">
+                <style>
+                  body { font-family: Arial, sans-serif; color: #333; }
+                  h2, h3 { color: #00D26A; }
+                  p { margin: 10px 0; }
+                  strong { color: #333; }
+                  a { color: #00D26A; text-decoration: none; }
+                  .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #999; }
+                </style>
+              </head>
+              <body>
+                ${getEmailContent()}
+                <div class="footer">
+                  <p>Email này được gửi từ hệ thống liên hệ của GCM (Green Car Management).</p>
+                  <p>Vui lòng trả lời email hoặc gọi khách hàng qua số điện thoại: <strong>${cleanPhone}</strong></p>
+                </div>
+              </body>
+            </html>
+          `
+        });
 
-      console.log('Email sent successfully to kinhdoanhgreencm@gmail.com');
-    } catch (emailError) {
-      console.error('Error sending email via Resend:', emailError);
-      // Continue even if email fails - customer's submission was received
+        console.log('Email sent successfully to kinhdoanhgreencm@gmail.com');
+      } catch (emailError) {
+        console.error('Error sending email via Resend:', emailError);
+        // Continue even if email fails - customer's submission was received
+      }
+    } else {
+      console.log('Resend API key not configured - email not sent');
     }
 
     // TODO: In production, you would also:
@@ -133,7 +137,7 @@ export async function POST(request: NextRequest) {
 
     // For now, we'll return success
     return NextResponse.json(
-      { 
+      {
         success: true,
         message: 'Cảm ơn bạn đã gửi thông tin! Chúng tôi sẽ liên hệ lại trong thời gian sớm nhất.',
         submissionId: `GCM-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -155,7 +159,7 @@ export async function GET(request: NextRequest) {
   // In production, add authentication here
   const searchParams = request.nextUrl.searchParams;
   const formType = searchParams.get('formType');
-  
+
   // TODO: Fetch from database
   return NextResponse.json(
     { message: 'This endpoint will return form submissions from database' },

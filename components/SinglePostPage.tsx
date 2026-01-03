@@ -29,7 +29,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
   // Sidebar component
   const Sidebar = () => {
     const getPostUrl = (post: BlogPost) => {
-      return post.slug ? `/news/${post.slug}` : `/news?post=${post.id}`;
+      return post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
     };
 
     return (

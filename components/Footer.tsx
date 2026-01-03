@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { createFriendlyUrl } from '@/lib/urlUtils';
 import { Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -36,12 +35,11 @@ const Footer: React.FC = () => {
             <div>
               <h4 className="text-lg font-bold mb-6">Dịch vụ chính</h4>
               <ul className="space-y-4 text-sm text-gray-400">
-                <li><Link href={createFriendlyUrl('/sales')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Mua bán ô tô</Link></li>
-                <li><Link href={createFriendlyUrl('/exchange')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Sàn xe cũ uy tín</Link></li>
-                <li><Link href={createFriendlyUrl('/charging')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Trạm sạc VinFast</Link></li>
-                <li><Link href={createFriendlyUrl('/rental')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Cho thuê xe</Link></li>
-                <li><Link href={createFriendlyUrl('/accessories')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Phụ kiện & Đồ chơi</Link></li>
-                <li><Link href={createFriendlyUrl('/spa')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Đăng kiểm xe</Link></li>
+                <li><Link href="/oto-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Mua bán ô tô</Link></li>
+                <li><Link href="/xe-sieu-luot" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Xe siêu lướt</Link></li>
+                <li><Link href="/tram-sac-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Trạm sạc VinFast</Link></li>
+                <li><Link href="/thue-xe" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Cho thuê xe</Link></li>
+                <li><Link href="/phu-kien" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Phụ kiện & Đồ chơi</Link></li>
               </ul>
             </div>
 
@@ -49,10 +47,10 @@ const Footer: React.FC = () => {
              <div>
               <h4 className="text-lg font-bold mb-6">Về GCM</h4>
               <ul className="space-y-4 text-sm text-gray-400">
-                <li><Link href={createFriendlyUrl('/about')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Giới thiệu</Link></li>
-                <li><Link href={createFriendlyUrl('/news')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tin tức & Sự kiện</Link></li>
-                <li><Link href={createFriendlyUrl('/careers')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tuyển dụng</Link></li>
-                <li><Link href={createFriendlyUrl('/lien-he')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Liên hệ</Link></li>
+                <li><Link href="/gioi-thieu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Giới thiệu</Link></li>
+                <li><Link href="/tin-tuc" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tin tức & Sự kiện</Link></li>
+                <li><Link href="/tuyen-dung" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tuyển dụng</Link></li>
+                <li><Link href="/lien-he" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Liên hệ</Link></li>
               </ul>
             </div>
 
@@ -85,8 +83,8 @@ const Footer: React.FC = () => {
           <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
             <p>©2025 GCM - All About Cars. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
-               <Link href={createFriendlyUrl('/about')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Điều khoản sử dụng</Link>
-               <Link href={createFriendlyUrl('/about')} onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Chính sách bảo mật</Link>
+               <Link href="/gioi-thieu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Điều khoản sử dụng</Link>
+               <Link href="/gioi-thieu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Chính sách bảo mật</Link>
             </div>
           </div>
         </div>

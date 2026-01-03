@@ -22,42 +22,42 @@ export const SILO_CATEGORIES: SiloCategory[] = [
   {
     id: 'news',
     label: 'Tin tức',
-    slug: '/news',
+    slug: '/tin-tuc',
     parentId: 'root',
     description: 'Tin tức về ô tô, xe điện và thị trường'
   },
   {
     id: 'market',
     label: 'Tin Thị Trường',
-    slug: '/news?category=market',
+    slug: '/tin-tuc?category=market',
     parentId: 'news',
     description: 'Tin tức thị trường ô tô, giá cả, chính sách'
   },
   {
     id: 'review',
     label: 'Đánh Giá Xe',
-    slug: '/news?category=review',
+    slug: '/tin-tuc?category=review',
     parentId: 'news',
     description: 'Đánh giá chi tiết các dòng xe'
   },
   {
     id: 'tips',
     label: 'Kiến Thức',
-    slug: '/news?category=tips',
+    slug: '/tin-tuc?category=tips',
     parentId: 'news',
     description: 'Kiến thức và kỹ thuật về ô tô'
   },
   {
     id: 'legal',
     label: 'Pháp Lý',
-    slug: '/news?category=legal',
+    slug: '/tin-tuc?category=legal',
     parentId: 'news',
     description: 'Tư vấn pháp lý về ô tô'
   },
   {
     id: 'promo',
     label: 'Khuyến Mãi',
-    slug: '/news?category=promo',
+    slug: '/tin-tuc?category=promo',
     parentId: 'news',
     description: 'Khuyến mãi và ưu đãi từ GCM'
   }
@@ -73,7 +73,7 @@ export function getBreadcrumbsFromPost(post: BlogPost): Array<{ label: string; h
   items.push({ label: 'Trang chủ', href: '/' });
   
   // Danh mục tin tức
-  items.push({ label: 'Tin tức', href: '/news' });
+  items.push({ label: 'Tin tức', href: '/tin-tuc' });
   
   // Category của bài viết
   const category = SILO_CATEGORIES.find(cat => cat.id === post.category);
@@ -87,7 +87,7 @@ export function getBreadcrumbsFromPost(post: BlogPost): Array<{ label: string; h
   // Bài viết (không có link, chỉ hiển thị)
   items.push({ 
     label: post.title, 
-    href: post.slug ? `/news/${post.slug}` : `/news?post=${post.id}` 
+    href: post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}` 
   });
   
   return items;
@@ -142,7 +142,7 @@ export function generateInternalLinks(
     
     // Chỉ link nếu chưa link từ khóa này
     if (!usedLinks.has(titleWords.toLowerCase()) && linkedContent.includes(titleWords)) {
-      const postUrl = post.slug ? `/news/${post.slug}` : `/news?post=${post.id}`;
+      const postUrl = post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
       const link = `<a href="${postUrl}" class="text-gcm-green hover:underline font-semibold" title="${post.title}">${titleWords}</a>`;
       
       // Thay thế lần đầu tiên tìm thấy

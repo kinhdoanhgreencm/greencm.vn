@@ -20,35 +20,10 @@ const nextConfig = {
   async rewrites() {
     return [
       // Các URL thân thiện sẽ được xử lý bởi dynamic route [slug]
-      // Rewrites có thể được thêm ở đây nếu cần redirect server-side
-    ];
-  },
-  // Redirects để chuyển hướng các URL cũ
-  async redirects() {
-    return [
-      {
-        source: '/xe-dien-doanh-nghiep',
-        destination: '/limo-green',
-        permanent: true, // 301 redirect - tốt cho SEO
-      },
-      {
-        source: '/cham-soc-xe',
-        destination: '/',
-        permanent: true, // 301 redirect - tốt cho SEO
-      },
-      {
-        source: '/mua-ban-xe',
-        destination: '/oto-vinfast',
-        permanent: true, // 301 redirect - tốt cho SEO
-      },
-      {
-        source: '/trang-chu',
-        destination: '/',
-        permanent: true, // 301 redirect - tốt cho SEO
-      },
     ];
   },
 };
 
 module.exports = nextConfig;
+
 

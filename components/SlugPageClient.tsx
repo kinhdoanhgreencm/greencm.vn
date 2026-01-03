@@ -1,14 +1,14 @@
 'use client';
 
-import { getComponentForRoute } from '@/lib/routeComponents';
+import { getComponentForKey } from '@/lib/routeComponents';
 
 interface SlugPageClientProps {
-  route: string;
+  componentKey: string;
 }
 
-export default function SlugPageClient({ route }: SlugPageClientProps) {
-  // Lấy component tương ứng với route
-  const Component = getComponentForRoute(route);
+export default function SlugPageClient({ componentKey }: SlugPageClientProps) {
+  // Lấy component tương ứng với component key
+  const Component = getComponentForKey(componentKey);
   
   if (!Component) {
     return null;

@@ -2,18 +2,18 @@
 
 import { useState } from 'react';
 import Header from '../../components/Header';
-import CareersPage from '../../components/CareersPage';
+import NewsPage from '../../components/NewsPage';
 import Footer from '../../components/Footer';
 import AuthModal from '../../components/AuthModal';
 
-export default function CareersPageRoute() {
+export default function TinTucPageRoute() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   return (
     <div>
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
-        <CareersPage />
+        <NewsPage />
       </main>
       <Footer />
       {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}

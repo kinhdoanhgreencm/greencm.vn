@@ -104,7 +104,7 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({
 
   const getPostUrl = (post: BlogPost) => {
     // Nếu có slug, dùng slug, không thì dùng id
-    return post.slug ? `/news/${post.slug}` : `/news?post=${post.id}`;
+    return post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
   };
 
   return (

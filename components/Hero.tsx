@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { createFriendlyUrl } from '@/lib/urlUtils';
 
 const Hero: React.FC = () => {
   return (
@@ -34,10 +33,10 @@ const Hero: React.FC = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
-          <Link href={createFriendlyUrl('/sales')} className="flex-1 bg-gcm-green text-black font-bold py-4 px-8 rounded-full hover:bg-green-400 transition-transform transform hover:scale-105 shadow-lg shadow-green-900/20 text-center">
+          <Link href="/oto-vinfast" className="flex-1 bg-gcm-green text-black font-bold py-4 px-8 rounded-full hover:bg-green-400 transition-transform transform hover:scale-105 shadow-lg shadow-green-900/20 text-center">
             Xem xe đang bán
           </Link>
-          <Link href={createFriendlyUrl('/rental')} className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
+          <Link href="/thue-xe" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
             Dịch vụ thuê xe
           </Link>
         </div>
