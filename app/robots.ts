@@ -8,11 +8,17 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
-        disallow: ['/api/', '/admin/', '/_next/', '/private/'],
+        disallow: [
+          '/api/',
+          '/admin/',
+          '/dashboard/',
+          '/_next/',
+          '/private/',
+          '/*?*',        // chặn URL có query
+          '/search',     // nếu có tìm kiếm nội bộ
+        ],
       },
     ],
-    // Dòng này rất quan trọng để Google tìm thấy Index
-    sitemap: `${baseUrl}/sitemap.xml`, 
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
