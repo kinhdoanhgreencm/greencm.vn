@@ -15,18 +15,7 @@ export default function robots(): MetadataRoute.Robots {
           '/private/',
         ],
       },
-      {
-        userAgent: 'Googlebot',
-        allow: '/',
-        disallow: ['/api/'],
-      },
-      {
-        userAgent: 'Bingbot',
-        allow: '/',
-        disallow: ['/api/'],
-      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
-
