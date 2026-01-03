@@ -36,7 +36,7 @@ const Hero: React.FC = () => {
           <Link href="/oto-vinfast" className="flex-1 bg-gcm-green text-black font-bold py-4 px-8 rounded-full hover:bg-green-400 transition-transform transform hover:scale-105 shadow-lg shadow-green-900/20 text-center">
             Ô tô VinFast
           </Link>
-          <Link href="http://greencm.vn/tram-sac-vinfast" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
+          <Link href="/tram-sac-vinfast" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
             Trạm sạc VinFast
           </Link>
         </div>
