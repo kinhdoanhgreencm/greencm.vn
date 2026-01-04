@@ -146,7 +146,13 @@ const CarSales: React.FC = () => {
                   loading="lazy"
                 />
                 <div className="absolute top-4 left-4 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                  {car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV Cỡ Trung' : 'Hạng Sang'}
+                  {car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :
+                   car.segment === 'urban' && car.id === 'vf5' ? 'A-SUV' :
+                   car.segment === 'suv-bc' && car.id === 'vf6' ? 'B-SUV' :
+                   car.segment === 'suv-bc' && car.id === 'vf7' ? 'C-SUV' :
+                   car.segment === 'luxury' && car.id === 'vf8' ? 'D-SUV' :
+                   car.segment === 'luxury' && car.id === 'vf9' ? 'E-SUV' :
+                   car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV Cỡ Trung' : 'Hạng Sang'}
                 </div>
               </div>
               
@@ -161,7 +167,7 @@ const CarSales: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2 text-gray-600">
                     <Users size={18} className="text-blue-500" />
-                    <span className="text-sm font-semibold">{car.seats} chỗ</span>
+                    <span className="text-sm font-semibold">{car.id === 'vf9' ? '7 chỗ/9 chỗ' : car.seats + ' chỗ'}</span>
                   </div>
                 </div>
 
@@ -231,7 +237,7 @@ const CarSales: React.FC = () => {
                              <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.range}</span>
                           </div>
                           <div className="flex items-center justify-between">
-                             <span className="text-xl font-bold text-red-600">Từ {car.displayPrice}</span>
+                             <span className="text-xl font-bold text-red-600">{car.displayPrice}</span>
                              <span className="text-sm font-bold border-b-2 border-black pb-1 text-gcm-green">
                                 {car.id === 'limo' ? 'Xem chi tiết Limo' : 'Nhận báo giá'}
                              </span>
