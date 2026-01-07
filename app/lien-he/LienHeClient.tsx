@@ -6,6 +6,8 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AuthModal from '../../components/AuthModal';
 import Breadcrumbs from '../../components/Breadcrumbs';
+import { BreadcrumbSchema } from '../../components/SchemaMarkup';
+import { getPageBreadcrumbs } from '../../lib/breadcrumbUtils';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
 
 // Dynamic import MapComponent with SSR disabled
@@ -101,8 +103,11 @@ export default function LienHeClient() {
     }
   ];
 
+  const breadcrumbItems = getPageBreadcrumbs('lien-he', 'Liên hệ');
+
   return (
     <div className="min-h-screen bg-white">
+      <BreadcrumbSchema items={breadcrumbItems} />
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
         {/* Breadcrumb */}

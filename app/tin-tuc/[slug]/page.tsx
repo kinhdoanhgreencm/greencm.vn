@@ -12,6 +12,7 @@ interface NewsPostPageProps {
 export async function generateMetadata({ params }: NewsPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = BLOG_POSTS.find(p => p.slug === slug);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
   if (!post) {
     return {
@@ -22,6 +23,25 @@ export async function generateMetadata({ params }: NewsPostPageProps): Promise<M
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url: `${baseUrl}/tin-tuc/${slug}`,
+      images: [
+        {
+          url: post.image || `${baseUrl}/logo.png`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [post.image || `${baseUrl}/logo.png`],
+    },
   };
 }
 

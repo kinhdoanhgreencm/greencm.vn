@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     siteName: 'GCM - All About Cars',
     images: [
       {
-        url: `${baseUrl}/logo.png`,
+        url: `${baseUrl}/Banner%20hero%20homepage.png`,
         width: 1200,
         height: 630,
-        alt: 'GCM - All About Cars',
+        alt: 'GCM - All About Cars - Hệ sinh thái ô tô điện toàn diện',
       },
     ],
   },
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'GCM - All About Cars',
     description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
-    images: [`${baseUrl}/logo.png`],
+    images: [`${baseUrl}/Banner%20hero%20homepage.png`],
   },
 };
 
