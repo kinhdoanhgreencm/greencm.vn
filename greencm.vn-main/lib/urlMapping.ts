@@ -12,7 +12,6 @@ export interface RouteMapping {
 // Mapping các URL thân thiện sang routes thực tế
 export const URL_MAPPINGS: RouteMapping[] = [
   // Trang chủ và giới thiệu
-  { slug: 'trang-chu', route: '/', title: 'Trang chủ' },
   { slug: 'gioi-thieu', route: '/about', title: 'Giới thiệu' },
   
   // Dịch vụ mua bán
