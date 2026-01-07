@@ -17,11 +17,12 @@ export async function GET(
 
   // Sử dụng biến typeKey đã xử lý để so sánh
   if (typeKey === 'pages') {
-    // Danh sách 10 URLs được chỉ định với priority và changefreq
+    // Danh sách URLs được chỉ định với priority và changefreq
     const pages = [
       { path: '', changefreq: 'daily', priority: '1.0' }, // Trang chủ
       { path: 'gioi-thieu', changefreq: 'yearly', priority: '0.8' },
       { path: 'oto-vinfast', changefreq: 'weekly', priority: '0.9' },
+      { path: 'oto-vinfast/limo-green', changefreq: 'monthly', priority: '0.85' }, // Trang Limo Green
       { path: 'xe-sieu-luot', changefreq: 'monthly', priority: '0.7' },
       { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
       { path: 'thue-xe', changefreq: 'weekly', priority: '0.9' },
