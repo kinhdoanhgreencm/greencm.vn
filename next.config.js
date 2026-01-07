@@ -22,6 +22,16 @@ const nextConfig = {
       // Các URL thân thiện sẽ được xử lý bởi dynamic route [slug]
     ];
   },
+  // Redirects để chuyển hướng các URL cũ
+  async redirects() {
+    return [
+      {
+        source: '/limo-green',
+        destination: '/oto-vinfast/limo-green',
+        permanent: true, // 301 redirect - permanent
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
