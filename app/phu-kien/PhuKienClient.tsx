@@ -2,21 +2,22 @@
 
 import { useState } from 'react';
 import Header from '../../components/Header';
-import LimoGreenPage from '../../components/LimoGreenPage';
+import AccessoriesPage from '../../components/AccessoriesPage';
 import Footer from '../../components/Footer';
 import AuthModal from '../../components/AuthModal';
 
-export default function LimoGreenPageRoute() {
+export default function PhuKienClient() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
   return (
     <div>
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
-        <LimoGreenPage />
+        <AccessoriesPage />
       </main>
       <Footer />
       {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}
     </div>
   );
 }
+

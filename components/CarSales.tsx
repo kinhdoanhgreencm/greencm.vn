@@ -212,7 +212,7 @@ const CarSales: React.FC = () => {
                       whileHover={{ x: 5, scale: 1.02 }}
                       onClick={() => {
                         if(car.id === 'limo') {
-                          router.push('/limo-green');
+                          router.push('/oto-vinfast/limo-green');
                         } else {
                           setSelectedCarForQuote(car);
                           setShowQuoteModal(true);
