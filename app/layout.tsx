@@ -14,33 +14,27 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/',
   },
+  // --- CẤU HÌNH ICON CHUẨN GOOGLE ---
   icons: {
     icon: [
-      { 
-        url: `${baseUrl}/favicon.ico`, 
-        type: 'image/x-icon', 
-        sizes: 'any',
-      },
-      {
-        url: `${baseUrl}/favicon.ico`,
-        sizes: '16x16',
-        type: 'image/x-icon',
-      },
-      {
-        url: `${baseUrl}/favicon.ico`,
-        sizes: '32x32',
-        type: 'image/x-icon',
-      },
+      // Ưu tiên 1: File 192x192 (Google Search cực thích file này)
+      { url: '/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
+      
+      // Ưu tiên 2: File 96x96 (Chuẩn đẹp cho Tab trình duyệt độ phân giải cao)
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      
+      // Ưu tiên 3: File 512x512 (Cho các màn hình cực lớn)
+      { url: '/web-app-manifest-512x512.png', sizes: '512x512', type: 'image/png' },
+      
+      // Fallback: File ico cũ cho trình duyệt cổ
+      { url: '/favicon.ico', sizes: 'any' },
     ],
-    shortcut: `${baseUrl}/favicon.ico`,
+    // Cấu hình cho iPhone/iPad/Mac
     apple: [
-      {
-        url: `${baseUrl}/favicon.ico`,
-        sizes: '180x180',
-        type: 'image/x-icon',
-      },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
+  // ----------------------------------
   other: {
     'sitemap': `${baseUrl}/sitemap.xml`,
   },
@@ -51,7 +45,7 @@ export const metadata: Metadata = {
     siteName: 'GCM - All About Cars',
     images: [
       {
-        url: `${baseUrl}/Banner%20hero%20homepage.png`,
+        url: '/Banner%20hero%20homepage.png',
         width: 1200,
         height: 630,
         alt: 'GCM - All About Cars - Hệ sinh thái ô tô điện toàn diện',
@@ -62,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'GCM - All About Cars',
     description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
-    images: [`${baseUrl}/Banner%20hero%20homepage.png`],
+    images: ['/Banner%20hero%20homepage.png'],
   },
 };
 
@@ -74,20 +68,12 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       <head>
-        {/* Favicon links for better Google indexing */}
-        <link rel="icon" type="image/x-icon" href={`${baseUrl}/favicon.ico`} />
-        <link rel="shortcut icon" type="image/x-icon" href={`${baseUrl}/favicon.ico`} />
-        <link rel="apple-touch-icon" href={`${baseUrl}/favicon.ico`} />
-        <link rel="icon" type="image/x-icon" sizes="16x16" href={`${baseUrl}/favicon.ico`} />
-        <link rel="icon" type="image/x-icon" sizes="32x32" href={`${baseUrl}/favicon.ico`} />
+        {/* Lưu ý: Tôi đã XÓA toàn bộ các thẻ <link rel="icon"> thủ công ở đây. 
+            Lý do: Next.js sẽ tự động tạo ra chúng dựa trên biến 'metadata' ở trên. 
+            Việc này giúp code sạch hơn và tránh lỗi trùng lặp thẻ (duplicate tags). 
+        */}
         
-        {/* Sitemap */}
-        <link rel="sitemap" type="application/xml" href={`${baseUrl}/sitemap.xml`} title="Sitemap" />
-        
-        {/* Additional meta tags for better SEO */}
         <meta name="theme-color" content="#00D26A" />
-        <meta name="msapplication-TileColor" content="#00D26A" />
-        <meta name="msapplication-TileImage" content={`${baseUrl}/favicon.ico`} />
       </head>
       <body className="font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black">
         <OrganizationSchema 
@@ -107,4 +93,3 @@ export default function RootLayout({
     </html>
   );
 }
-
