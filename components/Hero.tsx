@@ -2,19 +2,24 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import heroBanner from '@/public/Banner hero homepage.png';
 
 const Hero: React.FC = () => {
   return (
     <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image/Overlay */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center z-0"
-        style={{ 
-          backgroundImage: 'url("/Banner%20hero%20homepage.png")',
-        }}
-        role="img"
-        aria-label="GCM All About Cars - Hệ sinh thái ô tô điện toàn diện, showroom xe điện hiện đại"
-      >
+      {/* Background Image - Optimized with Next.js Image and priority */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={heroBanner}
+          alt="Showroom Green CM với các dòng xe VinFast và dịch vụ trạm sạc - Hệ sinh thái ô tô điện toàn diện"
+          fill
+          priority={true}
+          quality={90}
+          placeholder="blur"
+          className="object-cover object-center"
+          sizes="100vw"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
       </div>
 

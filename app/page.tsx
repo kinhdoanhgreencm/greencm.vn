@@ -7,7 +7,7 @@ import Services from '../components/Services';
 import Fleet from '../components/Fleet';
 import Footer from '../components/Footer';
 import AuthModal from '../components/AuthModal';
-import { BreadcrumbSchema } from '../components/SchemaMarkup';
+import { BreadcrumbSchema, CorporationSchema } from '../components/SchemaMarkup';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
@@ -22,6 +22,7 @@ export default function Home() {
   return (
     <div>
       <BreadcrumbSchema items={breadcrumbItems} />
+      <CorporationSchema />
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
         <Hero />

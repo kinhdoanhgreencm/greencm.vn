@@ -1,39 +1,33 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
   images: {
+    // Cho phép Next.js tối ưu ảnh từ các domain này
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
+        hostname: 'greencm.vn', // Domain chính của bạn
+        pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'via.placeholder.com',
+        hostname: 'drive.google.com', // Nếu dùng ảnh từ Drive
+        pathname: '/**',
+      },
+      // --- CẤU HÌNH SUPABASE ---
+      {
+        protocol: 'https',
+        // Thay 'your-project-ref' bằng ID dự án Supabase của bạn (ví dụ: abcdxyz.supabase.co)
+        // Nếu không nhớ ID, bạn có thể dùng wildcard '**' (nhưng không khuyến khích vì bảo mật)
+        // Tốt nhất là điền đúng domain: '********.supabase.co'
+        hostname: '**zeiyxfdkehwgfbpvgenb.supabase.co', 
+        pathname: '/storage/v1/object/public/**',
       },
     ],
-    formats: ['image/webp', 'image/avif'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-  },
-  // Rewrites để hỗ trợ URL thân thiện (tùy chọn - có thể bỏ qua nếu dùng dynamic route)
-  async rewrites() {
-    return [
-      // Các URL thân thiện sẽ được xử lý bởi dynamic route [slug]
-    ];
-  },
-  // Redirects để chuyển hướng các URL cũ
-  async redirects() {
-    return [
-      {
-        source: '/limo-green',
-        destination: '/oto-vinfast/limo-green',
-        permanent: true, // 301 redirect - permanent
-      },
-    ];
+    // Tự động chuyển đổi định dạng ảnh sang WebP/AVIF
+    formats: ['image/avif', 'image/webp'],
+    // Thời gian cache ảnh tối ưu (ví dụ: 1 năm)
+    minimumCacheTTL: 60,
   },
 };
 
-module.exports = nextConfig;
-
-
+export default nextConfig;

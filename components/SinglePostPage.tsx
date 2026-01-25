@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Calendar, User, Eye, Facebook, MessageCircle, Share2 } from 'lucide-react';
 import { BlogPost } from '../types';
 import { BLOG_POSTS } from '../constants';
@@ -33,7 +34,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
     };
 
     return (
-      <div className="space-y-8 sticky top-24">
+      <aside className="space-y-8 sticky top-24">
         {/* Widget: Quick Car Search */}
         <div className="bg-black text-white p-6 rounded-2xl shadow-lg">
           <h3 className="font-bold text-lg mb-4 text-gcm-green">Tìm Xe Nhanh</h3>
@@ -93,7 +94,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
             </button>
           </div>
         </div>
-      </div>
+      </aside>
     );
   };
 
@@ -107,7 +108,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Main Article Content */}
-          <div className="lg:col-span-2">
+          <article className="lg:col-span-2">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">{post.title}</h1>
             
             <div className="flex items-center gap-6 text-sm text-gray-500 mb-8 border-b border-gray-100 pb-4">
@@ -124,13 +125,16 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
 
             <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
               <p className="font-bold text-xl mb-6">{post.excerpt}</p>
-              <img 
-                src={imageErrors[post.id] ? getFallbackImage() : post.image} 
-                alt={`${post.title} - Tin tức ${post.categoryLabel.toLowerCase()} về xe điện và công nghệ ô tô`} 
-                className="w-full rounded-2xl mb-8"
-                onError={() => handleImageError(post.id)}
-                loading="lazy"
-              />
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden mb-8">
+                <Image
+                  src={imageErrors[post.id] ? getFallbackImage() : post.image}
+                  alt={`${post.title} - Tin tức ${post.categoryLabel.toLowerCase()} về xe điện và công nghệ ô tô`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 66vw"
+                  onError={() => handleImageError(post.id)}
+                />
+              </div>
               
               {post.content ? (
                 <div 
@@ -201,7 +205,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
                 </button>
               </div>
             </div>
-          </div>
+          </article>
 
           {/* Sidebar */}
           <div className="lg:col-span-1">

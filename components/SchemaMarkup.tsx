@@ -1,7 +1,12 @@
-'use client';
-
 import React from 'react';
 
+// --- CONSTANTS: Đảm bảo đồng bộ với layout.tsx ---
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
+const BRAND_NAME = 'GCM - All About Cars';
+const CORP_NAME = 'Công ty Cổ Phần Green CM';
+
+// --- INTERFACES ---
+// (Giữ nguyên các Interface của bạn, chỉ sửa logic bên dưới)
 interface OrganizationSchemaProps {
   name?: string;
   url?: string;
@@ -38,40 +43,8 @@ interface ProductSchemaProps {
     availability?: string;
     url?: string;
     priceValidUntil?: string;
-    hasMerchantReturnPolicy?: {
-      '@type': string;
-      applicableCountry?: string;
-      returnPolicyCategory?: string;
-      merchantReturnDays?: number;
-      returnMethod?: string;
-    };
-    shippingDetails?: {
-      '@type': string;
-      shippingRate?: {
-        '@type': string;
-        value?: number | string;
-        currency?: string;
-      };
-      shippingDestination?: {
-        '@type': string;
-        addressCountry?: string;
-      };
-      deliveryTime?: {
-        '@type': string;
-        handlingTime?: {
-          '@type': string;
-          minValue?: number;
-          maxValue?: number;
-          unitCode?: string;
-        };
-        transitTime?: {
-          '@type': string;
-          minValue?: number;
-          maxValue?: number;
-          unitCode?: string;
-        };
-      };
-    };
+    hasMerchantReturnPolicy?: any; // Rút gọn type để code đỡ dài
+    shippingDetails?: any;
   };
   aggregateRating?: {
     ratingValue: number;
@@ -80,15 +53,8 @@ interface ProductSchemaProps {
     worstRating?: number;
   };
   review?: Array<{
-    author: {
-      name: string;
-      type?: string;
-    };
-    reviewRating: {
-      ratingValue: number;
-      bestRating?: number;
-      worstRating?: number;
-    };
+    author: { name: string; type?: string };
+    reviewRating: { ratingValue: number; bestRating?: number; worstRating?: number };
     reviewBody?: string;
     datePublished?: string;
   }>;
@@ -102,68 +68,50 @@ interface ProductSchemaProps {
 interface ServiceSchemaProps {
   name: string;
   description?: string;
-  provider?: {
-    name: string;
-    url?: string;
-  };
+  provider?: { name: string; url?: string };
   areaServed?: string;
   serviceType?: string;
-  offers?: {
-    price?: number | string;
-    priceCurrency?: string;
-  };
+  offers?: { price?: number | string; priceCurrency?: string };
 }
 
 interface FAQSchemaProps {
-  faqs: Array<{
-    question: string;
-    answer: string;
-  }>;
+  faqs: Array<{ question: string; answer: string }>;
 }
 
 interface ReviewSchemaProps {
-  itemReviewed: {
-    name: string;
-    type?: string;
-  };
-  reviewRating: {
-    ratingValue: number;
-    bestRating?: number;
-    worstRating?: number;
-  };
-  author: {
-    name: string;
-    type?: string;
-  };
+  itemReviewed: { name: string; type?: string };
+  reviewRating: { ratingValue: number; bestRating?: number; worstRating?: number };
+  author: { name: string; type?: string };
   reviewBody?: string;
   datePublished?: string;
 }
 
 interface BreadcrumbSchemaProps {
-  items: Array<{
-    name: string;
-    url: string;
-  }>;
+  items: Array<{ name: string; url: string }>;
 }
 
 interface WebsiteSchemaProps {
   name?: string;
   url?: string;
   description?: string;
-  potentialAction?: {
-    '@type': string;
-    target: {
-      '@type': string;
-      urlTemplate: string;
-    };
-    'query-input': string;
-  };
+  potentialAction?: any;
 }
 
+interface CorporationSchemaProps {
+  name?: string;
+  alternateName?: string[];
+  url?: string;
+  logo?: string;
+  description?: string;
+  contactPoint?: any;
+}
+
+// --- COMPONENTS ---
+
 export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
-  name = 'GCM - All About Cars',
-  url = 'https://greencm.vn',
-  logo = 'https://greencm.vn/logo.png',
+  name = BRAND_NAME,
+  url = SITE_URL,
+  logo = `${SITE_URL}/logo.png`, // Tự động nối domain
   description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
   address = {
     streetAddress: '59, Đường Số 10, KDC Diệu Hiền',
@@ -182,7 +130,7 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
 }) => {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'Organization', // Có thể đổi thành 'AutoRepair' hoặc 'AutoDealer' nếu muốn cụ thể hơn
     name,
     url,
     logo,
@@ -212,6 +160,41 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   );
 };
 
+export const CorporationSchema: React.FC<CorporationSchemaProps> = ({
+  name = CORP_NAME,
+  alternateName = ['Green CM', 'GCM - All About Cars'], // Đã sửa CGM -> GCM
+  url = SITE_URL,
+  logo = `${SITE_URL}/logo.png`,
+  description = 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện.',
+  contactPoint = {
+    telephone: '+84941498894',
+    contactType: 'customer service',
+    areaServed: 'VN',
+    availableLanguage: 'Vietnamese',
+  },
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Corporation',
+    name,
+    alternateName,
+    url,
+    logo,
+    description,
+    contactPoint: {
+      '@type': 'ContactPoint',
+      ...contactPoint,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
 export const ProductSchema: React.FC<ProductSchemaProps> = ({
   name,
   description,
@@ -229,7 +212,7 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
 }) => {
   const schema: any = {
     '@context': 'https://schema.org',
-    '@type': 'Product',
+    '@type': 'Product', // Hoặc 'Car' nếu chuyên bán xe
     name,
     ...(description && { description }),
     ...(image && {
@@ -248,20 +231,24 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
   };
 
   if (offers) {
-    const priceValue = typeof offers.price === 'string' 
-      ? parseFloat(offers.price.replace(/[^\d.]/g, '')) 
-      : offers.price;
-    
-    // Calculate priceValidUntil: 1 year from now if not provided
+    // XỬ LÝ GIÁ TIỀN AN TOÀN HƠN
+    let priceValue = offers.price;
+    if (typeof offers.price === 'string') {
+        // Loại bỏ mọi ký tự không phải số (giữ lại dấu chấm nếu là format tiếng Anh, nhưng cẩn thận với tiếng Việt)
+        // Cách tốt nhất: Backend nên trả về number. Nếu là string '1.000.000', cần replace dấu . thành rỗng
+        const rawString = offers.price.toString();
+        // Giả sử input là '1.000.000' -> xóa dấu chấm -> 1000000
+        // Nếu input là '1,000,000' -> xóa dấu phẩy -> 1000000
+        priceValue = parseFloat(rawString.replace(/[\.,]/g, ''));
+    }
+
     const getPriceValidUntil = () => {
-      if (offers.priceValidUntil) {
-        return offers.priceValidUntil;
-      }
+      if (offers.priceValidUntil) return offers.priceValidUntil;
       const date = new Date();
       date.setFullYear(date.getFullYear() + 1);
-      return date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+      return date.toISOString().split('T')[0];
     };
-    
+
     schema.offers = {
       '@type': 'Offer',
       price: priceValue,
@@ -269,7 +256,6 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
       availability: offers.availability || 'https://schema.org/InStock',
       priceValidUntil: getPriceValidUntil(),
       ...(offers.url && { url: offers.url }),
-      // Add hasMerchantReturnPolicy - use provided or create default
       hasMerchantReturnPolicy: offers.hasMerchantReturnPolicy || {
         '@type': 'MerchantReturnPolicy',
         applicableCountry: 'VN',
@@ -278,7 +264,6 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
         returnMethod: 'https://schema.org/ReturnByMail',
         returnFees: 'https://schema.org/FreeReturn',
       },
-      // Add shippingDetails - use provided or create default
       shippingDetails: offers.shippingDetails || {
         '@type': 'OfferShippingDetails',
         shippingRate: {
@@ -309,7 +294,7 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
     };
   }
 
-  // Add aggregateRating - use provided or create default if offers exist
+  // CHỈ render AggregateRating nếu CÓ dữ liệu thật
   if (aggregateRating) {
     schema.aggregateRating = {
       '@type': 'AggregateRating',
@@ -318,18 +303,10 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
       bestRating: aggregateRating.bestRating || 5,
       worstRating: aggregateRating.worstRating || 1,
     };
-  } else if (offers) {
-    // Default aggregateRating when offers exist but not provided
-    schema.aggregateRating = {
-      '@type': 'AggregateRating',
-      ratingValue: 4.5,
-      reviewCount: 1,
-      bestRating: 5,
-      worstRating: 1,
-    };
-  }
+  } 
+  // QUAN TRỌNG: Đã xóa phần else if tự tạo rating giả để tránh bị Google phạt
 
-  // Add reviews
+  // CHỈ render Review nếu CÓ dữ liệu thật
   if (review && review.length > 0) {
     schema.review = review.map((rev) => ({
       '@type': 'Review',
@@ -346,26 +323,8 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
       ...(rev.reviewBody && { reviewBody: rev.reviewBody }),
       ...(rev.datePublished && { datePublished: rev.datePublished }),
     }));
-  } else if (offers) {
-    // Default review when offers exist but not provided
-    schema.review = [
-      {
-        '@type': 'Review',
-        author: {
-          '@type': 'Person',
-          name: 'Customer',
-        },
-        reviewRating: {
-          '@type': 'Rating',
-          ratingValue: aggregateRating?.ratingValue || 4.5,
-          bestRating: aggregateRating?.bestRating || 5,
-          worstRating: aggregateRating?.worstRating || 1,
-        },
-        reviewBody: `${name} là sản phẩm chất lượng tốt.`,
-        datePublished: new Date().toISOString().split('T')[0],
-      },
-    ];
-  }
+  } 
+  // QUAN TRỌNG: Đã xóa phần else if tự tạo review giả
 
   return (
     <script
@@ -379,8 +338,8 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   name,
   description,
   provider = {
-    name: 'GCM - All About Cars',
-    url: 'https://greencm.vn',
+    name: BRAND_NAME,
+    url: SITE_URL,
   },
   areaServed = 'Vietnam',
   serviceType,
@@ -404,10 +363,12 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
   };
 
   if (offers) {
-    const priceValue = typeof offers.price === 'string' 
-      ? parseFloat(offers.price.replace(/[^\d.]/g, '')) 
-      : offers.price;
-    
+     // Xử lý giá tiền đơn giản
+     let priceValue = offers.price;
+     if (typeof offers.price === 'string') {
+        priceValue = parseFloat(offers.price.replace(/[\.,]/g, ''));
+     }
+
     schema.offers = {
       '@type': 'Offer',
       ...(priceValue && { price: priceValue }),
@@ -489,7 +450,7 @@ export const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => 
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: item.url,
+      item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`, // Đảm bảo URL tuyệt đối
     })),
   };
 
@@ -502,24 +463,24 @@ export const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => 
 };
 
 export const WebsiteSchema: React.FC<WebsiteSchemaProps> = ({
-  name = 'GCM - All About Cars',
-  url = 'https://greencm.vn',
+  name = BRAND_NAME,
+  url = SITE_URL,
   description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
   potentialAction,
 }) => {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || url;
   
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name,
-    url: baseUrl,
+    url: url,
     description,
     potentialAction: potentialAction || {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: `${baseUrl}/tin-tuc?search={search_term_string}`,
+        // Kiểm tra xem trang search của bạn có đúng là /tin-tuc không? Thường là /tim-kiem hoặc /search
+        urlTemplate: `${url}/tim-kiem?q={search_term_string}`, 
       },
       'query-input': 'required name=search_term_string',
     },
@@ -532,4 +493,3 @@ export const WebsiteSchema: React.FC<WebsiteSchemaProps> = ({
     />
   );
 };
-

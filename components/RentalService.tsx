@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Calendar, MapPin, Search, CheckCircle, Car, User, Heart, Briefcase, ChevronDown, ChevronUp, Zap, Users, Briefcase as Luggage, MessageCircle, X } from 'lucide-react';
 import { RENTAL_CARS, RENTAL_FAQS } from '../constants';
 import { RentalCar } from '../types';
@@ -28,15 +29,17 @@ const RentalService: React.FC = () => {
     <div className="bg-gray-50 min-h-screen">
       {/* 1. Hero Banner Section - Full Screen */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        {/* Background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1920&h=1080&fit=crop&q=80")',
-          }}
-          role="img"
-          aria-label="Dịch vụ cho thuê xe điện GCM - Xe tự lái, có tài xế, xe hoa và xe sự kiện"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1920&h=1080&fit=crop&q=80"
+            alt="Dịch vụ cho thuê xe điện GCM - Xe tự lái, có tài xế, xe hoa và xe sự kiện - Trải nghiệm xanh, hành trình đẳng cấp"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
 
@@ -161,13 +164,14 @@ const RentalService: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
              {RENTAL_CARS.map((car) => (
                <div key={car.id} className="bg-gray-50 rounded-2xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
-                 <div className="relative h-52">
-                    <img 
-                      src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                      alt={`${car.name} - Cho thuê xe điện ${car.category === 'self-drive' ? 'tự lái' : car.category === 'wedding' ? 'xe hoa' : 'có tài xế'} - Giá ${car.priceDay}`} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                 <div className="relative aspect-[4/3]">
+                    <Image
+                      src={imageErrors[car.id] ? getFallbackImage() : car.image}
+                      alt={`Hình ảnh chi tiết xe ${car.name} - Cho thuê xe điện ${car.category === 'self-drive' ? 'tự lái' : car.category === 'wedding' ? 'xe hoa' : 'có tài xế'} - Giá ${car.priceDay} tại Green CM`}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                       onError={() => handleImageError(car.id)}
-                      loading="lazy"
                     />
                     <div className="absolute top-3 right-3 bg-white/90 backdrop-blur text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                        {car.category === 'self-drive' ? 'Tự lái' : car.category === 'wedding' ? 'Xe Hoa' : 'Có tài'}

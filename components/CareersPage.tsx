@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Briefcase, MapPin, DollarSign, ChevronDown, ChevronUp, Send, CheckCircle, Users, Heart, Zap } from 'lucide-react';
 import { JOB_OPENINGS } from '../constants';
 import { JobOpening } from '../types';
@@ -18,12 +19,17 @@ const CareersPage: React.FC = () => {
       
       {/* 1. Hero Section */}
       <section className="relative h-[500px] w-full flex flex-col items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop&q=80")' }}
-          role="img"
-          aria-label="Tuyển dụng GCM - Gia nhập đội ngũ kiến tạo tương lai di chuyển xanh, cơ hội phát triển không giới hạn"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop&q=80"
+            alt="Tuyển dụng GCM - Gia nhập đội ngũ kiến tạo tương lai di chuyển xanh, cơ hội phát triển không giới hạn - Môi trường làm việc chuyên nghiệp, năng động"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
 

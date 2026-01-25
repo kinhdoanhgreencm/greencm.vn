@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BLOG_POSTS, NEW_CARS_FAMILY } from '../constants';
 import { Search, Calendar, User, Eye, ArrowRight, Share2, Facebook, MessageCircle, Clock, ChevronRight } from 'lucide-react';
@@ -43,7 +44,7 @@ const NewsPage: React.FC = () => {
 
   // --- SUB-COMPONENT: Sidebar ---
   const Sidebar = () => (
-    <div className="space-y-8 sticky top-24">
+    <aside className="space-y-8 sticky top-24">
        {/* Widget: Quick Car Search */}
        <div className="bg-black text-white p-6 rounded-2xl shadow-lg">
           <h3 className="font-bold text-lg mb-4 text-gcm-green">Tìm Xe Nhanh</h3>
@@ -103,7 +104,7 @@ const NewsPage: React.FC = () => {
              </button>
           </div>
        </div>
-    </div>
+    </aside>
   );
 
   // Main Feed View
@@ -119,22 +120,29 @@ const NewsPage: React.FC = () => {
           <Breadcrumbs items={categoryBreadcrumbs} />
         )}
         
+        {/* Page Title - H1 */}
+        <h1 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-8 text-center md:text-left">
+          {activeCategory === 'all' ? 'Tin Tức & Sự Kiện' : categories.find(c => c.id === activeCategory)?.label || 'Tin Tức'}
+        </h1>
+        
         {/* 1. Featured News (Asymmetric Grid) */}
         <section className="mb-12">
            <h2 className="text-2xl font-bold text-gcm-dark mb-6 border-l-4 border-gcm-green pl-4">Tiêu Điểm</h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto lg:h-[500px]">
               {/* Big Story */}
               {featuredPost && (
+                 <article className="lg:col-span-2">
                  <Link 
                    href={getPostUrl(featuredPost)}
-                   className="lg:col-span-2 relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block"
+                   className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[16/9]"
                  >
-                    <img 
-                      src={imageErrors[featuredPost.id] ? getFallbackImage() : featuredPost.image} 
-                      alt={`${featuredPost.title} - ${featuredPost.categoryLabel} - Tin tức nổi bật về xe điện`} 
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    <Image
+                      src={imageErrors[featuredPost.id] ? getFallbackImage() : featuredPost.image}
+                      alt={`${featuredPost.title} - ${featuredPost.categoryLabel} - Tin tức nổi bật về xe điện`}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 66vw"
                       onError={() => handleImageError(featuredPost.id)}
-                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
                        <span className="bg-gcm-green text-black text-xs font-bold px-3 py-1 rounded-full w-fit mb-3">{featuredPost.categoryLabel}</span>
@@ -146,28 +154,31 @@ const NewsPage: React.FC = () => {
                        </div>
                     </div>
                  </Link>
+                 </article>
               )}
               
               {/* Side Stories */}
               <div className="flex flex-col gap-6">
                  {subFeaturedPosts.map(post => (
+                    <article key={post.id} className="flex-1">
                     <Link 
-                      key={post.id} 
                       href={getPostUrl(post)}
-                      className="flex-1 relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block"
+                      className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[4/3]"
                     >
-                       <img 
-                         src={imageErrors[post.id] ? getFallbackImage() : post.image} 
-                         alt={`${post.title} - ${post.categoryLabel} - Tin tức xe điện`} 
-                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                       <Image
+                         src={imageErrors[post.id] ? getFallbackImage() : post.image}
+                         alt={`${post.title} - ${post.categoryLabel} - Tin tức xe điện`}
+                         fill
+                         className="object-cover transition-transform duration-700 group-hover:scale-105"
+                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw"
                          onError={() => handleImageError(post.id)}
-                         loading="lazy"
                        />
                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-6">
                           <span className="text-gcm-green text-xs font-bold mb-1 uppercase">{post.categoryLabel}</span>
                           <h3 className="text-lg font-bold text-white leading-snug group-hover:text-gcm-green transition-colors">{post.title}</h3>
                        </div>
                     </Link>
+                    </article>
                  ))}
               </div>
            </div>
@@ -222,8 +233,8 @@ const NewsPage: React.FC = () => {
                   transition={{ duration: 0.3 }}
                 >
                  {mainFeedPosts.map((post, index) => (
+                    <article key={post.id}>
                     <Link 
-                      key={post.id} 
                       href={getPostUrl(post)}
                     >
                     <motion.div 
@@ -233,13 +244,14 @@ const NewsPage: React.FC = () => {
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       whileHover={{ x: 5 }}
                     >
-                       <div className="w-full md:w-64 h-48 rounded-2xl overflow-hidden flex-shrink-0">
-                          <img 
-                            src={imageErrors[post.id] ? getFallbackImage() : post.image} 
-                            alt={`${post.title} - ${post.categoryLabel} - Tin tức ${post.excerpt}`} 
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                       <div className="relative w-full md:w-64 aspect-[4/3] rounded-2xl overflow-hidden flex-shrink-0">
+                          <Image
+                            src={imageErrors[post.id] ? getFallbackImage() : post.image}
+                            alt={`${post.title} - ${post.categoryLabel} - Tin tức ${post.excerpt}`}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            sizes="(max-width: 768px) 100vw, 256px"
                             onError={() => handleImageError(post.id)}
-                            loading="lazy"
                           />
                        </div>
                        <div className="flex flex-col justify-center">
@@ -255,6 +267,7 @@ const NewsPage: React.FC = () => {
                        </div>
                     </motion.div>
                     </Link>
+                    </article>
                  ))}
                  
                  {mainFeedPosts.length === 0 && (

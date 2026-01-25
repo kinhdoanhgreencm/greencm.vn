@@ -1,78 +1,99 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next'; // Thêm Viewport
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
 
-// Đảm bảo biến này luôn lấy đúng domain chính (https://greencm.vn)
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
+
+// 1. Tách cấu hình Viewport (Theme color, scale) ra riêng theo chuẩn Next.js mới
+export const viewport: Viewport = {
+  themeColor: '#00D26A',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5, // Cho phép zoom để tốt cho UX/Accessiblity (Google thích điều này)
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
+  
+  // 2. Title Template: Tốt
   title: {
-    template: '%s - GCM - All About Cars',
-    default: 'GCM - All About Cars',
+    template: '%s | GCM - All About Cars', // Dùng dấu | hoặc - đều được, | nhìn hiện đại hơn
+    default: 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện', // Title trang chủ nên dài và đủ ý hơn
   },
-  description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
+  
+  description: 'Hệ sinh thái ô tô toàn diện trực thuộc Green CM. Chuyên mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe uy tín, chất lượng.',
+  
+  // 3. Keywords: Sửa lại cho đồng nhất GCM/CGM
+  keywords: [
+    'GCM - All About Cars', // Đã sửa CGM -> GCM
+    'Green CM',
+    'Công ty Cổ Phần Green CM',
+    'hệ sinh thái ô tô',
+    'mua bán xe ô tô',
+    'dịch vụ chăm sóc xe'
+  ],
+
+  // 4. SỬA LỖI CANONICAL NGHIÊM TRỌNG
   alternates: {
-    canonical: './',
+    canonical: './', // Next.js sẽ tự động điền full URL của trang hiện tại vào đây
   },
-  // --- CẬP NHẬT: Đã thêm ${baseUrl} vào trước mỗi ảnh ---
+
+  // 5. Icons: Vì đã có metadataBase, bạn có thể viết gọn lại
   icons: {
     icon: [
-      // Ưu tiên 1: File 192x192
-      { 
-        url: `${baseUrl}/web-app-manifest-192x192.png`, 
-        sizes: '192x192', 
-        type: 'image/png' 
-      },
-      // Ưu tiên 2: File 96x96
-      { 
-        url: `${baseUrl}/favicon-96x96.png`, 
-        sizes: '96x96', 
-        type: 'image/png' 
-      },
-      // Ưu tiên 3: File 512x512
-      { 
-        url: `${baseUrl}/web-app-manifest-512x512.png`, 
-        sizes: '512x512', 
-        type: 'image/png' 
-      },
-      // Fallback
-      { 
-        url: `${baseUrl}/favicon.ico`, 
-        sizes: 'any' 
-      },
+      { url: '/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: [
-      { 
-        url: `${baseUrl}/apple-touch-icon.png`, 
-        sizes: '180x180', 
-        type: 'image/png' 
-      },
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
-  // -----------------------------------------------------
-  other: {
-    'sitemap': `${baseUrl}/sitemap.xml`,
+
+  // 6. Robots: Mặc định Next.js cho index, nhưng khai báo rõ ràng vẫn tốt hơn
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
+
+  // 7. Verification: Nơi điền mã xác thực Google Search Console (nếu chưa verify bằng DNS)
+  verification: {
+    google: 'mã-xác-thực-google-search-console-của-bạn', 
+  },
+
+  other: {
+    'sitemap': `${baseUrl}/sitemap.xml`, // Nên giữ full URL cho sitemap
+  },
+
   openGraph: {
     type: 'website',
     locale: 'vi_VN',
-    url: baseUrl,
+    url: './', // Relative URL để tự động map theo từng trang
     siteName: 'GCM - All About Cars',
+    title: 'GCM - All About Cars | Hệ sinh thái ô tô Green CM',
+    description: 'Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe chuyên nghiệp.',
     images: [
       {
-        url: `${baseUrl}/Banner%20hero%20homepage.png`, // Đã thêm domain vào đây luôn
+        url: '/Banner%20hero%20homepage.png', // Tự động nối với metadataBase
         width: 1200,
         height: 630,
         alt: 'GCM - All About Cars - Hệ sinh thái ô tô điện toàn diện',
       },
     ],
   },
+  
   twitter: {
     card: 'summary_large_image',
     title: 'GCM - All About Cars',
-    description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
-    images: [`${baseUrl}/Banner%20hero%20homepage.png`],
+    description: 'Hệ sinh thái ô tô toàn diện - Green CM',
+    images: ['/Banner%20hero%20homepage.png'], 
   },
 };
 
@@ -83,10 +104,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <head>
-        <meta name="theme-color" content="#00D26A" />
-      </head>
+      {/* Không cần thẻ head thủ công cho theme-color nữa */}
       <body className="font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black">
+        {/* Schema Markup */}
         <OrganizationSchema 
           aggregateRating={{
             ratingValue: 4.8,
@@ -99,6 +119,7 @@ export default function RootLayout({
           ]}
         />
         <WebsiteSchema />
+        
         {children}
       </body>
     </html>

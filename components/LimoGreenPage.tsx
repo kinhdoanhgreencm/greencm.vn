@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Phone, MessageCircle, CheckCircle, Battery, Zap, Gauge, Wind, Shield, MapPin, ChevronRight, Star, User, X, ChevronLeft } from 'lucide-react';
 import CustomerForm, { FormField } from './CustomerForm';
 
@@ -103,18 +104,25 @@ const LimoGreenPage: React.FC = () => {
     <div className="bg-white min-h-screen font-sans">
       {/* 2. Hero Section */}
       <section className="relative min-h-[850px] md:h-[700px] w-full bg-black overflow-hidden">
-        {/* Slider */}
+        {/* Slider - Optimized with Next.js Image */}
         {slides.map((slide, index) => (
           <div 
             key={index}
             className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
           >
-            <img 
-              src={imageErrors[`slide-${index}`] ? getFallbackImage() : slide.image} 
-              alt={slide.alt} 
-              className="w-full h-full object-cover opacity-60"
-              onError={() => handleImageError(`slide-${index}`)}
-              loading="lazy"
+            <Image
+              src={imageErrors[`slide-${index}`] ? getFallbackImage() : slide.image}
+              alt={slide.alt}
+              fill
+              priority={index === 0}
+              quality={90}
+              className="object-cover opacity-60"
+              sizes="100vw"
+              onError={() => {
+                if (!imageErrors[`slide-${index}`]) {
+                  handleImageError(`slide-${index}`);
+                }
+              }}
             />
           </div>
         ))}

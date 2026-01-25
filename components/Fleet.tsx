@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { FLEET } from '../constants';
 import { ChevronRight } from 'lucide-react';
@@ -34,12 +35,13 @@ const Fleet: React.FC = () => {
              {FLEET.map((car, index) => (
                <div key={car.id} className="relative group cursor-pointer w-full md:w-1/3 flex flex-col items-center">
                  <div className="relative w-full aspect-[16/9] mb-6">
-                    <img 
-                      src={imageErrors[car.id] ? getFallbackImage(car.id) : car.image} 
-                      alt={`${car.name} - ${car.category} - Xe điện hiện đại tại GCM All About Cars`} 
-                      className="w-full h-full object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 z-10 relative"
+                    <Image
+                      src={imageErrors[car.id] ? getFallbackImage(car.id) : car.image}
+                      alt={`Hình ảnh chi tiết xe ${car.name} - ${car.category} - Xe điện hiện đại tại GCM All About Cars`}
+                      fill
+                      className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 z-10 relative"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       onError={() => handleImageError(car.id)}
-                      loading="lazy"
                     />
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-black/20 blur-xl rounded-[100%]"></div>
                  </div>

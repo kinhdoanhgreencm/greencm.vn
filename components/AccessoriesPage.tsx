@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
+import Image from 'next/image';
 import { Search, Zap, Sofa, Smartphone, Shield, ShoppingBag, Star, CheckCircle, Truck, Wrench, Headphones, MessageCircle, ChevronRight, Package } from 'lucide-react';
 import { ACCESSORIES_PRODUCTS } from '../constants';
 import { ProductSchema } from './SchemaMarkup';
@@ -94,12 +95,17 @@ const AccessoriesPage: React.FC = () => {
       
       {/* 1. Hero Banner Section - Full Screen */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80")' }}
-          role="img"
-          aria-label="Phụ kiện xe điện GCM - Phụ kiện chính hãng cho xe điện VinFast và các dòng xe điện khác"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80"
+            alt="Phụ kiện xe điện GCM - Phụ kiện chính hãng cho xe điện VinFast và các dòng xe điện khác - Nâng tầm tiện ích, cá nhân hóa xế điện"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
 
@@ -282,12 +288,13 @@ const AccessoriesPage: React.FC = () => {
            {filteredProducts.map((product) => (
              <div key={product.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group overflow-hidden flex flex-col">
                 <div className="relative aspect-square overflow-hidden">
-                   <img 
-                     src={imageErrors[product.id] ? getFallbackImage() : product.image} 
-                     alt={`${product.name} - Phụ kiện xe điện ${product.compatibility.includes('Universal') ? 'tương thích tất cả dòng xe' : 'dành cho ' + product.compatibility.join(', ')}`} 
-                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                   <Image
+                     src={imageErrors[product.id] ? getFallbackImage() : product.image}
+                     alt={`Hình ảnh chi tiết ${product.name} - Phụ kiện xe điện ${product.compatibility.includes('Universal') ? 'tương thích tất cả dòng xe' : 'dành cho ' + product.compatibility.join(', ')} tại Green CM`}
+                     fill
+                     className="object-cover group-hover:scale-105 transition-transform duration-500"
+                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                      onError={() => handleImageError(product.id)}
-                     loading="lazy"
                    />
                    {product.oldPrice && (
                      <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">

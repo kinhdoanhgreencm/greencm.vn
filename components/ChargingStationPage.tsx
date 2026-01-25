@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User, Building2, Layout } from 'lucide-react';
 import Link from 'next/link';
 import { ServiceSchema } from './SchemaMarkup';
@@ -84,14 +85,17 @@ const ChargingStationPage: React.FC = () => {
 
       {/* 1. Hero Banner Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png")',
-          }}
-          role="img"
-          aria-label="Trạm sạc VinFast - Hệ thống sạc phủ khắp toàn quốc"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png"
+            alt="Trạm sạc VinFast - Hệ thống sạc phủ khắp toàn quốc - Đầu tư trạm sạc VinFast nhượng quyền"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
 

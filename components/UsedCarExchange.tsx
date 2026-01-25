@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Search, Filter, Battery, Gauge, Calendar, MessageCircle, MapPin, CheckCircle, Car, Zap, Upload } from 'lucide-react';
 import { USED_CARS } from '../constants';
 import { ProductSchema } from './SchemaMarkup';
@@ -43,15 +44,17 @@ const UsedCarExchange: React.FC = () => {
       
       {/* 1. Hero Banner Section - Full Screen */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        {/* Background */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url("https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80")',
-          }}
-          role="img"
-          aria-label="Sàn giao dịch xe điện cũ uy tín tại GCM - Kiểm định pin minh bạch, cam kết chất lượng"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80"
+            alt="Sàn giao dịch xe điện cũ uy tín tại GCM - Kiểm định pin minh bạch, cam kết chất lượng - Thẩm định nghiêm ngặt 160 điểm"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
 
@@ -164,13 +167,14 @@ const UsedCarExchange: React.FC = () => {
           {USED_CARS.map((car) => (
             <div key={car.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100">
               {/* Image Area */}
-              <div className="relative h-48 w-full overflow-hidden">
-                <img 
-                  src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                  alt={`${car.name} - Xe điện cũ ${car.year} - SOH ${car.soh}% - ${car.odo} - Giá ${car.price}`} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
+                <Image
+                  src={imageErrors[car.id] ? getFallbackImage() : car.image}
+                  alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện cũ ${car.year} - SOH ${car.soh}% - ${car.odo} - Giá ${car.price} tại Green CM`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   onError={() => handleImageError(car.id)}
-                  loading="lazy"
                 />
                 <div className="absolute top-3 left-3 flex flex-col gap-2">
                   {car.labels?.map((label, idx) => (

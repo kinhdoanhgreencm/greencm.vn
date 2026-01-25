@@ -1,28 +1,38 @@
 import { NextResponse } from 'next/server';
-import { BLOG_POSTS } from '../../../constants';
+import { BLOG_POSTS } from '../../../constants'; // Check lại đường dẫn import này nhé
+
+// Hàm Clean URL để tránh lỗi XML (quan trọng)
+function escapeXml(unsafe: string) {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+    switch (c) {
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '&': return '&amp;';
+      case '\'': return '&apos;';
+      case '"': return '&quot;';
+      default: return c;
+    }
+  });
+}
 
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ type: string }> }
+  { params }: { params: Promise<{ type: string }> } // Next.js 15 props là Promise
 ) {
-  const { type } = await params; // Giá trị nhận được là "pages.xml" hoặc "posts.xml"
-  
-  // Xóa đuôi .xml để so sánh
+  const { type } = await params; 
   const typeKey = type.replace('.xml', ''); 
-  
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
   const now = new Date().toISOString();
 
-  let urls: string = '';
+  let urls = '';
 
-  // Sử dụng biến typeKey đã xử lý để so sánh
+  // --- LOGIC 1: STATIC PAGES ---
   if (typeKey === 'pages') {
-    // Danh sách URLs được chỉ định với priority và changefreq
     const pages = [
-      { path: '', changefreq: 'daily', priority: '1.0' }, // Trang chủ
+      { path: '', changefreq: 'daily', priority: '1.0' },
       { path: 'gioi-thieu', changefreq: 'yearly', priority: '0.8' },
       { path: 'oto-vinfast', changefreq: 'weekly', priority: '0.9' },
-      { path: 'oto-vinfast/limo-green', changefreq: 'monthly', priority: '0.85' }, // Trang Limo Green
+      { path: 'oto-vinfast/limo-green', changefreq: 'monthly', priority: '0.85' },
       { path: 'xe-sieu-luot', changefreq: 'monthly', priority: '0.7' },
       { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
       { path: 'thue-xe', changefreq: 'weekly', priority: '0.9' },
@@ -33,43 +43,54 @@ export async function GET(
     ];
 
     pages.forEach((page) => {
+      // Logic xử lý đường dẫn: tránh double slash //
+      const loc = page.path === '' ? baseUrl : `${baseUrl}/${page.path}`;
+      
       urls += `
       <url>
-        <loc>${baseUrl}/${page.path}</loc>
+        <loc>${escapeXml(loc)}</loc>
+        <lastmod>${now}</lastmod> 
         <changefreq>${page.changefreq}</changefreq>
         <priority>${page.priority}</priority>
       </url>`;
     });
   }
 
+  // --- LOGIC 2: BLOG POSTS ---
   if (typeKey === 'posts') {
     BLOG_POSTS.forEach((post) => {
-      const postUrl = post.slug ? `${baseUrl}/tin-tuc/${post.slug}` : `${baseUrl}/tin-tuc?post=${post.id}`;
-      // Xử lý date format dd/mm/yyyy
-      const [day, month, year] = post.date.split('/');
-      const postLastMod = new Date(`${year}-${month}-${day}`).toISOString();
+      const postUrl = post.slug 
+        ? `${baseUrl}/tin-tuc/${post.slug}` 
+        : `${baseUrl}/tin-tuc?post=${post.id}`;
 
-      // Xác định priority dựa trên isFeatured và views
-      let priority = '0.6'; // Mặc định
-      if (post.isFeatured) {
-        priority = '0.9';
-      } else if (post.views && post.views > 2000) {
-        priority = '0.8';
-      } else if (post.views && post.views > 500) {
-        priority = '0.7';
+      // Xử lý Date an toàn hơn: Fallback về NOW nếu parse lỗi
+      let postLastMod = now;
+      try {
+        if (post.date) {
+             const [day, month, year] = post.date.split('/');
+             // Lưu ý: Tháng trong JS bắt đầu từ 0? Không, constructor string 'YYYY-MM-DD' dùng tháng 1-12 là ok.
+             postLastMod = new Date(`${year}-${month}-${day}`).toISOString();
+        }
+      } catch (e) {
+        console.error('Date parsing error', e);
       }
 
-      // Xác định changefreq dựa trên category
+      // Priority logic
+      let priority = '0.6';
+      if (post.isFeatured) priority = '0.9';
+      else if (post.views && post.views > 2000) priority = '0.8';
+      else if (post.views && post.views > 500) priority = '0.7';
+
+      // Changefreq logic
       let changefreq = 'monthly';
-      if (post.category === 'promo') {
-        changefreq = 'weekly'; // Khuyến mãi thay đổi thường xuyên
-      } else if (post.category === 'market') {
-        changefreq = 'weekly'; // Tin thị trường thay đổi nhanh
+      if (post.category === 'promo' || post.category === 'market') {
+        changefreq = 'weekly';
       }
 
       urls += `
       <url>
-        <loc>${postUrl}</loc>
+        <loc>${escapeXml(postUrl)}</loc>
+        <lastmod>${postLastMod}</lastmod>
         <changefreq>${changefreq}</changefreq>
         <priority>${priority}</priority>
       </url>`;
@@ -88,7 +109,8 @@ export async function GET(
   return new NextResponse(xml, {
     headers: {
       'Content-Type': 'application/xml',
-      'Cache-Control': 'no-store, max-age=0',
+      // Cache-Control: Sitemap nên cache lâu hơn chút (ví dụ 1 tiếng) thay vì no-store
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=600',
     },
   });
 }

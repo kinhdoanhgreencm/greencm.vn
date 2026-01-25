@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
@@ -79,14 +80,17 @@ const CarSales: React.FC = () => {
       
       {/* 1. Hero Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png")',
-          }}
-          role="img"
-          aria-label="GCM & VinFast - Kỷ Nguyên Di Chuyển Xanh Toàn Diện"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
+            alt="GCM & VinFast - Kỷ Nguyên Di Chuyển Xanh Toàn Diện - Showroom xe điện VinFast tại Cần Thơ"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80"></div>
         </div>
 
@@ -137,13 +141,14 @@ const CarSales: React.FC = () => {
               transition={{ duration: 0.4, delay: index * 0.1 }}
               whileHover={{ y: -5, scale: 1.02 }}
             >
-              <div className="relative h-64 overflow-hidden bg-gray-100">
-                <img 
-                  src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                  alt={`${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice}`} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+                <Image
+                  src={imageErrors[car.id] ? getFallbackImage() : car.image}
+                  alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice} tại Green CM`}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   onError={() => handleImageError(car.id)}
-                  loading="lazy"
                 />
                 <div className="absolute top-4 left-4 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
                   {car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :

@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { Target, Users, Shield, Zap, Wrench, FileCheck, ShoppingBag, Repeat } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -6,15 +7,17 @@ const About: React.FC = () => {
     <div>
       {/* 1. Hero Banner Section - Similar to Homepage */}
       <section className="relative h-screen w-full overflow-hidden pt-20">
-        {/* Background Image/Overlay */}
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url("https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png")',
-          }}
-          role="img"
-          aria-label="GCM All About Cars - Hệ sinh thái ô tô điện toàn diện, tiên phong kiến tạo tương lai di chuyển xanh"
-        >
+        {/* Background Image - Optimized with Next.js Image and priority */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png"
+            alt="GCM All About Cars - Hệ sinh thái ô tô điện toàn diện, tiên phong kiến tạo tương lai di chuyển xanh"
+            fill
+            priority={true}
+            quality={90}
+            className="object-cover object-center"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
         </div>
 
