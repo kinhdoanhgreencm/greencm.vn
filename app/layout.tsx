@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   },
   description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
   alternates: {
-    canonical: '/',
+    canonical: './',
   },
   // --- CẬP NHẬT: Đã thêm ${baseUrl} vào trước mỗi ảnh ---
   icons: {
