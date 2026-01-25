@@ -224,13 +224,14 @@ const CarSales: React.FC = () => {
                         }
                       }}
                     >
-                       <div className="w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
-                          <img 
+                       <div className="relative w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
+                          <Image 
                             src={imageErrors[car.id] ? getFallbackImage() : car.image} 
                             alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`} 
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
                             onError={() => handleImageError(car.id)}
-                            loading="lazy"
                           />
                        </div>
                        <div className="flex-1 flex flex-col justify-center">
@@ -462,12 +463,16 @@ const CarSales: React.FC = () => {
 
                <div className="p-8 space-y-4">
                   <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mb-4">
-                     <img 
-                       src={imageErrors[selectedCarForTestDrive.id] ? getFallbackImage() : selectedCarForTestDrive.image} 
-                       alt={`${selectedCarForTestDrive.name} - Đăng ký lái thử xe điện`} 
-                       className="w-20 h-14 object-cover rounded-lg"
-                       onError={() => handleImageError(selectedCarForTestDrive.id)}
-                     />
+                     <div className="relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0">
+                       <Image 
+                         src={imageErrors[selectedCarForTestDrive.id] ? getFallbackImage() : selectedCarForTestDrive.image} 
+                         alt={`${selectedCarForTestDrive.name} - Đăng ký lái thử xe điện`} 
+                         fill
+                         className="object-cover"
+                         sizes="80px"
+                         onError={() => handleImageError(selectedCarForTestDrive.id)}
+                       />
+                     </div>
                      <div>
                         <p className="font-bold text-sm text-gray-800">Xe lái thử</p>
                         <p className="text-xs text-gray-500">Chúng tôi sẽ mang xe đến tận nơi</p>

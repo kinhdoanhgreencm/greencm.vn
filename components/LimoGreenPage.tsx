@@ -184,13 +184,14 @@ const LimoGreenPage: React.FC = () => {
         <div className="container mx-auto px-4">
            <div className="bg-white rounded-2xl p-8 shadow-sm flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
               <div className="relative">
-                 <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-gcm-green shadow-lg">
-                    <img 
+                 <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-gcm-green shadow-lg">
+                    <Image 
                       src={imageErrors['consultant'] ? getFallbackImage() : "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=800&fit=crop&q=80"} 
                       alt="Tư vấn viên GCM Auto - Chuyên gia tư vấn xe điện Limo Green" 
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="128px"
                       onError={() => handleImageError('consultant')}
-                      loading="lazy"
                     />
                  </div>
                  <div className="absolute bottom-0 right-0 bg-gcm-green text-black text-xs font-bold px-2 py-1 rounded-full border border-white">Online</div>
@@ -304,22 +305,24 @@ const LimoGreenPage: React.FC = () => {
                
                <div className="lg:w-1/2 flex flex-col gap-6">
                    <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
-                      <img 
+                      <Image 
                         src={imageErrors['gallery1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Lai%20Limo%20Green.png"} 
                         alt="Khoang lái Limo Green - Bảng điều khiển hiện đại, công nghệ cao"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         onError={() => handleImageError('gallery1')}
-                        loading="lazy"
                       />
                       <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-bold">Khoang lái hiện đại</div>
                    </div>
                    <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
-                      <img 
+                      <Image 
                         src={imageErrors['gallery2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Hanh%20Khach%20Limo%20Green.png"} 
                         alt="Khoang hành khách Limo Green - Không gian rộng rãi 7 chỗ ngồi tiện nghi"
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         onError={() => handleImageError('gallery2')}
-                        loading="lazy"
                       />
                       <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-bold">Khoang hành khách rộng rãi</div>
                    </div>
@@ -385,15 +388,23 @@ const LimoGreenPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-center mb-10">Hình Ảnh Thực Tế</h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                {galleryImages.map((image, index) => (
-                 <img 
+                 <div 
                    key={image.id}
-                   src={imageErrors[image.id] ? getFallbackImage() : image.src} 
-                   alt={image.alt}
-                   className="rounded-xl h-48 w-full object-cover hover:opacity-90 transition-opacity cursor-pointer"
-                   onError={() => handleImageError(image.id)}
+                   className="relative rounded-xl h-48 w-full overflow-hidden cursor-pointer"
                    onClick={() => openLightbox(index)}
-                   loading="lazy"
-                 />
+                   role="button"
+                   tabIndex={0}
+                   onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); } }}
+                 >
+                   <Image 
+                     src={imageErrors[image.id] ? getFallbackImage() : image.src} 
+                     alt={image.alt}
+                     fill
+                     className="object-cover hover:opacity-90 transition-opacity"
+                     sizes="(max-width: 768px) 50vw, 25vw"
+                     onError={() => handleImageError(image.id)}
+                   />
+                 </div>
                ))}
             </div>
          </div>
@@ -440,13 +451,17 @@ const LimoGreenPage: React.FC = () => {
           )}
 
           {/* Image Container */}
-          <div className="relative z-10 w-full h-full flex items-center justify-center max-w-7xl mx-auto" onClick={(e) => e.stopPropagation()}>
-            <img
-              src={imageErrors[galleryImages[lightboxIndex].id] ? getFallbackImage() : galleryImages[lightboxIndex].src}
-              alt={galleryImages[lightboxIndex].alt}
-              className="max-w-full max-h-full object-contain rounded-lg"
-              onError={() => handleImageError(galleryImages[lightboxIndex].id)}
-            />
+          <div className="relative z-10 w-full h-full flex items-center justify-center max-w-7xl mx-auto min-h-[50vh]" onClick={(e) => e.stopPropagation()}>
+            <div className="relative w-full h-full min-h-[300px] max-h-[80vh]">
+              <Image
+                src={imageErrors[galleryImages[lightboxIndex].id] ? getFallbackImage() : galleryImages[lightboxIndex].src}
+                alt={galleryImages[lightboxIndex].alt}
+                fill
+                className="object-contain rounded-lg"
+                sizes="100vw"
+                onError={() => handleImageError(galleryImages[lightboxIndex].id)}
+              />
+            </div>
           </div>
 
           {/* Image Counter */}

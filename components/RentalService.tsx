@@ -337,12 +337,16 @@ const RentalService: React.FC = () => {
               {/* Body */}
               <div className="p-6 overflow-y-auto">
                  <div className="flex gap-4 mb-6 bg-gray-50 p-4 rounded-xl border border-gray-100">
-                    <img 
-                      src={selectedBookingCar && imageErrors[selectedBookingCar.id] ? getFallbackImage() : selectedBookingCar?.image} 
-                      alt={`${selectedBookingCar?.name || 'Xe điện'} - Đặt thuê xe tại GCM`} 
-                      className="w-24 h-16 object-cover rounded-lg"
-                      onError={() => selectedBookingCar && handleImageError(selectedBookingCar.id)}
-                    />
+                    <div className="relative w-24 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                      <Image 
+                        src={selectedBookingCar && imageErrors[selectedBookingCar.id] ? getFallbackImage() : selectedBookingCar?.image ?? getFallbackImage()} 
+                        alt={`${selectedBookingCar?.name || 'Xe điện'} - Đặt thuê xe tại GCM`} 
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                        onError={() => selectedBookingCar && handleImageError(selectedBookingCar.id)}
+                      />
+                    </div>
                     <div>
                        <p className="font-bold text-gray-800">{selectedBookingCar.name}</p>
                        <p className="text-red-600 font-bold text-sm">{selectedBookingCar.priceDay}</p>

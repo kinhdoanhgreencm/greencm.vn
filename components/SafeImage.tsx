@@ -1,20 +1,27 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
-interface SafeImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
+interface SafeImageProps {
+  src?: string | Blob | null;
+  alt?: string;
   fallbackSrc?: string;
+  className?: string;
+  sizes?: string;
+  priority?: boolean;
 }
 
-const SafeImage: React.FC<SafeImageProps> = ({ 
-  src, 
-  alt, 
+const SafeImage: React.FC<SafeImageProps> = ({
+  src,
+  alt = 'Image',
   fallbackSrc = 'https://via.placeholder.com/800x600/0B0F19/00D26A?text=GCM',
-  className,
-  ...props 
+  className = '',
+  sizes = '100vw',
+  priority = false,
 }) => {
   const [imgSrc, setImgSrc] = useState<string | undefined>(
-    typeof src === 'string' ? src : src instanceof Blob ? URL.createObjectURL(src) : undefined
+    typeof src === 'string' ? src : undefined
   );
   const [hasError, setHasError] = useState(false);
 
@@ -22,30 +29,34 @@ const SafeImage: React.FC<SafeImageProps> = ({
     if (typeof src === 'string') {
       setImgSrc(src);
       setHasError(false);
-    } else if (src instanceof Blob) {
-      setImgSrc(URL.createObjectURL(src));
-      setHasError(false);
+    } else {
+      setImgSrc(undefined);
     }
   }, [src]);
 
   const handleError = () => {
-    if (!hasError && imgSrc !== fallbackSrc) {
+    if (!hasError) {
       setHasError(true);
       setImgSrc(fallbackSrc);
     }
   };
 
+  const currentSrc = hasError ? fallbackSrc : (imgSrc || fallbackSrc);
+  if (!currentSrc) return null;
+
   return (
-    <img
-      src={imgSrc || fallbackSrc}
-      alt={alt || 'Image'}
-      className={className}
-      onError={handleError}
-      loading="lazy"
-      {...props}
-    />
+    <div className={`relative overflow-hidden ${className}`.trim()}>
+      <Image
+        src={currentSrc}
+        alt={alt}
+        fill
+        sizes={sizes}
+        priority={priority}
+        className="object-cover"
+        onError={handleError}
+      />
+    </div>
   );
 };
 
 export default SafeImage;
-

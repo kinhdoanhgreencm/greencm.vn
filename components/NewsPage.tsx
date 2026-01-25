@@ -88,12 +88,13 @@ const NewsPage: React.FC = () => {
 
        {/* Widget: Promo Banner */}
        <div className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer">
-          <img 
+          <Image 
             src={imageErrors['ads'] ? getFallbackImage() : "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&h=1000&fit=crop&q=80"} 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110" 
             alt="Ưu đãi dán phim 3M cách nhiệt cho xe điện - Giảm 20% cho xe mới tại GCM"
+            sizes="(max-width: 768px) 100vw, 400px"
             onError={() => handleImageError('ads')}
-            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
              <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded w-fit mb-2">HOT DEAL</span>

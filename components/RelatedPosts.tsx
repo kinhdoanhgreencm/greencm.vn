@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { BlogPost } from '../types';
 import { Calendar, Eye, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
@@ -120,12 +121,13 @@ const RelatedPosts: React.FC<RelatedPostsProps> = ({
             href={getPostUrl(post)}
             className="group flex flex-col md:flex-row gap-4 p-4 rounded-xl border border-gray-100 hover:border-gcm-green hover:shadow-lg transition-all"
           >
-            <div className="w-full md:w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
-              <img
+            <div className="relative w-full md:w-32 h-32 rounded-lg overflow-hidden flex-shrink-0">
+              <Image
                 src={post.image}
                 alt={post.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
+                fill
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
+                sizes="(max-width: 768px) 100vw, 128px"
               />
             </div>
             

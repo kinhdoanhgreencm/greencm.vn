@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SERVICES } from '../constants';
 import { ServiceSchema } from './SchemaMarkup';
 
@@ -61,12 +62,13 @@ const Services: React.FC = () => {
                 {/* Image Container */}
                 <div className="h-1/2 w-full overflow-hidden relative">
                    <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors z-10"></div>
-                  <img 
+                  <Image 
                     src={imageErrors[service.id] ? getFallbackImage() : service.image} 
                     alt={`${service.title} - Dịch vụ ${service.title.toLowerCase()} chuyên nghiệp tại GCM`} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     onError={() => handleImageError(service.id)}
-                    loading="lazy"
                   />
                   {service.isComingSoon && (
                     <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm">

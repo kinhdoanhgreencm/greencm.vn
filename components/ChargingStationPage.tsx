@@ -212,10 +212,12 @@ const ChargingStationPage: React.FC = () => {
             {chargingPoles.map((pole) => (
               <div key={pole.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all border border-gray-100 overflow-hidden group">
                 <div className="relative h-48 bg-gray-100 overflow-hidden">
-                  <img
+                  <Image
                     src={imageErrors[pole.id] ? getFallbackImage() : pole.image}
                     alt={pole.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     onError={() => handleImageError(pole.id)}
                   />
                   <div className="absolute top-4 right-4 flex flex-col items-end gap-2">

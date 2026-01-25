@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import AuthModal from '../../components/AuthModal';
@@ -120,8 +121,8 @@ export default function LienHeClient() {
 
         {/* Hero Section */}
         <div className="relative bg-gradient-to-r from-gcm-green to-emerald-600 text-white py-16 md:py-24">
-          <div className="absolute inset-0 opacity-10">
-            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1200&h=600&fit=crop&q=80" alt="background" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 opacity-10 relative">
+            <Image src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1200&h=600&fit=crop&q=80" alt="background" fill className="object-cover" sizes="100vw" />
           </div>
           <div className="container mx-auto px-4 relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">Liên hệ với chúng tôi</h1>

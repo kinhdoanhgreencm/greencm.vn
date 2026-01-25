@@ -366,7 +366,7 @@ const AccessoriesPage: React.FC = () => {
                   <div className="absolute inset-0 bg-gcm-green/20 rounded-3xl transform rotate-3 scale-95"></div>
                   <SafeImage 
                     src="https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&h=800&fit=crop&q=80" 
-                    className="relative rounded-3xl shadow-2xl w-full" 
+                    className="relative rounded-3xl shadow-2xl w-full aspect-[4/3]" 
                     alt="Gói độ xe điện chuyên nghiệp - Nâng cấp cốp điện, cửa hít tự động cho xe điện"
                     fallbackSrc={getFallbackImage()}
                   />

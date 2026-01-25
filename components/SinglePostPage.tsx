@@ -78,12 +78,13 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
 
         {/* Widget: Promo Banner */}
         <div className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer">
-          <img 
+          <Image 
             src={imageErrors['ads'] ? getFallbackImage() : "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&h=1000&fit=crop&q=80"} 
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+            fill
+            className="object-cover transition-transform duration-700 group-hover:scale-110" 
             alt="Ưu đãi dán phim 3M cách nhiệt cho xe điện - Giảm 20% cho xe mới tại GCM"
+            sizes="(max-width: 768px) 100vw, 400px"
             onError={() => handleImageError('ads')}
-            loading="lazy"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
             <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded w-fit mb-2">HOT DEAL</span>
@@ -159,13 +160,16 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
                     <h4 className="font-bold text-lg mb-2">Bạn đang sở hữu xe VinFast?</h4>
                     <p className="text-sm text-gray-600 mb-4">Nâng cấp trải nghiệm lái xe với gói phụ kiện chính hãng tại GCM.</p>
                     <div className="flex items-center gap-4">
-                      <img 
-                        src={imageErrors['product'] ? getFallbackImage() : "https://images.unsplash.com/photo-1593121925328-369cc8459c08?w=800&h=800&fit=crop&q=80"} 
-                        className="w-16 h-16 rounded-lg object-cover" 
-                        alt="Android Box Zestech DX265 - Phụ kiện nâng cấp xe điện VinFast"
-                        onError={() => handleImageError('product')}
-                        loading="lazy"
-                      />
+                      <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+                        <Image 
+                          src={imageErrors['product'] ? getFallbackImage() : "https://images.unsplash.com/photo-1593121925328-369cc8459c08?w=800&h=800&fit=crop&q=80"} 
+                          fill
+                          className="object-cover" 
+                          alt="Android Box Zestech DX265 - Phụ kiện nâng cấp xe điện VinFast"
+                          sizes="64px"
+                          onError={() => handleImageError('product')}
+                        />
+                      </div>
                       <div>
                         <p className="font-bold">Android Box Zestech DX265</p>
                         <p className="text-red-600 font-bold text-sm">6.500.000đ</p>

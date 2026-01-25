@@ -16,11 +16,18 @@ const nextConfig = {
       // --- CẤU HÌNH SUPABASE ---
       {
         protocol: 'https',
-        // Thay 'your-project-ref' bằng ID dự án Supabase của bạn (ví dụ: abcdxyz.supabase.co)
-        // Nếu không nhớ ID, bạn có thể dùng wildcard '**' (nhưng không khuyến khích vì bảo mật)
-        // Tốt nhất là điền đúng domain: '********.supabase.co'
-        hostname: '**zeiyxfdkehwgfbpvgenb.supabase.co', 
+        hostname: 'zeiyxfdkehwgfbpvgenb.supabase.co',
         pathname: '/storage/v1/object/public/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'via.placeholder.com',
+        pathname: '/**',
       },
     ],
     // Tự động chuyển đổi định dạng ảnh sang WebP/AVIF
