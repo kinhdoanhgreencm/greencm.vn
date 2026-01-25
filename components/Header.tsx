@@ -158,6 +158,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
           <button 
             className="lg:hidden text-white p-2 z-50 relative"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Đóng menu" : "Mở menu"}
           >
             {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
