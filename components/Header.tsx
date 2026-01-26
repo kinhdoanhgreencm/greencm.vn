@@ -109,6 +109,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
             <img 
               src="/logo.png" 
               alt="GCM All About Cars" 
+              width={192}
+              height={48}
               className={`w-auto object-contain transition-all duration-300 ease-in-out ${
                 isScrolled || pathname !== '/' ? 'h-10' : 'h-12'
               }`}

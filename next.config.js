@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Tối ưu hóa CSS để giảm render-blocking và cải thiện LCP/FCP
   experimental: {
-    optimizeCss: true, // Bật tính năng tối ưu CSS
+    optimizeCss: true, // Bật tính năng tối ưu CSS - tự động minify và optimize
   },
+  
+  // Compress output để giảm kích thước file
+  compress: true,
+  
+  // Tối ưu hóa production build
+  swcMinify: true,
   images: {
     // Cho phép Next.js tối ưu ảnh từ các domain này
     remotePatterns: [

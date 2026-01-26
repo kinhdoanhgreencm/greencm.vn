@@ -4,18 +4,21 @@ import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
 
 // Tối ưu hóa fonts với next/font - tự động tải về host và inline CSS
+// Giảm số lượng font weights để tối ưu kích thước CSS và cải thiện LCP
 const inter = Inter({
   subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'], // Bỏ 300 (light) - ít sử dụng
   variable: '--font-inter',
   display: 'swap',
+  preload: true, // Preload font để tải nhanh hơn
 });
 
 const notoSans = Noto_Sans({
   subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700', '800'], // Bỏ 300 (light) - ít sử dụng
   variable: '--font-noto-sans',
   display: 'swap',
+  preload: true, // Preload font để tải nhanh hơn
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';

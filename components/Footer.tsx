@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
             {/* Column 1: Company Info */}
             <div className="space-y-6">
               <div className="flex items-center gap-2 mb-4">
-                 <img src="/logo.png" alt="GCM All About Cars" className="h-10 w-auto" />
+                 <img src="/logo.png" alt="GCM All About Cars" width={160} height={40} className="h-10 w-auto" />
               </div>
               
               <h3 className="font-bold text-sm uppercase text-gray-200">Công ty cổ phần Green CM</h3>
