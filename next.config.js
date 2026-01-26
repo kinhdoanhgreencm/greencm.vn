@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    optimizeCss: true, // Bật tính năng tối ưu CSS
+  },
   images: {
     // Cho phép Next.js tối ưu ảnh từ các domain này
     remotePatterns: [
