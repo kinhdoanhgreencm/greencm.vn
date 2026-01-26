@@ -1,6 +1,22 @@
 import type { Metadata, Viewport } from 'next'; // Thêm Viewport
+import { Inter, Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
+
+// Tối ưu hóa fonts với next/font - tự động tải về host và inline CSS
+const inter = Inter({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const notoSans = Noto_Sans({
+  subsets: ['latin', 'vietnamese'],
+  weight: ['300', '400', '500', '600', '700', '800'],
+  variable: '--font-noto-sans',
+  display: 'swap',
+});
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
@@ -105,7 +121,7 @@ export default function RootLayout({
   return (
     <html lang="vi" suppressHydrationWarning>
       {/* Không cần thẻ head thủ công cho theme-color nữa */}
-      <body className="font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black">
+      <body className={`${inter.variable} ${notoSans.variable} font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black`}>
         {/* Schema Markup */}
         <OrganizationSchema 
           aggregateRating={{

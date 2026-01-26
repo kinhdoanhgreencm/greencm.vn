@@ -5,11 +5,13 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
+    // Đảm bảo bao phủ tất cả các file có thể chứa Tailwind classes
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'Noto Sans', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['var(--font-inter)', 'var(--font-noto-sans)', 'system-ui', '-apple-system', 'sans-serif'],
       },
       colors: {
         gcm: {
