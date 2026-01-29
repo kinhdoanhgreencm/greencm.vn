@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Battery, MapPin, Zap, Clock, CheckCircle, Phone, Mail, Navigation, Plug, Shield, MessageCircle, User, Building2, Layout } from 'lucide-react';
+import { Battery, MapPin, CheckCircle, Phone, Mail, Plug, MessageCircle, User, Building2, Layout } from 'lucide-react';
 import Link from 'next/link';
-import { ServiceSchema } from './SchemaMarkup';
+
+// QUAN TRỌNG: Đã xóa import ServiceSchema để tránh lỗi "Duplicate Structured Data"
 
 const ChargingStationPage: React.FC = () => {
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
@@ -14,7 +15,7 @@ const ChargingStationPage: React.FC = () => {
   };
 
   const getFallbackImage = () => {
-    return 'https://via.placeholder.com/600x400/0B0F19/00D26A?text=Trụ+Sạc+VinFast';
+    return 'https://via.placeholder.com/600x400/0B0F19/00D26A?text=Tram+Sac+VinFast';
   };
 
   const chargingPoles = [
@@ -76,16 +77,8 @@ const ChargingStationPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Service Schema */}
-      <ServiceSchema
-        name="Trạm sạc VinFast"
-        description="Hệ thống trạm sạc VinFast phủ khắp toàn quốc. Hỗ trợ tìm trạm sạc, hướng dẫn sử dụng và tư vấn lắp đặt bộ sạc tại nhà."
-        serviceType="Charging Station"
-      />
-
       {/* 1. Hero Banner Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        {/* Background Image - Optimized with Next.js Image and priority */}
         <div className="absolute inset-0 z-0">
           <Image
             src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png"
@@ -112,14 +105,13 @@ const ChargingStationPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Contact Box */}
           <div className="max-w-2xl mx-auto w-full">
             <div className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-gcm-green/20 rounded-full mb-4">
                   <User className="text-gcm-green" size={32} />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Chuyên Viên Tư Vấn</h3>
+                <p className="text-xl font-bold text-gray-900 mb-2">Chuyên Viên Tư Vấn</p>
                 <p className="text-gcm-green font-semibold text-base mb-2">Khu vực Miền Nam</p>
                 <p className="text-gray-600 text-sm">Đội ngũ chuyên gia sẵn sàng hỗ trợ 24/7</p>
               </div>
@@ -146,7 +138,6 @@ const ChargingStationPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
         <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
           <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2">
             <div className="w-1 h-2 bg-white rounded-full"></div>
@@ -202,7 +193,7 @@ const ChargingStationPage: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Các Loại Trụ Sạc</h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Báo Giá Các Loại Trụ Sạc VinFast (Mới Nhất)</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               Đa dạng loại trụ sạc phù hợp với mọi nhu cầu từ sạc tại nhà đến trạm sạc công cộng
             </p>
@@ -265,6 +256,7 @@ const ChargingStationPage: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Box 1 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center">
@@ -301,6 +293,7 @@ const ChargingStationPage: React.FC = () => {
               </Link>
             </div>
 
+            {/* Box 2 */}
             <div className="bg-white p-8 rounded-2xl shadow-lg">
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center">
@@ -373,8 +366,8 @@ const ChargingStationPage: React.FC = () => {
                 desc: 'Nghiệm thu ON trạm' 
               },
             ].map((item, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gcm-green text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div key={index} className="text-center group">
+                <div className="w-16 h-16 bg-gcm-green text-black rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4 group-hover:scale-110 transition-transform">
                   {item.step}
                 </div>
                 <h3 className="text-xl font-bold text-gcm-dark mb-2">{item.title}</h3>

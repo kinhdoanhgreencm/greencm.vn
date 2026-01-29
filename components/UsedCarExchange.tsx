@@ -2,10 +2,14 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search, Filter, Battery, Gauge, Calendar, MessageCircle, MapPin, CheckCircle, Car, Zap, Upload } from 'lucide-react';
+import { Search, Battery, Gauge, Calendar, MessageCircle, MapPin, Car, Zap } from 'lucide-react';
 import { USED_CARS } from '../constants';
-import { ProductSchema } from './SchemaMarkup';
-import CustomerForm, { FormField } from './CustomerForm';
+import CustomerForm from './CustomerForm';
+
+// LƯU Ý QUAN TRỌNG: 
+// Đã xóa vòng lặp ProductSchema ở đây. 
+// Lý do: Google không khuyến khích khai báo Product chi tiết trên trang danh sách (Listing Page).
+// ProductSchema chỉ nên đặt ở trang chi tiết từng xe (/xe-sieu-luot/chi-tiet/[id]).
 
 const UsedCarExchange: React.FC = () => {
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
@@ -20,35 +24,13 @@ const UsedCarExchange: React.FC = () => {
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Product Schema for Used Cars */}
-      {USED_CARS.map((car) => {
-        const priceValue = parseFloat(car.price.replace(/[^\d.]/g, ''));
-        return (
-          <ProductSchema
-            key={car.id}
-            name={car.name}
-            description={`${car.name} ${car.year} - Xe điện đã qua sử dụng - ${car.odo} - SOH ${car.soh}% - Giá ${car.price}`}
-            image={car.image}
-            brand="VinFast"
-            sku={car.id}
-            offers={{
-              price: priceValue,
-              priceCurrency: 'VND',
-              availability: 'https://schema.org/InStock',
-            }}
-            category="Used Electric Vehicle"
-            fuelType="Electric"
-          />
-        );
-      })}
       
       {/* 1. Hero Banner Section - Full Screen */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        {/* Background Image - Optimized with Next.js Image and priority */}
         <div className="absolute inset-0 z-0">
           <Image
             src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80"
-            alt="Sàn giao dịch xe điện cũ uy tín tại GCM - Kiểm định pin minh bạch, cam kết chất lượng - Thẩm định nghiêm ngặt 160 điểm"
+            alt="Sàn giao dịch xe điện cũ uy tín tại GCM - Kiểm định pin minh bạch"
             fill
             priority={true}
             quality={90}
@@ -74,7 +56,7 @@ const UsedCarExchange: React.FC = () => {
             </p>
           </div>
 
-          {/* Smart Filter Box - Inside banner at bottom */}
+          {/* Smart Filter Box */}
           <div className="max-w-5xl mx-auto w-full">
             <div className="bg-white p-4 md:p-6 rounded-2xl shadow-2xl">
              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
@@ -157,7 +139,9 @@ const UsedCarExchange: React.FC = () => {
       <section className="py-16 container mx-auto px-4 mt-8">
         <div className="flex justify-between items-end mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gcm-dark">Xe Đang Có Tại GCM</h2>
+            <h2 className="text-3xl font-bold text-gcm-dark">
+              Báo Giá Xe VinFast Cũ (Cập Nhật Hôm Nay)
+            </h2>
             <p className="text-gray-500 mt-2">Xe được kiểm định 160 điểm, cam kết không đâm đụng, pin tốt.</p>
           </div>
           <a href="#" className="hidden md:block text-gcm-green font-bold hover:underline">Xem tất cả xe &rarr;</a>
@@ -170,7 +154,7 @@ const UsedCarExchange: React.FC = () => {
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <Image
                   src={imageErrors[car.id] ? getFallbackImage() : car.image}
-                  alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện cũ ${car.year} - SOH ${car.soh}% - ${car.odo} - Giá ${car.price} tại Green CM`}
+                  alt={`Hình ảnh xe ${car.name} - ${car.year} tại Green CM`}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -192,7 +176,6 @@ const UsedCarExchange: React.FC = () => {
               <div className="p-4">
                 <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-1 group-hover:text-gcm-green transition-colors">{car.name}</h3>
                 
-                {/* Specs Grid */}
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
                     <Gauge size={16} className="text-gray-400 mb-1" />
@@ -208,13 +191,11 @@ const UsedCarExchange: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Price */}
                 <div className="mb-4">
                   <div className="text-xl font-extrabold text-red-600">{car.price}</div>
                   {car.oldPrice && <div className="text-sm text-gray-400 line-through font-medium">{car.oldPrice}</div>}
                 </div>
 
-                {/* Actions */}
                 <div className="flex gap-2">
                   <button className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold py-2 rounded-lg transition-colors">
                     Xem chi tiết
@@ -229,7 +210,7 @@ const UsedCarExchange: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Consignment Banner (Lead Magnet 1) */}
+      {/* 3. Consignment Banner */}
       <section className="bg-black text-white py-16 my-8">
          <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-4">Bạn muốn bán lại xe điện? <br className="md:hidden"/> GCM định giá siêu tốc trong 30 phút!</h2>
@@ -243,7 +224,7 @@ const UsedCarExchange: React.FC = () => {
          </div>
       </section>
 
-      {/* 4. Inspection Process (Trust Building) */}
+      {/* 4. Inspection Process */}
       <section className="py-16 container mx-auto px-4">
          <div className="text-center mb-12">
             <h2 className="text-2xl font-bold text-gcm-dark uppercase tracking-wide">Quy Trình Kiểm Định Xe Điện 3 Bước Tại GCM</h2>

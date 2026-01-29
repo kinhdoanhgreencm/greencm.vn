@@ -1,27 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import Header from '../../components/Header';
+import Header from '../../components/Header'; // Đã thêm lại
 import ChargingStationPage from '../../components/ChargingStationPage';
-import Footer from '../../components/Footer';
+import Footer from '../../components/Footer'; // Đã thêm lại
 import AuthModal from '../../components/AuthModal';
-import { BreadcrumbSchema } from '../../components/SchemaMarkup';
-import { getPageBreadcrumbs } from '../../lib/breadcrumbUtils';
 
 export default function TramSacVinFastClient() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const breadcrumbItems = getPageBreadcrumbs('tram-sac-vinfast', 'Trạm sạc VinFast');
+
+  // LƯU Ý: 
+  // - BreadcrumbSchema và Metadata vẫn nằm ở file page.tsx (Server) để Google đọc nhanh nhất.
+  // - Header/Footer được thêm lại vào đây để đảm bảo giao diện không bị trống.
 
   return (
-    <div>
-      <BreadcrumbSchema items={breadcrumbItems} />
+    <div className="flex flex-col min-h-screen">
+      {/* Header nhận sự kiện mở Modal Login */}
       <Header onLoginClick={() => setIsAuthOpen(true)} />
-      <main>
+
+      {/* Main content tự giãn nở để đẩy Footer xuống đáy */}
+      <main className="flex-grow">
         <ChargingStationPage />
       </main>
+
       <Footer />
+
+      {/* Modal Login */}
       {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}
     </div>
   );
 }
-
