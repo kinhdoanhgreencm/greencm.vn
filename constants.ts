@@ -458,7 +458,7 @@ export const BLOG_POSTS: BlogPost[] = [
     id: 'vinfast-limo-green-uu-dai-4percent',
     title: 'VinFast Limo Green: Ưu đãi "Mãnh liệt tinh thần Việt" giảm 4% — GCM giao ngay',
     excerpt: 'Nhận VinFast Limo Green với ưu đãi "Mãnh liệt tinh thần Việt" giảm 4% đến 31/12. GreenCM (GCM) có xe sẵn & hỗ trợ hoàn tất hồ sơ, giao ngay.',
-    image: 'https://vinfast.giaxeoto24h.vn/wp-content/uploads/limo-green-3.jpg',
+    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Limo%20Green%20Showroom%202.png',
     category: 'promo',
     categoryLabel: 'Ưu Đãi & Khuyến Mãi',
     date: '20/12/2025',

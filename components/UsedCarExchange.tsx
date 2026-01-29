@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Search, Battery, Gauge, Calendar, MessageCircle, MapPin, Car, Zap } from 'lucide-react';
-import { USED_CARS } from '../constants';
+import { Search, Palette, Gauge, Calendar, MessageCircle, MapPin, Car, Zap } from 'lucide-react';
+import { USED_CARS, NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
 import CustomerForm from './CustomerForm';
 
 // LƯU Ý QUAN TRỌNG: 
@@ -44,10 +44,10 @@ const UsedCarExchange: React.FC = () => {
         <div className="relative z-10 container mx-auto px-4 h-full flex flex-col justify-center pb-8">
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-              Sàn Giao Dịch Xe Ô Tô Điện Cũ
+              Sàn Giao Dịch Xe Ô Tô VinFast Cũ
             </h1>
             <p className="text-2xl md:text-4xl font-semibold text-white mb-6">
-              <span className="text-gcm-green">Kiểm Định Pin Minh Bạch</span>
+              <span className="text-gcm-green">Kiểm Định Minh Bạch</span>
             </p>
             <p className="text-gray-200 text-lg md:text-xl max-w-3xl mx-auto mb-6 font-light">
               Nền tảng kết nối người mua và người bán minh bạch
@@ -63,29 +63,28 @@ const UsedCarExchange: React.FC = () => {
                {/* Basic Filters */}
                <div className="relative">
                  <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Hãng xe</label>
-                 <select className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green">
-                   <option>Tất cả hãng</option>
-                   <option>VinFast</option>
-                   <option>Mercedes-EQ</option>
-                   <option>Hyundai Ioniq</option>
-                 </select>
+<select className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green" defaultValue="VinFast">
+                  <option value="VinFast">VinFast</option>
+                </select>
                </div>
                <div className="relative">
                  <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Dòng xe</label>
                  <select className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green">
-                   <option>Tất cả dòng</option>
-                   <option>SUV</option>
-                   <option>Sedan</option>
-                   <option>Hatchback</option>
+                   <option value="">Tất cả dòng</option>
+                   {[...NEW_CARS_FAMILY, ...NEW_CARS_SERVICE].map((car) => (
+                     <option key={car.id} value={car.id}>{car.name}</option>
+                   ))}
+                   <option value="lux-a-2">VinFast Lux A 2.0</option>
+                   <option value="lux-sa-2">VinFast Lux SA 2.0</option>
                  </select>
                </div>
                <div className="relative">
                  <label className="block text-xs font-bold text-gray-500 mb-1 text-left">Năm sản xuất</label>
                  <select className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green">
                    <option>Tất cả</option>
-                   <option>2023</option>
-                   <option>2022</option>
-                   <option>2021</option>
+                   {[2026, 2025, 2024, 2023, 2022, 2021].map((y) => (
+                     <option key={y} value={y}>{y}</option>
+                   ))}
                  </select>
                </div>
                <div className="relative">
@@ -101,28 +100,12 @@ const UsedCarExchange: React.FC = () => {
 
              {/* Advanced EV Filters */}
              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6 border-t border-dashed border-gray-200 pt-4">
-                <div className="flex items-center gap-2">
-                   <Battery className="text-gcm-green" size={16} />
-                   <select className="w-full bg-transparent text-sm font-medium outline-none">
-                     <option>SOH (Pin) &gt; 90%</option>
-                     <option>SOH &gt; 95%</option>
-                     <option>SOH &gt; 98%</option>
-                   </select>
-                </div>
                  <div className="flex items-center gap-2">
                    <Gauge className="text-gcm-green" size={16} />
                    <select className="w-full bg-transparent text-sm font-medium outline-none">
                      <option>ODO &lt; 10,000 km</option>
                      <option>ODO &lt; 30,000 km</option>
-                   </select>
-                </div>
-                 <div className="flex items-center gap-2">
-                   <div className="w-4 h-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-500"></div>
-                   <select className="w-full bg-transparent text-sm font-medium outline-none">
-                     <option>Màu sắc: Tất cả</option>
-                     <option>Trắng</option>
-                     <option>Đen</option>
-                     <option>Xanh</option>
+                     <option>ODO &lt; 50,000 km</option>
                    </select>
                 </div>
              </div>
@@ -142,7 +125,13 @@ const UsedCarExchange: React.FC = () => {
             <h2 className="text-3xl font-bold text-gcm-dark">
               Báo Giá Xe VinFast Cũ (Cập Nhật Hôm Nay)
             </h2>
-            <p className="text-gray-500 mt-2">Xe được kiểm định 160 điểm, cam kết không đâm đụng, pin tốt.</p>
+            <p className="text-gray-500 mt-2 font-semibold">CAM KẾT</p>
+          <ul className="text-gray-500 mt-1 space-y-1 text-sm list-none">
+            <li>👉 Không đâm đụng ảnh hưởng đến khung gầm</li>
+            <li>👉 Không ngập nước, Thủy kích</li>
+            <li>👉 Động cơ hộp số nguyên bản</li>
+            <li>👉 Bao check test toàn quốc</li>
+          </ul>
           </div>
           <a href="#" className="hidden md:block text-gcm-green font-bold hover:underline">Xem tất cả xe &rarr;</a>
         </div>
@@ -182,8 +171,8 @@ const UsedCarExchange: React.FC = () => {
                     <span className="text-xs font-semibold text-gray-700">{car.odo}</span>
                   </div>
                   <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
-                    <Battery size={16} className="text-gcm-green mb-1" />
-                    <span className="text-xs font-bold text-gcm-green">{car.soh}% SOH</span>
+                    <Palette size={16} className="text-gray-400 mb-1" />
+                    <span className="text-xs font-semibold text-gray-700">{car.color}</span>
                   </div>
                    <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
                     <Calendar size={16} className="text-gray-400 mb-1" />
@@ -303,10 +292,9 @@ const UsedCarExchange: React.FC = () => {
                            gridCols: 2,
                            options: [
                               { value: '', label: 'Chọn dòng xe' },
-                              { value: 'vf5', label: 'VinFast VF5' },
-                              { value: 'vf6', label: 'VinFast VF6' },
-                              { value: 'vf8', label: 'VinFast VF8' },
-                              { value: 'vf9', label: 'VinFast VF9' },
+                              ...([...NEW_CARS_FAMILY, ...NEW_CARS_SERVICE].map((car) => ({ value: car.id, label: car.name }))),
+                              { value: 'lux-a-2', label: 'VinFast Lux A 2.0' },
+                              { value: 'lux-sa-2', label: 'VinFast Lux SA 2.0' },
                            ],
                         },
                         {
@@ -316,6 +304,7 @@ const UsedCarExchange: React.FC = () => {
                            gridCols: 2,
                            options: [
                               { value: '', label: 'Chọn mức giá' },
+                              { value: '200-400', label: '200 - 400 triệu' },
                               { value: '400-600', label: '400 - 600 triệu' },
                               { value: '600-900', label: '600 - 900 triệu' },
                               { value: '1000+', label: 'Trên 1 tỷ' },
@@ -325,7 +314,7 @@ const UsedCarExchange: React.FC = () => {
                            name: 'specialRequirements',
                            label: 'Yêu cầu đặc biệt',
                            type: 'textarea',
-                           placeholder: 'Ví dụ: Màu trắng, pin SOH > 98%, nội thất nâu...',
+                           placeholder: 'Ví dụ: VF5, màu trắng, ODO 20.000km',
                         },
                      ]}
                      submitButtonText="TÌM XE GIÚP TÔI"

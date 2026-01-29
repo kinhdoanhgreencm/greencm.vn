@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import { Target, Users, Shield, Zap, Wrench, FileCheck, ShoppingBag, Repeat } from 'lucide-react';
+import { Target, Users, Shield, Zap, Wrench, FileCheck, ShoppingBag, Repeat, Car } from 'lucide-react';
+import { SERVICES } from '../constants';
 
 const About: React.FC = () => {
   return (
@@ -31,8 +32,6 @@ const About: React.FC = () => {
           </h2>
           <p className="text-gray-200 text-lg md:text-xl max-w-3xl mb-12 font-light">
             Giải pháp trọn gói cho mọi nhu cầu xe điện của bạn
-            <br/>
-            <span className="text-gray-400 text-base mt-2 block">Từ Mua bán, Cho thuê đến Chăm sóc & Bảo dưỡng</span>
           </p>
         </div>
 
@@ -99,71 +98,28 @@ const About: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service 1 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <ShoppingBag />
+            {SERVICES.map((service) => {
+              const IconMap: Record<number, React.ReactNode> = {
+                1: <ShoppingBag />,
+                2: <Repeat />,
+                3: <Car />,
+                4: <Wrench />,
+                5: <FileCheck />,
+                6: <Zap />,
+              };
+              const Icon = IconMap[service.id] ?? <Zap />;
+              return (
+                <div key={service.id} className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
+                      {Icon}
+                    </div>
+                    <h3 className="text-xl font-bold">{service.title}</h3>
+                  </div>
+                  <p className="text-gray-600 text-sm">{service.description}</p>
                 </div>
-                <h3 className="text-xl font-bold">Mua Bán Xe Điện Mới</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Phân phối các dòng xe điện hiện đại, công nghệ cao với chính sách giá và bảo hành tốt nhất thị trường.</p>
-            </div>
-            
-             {/* Service 2 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <Repeat />
-                </div>
-                <h3 className="text-xl font-bold">Sàn Giao Dịch Xe Cũ</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Định giá minh bạch, kiểm định chất lượng pin và kỹ thuật nghiêm ngặt. Nơi an tâm để mua bán, trao đổi xe cũ.</p>
-            </div>
-
-             {/* Service 3 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <CarIcon />
-                </div>
-                <h3 className="text-xl font-bold">Dịch Vụ Cho Thuê Xe</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Trải nghiệm lái thử dài ngày hoặc thuê xe phục vụ nhu cầu di chuyển với thủ tục nhanh gọn, đa dạng mẫu mã.</p>
-            </div>
-
-             {/* Service 4 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <Zap />
-                </div>
-                <h3 className="text-xl font-bold">Phụ Kiện & Đồ Chơi Xe</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Cung cấp bộ sạc tại nhà, phụ kiện thông minh và các tiện ích nâng cấp dành riêng cho xe điện.</p>
-            </div>
-
-             {/* Service 5 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <FileCheck />
-                </div>
-                <h3 className="text-xl font-bold">Hỗ Trợ Đăng Kiểm</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Dịch vụ pháp lý trọn gói, hỗ trợ thủ tục đăng kiểm, sang tên đổi chủ nhanh chóng, tiết kiệm thời gian.</p>
-            </div>
-
-             {/* Service 6 */}
-            <div className="p-8 rounded-2xl border border-gray-100 hover:border-gcm-green hover:shadow-xl transition-all group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 bg-gcm-green/10 rounded-xl flex items-center justify-center text-gcm-green group-hover:bg-gcm-green group-hover:text-white transition-colors flex-shrink-0">
-                  <Wrench />
-                </div>
-                <h3 className="text-xl font-bold">Vệ Sinh & Detailing</h3>
-              </div>
-              <p className="text-gray-600 text-sm">Spa chăm sóc xe chuyên nghiệp, sử dụng công nghệ và dung dịch thân thiện với hệ thống điện tử của xe.</p>
-            </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -228,10 +184,5 @@ const About: React.FC = () => {
     </div>
   );
 };
-
-// Helper component for simple car icon
-const CarIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M2 12h12"/></svg>
-);
 
 export default About;

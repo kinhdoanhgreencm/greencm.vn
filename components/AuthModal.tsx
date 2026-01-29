@@ -16,14 +16,14 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
         onClick={onClose}
       ></div>
 
-      {/* Modal Container */}
-      <div className="relative bg-white w-full max-w-md rounded-[32px] overflow-hidden shadow-2xl animate-slide-down">
+      {/* Modal Container - Dark theme like main UI */}
+      <div className="relative bg-gcm-dark w-full max-w-md rounded-[32px] overflow-hidden shadow-2xl animate-slide-down border border-white/10">
         {/* Close Button */}
         <button 
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors z-10"
+          className="absolute top-4 right-4 p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors z-10"
         >
-          <X size={20} className="text-gray-600" />
+          <X size={20} className="text-gray-300" />
         </button>
 
         <div className="p-8">
@@ -32,13 +32,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
             <div className="flex items-center justify-center gap-2 mb-4">
                <img src="/logo.png" alt="GCM" width={128} height={32} className="h-8 w-auto" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900">Chào mừng trở lại!</h2>
-            <p className="text-gray-500 text-sm mt-1">Đăng nhập để quản lý xe và dịch vụ của bạn</p>
+            <h2 className="text-2xl font-bold text-white">Chào mừng trở lại!</h2>
+            <p className="text-gray-400 text-sm mt-1">Đăng nhập để quản lý xe và dịch vụ của bạn</p>
           </div>
 
           {/* Social Login Buttons */}
           <div className="space-y-3 mb-6">
-            <button className="w-full flex items-center justify-center gap-3 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-bold py-3 px-4 rounded-xl transition-all duration-200 group">
+            <button className="w-full flex items-center justify-center gap-3 bg-white/10 border border-white/20 hover:bg-white/15 text-white font-bold py-3 px-4 rounded-xl transition-all duration-200">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -58,10 +58,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
 
           <div className="relative mb-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-200"></div>
+              <div className="w-full border-t border-white/20"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-gray-500">Hoặc đăng nhập bằng Email</span>
+              <span className="px-2 bg-gcm-dark text-gray-400">Hoặc đăng nhập bằng Email</span>
             </div>
           </div>
 
@@ -69,43 +69,43 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
           <form className="space-y-4">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail size={18} className="text-gray-400" />
+                <Mail size={18} className="text-gray-500" />
               </div>
               <input 
                 type="email" 
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-gcm-green focus:ring-1 focus:ring-gcm-green transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-gcm-green focus:ring-1 focus:ring-gcm-green transition-all"
                 placeholder="Email của bạn"
               />
             </div>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock size={18} className="text-gray-400" />
+                <Lock size={18} className="text-gray-500" />
               </div>
               <input 
                 type="password" 
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-gcm-green focus:ring-1 focus:ring-gcm-green transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-gcm-green focus:ring-1 focus:ring-gcm-green transition-all"
                 placeholder="Mật khẩu"
               />
             </div>
             
             <div className="flex items-center justify-between text-sm">
                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" className="w-4 h-4 rounded text-gcm-green focus:ring-gcm-green" />
-                  <span className="text-gray-600">Ghi nhớ</span>
+                  <input type="checkbox" className="w-4 h-4 rounded text-gcm-green focus:ring-gcm-green bg-white/10 border-white/20" />
+                  <span className="text-gray-400">Ghi nhớ</span>
                </label>
                <a href="#" className="text-gcm-green font-bold hover:underline">Quên mật khẩu?</a>
             </div>
 
-            <button className="w-full bg-black hover:bg-gcm-green hover:text-black text-white font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 group">
+            <button className="w-full bg-gcm-green hover:bg-green-400 text-black font-bold py-3 rounded-xl transition-all flex items-center justify-center gap-2 group">
               Đăng Nhập
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="mt-8 text-center text-sm text-gray-400">
             Chưa có tài khoản?{' '}
-            <a href="#" className="text-black font-bold hover:text-gcm-green transition-colors">Đăng ký ngay</a>
+            <a href="#" className="text-gcm-green font-bold hover:underline transition-colors">Đăng ký ngay</a>
           </div>
         </div>
       </div>

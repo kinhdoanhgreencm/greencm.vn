@@ -21,7 +21,8 @@ export const metadata: Metadata = {
     'chi phí thi công trạm biến áp cho trạm sạc',
     'mô hình kinh doanh trạm sạc ô tô điện',
     'lắp đặt trụ sạc VinFast tại nhà TP.HCM',
-    'báo giá trụ sạc DC 60kW VinFast'
+    'báo giá trụ sạc DC 60kW VinFast',
+    'trạm sạc vinfast nhượng quyền tại cần thơ',
   ],
   alternates: {
     canonical: `${baseUrl}/tram-sac-vinfast`,

@@ -44,7 +44,7 @@ const NewsPage: React.FC = () => {
 
   // --- SUB-COMPONENT: Sidebar ---
   const Sidebar = () => (
-    <aside className="space-y-8 sticky top-24">
+    <aside className="space-y-8">
        {/* Widget: Quick Car Search */}
        <div className="bg-black text-white p-6 rounded-2xl shadow-lg">
           <h3 className="font-bold text-lg mb-4 text-gcm-green">Tìm Xe Nhanh</h3>
@@ -127,12 +127,12 @@ const NewsPage: React.FC = () => {
         </h1>
         
         {/* 1. Featured News (Asymmetric Grid) */}
-        <section className="mb-12">
+        <section className="mb-16 lg:mb-20">
            <h2 className="text-2xl font-bold text-gcm-dark mb-6 border-l-4 border-gcm-green pl-4">Tiêu Điểm</h2>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto lg:h-[500px]">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto lg:h-[500px] overflow-hidden">
               {/* Big Story */}
               {featuredPost && (
-                 <article className="lg:col-span-2">
+                 <article className="lg:col-span-2 overflow-hidden rounded-3xl">
                  <Link 
                    href={getPostUrl(featuredPost)}
                    className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[16/9]"
@@ -159,9 +159,9 @@ const NewsPage: React.FC = () => {
               )}
               
               {/* Side Stories */}
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 overflow-hidden">
                  {subFeaturedPosts.map(post => (
-                    <article key={post.id} className="flex-1">
+                    <article key={post.id} className="flex-1 min-h-0 overflow-hidden rounded-3xl">
                     <Link 
                       href={getPostUrl(post)}
                       className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[4/3]"
@@ -185,9 +185,9 @@ const NewsPage: React.FC = () => {
            </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
            {/* 2. Main Feed */}
-           <div className="lg:col-span-2">
+           <div className="lg:col-span-2 min-w-0">
               {/* Category Tabs */}
               <div className="flex overflow-x-auto gap-4 mb-8 pb-2 scrollbar-hide border-b border-gray-200">
                  {categories.map(cat => (
@@ -293,7 +293,7 @@ const NewsPage: React.FC = () => {
            </div>
 
            {/* 3. Sidebar */}
-           <div className="lg:col-span-1 hidden lg:block">
+           <div className="lg:col-span-1 hidden lg:block min-w-0 self-start">
               <Sidebar />
            </div>
         </div>
