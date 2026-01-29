@@ -216,7 +216,7 @@ const LimoGreenPage: React.FC = () => {
       {/* 4. USPs - Unique Selling Points */}
       <section className="py-16 container mx-auto px-4">
          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gcm-dark mb-4">Tại Sao Chọn Limo Green?</h2>
+            <h2 className="text-3xl font-bold text-gcm-dark mb-4">Tại Sao Nên Đầu Tư Xe Điện Limo Green Chạy Dịch Vụ?</h2>
             <p className="text-gray-500">Giải pháp tối ưu cho kinh doanh vận tải thời đại mới</p>
          </div>
          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -256,7 +256,7 @@ const LimoGreenPage: React.FC = () => {
          <div className="container mx-auto px-4">
             <div className="flex flex-col lg:flex-row gap-12">
                <div className="lg:w-1/2">
-                  <h2 className="text-3xl font-bold text-gcm-dark mb-8 border-l-4 border-gcm-green pl-4">Thông Số Kỹ Thuật</h2>
+                  <h2 className="text-3xl font-bold text-gcm-dark mb-8 border-l-4 border-gcm-green pl-4">Thông Số Kỹ Thuật Xe VinFast Limo Green (7 Chỗ)</h2>
                   <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
                      <table className="w-full text-sm text-left">
                         <thead className="bg-gray-50 text-gray-700 uppercase font-bold">
@@ -335,7 +335,7 @@ const LimoGreenPage: React.FC = () => {
       <section className="py-20 bg-gcm-dark text-white">
          <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-               <h2 className="text-3xl md:text-4xl font-bold mb-4">Giải Pháp "Chìa Khóa Trao Tay"</h2>
+               <h2 className="text-3xl md:text-4xl font-bold mb-4">Giải Pháp "Chìa Khóa Trao Tay" - Hỗ Trợ Gia Nhập Hợp Tác Xã</h2>
                <p className="text-gray-400">Mua xe tại GCM - Chúng tôi lo tất cả thủ tục kinh doanh</p>
             </div>
 
