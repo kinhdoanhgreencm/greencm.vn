@@ -1,7 +1,10 @@
 import type { Metadata, Viewport } from 'next'; // Thêm Viewport
+import Script from 'next/script';
 import { Inter, Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
+
+const GA_MEASUREMENT_ID = 'G-QWZT6WZQPZ';
 
 // Tối ưu hóa fonts với next/font - tự động tải về host và inline CSS
 // Giảm số lượng font weights để tối ưu kích thước CSS và cải thiện LCP
@@ -123,7 +126,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      {/* Không cần thẻ head thủ công cho theme-color nữa */}
+      <head>
+        {/* Google tag (gtag.js) - chỉ 1 thẻ cho toàn site, ngay sau head */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.variable} ${notoSans.variable} font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black`}>
         {/* Schema Markup */}
         <OrganizationSchema 

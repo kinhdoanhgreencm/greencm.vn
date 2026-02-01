@@ -286,15 +286,15 @@ const CarSales: React.FC = () => {
                        <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
                           <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
                              <span className="text-gray-300">Chi phí Xăng (Dự kiến)</span>
-                             <span className="text-xl font-bold text-red-400">{(gasCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
+                             <span className="text-xl font-bold text-red-400">{(gasCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
                           </div>
                           <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
                              <span className="text-gray-300">Chi phí Điện (Sạc)</span>
-                             <span className="text-xl font-bold text-gcm-green">{(evCostPerKm * roiKm * 30).toLocaleString()} đ/tháng</span>
+                             <span className="text-xl font-bold text-gcm-green">{(evCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
                           </div>
                           <div className="pt-2">
                              <span className="block text-sm text-gray-400 mb-1">Tiết kiệm mỗi năm</span>
-                             <span className="text-4xl font-extrabold text-white">{savingsPerYear.toLocaleString()} VNĐ</span>
+                             <span className="text-4xl font-extrabold text-white">{savingsPerYear.toLocaleString('vi-VN')} VNĐ</span>
                           </div>
                        </div>
                     </div>
