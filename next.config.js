@@ -42,8 +42,8 @@ const nextConfig = {
     ],
     // Tự động chuyển đổi định dạng ảnh sang WebP/AVIF
     formats: ['image/avif', 'image/webp'],
-    // Thời gian cache ảnh tối ưu (ví dụ: 1 năm)
-    minimumCacheTTL: 60,
+    // Thời gian cache ảnh tối ưu: 31 ngày
+    minimumCacheTTL: 2678400,
   },
 };
 
