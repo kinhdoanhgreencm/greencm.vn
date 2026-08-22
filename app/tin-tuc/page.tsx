@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     url: `${baseUrl}/tin-tuc`,
     images: [
       {
-        url: `${baseUrl}/logo.png`,
-        width: 1200,
-        height: 630,
+        url: `${baseUrl}/Banner%20hero%20homepage.png`,
+        width: 3104,
+        height: 1376,
         alt: 'Tin tức ô tô điện VinFast - GCM',
       },
     ],
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Tin tức ô tô điện VinFast | Cập nhật thị trường, đánh giá xe – GCM',
     description: 'Tin tức mới nhất về xe điện VinFast, thị trường ô tô điện.',
-    images: [`${baseUrl}/logo.png`],
+    images: [`${baseUrl}/Banner%20hero%20homepage.png`],
   },
 };
 

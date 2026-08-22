@@ -35,8 +35,8 @@ const LIMO_GREEN_METADATA: Metadata = {
     images: [
       {
         url: LIMO_HERO_IMAGE,
-        width: 1200,
-        height: 630,
+        width: 1408,
+        height: 736,
         alt: 'VinFast Limo Green - Xe điện quốc dân cho tài xế dịch vụ',
       },
     ],

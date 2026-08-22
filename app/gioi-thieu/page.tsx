@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png',
-        width: 1200,
-        height: 630,
+        width: 1600,
+        height: 893,
         alt: 'GCM All About Cars - Hệ sinh thái ô tô điện toàn diện',
       },
     ],

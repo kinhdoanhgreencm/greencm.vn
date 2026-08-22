@@ -12,9 +12,9 @@ export const metadata: Metadata = {
     url: `${baseUrl}/lien-he`,
     images: [
       {
-        url: `${baseUrl}/logo.png`,
-        width: 1200,
-        height: 630,
+        url: `${baseUrl}/Banner%20hero%20homepage.png`,
+        width: 3104,
+        height: 1376,
         alt: 'Liên hệ GCM - All About Cars',
       },
     ],
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
     description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast.',
-    images: [`${baseUrl}/logo.png`],
+    images: [`${baseUrl}/Banner%20hero%20homepage.png`],
   },
 };
 

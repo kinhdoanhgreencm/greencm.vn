@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1920&h=1080&fit=crop&q=80',
-        width: 1200,
-        height: 630,
+        width: 1920,
+        height: 1080,
         alt: 'Tuyển dụng GCM - Việc làm ô tô điện',
       },
     ],

@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80',
-        width: 1200,
-        height: 630,
+        width: 1920,
+        height: 1080,
         alt: 'Phụ kiện ô tô điện VinFast - GCM',
       },
     ],

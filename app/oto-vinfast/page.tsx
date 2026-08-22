@@ -13,8 +13,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png',
-        width: 1200,
-        height: 630,
+        width: 1248,
+        height: 832,
         alt: 'Showroom xe VinFast - GCM',
       },
     ],

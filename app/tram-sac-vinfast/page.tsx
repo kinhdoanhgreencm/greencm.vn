@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImage,
-        width: 1200,
-        height: 630,
+        width: 2528,
+        height: 1528,
         alt: 'Mô hình trạm sạc VinFast nhượng quyền thực tế',
       },
     ],

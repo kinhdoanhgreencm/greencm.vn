@@ -104,8 +104,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: '/Banner%20hero%20homepage.png', // Tự động nối với metadataBase
-        width: 1200,
-        height: 630,
+        width: 3104,
+        height: 1376,
         alt: 'GCM - All About Cars - Hệ sinh thái ô tô điện toàn diện',
       },
     ],

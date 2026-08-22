@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80',
-        width: 1200,
-        height: 630,
+        width: 1920,
+        height: 1080,
         alt: 'Sàn giao dịch xe điện VinFast cũ Green CM',
       },
     ],
