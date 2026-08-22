@@ -176,7 +176,7 @@ const About: React.FC = () => {
                 Ghé thăm Showroom
              </button>
              <button className="bg-white text-black px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors shadow-lg border border-black/10">
-                Liên hệ 0941 498 894
+                Liên hệ 0916 513 720
              </button>
           </div>
         </div>

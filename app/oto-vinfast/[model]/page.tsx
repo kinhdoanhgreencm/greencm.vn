@@ -57,7 +57,7 @@ const LIMO_GREEN_FAQ = [
   {
     question: 'Giá lăn bánh VinFast Limo Green là bao nhiêu?',
     answer:
-      'Giá niêm yết từ 749 triệu đồng. Tùy khu vực (Hà Nội, TP.HCM, Tỉnh), chi phí lăn bánh sẽ khác nhau do phí biển số. Liên hệ 0941 498 894 để nhận bảng giá chi tiết.',
+      'Giá niêm yết từ 749 triệu đồng. Tùy khu vực (Hà Nội, TP.HCM, Tỉnh), chi phí lăn bánh sẽ khác nhau do phí biển số. Liên hệ 0916 513 720 để nhận bảng giá chi tiết.',
   },
   {
     question: 'Tôi muốn mua xe chạy dịch vụ (Grab/Xanh SM), ngân hàng cho vay bao nhiêu?',

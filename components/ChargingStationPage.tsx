@@ -118,14 +118,14 @@ const ChargingStationPage: React.FC = () => {
               
               <div className="flex flex-col sm:flex-row gap-4">
                 <a 
-                  href="tel:0941498894"
+                  href="tel:0916513720"
                   className="flex-1 flex items-center justify-center gap-3 bg-gcm-green hover:bg-green-500 text-black font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
                 >
                   <Phone size={22} className="group-hover:scale-110 transition-transform" />
-                  <span>0941 498 894</span>
+                  <span>0916 513 720</span>
                 </a>
                 <a 
-                  href="https://zalo.me/0941498894"
+                  href="https://zalo.me/0916513720"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-3 bg-[#0068FF] hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all group"
@@ -388,11 +388,11 @@ const ChargingStationPage: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="tel:0941498894"
+                href="tel:0916513720"
                 className="flex items-center justify-center gap-3 bg-gcm-green text-black font-bold py-4 px-8 rounded-lg hover:bg-green-400 transition-colors"
               >
                 <Phone size={20} />
-                0941 498 894
+                0916 513 720
               </a>
               <Link 
                 href="/lien-he"

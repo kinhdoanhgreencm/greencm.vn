@@ -12,7 +12,7 @@ import RelatedPosts from './RelatedPosts';
 import { getBreadcrumbsFromCategory } from '../lib/siloUtils';
 
 const NewsPage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<string>('tmt-egreen');
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const handleImageError = (postId: string) => {
@@ -25,15 +25,11 @@ const NewsPage: React.FC = () => {
 
   const categories = [
     { id: 'all', label: 'Tất cả' },
-    { id: 'market', label: 'Tin Thị Trường' },
-    { id: 'review', label: 'Đánh Giá Xe' },
-    { id: 'tips', label: 'Kiến Thức' },
-    { id: 'legal', label: 'Pháp Lý' },
-    { id: 'promo', label: 'Khuyến Mãi' },
+    { id: 'tmt-egreen', label: 'Nhượng Quyền Trạm Sạc' },
   ];
 
-  const featuredPost = BLOG_POSTS.find(p => p.id === 'vinfast-limo-green-uu-dai-4percent');
-  const subFeaturedPosts = BLOG_POSTS.filter(p => p.isFeatured && p.id !== 'vinfast-limo-green-uu-dai-4percent').slice(0, 2);
+  const featuredPost = BLOG_POSTS.find(p => p.id === 'so-sanh-nhuong-quyen-tram-sac-tmt-egreen-vinfast');
+  const subFeaturedPosts = BLOG_POSTS.filter(p => p.isFeatured && p.category === 'tmt-egreen' && p.id !== featuredPost?.id).slice(0, 2);
   const mainFeedPosts = activeCategory === 'all' 
     ? BLOG_POSTS 
     : BLOG_POSTS.filter(p => p.category === activeCategory);
@@ -45,36 +41,16 @@ const NewsPage: React.FC = () => {
   // --- SUB-COMPONENT: Sidebar ---
   const Sidebar = () => (
     <aside className="space-y-8">
-       {/* Widget: Quick Car Search */}
-       <div className="bg-black text-white p-6 rounded-2xl shadow-lg">
-          <h3 className="font-bold text-lg mb-4 text-gcm-green">Tìm Xe Nhanh</h3>
-          <div className="space-y-3">
-             <select className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm outline-none">
-                <option>Tình trạng: Tất cả</option>
-                <option>Xe Mới</option>
-                <option>Xe Cũ</option>
-             </select>
-             <select className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm outline-none">
-                <option>Dòng xe: Tất cả</option>
-                <option>VinFast VF5</option>
-                <option>VinFast VF8</option>
-             </select>
-             <select className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-sm outline-none">
-                <option>Khoảng giá</option>
-                <option>Dưới 500 triệu</option>
-                <option>500 - 800 triệu</option>
-             </select>
-             <button className="w-full bg-gcm-green text-black font-bold py-3 rounded-lg hover:bg-white transition-colors">
-                TÌM KIẾM
-             </button>
-          </div>
-       </div>
-
        {/* Widget: Most Viewed */}
        <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm">
           <h3 className="font-bold text-lg mb-4 border-l-4 border-gcm-green pl-3">Đọc Nhiều Nhất</h3>
           <div className="space-y-4">
-             {BLOG_POSTS.slice().sort((a,b) => (b.views || 0) - (a.views || 0)).slice(0, 5).map((post, idx) => (
+             {BLOG_POSTS.slice().sort((a,b) => {
+                const aPriority = a.category === 'tmt-egreen' ? 1 : 0;
+                const bPriority = b.category === 'tmt-egreen' ? 1 : 0;
+                if (aPriority !== bPriority) return bPriority - aPriority;
+                return (b.views || 0) - (a.views || 0);
+             }).slice(0, 5).map((post, idx) => (
                 <Link key={post.id} href={getPostUrl(post)} className="flex gap-3 cursor-pointer group">
                    <span className="text-2xl font-bold text-gray-200 group-hover:text-gcm-green transition-colors">0{idx + 1}</span>
                    <div>
@@ -86,25 +62,25 @@ const NewsPage: React.FC = () => {
           </div>
        </div>
 
-       {/* Widget: Promo Banner */}
-       <div className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer">
-          <Image 
-            src={imageErrors['ads'] ? getFallbackImage() : "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&h=1000&fit=crop&q=80"} 
+       {/* Widget: Franchise Consultation CTA */}
+       <Link href="/lien-he" className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer block">
+          <Image
+            src={imageErrors['ads'] ? getFallbackImage() : "/images/tmt-egreen/240kw.webp"}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110" 
-            alt="Ưu đãi dán phim 3M cách nhiệt cho xe điện - Giảm 20% cho xe mới tại GCM"
+            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            alt="Tư vấn nhượng quyền trạm sạc xe điện TMT-EGREEN"
             sizes="(max-width: 768px) 100vw, 400px"
             onError={() => handleImageError('ads')}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-             <span className="bg-red-600 text-white text-xs font-bold px-2 py-1 rounded w-fit mb-2">HOT DEAL</span>
-             <h3 className="text-white font-bold text-xl mb-1">Dán Phim 3M</h3>
-             <p className="text-gray-200 text-sm">Giảm ngay 20% cho xe mới</p>
+             <span className="bg-gcm-green text-black text-xs font-bold px-2 py-1 rounded w-fit mb-2">NHƯỢNG QUYỀN</span>
+             <h3 className="text-white font-bold text-xl mb-1">Đầu Tư Trạm Sạc TMT‑EGREEN</h3>
+             <p className="text-gray-200 text-sm">Chia sẻ lợi nhuận 1.500đ/kWh — hoàn vốn ~3 năm</p>
              <button className="mt-4 bg-white text-black font-bold py-2 rounded-lg hover:bg-gcm-green transition-colors">
-                Nhận ưu đãi
+                Đăng ký tư vấn
              </button>
           </div>
-       </div>
+       </Link>
     </aside>
   );
 

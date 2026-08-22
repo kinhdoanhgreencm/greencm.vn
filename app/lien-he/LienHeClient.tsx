@@ -77,8 +77,8 @@ export default function LienHeClient() {
     {
       icon: Phone,
       label: 'Tổng Đài Hỗ Trợ',
-      value: '0941 498 894',
-      link: 'tel:0941498894',
+      value: '0916 513 720',
+      link: 'tel:0916513720',
       color: 'text-blue-500'
     },
     {
@@ -317,10 +317,10 @@ export default function LienHeClient() {
                     Gọi hotline của chúng tôi để được tư vấn ngay lập tức.
                   </p>
                   <a
-                    href="tel:0941498894"
+                    href="tel:0916513720"
                     className="inline-block bg-white text-gcm-green px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors"
                   >
-                    📞 Gọi: 0941 498 894
+                    📞 Gọi: 0916 513 720
                   </a>
                 </div>
               </div>
@@ -343,7 +343,7 @@ export default function LienHeClient() {
                 },
                 {
                   q: 'Tôi có thể đặt lịch hẹn trước không?',
-                  a: 'Có, bạn có thể gọi hotline 0941 498 894 hoặc gửi form liên hệ để đặt lịch hẹn.'
+                  a: 'Có, bạn có thể gọi hotline 0916 513 720 hoặc gửi form liên hệ để đặt lịch hẹn.'
                 },
                 {
                   q: 'GCM có hỗ trợ vay tài chính không?',

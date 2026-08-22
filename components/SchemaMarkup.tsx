@@ -90,6 +90,16 @@ interface BreadcrumbSchemaProps {
   items: Array<{ name: string; url: string }>;
 }
 
+interface ArticleSchemaProps {
+  headline: string;
+  description?: string;
+  image?: string;
+  url: string;
+  datePublished?: string;
+  dateModified?: string;
+  authorName?: string;
+}
+
 interface WebsiteSchemaProps {
   name?: string;
   url?: string;
@@ -121,7 +131,7 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
     addressCountry: 'VN',
   },
   contactPoint = {
-    telephone: '+84941498894',
+    telephone: '+84916513720',
     contactType: 'customer service',
     email: 'kinhdoanhgreencm@gmail.com',
   },
@@ -130,7 +140,7 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
 }) => {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'Organization', // Có thể đổi thành 'AutoRepair' hoặc 'AutoDealer' nếu muốn cụ thể hơn
+    '@type': 'AutoDealer', // Cụ thể hơn 'Organization' - giúp lên Google Maps/local pack
     name,
     url,
     logo,
@@ -167,7 +177,7 @@ export const CorporationSchema: React.FC<CorporationSchemaProps> = ({
   logo = `${SITE_URL}/logo.png`,
   description = 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện.',
   contactPoint = {
-    telephone: '+84941498894',
+    telephone: '+84916513720',
     contactType: 'customer service',
     areaServed: 'VN',
     availableLanguage: 'Vietnamese',
@@ -452,6 +462,49 @@ export const BreadcrumbSchema: React.FC<BreadcrumbSchemaProps> = ({ items }) => 
       name: item.name,
       item: item.url.startsWith('http') ? item.url : `${SITE_URL}${item.url}`, // Đảm bảo URL tuyệt đối
     })),
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
+  headline,
+  description,
+  image,
+  url,
+  datePublished,
+  dateModified,
+  authorName = BRAND_NAME,
+}) => {
+  const schema: any = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline,
+    ...(description && { description }),
+    ...(image && { image: [image] }),
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    author: {
+      '@type': 'Organization',
+      name: authorName,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: BRAND_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo.png`,
+      },
+    },
+    ...(datePublished && { datePublished }),
+    ...(dateModified && { dateModified: dateModified || datePublished }),
   };
 
   return (

@@ -89,7 +89,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   image: string;
-  category: 'market' | 'review' | 'tips' | 'legal' | 'promo';
+  category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen';
   categoryLabel: string;
   date: string;
   author: string;

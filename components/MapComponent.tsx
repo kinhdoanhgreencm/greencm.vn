@@ -50,7 +50,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           <p style="margin: 0 0 12px 0; color: #666; font-size: 14px;">${title}</p>
           <div style="border-top: 1px solid #ddd; padding-top: 10px;">
             <p style="margin: 5px 0; color: #666; font-size: 13px;">
-              <strong>☎️ Hotline:</strong> <a href="tel:0941498894" style="color: #00D26A; text-decoration: none;">0941 498 894</a>
+              <strong>☎️ Hotline:</strong> <a href="tel:0916513720" style="color: #00D26A; text-decoration: none;">0916 513 720</a>
             </p>
             <p style="margin: 5px 0; color: #666; font-size: 13px;">
               <strong>📧 Email:</strong> <a href="mailto:kinhdoanhgreencm@gmail.com" style="color: #00D26A; text-decoration: none;">kinhdoanhgreencm@gmail.com</a>

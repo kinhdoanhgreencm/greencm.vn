@@ -60,6 +60,13 @@ export const SILO_CATEGORIES: SiloCategory[] = [
     slug: '/tin-tuc?category=promo',
     parentId: 'news',
     description: 'Khuyến mãi và ưu đãi từ GCM'
+  },
+  {
+    id: 'tmt-egreen',
+    label: 'Nhượng Quyền Trạm Sạc',
+    slug: '/tin-tuc?category=tmt-egreen',
+    parentId: 'news',
+    description: 'Nhượng quyền trạm sạc xe điện TMT-EGREEN: chi phí đầu tư, lợi nhuận, so sánh đối tác'
   }
 ];
 

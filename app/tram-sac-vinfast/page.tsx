@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 const faqData = [
   {
     question: 'Chi phí đầu tư một trạm sạc VinFast nhượng quyền là bao nhiêu?',
-    answer: 'Chi phí phụ thuộc vào số lượng trụ và mặt bằng. GCM cung cấp các gói trụ từ 11kW đến 120kW với giá niêm yết từ 12 triệu đến 416 triệu đồng. Liên hệ 0941 498 894 để nhận bảng dự toán chi tiết.',
+    answer: 'Chi phí phụ thuộc vào số lượng trụ và mặt bằng. GCM cung cấp các gói trụ từ 11kW đến 120kW với giá niêm yết từ 12 triệu đến 416 triệu đồng. Liên hệ 0916 513 720 để nhận bảng dự toán chi tiết.',
   },
   {
     question: 'Tôi có mặt bằng trống, GCM có hỗ trợ khảo sát không?',

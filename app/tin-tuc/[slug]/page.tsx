@@ -1,7 +1,15 @@
 import { notFound } from 'next/navigation';
 import NewsPostClient from '../../../components/NewsPostClient';
 import { BLOG_POSTS } from '../../../constants';
+import { ArticleSchema } from '../../../components/SchemaMarkup';
 import type { Metadata } from 'next';
+
+// Chuyển 'DD/MM/YYYY' -> ISO 8601 cho schema.org
+function toIsoDate(vnDate: string): string | undefined {
+  const [day, month, year] = vnDate.split('/');
+  if (!day || !month || !year) return undefined;
+  return new Date(Number(year), Number(month) - 1, Number(day)).toISOString();
+}
 
 interface NewsPostPageProps {
   params: Promise<{
@@ -53,6 +61,20 @@ export default async function NewsPostPage({ params }: NewsPostPageProps) {
     notFound();
   }
 
-  return <NewsPostClient post={post} />;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
+
+  return (
+    <>
+      <ArticleSchema
+        headline={post.title}
+        description={post.excerpt}
+        image={post.image}
+        url={`${baseUrl}/tin-tuc/${slug}`}
+        datePublished={toIsoDate(post.date)}
+        authorName={post.author}
+      />
+      <NewsPostClient post={post} />
+    </>
+  );
 }
 
