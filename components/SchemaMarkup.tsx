@@ -32,6 +32,11 @@ interface OrganizationSchemaProps {
     ratingValue: number;
     reviewCount: number;
   };
+  openingHours?: Array<{
+    dayOfWeek: string[];
+    opens: string;
+    closes: string;
+  }>;
 }
 
 interface ProductSchemaProps {
@@ -143,6 +148,11 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   },
   sameAs = [],
   aggregateRating,
+  // Khớp với giờ làm việc khai báo trên Google Business Profile: đóng cửa Chủ Nhật,
+  // Thứ Hai - Thứ Bảy mở 07:30-17:30.
+  openingHours = [
+    { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '07:30', closes: '17:30' },
+  ],
 }) => {
   const schema = {
     '@context': 'https://schema.org',
@@ -169,6 +179,14 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
         '@type': 'AggregateRating',
         ...aggregateRating,
       },
+    }),
+    ...(openingHours.length > 0 && {
+      openingHoursSpecification: openingHours.map((oh) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: oh.dayOfWeek,
+        opens: oh.opens,
+        closes: oh.closes,
+      })),
     }),
   };
 

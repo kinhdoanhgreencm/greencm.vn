@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Target, Users, Shield, Zap, Wrench, FileCheck, ShoppingBag, Repeat, Car } from 'lucide-react';
+import { Target, Users, Shield, Zap, Wrench, ShoppingBag, Repeat, Car } from 'lucide-react';
 import { SERVICES } from '../constants';
 
 const About: React.FC = () => {
@@ -31,7 +31,7 @@ const About: React.FC = () => {
             Tiên Phong Kiến Tạo Hệ Sinh Thái Ô Tô Điện Toàn Diện
           </h2>
           <p className="text-gray-200 text-lg md:text-xl max-w-3xl mb-12 font-light">
-            Giải pháp trọn gói cho mọi nhu cầu xe điện của bạn
+            3 trụ cột chính: Trạm Sạc (VinFast &amp; TMT‑EGREEN) • Xe Lướt • Phụ Kiện
           </p>
         </div>
 
@@ -50,10 +50,10 @@ const About: React.FC = () => {
             <h2 className="text-sm font-bold text-gcm-green uppercase tracking-widest mb-3">Câu chuyện của chúng tôi</h2>
             <h3 className="text-3xl font-bold text-gcm-dark mb-8">Chào mừng bạn đến với GCM!</h3>
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Trong kỷ nguyên chuyển dịch sang năng lượng xanh, ô tô điện không chỉ là phương tiện di chuyển, mà còn là đại diện cho lối sống văn minh và bền vững. Tuy nhiên, việc sở hữu và vận hành một chiếc xe điện đôi khi mang đến những lo lắng về dịch vụ hậu mãi, trạm sạc hay thanh khoản xe cũ.
+              Trong kỷ nguyên chuyển dịch sang năng lượng xanh, ô tô điện không chỉ là phương tiện di chuyển, mà còn là đại diện cho lối sống văn minh và bền vững. Tuy nhiên, việc sở hữu và vận hành một chiếc xe điện đôi khi mang đến những lo lắng về hạ tầng trạm sạc hay thanh khoản khi cần bán lại xe.
             </p>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Thấu hiểu điều đó, <span className="font-bold text-gcm-dark">GCM</span> ra đời không chỉ để bán xe. Chúng tôi ra đời để mang đến một <span className="font-bold text-gcm-dark">Hệ sinh thái ô tô điện toàn diện</span>. Tại GCM, chúng tôi kết nối mọi điểm chạm trong vòng đời của một chiếc xe, giúp trải nghiệm sở hữu xe điện của bạn trở nên đơn giản, tiện lợi và an tâm tuyệt đối.
+              Thấu hiểu điều đó, <span className="font-bold text-gcm-dark">GCM</span> tập trung phát triển 3 trụ cột chính: <span className="font-bold text-gcm-dark">Trạm Sạc</span> (hệ thống trạm sạc VinFast và nhượng quyền TMT‑EGREEN), <span className="font-bold text-gcm-dark">Xe Lướt</span> (sàn giao dịch xe VinFast cũ minh bạch, thẩm định pin thực tế) và <span className="font-bold text-gcm-dark">Phụ Kiện</span> (đồ chơi, phụ kiện nâng cấp chính hãng). Đây là nền tảng để GCM đồng hành cùng bạn trong suốt vòng đời sở hữu một chiếc xe điện.
             </p>
           </div>
         </div>
@@ -104,7 +104,6 @@ const About: React.FC = () => {
                 2: <Repeat />,
                 3: <Car />,
                 4: <Wrench />,
-                5: <FileCheck />,
                 6: <Zap />,
               };
               const Icon = IconMap[service.id] ?? <Zap />;

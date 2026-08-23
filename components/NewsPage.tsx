@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,10 +13,34 @@ import { getBreadcrumbsFromCategory } from '../lib/siloUtils';
 
 const POSTS_PER_PAGE = 8;
 
+// DD/MM/YYYY -> timestamp, dùng để sắp xếp bài viết mới nhất lên đầu
+function parsePostDate(date: string): number {
+  const [day, month, year] = date.split('/');
+  return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const result = arr.slice();
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
+
 const NewsPage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>('tmt-egreen');
+  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+
+  // Tiêu điểm: chọn ngẫu nhiên trong các bài isFeatured, không ưu tiên chuyên mục nào.
+  // Render lần đầu (SSR + hydrate) dùng thứ tự cố định để tránh lệch hydration,
+  // sau đó xáo lại ở client trong useEffect.
+  const featuredPool = useMemo(() => BLOG_POSTS.filter(p => p.isFeatured), []);
+  const [shuffledFeatured, setShuffledFeatured] = useState<BlogPost[]>(featuredPool);
+  useEffect(() => {
+    setShuffledFeatured(shuffle(featuredPool));
+  }, [featuredPool]);
 
   const handleImageError = (postId: string) => {
     setImageErrors(prev => ({ ...prev, [postId]: true }));
@@ -32,11 +56,12 @@ const NewsPage: React.FC = () => {
     { id: 'xe-vinfast-cu', label: 'Xe VinFast Cũ' },
   ];
 
-  const featuredPost = BLOG_POSTS.find(p => p.id === 'so-sanh-nhuong-quyen-tram-sac-tmt-egreen-vinfast');
-  const subFeaturedPosts = BLOG_POSTS.filter(p => p.isFeatured && p.category === 'tmt-egreen' && p.id !== featuredPost?.id).slice(0, 2);
-  const mainFeedPosts = activeCategory === 'all'
+  const featuredPost = shuffledFeatured[0];
+  const subFeaturedPosts = shuffledFeatured.slice(1, 3);
+  const mainFeedPosts = (activeCategory === 'all'
     ? BLOG_POSTS
-    : BLOG_POSTS.filter(p => p.category === activeCategory);
+    : BLOG_POSTS.filter(p => p.category === activeCategory)
+  ).slice().sort((a, b) => parsePostDate(b.date) - parsePostDate(a.date));
   const totalPages = Math.max(1, Math.ceil(mainFeedPosts.length / POSTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
   const paginatedPosts = mainFeedPosts.slice((safePage - 1) * POSTS_PER_PAGE, safePage * POSTS_PER_PAGE);

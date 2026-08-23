@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
           Hệ sinh thái ô tô toàn diện
         </h2>
         <p className="text-gray-200 text-lg md:text-xl max-w-3xl mb-12 font-light leading-relaxed">
-          Ô tô VinFast • Xe VinFast Cũ • Trạm sạc VinFast • Cho thuê xe • Phụ kiện • Đăng kiểm
+          Trạm sạc VinFast & TMT‑EGREEN • Xe VinFast Cũ • Phụ kiện • Ô tô VinFast • Cho thuê xe
           <br/>
           <span className="text-gray-400 text-base mt-2 block">Giải pháp trọn gói cho mọi nhu cầu về ô tô của bạn.</span>
         </p>

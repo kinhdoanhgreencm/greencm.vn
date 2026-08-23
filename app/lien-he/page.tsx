@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
-  description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast, dịch vụ mua bán, cho thuê xe. Hotline: 0916 513 720. Địa chỉ: 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ. Giờ làm việc: 8:00 - 18:00 hàng ngày.',
+  description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast, dịch vụ mua bán, cho thuê xe. Hotline: 0916 513 720. Địa chỉ: 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ. Giờ làm việc: 07:30 - 17:30, Thứ Hai - Thứ Bảy.',
   openGraph: {
     title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
     description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast, dịch vụ mua bán, cho thuê xe. Hotline: 0916 513 720.',

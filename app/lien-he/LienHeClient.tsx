@@ -98,7 +98,7 @@ export default function LienHeClient() {
     {
       icon: Clock,
       label: 'Giờ Làm Việc',
-      value: '8:00 - 18:00 (Hàng ngày)',
+      value: '07:30 - 17:30 (Thứ Hai - Thứ Bảy)',
       link: '#',
       color: 'text-purple-500'
     }
@@ -228,10 +228,11 @@ export default function LienHeClient() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gcm-green"
                     >
                       <option value="">Chọn chủ đề liên hệ</option>
+                      <option value="tram-sac">Trạm sạc (VinFast / TMT-EGREEN)</option>
+                      <option value="xe-luot">Xe Lướt (VinFast cũ)</option>
+                      <option value="phụ-kiện">Phụ kiện & đồ chơi</option>
                       <option value="oto-vinfast">Mua bán ô tô</option>
                       <option value="thuê-xe">Dịch vụ cho thuê xe</option>
-                      <option value="phụ-kiện">Phụ kiện & đồ chơi</option>
-                      <option value="dang-ky">Đăng ký & Đăng kiểm</option>
                       <option value="bao-tro">Bảo trì & Chăm sóc</option>
                       <option value="khac">Khác</option>
                     </select>
@@ -339,7 +340,7 @@ export default function LienHeClient() {
               {[
                 {
                   q: 'Giờ làm việc của GCM là?',
-                  a: 'GCM hoạt động từ 8:00 - 18:00 hàng ngày. Chúng tôi sẵn sàng hỗ trợ bạn 7 ngày/tuần.'
+                  a: 'GCM hoạt động từ 07:30 - 17:30, Thứ Hai đến Thứ Bảy. Chúng tôi nghỉ vào Chủ Nhật.'
                 },
                 {
                   q: 'Tôi có thể đặt lịch hẹn trước không?',

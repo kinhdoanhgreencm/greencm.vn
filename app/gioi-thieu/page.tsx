@@ -5,10 +5,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Giới thiệu GCM | Hệ sinh thái ô tô điện toàn diện – All About Cars',
-  description: 'GCM All About Cars - Tiên phong kiến tạo hệ sinh thái ô tô điện toàn diện. Giải pháp trọn gói từ mua bán, cho thuê đến chăm sóc & bảo dưỡng xe điện VinFast tại Cần Thơ.',
+  description: 'GCM All About Cars - Hệ sinh thái ô tô điện với 3 trụ cột chính: Trạm sạc VinFast & TMT-EGREEN, Xe Lướt (VinFast cũ), Phụ kiện xe điện tại Cần Thơ.',
   openGraph: {
     title: 'Giới thiệu GCM | Hệ sinh thái ô tô điện toàn diện – All About Cars',
-    description: 'GCM All About Cars - Tiên phong kiến tạo hệ sinh thái ô tô điện toàn diện. Giải pháp trọn gói từ mua bán, cho thuê đến chăm sóc & bảo dưỡng xe điện VinFast tại Cần Thơ.',
+    description: 'GCM All About Cars - Hệ sinh thái ô tô điện với 3 trụ cột chính: Trạm sạc VinFast & TMT-EGREEN, Xe Lướt (VinFast cũ), Phụ kiện xe điện tại Cần Thơ.',
     url: `${baseUrl}/gioi-thieu`,
     images: [
       {
