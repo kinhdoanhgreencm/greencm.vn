@@ -21,7 +21,7 @@ const Services: React.FC = () => {
   const getServiceSlug = (serviceId: number): string => {
     const slugMap: Record<number, string> = {
       1: '/oto-vinfast',      // Mua bán ô tô
-      2: '/xe-sieu-luot',     // Xe siêu lướt
+      2: '/xe-vinfast-cu',    // Xe VinFast Cũ
       3: '/thue-xe',          // Dịch vụ cho thuê xe
       4: '/phu-kien',         // Phụ kiện ô tô
       5: '/oto-vinfast',      // Đăng ký & Đăng kiểm (link to sales page)

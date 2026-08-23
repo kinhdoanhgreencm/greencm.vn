@@ -11,8 +11,11 @@ import Breadcrumbs from './Breadcrumbs';
 import RelatedPosts from './RelatedPosts';
 import { getBreadcrumbsFromCategory } from '../lib/siloUtils';
 
+const POSTS_PER_PAGE = 8;
+
 const NewsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>('tmt-egreen');
+  const [currentPage, setCurrentPage] = useState(1);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   const handleImageError = (postId: string) => {
@@ -26,13 +29,27 @@ const NewsPage: React.FC = () => {
   const categories = [
     { id: 'all', label: 'Tất cả' },
     { id: 'tmt-egreen', label: 'Nhượng Quyền Trạm Sạc' },
+    { id: 'xe-vinfast-cu', label: 'Xe VinFast Cũ' },
   ];
 
   const featuredPost = BLOG_POSTS.find(p => p.id === 'so-sanh-nhuong-quyen-tram-sac-tmt-egreen-vinfast');
   const subFeaturedPosts = BLOG_POSTS.filter(p => p.isFeatured && p.category === 'tmt-egreen' && p.id !== featuredPost?.id).slice(0, 2);
-  const mainFeedPosts = activeCategory === 'all' 
-    ? BLOG_POSTS 
+  const mainFeedPosts = activeCategory === 'all'
+    ? BLOG_POSTS
     : BLOG_POSTS.filter(p => p.category === activeCategory);
+  const totalPages = Math.max(1, Math.ceil(mainFeedPosts.length / POSTS_PER_PAGE));
+  const safePage = Math.min(currentPage, totalPages);
+  const paginatedPosts = mainFeedPosts.slice((safePage - 1) * POSTS_PER_PAGE, safePage * POSTS_PER_PAGE);
+
+  const handleCategoryChange = (categoryId: string) => {
+    setActiveCategory(categoryId);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    document.getElementById('main-feed')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   const getPostUrl = (post: BlogPost) => {
     return post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
@@ -163,13 +180,13 @@ const NewsPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
            {/* 2. Main Feed */}
-           <div className="lg:col-span-2 min-w-0">
+           <div id="main-feed" className="lg:col-span-2 min-w-0 scroll-mt-24">
               {/* Category Tabs */}
               <div className="flex overflow-x-auto gap-4 mb-8 pb-2 scrollbar-hide border-b border-gray-200">
                  {categories.map(cat => (
                     <motion.button
                       key={cat.id}
-                      onClick={() => setActiveCategory(cat.id)}
+                      onClick={() => handleCategoryChange(cat.id)}
                       className={`whitespace-nowrap px-4 py-2 font-bold text-sm transition-colors relative ${
                         activeCategory === cat.id 
                         ? 'text-gcm-green' 
@@ -209,7 +226,7 @@ const NewsPage: React.FC = () => {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                 {mainFeedPosts.map((post, index) => (
+                 {paginatedPosts.map((post, index) => (
                     <article key={post.id}>
                     <Link 
                       href={getPostUrl(post)}
@@ -260,12 +277,25 @@ const NewsPage: React.FC = () => {
                 </motion.div>
               </AnimatePresence>
               
-              {/* Pagination Mock */}
-              <div className="flex justify-center mt-12 gap-2">
-                 <button className="w-10 h-10 rounded-full bg-black text-white font-bold flex items-center justify-center">1</button>
-                 <button className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center hover:bg-gcm-green hover:text-black">2</button>
-                 <button className="w-10 h-10 rounded-full bg-gray-200 text-gray-600 font-bold flex items-center justify-center hover:bg-gcm-green hover:text-black">3</button>
-              </div>
+              {/* Pagination */}
+              {totalPages > 1 && (
+                 <div className="flex justify-center mt-12 gap-2">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                       <button
+                         key={page}
+                         onClick={() => handlePageChange(page)}
+                         aria-current={safePage === page ? 'page' : undefined}
+                         className={`w-10 h-10 rounded-full font-bold flex items-center justify-center transition-colors ${
+                           safePage === page
+                             ? 'bg-black text-white'
+                             : 'bg-gray-200 text-gray-600 hover:bg-gcm-green hover:text-black'
+                         }`}
+                       >
+                         {page}
+                       </button>
+                    ))}
+                 </div>
+              )}
            </div>
 
            {/* 3. Sidebar */}

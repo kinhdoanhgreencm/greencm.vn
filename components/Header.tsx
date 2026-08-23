@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     if (href === '/') return pathname === '/';
     if (href === '#about') return pathname === '/gioi-thieu';
     if (href === '#sales') return pathname === '/oto-vinfast';
-    if (href === '#limo-green') return pathname === '/xe-sieu-luot';
+    if (href === '#used-cars') return pathname === '/xe-vinfast-cu';
     if (href === '#charging') return pathname === '/tram-sac-vinfast';
     if (href === '#rental') return pathname === '/thue-xe';
     if (href === '#accessories') return pathname === '/phu-kien';
@@ -71,7 +71,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
       case '/': return <Home size={20} />;
       case '#about': return <Info size={20} />;
       case '#sales': return <ShoppingBag size={20} />;
-      case '#limo-green': return <Car size={20} />;
+      case '#used-cars': return <Car size={20} />;
       case '#rental': return <Calendar size={20} />;
       case '#charging': return <Battery size={20} />;
       case '#accessories': return <Zap size={20} />;
@@ -84,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     if (href === '/') return '/';
     if (href === '#about') return '/gioi-thieu';
     if (href === '#sales') return '/oto-vinfast';
-    if (href === '#limo-green') return '/xe-sieu-luot';
+    if (href === '#used-cars') return '/xe-vinfast-cu';
     if (href === '#charging') return '/tram-sac-vinfast';
     if (href === '#rental') return '/thue-xe';
     if (href === '#accessories') return '/phu-kien';

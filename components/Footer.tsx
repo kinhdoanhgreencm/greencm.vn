@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
+import { BUSINESS_TAX_ID } from '../constants';
 
 const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -24,7 +25,7 @@ const Footer: React.FC = () => {
               </div>
               
               <h3 className="font-bold text-sm uppercase text-gray-200">Công ty cổ phần Green CM</h3>
-              <p className="text-xs text-gray-300" data-nosnippet style={{textDecoration: 'none', pointerEvents: 'none'}}>MST/MSDN: 1801813513</p>
+              <p className="text-xs text-gray-300" data-nosnippet style={{textDecoration: 'none', pointerEvents: 'none'}}>MST/MSDN: {BUSINESS_TAX_ID}</p>
               
               <div className="text-xs text-gray-200 space-y-2">
                 <p>Địa chỉ: 59, Đường Số 10, KDC Diệu Hiền, Phường Cái Răng, TP Cần Thơ</p>
@@ -36,7 +37,8 @@ const Footer: React.FC = () => {
               <h4 className="text-lg font-bold mb-6 text-white">Dịch vụ chính</h4>
               <ul className="space-y-4 text-sm text-gray-200">
                 <li><Link href="/oto-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Mua bán ô tô</Link></li>
-                <li><Link href="/xe-sieu-luot" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Xe siêu lướt</Link></li>
+                <li><Link href="/xe-vinfast-cu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Xe VinFast Cũ</Link></li>
+                <li><Link href="/ban-xe-cu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Bán / Ký gửi xe cũ</Link></li>
                 <li><Link href="/tram-sac-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Trạm sạc VinFast</Link></li>
                 <li><Link href="/thue-xe" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Cho thuê xe</Link></li>
                 <li><Link href="/phu-kien" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Phụ kiện & Đồ chơi</Link></li>
@@ -81,10 +83,10 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-300">
-            <p>©2025 GCM - All About Cars. All rights reserved.</p>
+            <p>©{new Date().getFullYear()} GCM - All About Cars. All rights reserved.</p>
             <div className="flex gap-6 mt-4 md:mt-0">
-               <Link href="/gioi-thieu" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Điều khoản sử dụng</Link>
-               <Link href="/gioi-thieu" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Chính sách bảo mật</Link>
+               <Link href="/dieu-khoan-su-dung" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Điều khoản sử dụng</Link>
+               <Link href="/chinh-sach-bao-mat" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Chính sách bảo mật</Link>
             </div>
           </div>
         </div>

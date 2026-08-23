@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Inter, Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
+import { BUSINESS_TAX_ID } from '../constants';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -147,7 +148,10 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} ${notoSans.variable} font-sans text-gcm-dark antialiased bg-white selection:bg-gcm-green selection:text-black`}>
         {/* Schema Markup */}
-        <OrganizationSchema 
+        <OrganizationSchema
+          legalName="Công ty Cổ phần Green CM"
+          taxID={BUSINESS_TAX_ID}
+          areaServed={['Cần Thơ', 'Vĩnh Long', 'Hậu Giang', 'Sóc Trăng', 'An Giang', 'Cà Mau', 'Bạc Liêu', 'Kiên Giang']}
           aggregateRating={{
             ratingValue: 4.8,
             reviewCount: 150

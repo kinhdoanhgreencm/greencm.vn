@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { BLOG_POSTS } from '../../../constants'; // Check lại đường dẫn import này nhé
+import { getAllUsedCarSlugsForSitemap } from '../../../lib/usedCars';
 
 // Hàm Clean URL để tránh lỗi XML (quan trọng)
 function escapeXml(unsafe: string) {
@@ -33,13 +34,16 @@ export async function GET(
       { path: 'gioi-thieu', changefreq: 'yearly', priority: '0.8' },
       { path: 'oto-vinfast', changefreq: 'weekly', priority: '0.9' },
       { path: 'oto-vinfast/limo-green', changefreq: 'monthly', priority: '0.85' },
-      { path: 'xe-sieu-luot', changefreq: 'monthly', priority: '0.7' },
+      { path: 'xe-vinfast-cu', changefreq: 'daily', priority: '0.9' },
+      { path: 'ban-xe-cu', changefreq: 'monthly', priority: '0.7' },
       { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
       { path: 'thue-xe', changefreq: 'weekly', priority: '0.9' },
       { path: 'phu-kien', changefreq: 'weekly', priority: '0.8' },
       { path: 'tin-tuc', changefreq: 'daily', priority: '0.8' },
       { path: 'lien-he', changefreq: 'monthly', priority: '0.7' },
       { path: 'tuyen-dung', changefreq: 'weekly', priority: '0.6' },
+      { path: 'dieu-khoan-su-dung', changefreq: 'yearly', priority: '0.3' },
+      { path: 'chinh-sach-bao-mat', changefreq: 'yearly', priority: '0.3' },
     ];
 
     pages.forEach((page) => {
@@ -97,7 +101,22 @@ export async function GET(
     });
   }
 
-  if (!urls) {
+  // --- LOGIC 3: USED CAR LISTINGS ---
+  if (typeKey === 'listings') {
+    const cars = await getAllUsedCarSlugsForSitemap();
+    cars.forEach((car) => {
+      urls += `
+      <url>
+        <loc>${escapeXml(`${baseUrl}/xe-vinfast-cu/xe/${car.slug}`)}</loc>
+        <lastmod>${car.updatedAt}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.75</priority>
+      </url>`;
+    });
+  }
+
+  const KNOWN_TYPES = ['pages', 'posts', 'listings'];
+  if (!KNOWN_TYPES.includes(typeKey)) {
     return new NextResponse('Not Found', { status: 404 });
   }
 

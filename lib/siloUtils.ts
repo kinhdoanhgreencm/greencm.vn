@@ -67,6 +67,13 @@ export const SILO_CATEGORIES: SiloCategory[] = [
     slug: '/tin-tuc?category=tmt-egreen',
     parentId: 'news',
     description: 'Nhượng quyền trạm sạc xe điện TMT-EGREEN: chi phí đầu tư, lợi nhuận, so sánh đối tác'
+  },
+  {
+    id: 'xe-vinfast-cu',
+    label: 'Xe VinFast Cũ',
+    slug: '/tin-tuc?category=xe-vinfast-cu',
+    parentId: 'news',
+    description: 'Kiến thức mua bán xe VinFast cũ: kiểm tra pin, thủ tục sang tên, kinh nghiệm chọn xe đã qua sử dụng'
   }
 ];
 

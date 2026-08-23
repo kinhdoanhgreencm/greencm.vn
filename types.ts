@@ -24,19 +24,43 @@ export interface ChatMessage {
   text: string;
 }
 
-export interface UsedCar {
+export interface UsedCarImage {
+  url: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+}
+
+// Khớp 1:1 với bảng `used_cars` trên Supabase (xem supabase/migrations/001_create_used_cars.sql)
+export interface UsedCarListing {
   id: string;
-  name: string;
-  year: number;
-  price: string;
-  oldPrice?: string;
-  odo: string; // Kilometers
-  soh: number; // State of Health (Battery %)
-  range: string; // Km per charge
-  image: string;
-  category: string;
-  labels?: string[]; // "Mới về", "Đã kiểm định"
-  color: string;
+  slug: string;
+  brand: string;
+  model: string;
+  trim?: string | null;
+  modelYear: number;
+  registrationYear?: number | null;
+  odoKm: number;
+  color?: string | null;
+  batteryOwnership?: 'purchased' | 'leased' | null;
+  batterySohPercent?: number | null;
+  sohMeasuredAt?: string | null;
+  plateColor?: 'white' | 'yellow' | null;
+  warrantyRemaining?: string | null;
+  freeChargingUntil?: string | null;
+  previousOwnersCount?: number | null;
+  usageHistoryNote?: string | null;
+  inspectionReportUrl?: string | null;
+  price: number;
+  oldPrice?: number | null;
+  monthlyInstallment?: number | null;
+  region: string;
+  status: 'available' | 'reserved' | 'sold';
+  videoUrl?: string | null;
+  images: UsedCarImage[];
+  viewCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface RentalCar {
@@ -89,7 +113,7 @@ export interface BlogPost {
   title: string;
   excerpt: string;
   image: string;
-  category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen';
+  category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen' | 'xe-vinfast-cu';
   categoryLabel: string;
   date: string;
   author: string;

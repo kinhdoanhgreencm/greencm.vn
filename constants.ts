@@ -1,11 +1,14 @@
 
-import { NavItem, ServiceCard, CarModel, UsedCar, RentalCar, AccessoryProduct, FaqItem, NewCar, BlogPost, JobOpening } from './types';
+import { NavItem, ServiceCard, CarModel, RentalCar, AccessoryProduct, FaqItem, NewCar, BlogPost, JobOpening } from './types';
 import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
+
+// Mã số thuế Công ty Cổ phần Green CM — dùng chung cho Footer và schema AutoDealer
+export const BUSINESS_TAX_ID = '1801813513';
 
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Giới thiệu', href: '#about' },
   { label: 'Ô tô VinFast', href: '#sales' },
-  { label: 'Xe siêu lướt', href: '#limo-green' },
+  { label: 'Xe VinFast Cũ', href: '#used-cars' },
   { label: 'Trạm sạc VinFast', href: '#charging' },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
@@ -21,7 +24,7 @@ export const SERVICES: ServiceCard[] = [
   },
   {
     id: 2,
-    title: 'Xe siêu lướt',
+    title: 'Xe VinFast Cũ',
     description: 'Nền tảng kết nối người mua và người bán minh bạch. Thẩm định chất lượng xe nghiêm ngặt 160 điểm.',
     image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20VF7.png',
   },
@@ -69,63 +72,6 @@ export const FLEET: CarModel[] = [
     name: 'VinFast VF 5 Plus',
     category: 'SUV HẠNG A LINH HOẠT',
     image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20VinFast%20VF5.png'
-  }
-];
-
-export const USED_CARS: UsedCar[] = [
-  {
-    id: 'vf8-eco-2022',
-    name: 'VinFast VF 8 Eco 2022',
-    year: 2022,
-    price: '790.000.000₫',
-    oldPrice: '850.000.000₫',
-    odo: '15.000 km',
-    soh: 98,
-    range: '400 km',
-    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&h=800&fit=crop&q=80',
-    category: 'SUV',
-    labels: ['Mới về', 'Đã kiểm định'],
-    color: 'Đỏ'
-  },
-  {
-    id: 'vfe34-2022',
-    name: 'VinFast VF e34 2022',
-    year: 2022,
-    price: '480.000.000₫',
-    oldPrice: '510.000.000₫',
-    odo: '25.000 km',
-    soh: 96,
-    range: '285 km',
-    image: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1200&h=800&fit=crop&q=80',
-    category: 'CUV',
-    labels: ['Giá tốt'],
-    color: 'Xanh'
-  },
-  {
-    id: 'vf9-plus-2023',
-    name: 'VinFast VF 9 Plus 2023',
-    year: 2023,
-    price: '1.350.000.000₫',
-    odo: '8.000 km',
-    soh: 99,
-    range: '423 km',
-    image: 'https://images.unsplash.com/photo-1550136513-548af4445338?w=1200&h=800&fit=crop&q=80',
-    category: 'SUV Full-size',
-    labels: ['Siêu lướt', 'Đã kiểm định'],
-    color: 'Đen'
-  },
-  {
-    id: 'vf5-2023',
-    name: 'VinFast VF 5 Plus 2023',
-    year: 2023,
-    price: '450.000.000₫',
-    odo: '5.000 km',
-    soh: 99,
-    range: '300 km',
-    image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&h=800&fit=crop&q=80',
-    category: 'A-SUV',
-    labels: ['Mới về'],
-    color: 'Cam'
   }
 ];
 
@@ -1338,6 +1284,720 @@ export const BLOG_POSTS: BlogPost[] = [
   <li><strong>Đầu tư quy mô đội xe/depot:</strong> DC 720kW trở lên — cần khảo sát kỹ hạ tầng điện và thường vượt quy mô một hợp đồng nhượng quyền cá nhân thông thường.</li>
 </ul>
 <p class="mb-4">Xem thêm <a href="/tin-tuc/bang-gia-tru-sac-xe-dien-tmt-egreen" class="text-gcm-green font-semibold underline">bảng giá theo từng loại trụ</a> và <a href="/tin-tuc/dien-tich-mat-bang-tram-sac-xe-dien-nhuong-quyen" class="text-gcm-green font-semibold underline">yêu cầu diện tích mặt bằng</a> để hoàn thiện phương án đầu tư.</p>`
+  },
+  {
+    id: 'xe-vinfast-cu-co-bi-chai-pin-khong',
+    title: 'Mua Xe VinFast Cũ Có Bị Chai Pin Không? Số Liệu SOH Thực Đo Tại GCM',
+    excerpt: 'Giải đáp nỗi lo lớn nhất khi mua xe điện cũ: pin có chai không, chai bao nhiêu là bình thường, và cách GCM đo chỉ số SOH thực tế trước khi bán.',
+    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '14/06/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'xe-vinfast-cu-co-bi-chai-pin-khong',
+    tags: ['chai pin xe điện', 'SOH pin VinFast', 'xe VinFast cũ', 'mua xe điện cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Đây là câu hỏi đầu tiên gần như ai cũng đặt ra khi cân nhắc mua xe VinFast cũ: pin có bị chai không, chai rồi thì sao? Bài viết trả lời thẳng bằng số liệu đo thực tế, không phải cảm tính.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Pin xe điện có chai theo thời gian không?</h2>
+<p class="mb-4">Có, giống mọi loại pin lithium-ion khác (kể cả pin điện thoại, laptop), pin xe điện suy giảm dung lượng dần theo số chu kỳ sạc/xả và thời gian sử dụng. Mức độ suy giảm này được đo bằng chỉ số <strong>SOH (State of Health)</strong> — phần trăm dung lượng còn lại so với lúc pin mới xuất xưởng (100%).</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">SOH bao nhiêu là bình thường sau 2-3 năm sử dụng?</h2>
+<p class="mb-4">Theo số liệu đo thực tế tại GCM trên các xe VF e34, VF8, VF5 đời 2022-2023 đưa vào kiểm định, phần lớn xe sử dụng bình thường (không chạy dịch vụ liên tục) sau 2-3 năm vẫn giữ SOH trong khoảng <strong>93-98%</strong> — mức suy giảm chậm hơn nhiều so với lo ngại phổ biến. Xe chạy dịch vụ với tần suất sạc nhanh cao và số km lớn (40.000-60.000km) có xu hướng SOH thấp hơn, nhưng hiếm khi giảm dưới ngưỡng ảnh hưởng đáng kể đến quãng đường thực tế.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao không nên chỉ nhìn số km để đánh giá pin</h2>
+<p class="mb-4">Hai xe cùng số km có thể có SOH khác nhau đáng kể tùy thói quen sạc (sạc nhanh DC thường xuyên vs sạc AC qua đêm), điều kiện nhiệt độ bảo quản, và việc có để pin cạn kiệt thường xuyên hay không. Đây là lý do <strong>số km không đủ để định giá xe điện cũ</strong> — cần đo SOH trực tiếp bằng máy chuyên dụng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">GCM đo và công bố SOH như thế nào?</h2>
+<p class="mb-4">Mọi xe VinFast cũ qua kiểm định tại GCM đều được đo chỉ số SOH bằng máy chuyên dụng, ghi rõ ngày đo và công bố công khai trên trang chi tiết xe — không phải con số ước lượng chung chung. Đây là một phần trong quy trình <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">kiểm định 160 điểm</a> trước khi xe được đăng bán.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Đọc tiếp</h2>
+<p class="mb-4">Tìm hiểu cách tự kiểm tra SOH trước khi mua tại <a href="/tin-tuc/cach-kiem-tra-soh-pin-xe-vinfast-cu" class="text-gcm-green font-semibold underline">Cách kiểm tra chỉ số SOH pin xe VinFast cũ</a>, hoặc xem ngay <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">danh sách xe VinFast cũ đã kiểm định</a> tại GCM.</p>`
+  },
+  {
+    id: 'cach-kiem-tra-soh-pin-xe-vinfast-cu',
+    title: 'Cách Kiểm Tra Chỉ Số SOH Pin Xe VinFast Cũ: 4 Cách Kèm Hướng Dẫn Chi Tiết',
+    excerpt: '4 cách kiểm tra tình trạng pin xe VinFast cũ trước khi mua, từ tự kiểm tra trên màn hình xe đến nhờ kỹ thuật viên đo bằng máy chuyên dụng.',
+    image: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '18/06/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'cach-kiem-tra-soh-pin-xe-vinfast-cu',
+    tags: ['kiểm tra SOH pin', 'xe VinFast cũ', 'chỉ số sức khỏe pin'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Sau khi hiểu <a href="/tin-tuc/xe-vinfast-cu-co-bi-chai-pin-khong" class="text-gcm-green font-semibold underline">pin xe điện chai theo thời gian là bình thường</a>, bước tiếp theo là biết cách tự kiểm tra chỉ số SOH trước khi quyết định mua. Dưới đây là 4 cách, từ dễ đến chính xác nhất.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách 1: Xem trên màn hình trung tâm của xe</h2>
+<p class="mb-4">Hầu hết xe VinFast có mục hiển thị thông tin pin trong menu cài đặt/xe của màn hình trung tâm, tuy nhiên đây thường là ước lượng dựa trên phần mềm, độ chính xác thấp hơn máy đo chuyên dụng — chỉ nên dùng để tham khảo ban đầu.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách 2: Kiểm tra qua ứng dụng VinFast (nếu còn tài khoản liên kết)</h2>
+<p class="mb-4">Nếu chủ xe cũ vẫn còn liên kết tài khoản ứng dụng VinFast, một số thông tin vận hành pin có thể xem được qua app. Cần lưu ý xin chuyển giao hoặc hủy liên kết tài khoản cũ khi hoàn tất mua bán.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách 3: Quan sát gián tiếp qua quãng đường thực tế sau khi sạc đầy</h2>
+<p class="mb-4">So sánh quãng đường đi được thực tế sau khi sạc đầy 100% với thông số quãng đường công bố của xe khi còn mới. Chênh lệch lớn là dấu hiệu SOH đã giảm đáng kể — nhưng cách này bị ảnh hưởng bởi điều kiện lái, thời tiết, tải trọng, nên chỉ mang tính tham khảo.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách 4: Đo bằng máy chuyên dụng (chính xác nhất)</h2>
+<p class="mb-4">Đây là cách duy nhất cho kết quả đáng tin cậy — kỹ thuật viên dùng máy quét chuyên dụng kết nối trực tiếp vào hệ thống quản lý pin (BMS) của xe để đọc chỉ số SOH thực tế, đồng thời phát hiện luôn các mã lỗi hệ thống nếu có. Đây chính là bước 2 trong <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">quy trình kiểm định 3 bước tại GCM</a>.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lời khuyên khi xem xe</h2>
+<p class="mb-4">Nếu người bán không cung cấp được kết quả đo SOH bằng máy, hãy yêu cầu đo trước khi đặt cọc, hoặc ưu tiên các xe đã qua kiểm định có công bố sẵn chỉ số này kèm ngày đo — tránh mua theo lời hứa miệng "pin còn tốt".</p>
+
+<p class="mb-4">Xem thêm: <a href="/tin-tuc/tra-cuu-bao-hanh-pin-vinfast-xe-cu" class="text-gcm-green font-semibold underline">Cách tra cứu bảo hành pin VinFast còn lại</a>.</p>`
+  },
+  {
+    id: 'xe-vinfast-cu-con-hop-dong-thue-pin',
+    title: 'Xe VinFast Cũ Còn Hợp Đồng Thuê Pin — Mua Bán Và Chuyển Giao Thế Nào?',
+    excerpt: 'VinFast dừng dịch vụ cho thuê pin ô tô từ 01/03/2025, khiến thị trường xe cũ tồn tại 2 loại xe khác nhau hoàn toàn: xe mua đứt pin và xe còn hợp đồng thuê. Đây là điểm dễ nhầm lẫn nhất.',
+    image: 'https://images.unsplash.com/photo-1550136513-548af4445338?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '21/06/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'xe-vinfast-cu-con-hop-dong-thue-pin',
+    tags: ['hợp đồng thuê pin', 'xe VinFast cũ', 'mua đứt pin'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">VinFast đã dừng dịch vụ cho thuê pin ô tô kể từ ngày <strong>01/03/2025</strong>. Điều này tạo ra hai loại xe cũ khác nhau hoàn toàn về mặt pháp lý và giá bán trên thị trường hiện nay: xe đã mua đứt pin và xe còn hợp đồng thuê pin từ trước đó — đây là điểm gây nhầm lẫn lớn nhất cho người mua xe VinFast cũ.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Khác biệt giữa xe mua đứt pin và xe còn thuê pin</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Xe đã mua đứt pin:</strong> chủ xe sở hữu toàn bộ xe kể cả pin, không phát sinh chi phí thuê hàng tháng, giá bán lại thường cao hơn vì không kèm nghĩa vụ hợp đồng.</li>
+  <li><strong>Xe còn hợp đồng thuê pin:</strong> chủ xe chỉ sở hữu phần thân xe, pin thuộc quyền sở hữu của đơn vị cho thuê pin, hàng tháng phát sinh phí thuê bao — người mua xe dạng này cần kế thừa hoặc thanh lý hợp đồng thuê.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Mua xe còn hợp đồng thuê pin có được không?</h2>
+<p class="mb-4">Có, nhưng cần xử lý đúng quy trình. Người mua có hai lựa chọn: (1) tiếp tục kế thừa hợp đồng thuê pin đứng tên mình, tiếp tục trả phí thuê hàng tháng, hoặc (2) thanh lý hợp đồng thuê để chuyển sang sở hữu đứt pin (nếu chính sách còn áp dụng tại thời điểm giao dịch), thường phát sinh một khoản phí thanh lý.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao cần xác minh rõ trước khi đặt cọc</h2>
+<p class="mb-4">Nhầm lẫn phổ biến nhất là người mua tưởng xe đã mua đứt pin nhưng thực tế vẫn còn hợp đồng thuê — dẫn đến phát sinh phí thuê hàng tháng ngoài dự tính, hoặc gặp khó khăn khi công nợ thuê pin của chủ cũ chưa được tất toán. Luôn yêu cầu người bán cung cấp giấy tờ xác nhận tình trạng pin rõ ràng trước khi đặt cọc.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">GCM hỗ trợ gì trong trường hợp này?</h2>
+<p class="mb-4">Với các xe qua kiểm định tại GCM, tình trạng pin (mua đứt hay còn thuê) được xác minh và công bố rõ ràng ngay trên trang chi tiết xe, đồng thời GCM hỗ trợ làm việc với đơn vị cho thuê pin để xử lý thủ tục chuyển giao hoặc thanh lý hợp đồng khi khách mua hoặc bán xe qua GCM.</p>
+
+<p class="mb-4">Xem thêm: <a href="/tin-tuc/pin-mua-va-pin-thue-chenh-gia-bao-nhieu" class="text-gcm-green font-semibold underline">Pin mua và pin thuê chênh giá xe cũ bao nhiêu</a>, hoặc <a href="/ban-xe-cu" class="text-gcm-green font-semibold underline">liên hệ GCM nếu bạn cần hỗ trợ thanh lý hợp đồng thuê pin</a>.</p>`
+  },
+  {
+    id: 'pin-mua-va-pin-thue-chenh-gia-bao-nhieu',
+    title: 'Pin Mua Và Pin Thuê Chênh Giá Xe Cũ Bao Nhiêu? Nên Chọn Loại Nào?',
+    excerpt: 'So sánh giá bán lại giữa xe VinFast cũ đã mua đứt pin và xe còn hợp đồng thuê pin, giúp người mua và người bán định giá đúng.',
+    image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '25/06/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'pin-mua-va-pin-thue-chenh-gia-bao-nhieu',
+    tags: ['giá xe VinFast cũ', 'mua đứt pin', 'thuê pin', 'định giá xe điện cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Sau khi đã hiểu <a href="/tin-tuc/xe-vinfast-cu-con-hop-dong-thue-pin" class="text-gcm-green font-semibold underline">khác biệt giữa xe mua đứt pin và xe còn thuê pin</a>, câu hỏi tiếp theo là: chênh lệch giá giữa hai loại này lớn cỡ nào, và nên ưu tiên loại nào khi mua?</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao xe mua đứt pin thường bán giá cao hơn</h2>
+<p class="mb-4">Xe mua đứt pin không kèm nghĩa vụ hợp đồng, người mua sở hữu toàn bộ xe không phát sinh chi phí thuê hàng tháng — đây là lý do nhóm xe này có giá bán lại cao hơn đáng kể so với xe cùng đời, cùng số km nhưng còn hợp đồng thuê pin.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách tính bài toán tài chính khi cân nhắc xe còn thuê pin</h2>
+<p class="mb-4">Xe còn thuê pin thường có giá mua ban đầu thấp hơn, nhưng người mua cần cộng thêm phí thuê pin hàng tháng trong suốt thời gian sử dụng. Trước khi quyết định, nên tính tổng chi phí sở hữu (giá xe + tổng phí thuê pin dự kiến trong 3-5 năm) rồi so sánh với giá một xe tương đương đã mua đứt pin để biết phương án nào thực sự tiết kiệm hơn.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nên chọn loại nào?</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Ưu tiên xe mua đứt pin</strong> nếu có đủ ngân sách — đơn giản hóa chi phí vận hành, không lo phát sinh phí thuê, dễ bán lại sau này hơn.</li>
+  <li><strong>Cân nhắc xe còn thuê pin</strong> nếu ngân sách ban đầu hạn chế và đã tính toán kỹ tổng chi phí thuê dài hạn, đồng thời xác nhận rõ khả năng thanh lý hợp đồng nếu muốn chuyển sang mua đứt sau này.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lưu ý khi thương lượng giá</h2>
+<p class="mb-4">Khi xem xe, luôn yêu cầu người bán tách rõ ràng giá xe với tình trạng pin trong hợp đồng mua bán, tránh tình huống giá thương lượng ban đầu là cho xe mua đứt pin nhưng khi ký hợp đồng mới phát hiện xe còn thuê pin.</p>
+
+<p class="mb-4">Xem <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">danh sách xe VinFast cũ tại GCM</a> — mỗi xe đều công bố rõ tình trạng pin ngay trên trang chi tiết.</p>`
+  },
+  {
+    id: 'tra-cuu-bao-hanh-pin-vinfast-xe-cu',
+    title: 'Cách Tra Cứu Bảo Hành Pin VinFast Còn Lại Khi Mua Xe Cũ',
+    excerpt: 'Hướng dẫn kiểm tra thời hạn bảo hành pin VinFast còn lại trước khi mua xe cũ, và những gì cần lưu ý về việc chuyển nhượng bảo hành cho chủ mới.',
+    image: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '28/06/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'tra-cuu-bao-hanh-pin-vinfast-xe-cu',
+    tags: ['bảo hành pin VinFast', 'xe VinFast cũ', 'tra cứu bảo hành'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Ngoài chỉ số SOH đo thực tế, thời hạn bảo hành pin còn lại là yếu tố quan trọng khác cần kiểm tra trước khi mua xe VinFast cũ — vì đây là "lớp bảo vệ" giúp giảm rủi ro chi phí phát sinh nếu pin gặp lỗi kỹ thuật trong tương lai.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Bảo hành pin có được chuyển nhượng cho chủ mới không?</h2>
+<p class="mb-4">Có. Chính sách bảo hành pin của VinFast áp dụng theo xe (gắn với số VIN), không phải theo chủ sở hữu ban đầu — nghĩa là khi mua xe cũ, chủ mới vẫn được hưởng thời gian bảo hành pin còn lại tương ứng với đời xe và số năm/số km đã sử dụng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách kiểm tra thời hạn bảo hành còn lại</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Yêu cầu người bán cung cấp phiếu bảo hành gốc hoặc lịch sử bảo dưỡng tại đại lý chính hãng.</li>
+  <li>Liên hệ trực tiếp đại lý/xưởng dịch vụ VinFast gần nhất để tra cứu theo số VIN của xe.</li>
+  <li>Nếu mua qua đơn vị trung gian như GCM, yêu cầu hỗ trợ tra cứu và xác nhận bằng văn bản trước khi đặt cọc.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao nên xác minh trước, không nên tin lời nói miệng</h2>
+<p class="mb-4">Thời hạn bảo hành ảnh hưởng trực tiếp đến chi phí dự phòng của người mua trong những năm đầu sở hữu xe — sự khác biệt giữa xe còn 5 năm bảo hành và xe chỉ còn 1 năm là rất lớn về mức độ an tâm tài chính. Không nên chỉ dựa vào lời người bán mà cần có xác nhận chính thức từ hãng hoặc đại lý.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">GCM hỗ trợ tra cứu miễn phí</h2>
+<p class="mb-4">Với các xe được kiểm định và rao bán tại GCM, thông tin bảo hành pin còn lại đã được xác minh sẵn và công bố công khai trên trang chi tiết xe, giúp khách hàng không phải tự đi tra cứu.</p>
+
+<p class="mb-4">Xem <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">xe VinFast cũ đang có tại GCM</a> — mỗi xe đều ghi rõ bảo hành pin còn lại ngay trên trang chi tiết.</p>`
+  },
+  {
+    id: 'bang-gia-xe-vinfast-cu-mien-tay',
+    title: 'Bảng Giá Xe VinFast Cũ Tại Miền Tây — Cập Nhật Theo Từng Dòng Xe',
+    excerpt: 'Tổng hợp mặt bằng giá tham khảo các dòng xe VinFast cũ phổ biến tại khu vực Đồng bằng sông Cửu Long, dựa trên dữ liệu giao dịch thực tế.',
+    image: 'https://images.unsplash.com/photo-1593121925328-369cc8459c08?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '02/07/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'bang-gia-xe-vinfast-cu-mien-tay',
+    tags: ['bảng giá xe VinFast cũ', 'giá xe điện cũ miền Tây', 'VF5 cũ', 'VF8 cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Mặt bằng giá xe VinFast cũ biến động khá nhanh theo từng tháng do thị trường xe điện cũ mới bước vào giai đoạn tăng trưởng. Bài viết tổng hợp mức giá tham khảo theo từng dòng xe, dựa trên dữ liệu giao dịch thực tế ghi nhận tại khu vực miền Tây.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Mặt bằng giá tham khảo theo dòng xe</h2>
+<p class="mb-4">Ví dụ điển hình: xe VF5 chạy dịch vụ với ODO khoảng 50.000km sau 2 năm sử dụng thường giao dịch quanh mức <strong>405 triệu đồng</strong> trên thị trường miền Tây — tương ứng mức khấu hao khoảng <strong>20%</strong> so với giá mua ban đầu. Mức giá cụ thể còn phụ thuộc nhiều vào đời xe, số km, tình trạng pin và loại biển số.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Những yếu tố khiến giá cùng một dòng xe chênh lệch lớn</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Tình trạng pin</strong> (mua đứt hay còn thuê) — chênh lệch có thể lên tới hàng chục triệu đồng.</li>
+  <li><strong>Loại biển số</strong> — biển vàng (chạy dịch vụ) thường rẻ hơn biển trắng cùng đời, cùng số km.</li>
+  <li><strong>Chỉ số SOH pin thực đo</strong> — xe có SOH cao hơn, có hồ sơ đo rõ ràng thường bán được giá tốt hơn.</li>
+  <li><strong>Lịch sử sử dụng</strong> — xe gia đình sử dụng nhẹ nhàng thường được định giá cao hơn xe chạy dịch vụ liên tục.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao bảng giá cần cập nhật hằng tháng</h2>
+<p class="mb-4">Thị trường xe VinFast cũ đang trong giai đoạn tăng trưởng nhanh với nguồn cung liên tục thay đổi (xe chạy dịch vụ thanh lý, khách gia đình lên đời, chương trình thu cũ đổi mới của VinFast...), nên giá tham khảo có thể thay đổi đáng kể chỉ sau vài tuần. Bài viết này sẽ được cập nhật định kỳ hằng tháng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Xem giá xe thật đang bán tại GCM</h2>
+<p class="mb-4">Để xem giá cụ thể theo từng xe thật (không phải giá tham khảo trung bình), truy cập <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">danh sách xe VinFast cũ tại GCM</a> — mỗi xe đều công bố giá, ODO, SOH pin rõ ràng. Nếu bạn muốn bán xe, xem trước <a href="/ban-xe-cu" class="text-gcm-green font-semibold underline">dịch vụ định giá miễn phí trong 30 phút</a>.</p>
+
+<p class="mb-4"><em>Cập nhật lần cuối: tháng 6/2026. Giá tham khảo, có thể thay đổi theo thời điểm và tình trạng thực tế từng xe.</em></p>`
+  },
+  {
+    id: 'xe-dien-vinfast-mat-gia-bao-nhieu-sau-1-2-3-nam',
+    title: 'Xe Điện VinFast Mất Giá Bao Nhiêu Sau 1, 2, 3 Năm? Dữ Liệu Thị Trường Thực Tế',
+    excerpt: 'Phân tích tốc độ khấu hao thực tế của xe điện VinFast theo từng năm sử dụng, so sánh với mức khấu hao của xe xăng cùng phân khúc.',
+    image: 'https://images.unsplash.com/photo-1493238792000-8113da705763?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '05/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'xe-dien-vinfast-mat-gia-bao-nhieu-sau-1-2-3-nam',
+    tags: ['khấu hao xe điện', 'xe VinFast mất giá', 'xe VinFast cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Một trong những lo ngại phổ biến khi mua xe điện là tốc độ mất giá — liệu xe điện có khấu hao nhanh hơn xe xăng? Dữ liệu thị trường thực tế cho câu trả lời khác với cảm nhận thông thường.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Dữ liệu khấu hao thực tế: VF5 sau 2 năm</h2>
+<p class="mb-4">Ví dụ cụ thể: xe VinFast VF5 chạy dịch vụ với ODO khoảng 50.000km sau 2 năm giao dịch quanh mức <strong>405 triệu đồng</strong> trên thị trường, tương ứng mức khấu hao khoảng <strong>20%</strong> — thấp hơn mức khấu hao trung bình khoảng <strong>25%</strong> của một mẫu sedan hạng B chạy xăng cùng kỳ theo ghi nhận thị trường.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao xe điện VinFast giữ giá tốt hơn kỳ vọng?</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Chi phí vận hành thấp</strong> khiến nhu cầu mua xe điện cũ tăng nhanh, đẩy giá giữ ổn định hơn.</li>
+  <li><strong>Chính sách miễn 100% lệ phí trước bạ</strong> cho xe điện mua mới (đến hết 28/02/2027) làm giảm áp lực giá xe mới, gián tiếp giữ giá xe cũ ổn định hơn so với biến động mạnh của thị trường xe xăng.</li>
+  <li><strong>Bảo hành pin dài hạn được chuyển nhượng cho chủ mới</strong> giúp người mua xe cũ yên tâm hơn, duy trì nhu cầu và giá bán lại.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Khấu hao có đều theo từng năm không?</h2>
+<p class="mb-4">Không hoàn toàn — mức khấu hao thường lớn nhất trong năm đầu tiên (giống hầu hết các loại xe khi vừa đăng ký mới), sau đó chậm lại dần ở các năm tiếp theo nếu xe được bảo dưỡng tốt và có hồ sơ SOH pin rõ ràng. Xe có bằng chứng kiểm định minh bạch thường giữ giá tốt hơn xe không rõ nguồn gốc.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Kết luận</h2>
+<p class="mb-4">Số liệu thực tế cho thấy lo ngại "xe điện mất giá nhanh" phần lớn không phản ánh đúng thị trường VinFast cũ hiện nay — miễn là xe có nguồn gốc rõ ràng, tình trạng pin minh bạch. Xem thêm <a href="/tin-tuc/tong-chi-phi-so-huu-xe-vinfast-cu-5-nam" class="text-gcm-green font-semibold underline">tổng chi phí sở hữu xe VinFast cũ 5 năm</a> để có cái nhìn đầy đủ hơn.</p>`
+  },
+  {
+    id: 'vi-sao-xe-bien-vang-cu-re-hon-bien-trang',
+    title: 'Vì Sao Xe VinFast Biển Vàng Cũ Rẻ Hơn Biển Trắng 30-60 Triệu Đồng?',
+    excerpt: 'Giải thích chênh lệch giá giữa xe VinFast cũ biển vàng (chạy dịch vụ) và biển trắng, cùng những điều cần cân nhắc trước khi mua xe biển vàng.',
+    image: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '09/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'vi-sao-xe-bien-vang-cu-re-hon-bien-trang',
+    tags: ['xe biển vàng cũ', 'xe biển trắng cũ', 'giá xe VinFast cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Trong lúc xem xe VinFast cũ, nhiều người sẽ thấy hai xe cùng đời, cùng số km nhưng chênh giá 30-60 triệu đồng — phần lớn nguyên nhân nằm ở loại biển số.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Biển vàng và biển trắng khác nhau thế nào?</h2>
+<p class="mb-4">Biển vàng là biển số đăng ký cho xe kinh doanh vận tải (chạy dịch vụ, taxi công nghệ), còn biển trắng là biển số xe cá nhân không kinh doanh. Xe biển vàng thường có tần suất sử dụng, số km và cường độ sạc/xả pin cao hơn đáng kể so với xe biển trắng cùng đời.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao xe biển vàng cũ rẻ hơn</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Cường độ sử dụng cao hơn</strong> khiến người mua e ngại về độ hao mòn tổng thể của xe và pin.</li>
+  <li><strong>Chi phí bảo hiểm và đăng kiểm</strong> đối với xe kinh doanh vận tải thường cao hơn xe cá nhân.</li>
+  <li><strong>Khả năng chuyển đổi sang biển trắng</strong> đòi hỏi thủ tục riêng, không phải lúc nào cũng thực hiện được dễ dàng, khiến một số người mua e ngại.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Mua xe biển vàng cũ có đáng không?</h2>
+<p class="mb-4">Nếu ngân sách hạn chế và không quá quan trọng việc chuyển đổi biển số, xe biển vàng cũ là lựa chọn tiết kiệm hợp lý — đặc biệt nếu xe đã qua kiểm định minh bạch về chỉ số SOH pin. Với người mua để tiếp tục chạy dịch vụ, biển vàng thậm chí là điều kiện bắt buộc, không phải nhược điểm.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Điều cần kiểm tra kỹ hơn khi mua xe biển vàng</h2>
+<p class="mb-4">Vì cường độ sử dụng cao, nên đặc biệt chú trọng kiểm tra chỉ số SOH pin thực đo, lịch sử bảo dưỡng, và tình trạng khung gầm/hệ thống treo trước khi quyết định — đây là các hạng mục nằm trong <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">quy trình kiểm định 160 điểm tại GCM</a>.</p>
+
+<p class="mb-4">Nếu bạn định mua xe để chạy dịch vụ, xem thêm <a href="/tin-tuc/mua-xe-vinfast-cu-chay-dich-vu-dieu-kien-len-app" class="text-gcm-green font-semibold underline">điều kiện xe được duyệt lên ứng dụng gọi xe</a>.</p>`
+  },
+  {
+    id: 'vf8-eco-cu-hay-vf6-moi-ngan-sach-800-trieu',
+    title: 'VF8 Eco Cũ Hay VF6 Mới — Nên Chọn Gì Với Ngân Sách 800 Triệu?',
+    excerpt: 'So sánh trực diện giữa mua VF8 Eco cũ và VF6 mới trong cùng tầm ngân sách khoảng 800 triệu đồng, giúp người mua đưa ra lựa chọn phù hợp.',
+    image: 'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '12/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'vf8-eco-cu-hay-vf6-moi-ngan-sach-800-trieu',
+    tags: ['VF8 Eco cũ', 'VF6 mới', 'so sánh xe điện'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Với ngân sách khoảng 800 triệu đồng, nhiều người phân vân giữa việc mua một chiếc VF8 Eco đã qua sử dụng (phân khúc cao hơn) hay một chiếc VF6 hoàn toàn mới. Đây là bài toán không có đáp án chung cho tất cả, nhưng có thể phân tích theo nhu cầu cụ thể.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">VF8 Eco cũ: được gì, đánh đổi gì</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Được:</strong> không gian rộng rãi hơn hẳn phân khúc SUV cỡ D, trang bị và công suất cao hơn VF6, cảm giác "đi xe lớn" với cùng mức chi.</li>
+  <li><strong>Đánh đổi:</strong> xe đã qua sử dụng nên cần kiểm tra kỹ tình trạng pin (SOH), lịch sử sử dụng; bảo hành còn lại ngắn hơn xe mới.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">VF6 mới: được gì, đánh đổi gì</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Được:</strong> bảo hành trọn vẹn từ đầu, pin mới 100% không phải lo SOH, chính sách miễn 100% lệ phí trước bạ khi mua mới (đến hết 28/02/2027).</li>
+  <li><strong>Đánh đổi:</strong> kích thước và công suất nhỏ hơn phân khúc VF8, không có "cảm giác nâng cấp" nếu đang dùng xe cỡ nhỏ.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nên chọn gì?</h2>
+<p class="mb-4">Nếu ưu tiên không gian, trang bị và sẵn sàng dành thời gian kiểm tra kỹ pin trước khi mua, <strong>VF8 Eco cũ đã kiểm định minh bạch</strong> mang lại giá trị sử dụng cao hơn trong cùng ngân sách. Nếu ưu tiên sự an tâm tuyệt đối về pin/bảo hành và không cần không gian lớn, <strong>VF6 mới</strong> là lựa chọn ít rủi ro hơn.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách giảm rủi ro khi chọn VF8 Eco cũ</h2>
+<p class="mb-4">Ưu tiên xe đã qua kiểm định 160 điểm, có chỉ số SOH pin đo thực tế và bảo hành pin còn lại rõ ràng — khi đó rủi ro của "xe cũ" gần như được loại bỏ, trong khi vẫn giữ được lợi thế về không gian và trang bị so với ngân sách tương đương.</p>
+
+<p class="mb-4">Xem <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">danh sách VF8 Eco cũ đã kiểm định tại GCM</a> để so sánh cụ thể.</p>`
+  },
+  {
+    id: 'tong-chi-phi-so-huu-xe-vinfast-cu-5-nam',
+    title: 'Tổng Chi Phí Sở Hữu Xe VinFast Cũ Sau 5 Năm So Với Xe Xăng Cũ Cùng Tầm Giá',
+    excerpt: 'Phân tích tổng chi phí sở hữu (TCO) 5 năm giữa xe VinFast cũ và xe xăng cũ cùng phân khúc — bao gồm nhiên liệu/điện, bảo dưỡng, bảo hiểm và khấu hao.',
+    image: 'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '16/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'tong-chi-phi-so-huu-xe-vinfast-cu-5-nam',
+    tags: ['chi phí sở hữu xe điện', 'xe VinFast cũ', 'so sánh xe xăng'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Giá mua ban đầu chỉ là một phần của bài toán chi phí sở hữu xe. Bài viết phân tích tổng chi phí sở hữu (TCO) trong 5 năm giữa xe VinFast cũ và một mẫu xe xăng cũ cùng tầm giá, để có cái nhìn đầy đủ hơn khi so sánh.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Các khoản mục cần tính trong tổng chi phí sở hữu</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Giá mua xe ban đầu (đã trừ khấu hao nếu là xe cũ)</li>
+  <li>Chi phí nhiên liệu/điện hàng tháng</li>
+  <li>Chi phí bảo dưỡng định kỳ</li>
+  <li>Chi phí bảo hiểm thân vỏ và bảo hiểm bắt buộc</li>
+  <li>Lệ phí trước bạ khi sang tên</li>
+  <li>Mức khấu hao dự kiến khi bán lại sau 5 năm</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Chi phí năng lượng: chênh lệch lớn nhất</h2>
+<p class="mb-4">Đây là khoản mục xe điện chiếm ưu thế rõ rệt nhất — chi phí sạc điện cho quãng đường tương đương thường chỉ bằng một phần nhỏ so với chi phí xăng của xe cùng phân khúc, đặc biệt nếu sạc chủ yếu tại nhà vào khung giờ thấp điểm.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Chi phí bảo dưỡng: xe điện thường thấp hơn</h2>
+<p class="mb-4">Xe điện không có động cơ đốt trong, hộp số phức tạp, hệ thống xả — nên các hạng mục bảo dưỡng định kỳ (thay dầu máy, lọc dầu, bugi...) không tồn tại, giúp giảm đáng kể chi phí bảo dưỡng so với xe xăng trong dài hạn.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Khấu hao: xe điện VinFast đang giữ giá tốt hơn kỳ vọng</h2>
+<p class="mb-4">Như đã phân tích tại <a href="/tin-tuc/xe-dien-vinfast-mat-gia-bao-nhieu-sau-1-2-3-nam" class="text-gcm-green font-semibold underline">bài viết về tốc độ khấu hao xe điện VinFast</a>, dữ liệu thị trường cho thấy mức khấu hao khoảng 20% sau 2 năm với xe chạy dịch vụ, thấp hơn mức 25% của xe xăng hạng B cùng kỳ.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Kết luận</h2>
+<p class="mb-4">Tính tổng thể trong 5 năm, xe VinFast cũ thường có tổng chi phí sở hữu thấp hơn xe xăng cũ cùng tầm giá, chủ yếu nhờ tiết kiệm chi phí năng lượng và bảo dưỡng — bù lại phần chênh lệch (nếu có) ở giá mua ban đầu hoặc chi phí pin dự phòng sau bảo hành.</p>`
+  },
+  {
+    id: 'thu-tuc-sang-ten-xe-o-to-dien-cu',
+    title: 'Thủ Tục Sang Tên Xe Ô Tô Điện Cũ 2026 — Đầy Đủ Từng Bước',
+    excerpt: 'Hướng dẫn chi tiết thủ tục sang tên xe ô tô điện cũ năm 2026, từ hồ sơ cần chuẩn bị đến các bước tại cơ quan đăng ký.',
+    image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '19/07/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'thu-tuc-sang-ten-xe-o-to-dien-cu',
+    tags: ['sang tên xe điện cũ', 'thủ tục sang tên ô tô', 'xe VinFast cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Sang tên xe ô tô điện cũ về cơ bản theo quy trình chung của xe ô tô, nhưng có một số điểm riêng liên quan đến pin và chính sách ưu đãi cần lưu ý. Bài viết hướng dẫn đầy đủ từng bước.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Hồ sơ cần chuẩn bị</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Giấy chứng nhận đăng ký xe (bản gốc)</li>
+  <li>Hợp đồng mua bán xe có công chứng/chứng thực</li>
+  <li>Giấy tờ tùy thân của bên mua và bên bán</li>
+  <li>Giấy xác nhận tình trạng pin (mua đứt hay còn hợp đồng thuê — quan trọng với xe điện)</li>
+  <li>Biên lai nộp lệ phí trước bạ</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Các bước thực hiện</h2>
+<ol class="list-decimal list-inside mb-6 space-y-3 font-semibold">
+  <li><span class="font-normal">Hai bên ký hợp đồng mua bán, công chứng hoặc chứng thực theo quy định.</span></li>
+  <li><span class="font-normal">Nộp hồ sơ khai lệ phí trước bạ tại cơ quan thuế (có thể khai điện tử nếu đủ điều kiện định danh mức 2).</span></li>
+  <li><span class="font-normal">Nộp lệ phí trước bạ theo mức áp dụng cho xe cũ (xem chi tiết tại bài viết riêng về lệ phí trước bạ).</span></li>
+  <li><span class="font-normal">Nộp hồ sơ đăng ký sang tên tại cơ quan công an nơi cư trú của bên mua.</span></li>
+  <li><span class="font-normal">Nhận giấy chứng nhận đăng ký xe mới đứng tên chủ sở hữu mới.</span></li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Điểm riêng của xe điện: xử lý tình trạng pin trước khi sang tên</h2>
+<p class="mb-4">Nếu xe còn hợp đồng thuê pin, cần hoàn tất thủ tục chuyển giao hoặc thanh lý hợp đồng thuê với đơn vị cho thuê pin trước hoặc song song với quá trình sang tên xe, tránh phát sinh tranh chấp về sau. Xem chi tiết tại <a href="/tin-tuc/xe-vinfast-cu-con-hop-dong-thue-pin" class="text-gcm-green font-semibold underline">bài viết về xe còn hợp đồng thuê pin</a>.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Thời gian hoàn tất</h2>
+<p class="mb-4">Nếu hồ sơ đầy đủ, thủ tục sang tên thường hoàn tất trong khoảng 3-5 ngày làm việc. GCM hỗ trợ dịch vụ sang tên trọn gói (bao gồm rút hồ sơ gốc và đăng ký biển mới) cho khách hàng mua/bán xe qua GCM.</p>
+
+<p class="mb-4">Xem thêm: <a href="/tin-tuc/le-phi-truoc-ba-xe-dien-cu-2-phan-tram" class="text-gcm-green font-semibold underline">Lệ phí trước bạ xe điện cũ tính thế nào</a> và <a href="/tin-tuc/vneid-muc-2-giam-50-phan-tram-le-phi-truoc-ba" class="text-gcm-green font-semibold underline">cách giảm 50% lệ phí trước bạ bằng VNeID</a>.</p>`
+  },
+  {
+    id: 'le-phi-truoc-ba-xe-dien-cu-2-phan-tram',
+    title: 'Lệ Phí Trước Bạ Xe Điện Cũ: 2% Giá Trị Còn Lại Tính Thế Nào?',
+    excerpt: 'Giải thích cách tính lệ phí trước bạ khi sang tên xe điện cũ (từ lần đăng ký thứ hai) — điểm rất nhiều người mua xe VinFast cũ hiểu sai.',
+    image: 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '23/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'le-phi-truoc-ba-xe-dien-cu-2-phan-tram',
+    tags: ['lệ phí trước bạ xe điện', 'trước bạ xe cũ', 'sang tên xe điện'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Đây là điểm rất nhiều người mua xe VinFast cũ hiểu sai: ô tô điện chạy pin tiếp tục được <strong>miễn 100% lệ phí trước bạ lần đầu</strong> đến hết 28/02/2027, nhưng ưu đãi này <strong>chỉ áp dụng cho lần đăng ký đầu tiên</strong> — xe cũ sang tên (từ lần đăng ký thứ hai trở đi) vẫn phải chịu lệ phí trước bạ theo mức quy định.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Mức lệ phí trước bạ áp dụng cho xe điện cũ sang tên</h2>
+<p class="mb-4">Khi sang tên xe điện đã qua sử dụng (từ chủ thứ hai trở đi), lệ phí trước bạ được tính bằng <strong>2% trên giá trị còn lại của xe</strong> — không phải giá trị xe khi mua mới, và cũng không được miễn như lần đăng ký đầu tiên.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Giá trị còn lại của xe được xác định như thế nào?</h2>
+<p class="mb-4">Giá trị còn lại thường được xác định dựa trên bảng giá tính lệ phí trước bạ do cơ quan thuế ban hành theo từng dòng xe và năm sản xuất, có tính đến khấu hao theo thời gian sử dụng — không nhất thiết bằng giá thỏa thuận thực tế giữa hai bên mua bán.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Ví dụ minh họa cách tính</h2>
+<p class="mb-4">Nếu giá trị còn lại của xe theo bảng giá tính lệ phí trước bạ là 500 triệu đồng, lệ phí trước bạ phải nộp khi sang tên sẽ là <strong>2% × 500 triệu = 10 triệu đồng</strong>. Đây là khoản chi phí cần dự trù thêm ngoài giá mua xe khi lập ngân sách.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Có cách nào giảm khoản phí này không?</h2>
+<p class="mb-4">Có — từ ngày 15/08/2026, người dùng tài khoản định danh điện tử VNeID mức 2 khai nộp lệ phí trước bạ điện tử từ lần thứ hai được <strong>giảm 50% lệ phí trước bạ ô tô</strong>, áp dụng đến hết 28/02/2027. Đây là chính sách mới gắn trực tiếp với hành vi mua xe cũ, xem chi tiết tại <a href="/tin-tuc/vneid-muc-2-giam-50-phan-tram-le-phi-truoc-ba" class="text-gcm-green font-semibold underline">bài hướng dẫn dùng VNeID giảm 50% lệ phí trước bạ</a>.</p>
+
+<p class="mb-4"><em>Lưu ý: quy định về lệ phí trước bạ có thể thay đổi theo thời gian, nên xác nhận lại với cơ quan thuế hoặc đơn vị hỗ trợ sang tên tại thời điểm giao dịch.</em></p>`
+  },
+  {
+    id: 'vneid-muc-2-giam-50-phan-tram-le-phi-truoc-ba',
+    title: 'Dùng VNeID Mức 2 Giảm 50% Lệ Phí Trước Bạ Khi Mua Xe Cũ — Hướng Dẫn',
+    excerpt: 'Từ 15/08/2026, tài khoản định danh điện tử VNeID mức 2 khai nộp lệ phí trước bạ điện tử được giảm 50% khi sang tên xe — chính sách mới ít người biết.',
+    image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '26/07/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'vneid-muc-2-giam-50-phan-tram-le-phi-truoc-ba',
+    tags: ['VNeID mức 2', 'giảm lệ phí trước bạ', 'sang tên xe cũ 2026'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Đây là tin tức mới gắn trực tiếp với hành vi mua xe cũ mà gần như chưa nhiều người khai thác: từ ngày <strong>15/08/2026</strong>, người dùng tài khoản định danh điện tử VNeID mức 2 khai nộp lệ phí trước bạ điện tử từ lần đăng ký thứ hai trở đi được <strong>giảm 50% lệ phí trước bạ ô tô</strong>, áp dụng đến hết 28/02/2027.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Điều kiện áp dụng</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Có tài khoản định danh điện tử <strong>VNeID mức 2</strong> (đã xác thực sinh trắc học, mức độ cao nhất).</li>
+  <li>Thực hiện khai và nộp lệ phí trước bạ theo hình thức <strong>điện tử</strong> (không phải khai nộp trực tiếp truyền thống).</li>
+  <li>Áp dụng cho việc sang tên <strong>từ lần đăng ký thứ hai trở đi</strong> — đúng trường hợp mua bán xe cũ như VinFast cũ.</li>
+  <li>Chính sách có hiệu lực từ 15/08/2026 đến hết 28/02/2027.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Tiết kiệm được bao nhiêu?</h2>
+<p class="mb-4">Với mức lệ phí trước bạ xe điện cũ là 2% giá trị còn lại (xem chi tiết tại <a href="/tin-tuc/le-phi-truoc-ba-xe-dien-cu-2-phan-tram" class="text-gcm-green font-semibold underline">bài viết về lệ phí trước bạ xe điện cũ</a>), việc giảm 50% tương đương chỉ còn phải nộp <strong>1% giá trị còn lại</strong> — với xe có giá trị tính lệ phí khoảng 500 triệu đồng, số tiền tiết kiệm được là khoảng 5 triệu đồng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Các bước để được hưởng ưu đãi</h2>
+<ol class="list-decimal list-inside mb-6 space-y-3 font-semibold">
+  <li><span class="font-normal">Đảm bảo đã đăng ký và xác thực tài khoản VNeID lên mức 2 (qua ứng dụng VNeID hoặc công an địa phương).</span></li>
+  <li><span class="font-normal">Khi làm thủ tục sang tên xe, chọn hình thức khai nộp lệ phí trước bạ điện tử thay vì nộp truyền thống.</span></li>
+  <li><span class="font-normal">Hệ thống sẽ tự động áp dụng mức giảm 50% nếu đủ điều kiện tại thời điểm khai nộp.</span></li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao nên biết chính sách này trước khi mua xe cũ</h2>
+<p class="mb-4">Đây là khoản tiết kiệm thực tế, hợp pháp mà nhiều người mua xe cũ bỏ lỡ chỉ vì không biết hoặc chưa nâng cấp tài khoản VNeID lên mức 2 kịp thời. Nên chuẩn bị tài khoản VNeID mức 2 trước khi tiến hành thủ tục sang tên để không bỏ lỡ ưu đãi.</p>
+
+<p class="mb-4"><em>Chính sách áp dụng theo quy định hiện hành tại thời điểm đăng bài (26/07/2026), có thể được điều chỉnh — nên xác nhận lại tại thời điểm thực hiện thủ tục.</em></p>`
+  },
+  {
+    id: 'dang-kiem-xe-dien-cu-chu-ky-chi-phi',
+    title: 'Đăng Kiểm Xe Điện Cũ: Chu Kỳ, Chi Phí, Những Lỗi Hay Bị Từ Chối',
+    excerpt: 'Hướng dẫn chu kỳ đăng kiểm, chi phí và các lỗi phổ biến khiến xe điện cũ bị từ chối đăng kiểm — giúp chuẩn bị trước khi mang xe đi kiểm định.',
+    image: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '30/07/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'dang-kiem-xe-dien-cu-chu-ky-chi-phi',
+    tags: ['đăng kiểm xe điện', 'xe VinFast cũ', 'chu kỳ đăng kiểm'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Xe điện có chu kỳ và quy trình đăng kiểm khác một số điểm so với xe xăng do không có các hạng mục liên quan đến khí thải động cơ đốt trong. Bài viết tổng hợp những điều cần biết trước khi mang xe VinFast cũ đi đăng kiểm.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Chu kỳ đăng kiểm xe điện</h2>
+<p class="mb-4">Chu kỳ đăng kiểm ô tô điện áp dụng theo quy định chung về niên hạn và loại xe, tương tự khung chu kỳ của xe con thông thường — xe càng mới thường có chu kỳ đăng kiểm dài hơn, xe sử dụng lâu năm chu kỳ rút ngắn dần. Nên kiểm tra thời hạn đăng kiểm hiện tại của xe (ghi trên tem đăng kiểm) trước khi mua xe cũ.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Xe điện không cần kiểm tra khí thải</h2>
+<p class="mb-4">Khác với xe xăng/dầu, xe điện không phát thải khí xả nên được miễn hạng mục kiểm tra khí thải trong quy trình đăng kiểm — đây là một trong những điểm giúp quy trình đăng kiểm xe điện đơn giản hơn.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Những lỗi phổ biến khiến xe điện cũ bị từ chối đăng kiểm</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Hệ thống phanh, treo không đạt tiêu chuẩn kỹ thuật (giống mọi loại xe).</li>
+  <li>Kính chắn gió, đèn chiếu sáng không đảm bảo tiêu chuẩn.</li>
+  <li>Lốp mòn quá mức quy định.</li>
+  <li>Thông tin trên giấy tờ xe không khớp với số khung/số máy thực tế — cần đặc biệt lưu ý với xe đã qua nhiều đời chủ.</li>
+  <li>Thay đổi kết cấu xe không đúng quy định (độ chế không phép).</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Chi phí đăng kiểm tham khảo</h2>
+<p class="mb-4">Chi phí đăng kiểm ô tô áp dụng theo biểu phí chung của nhà nước theo loại xe, không có phụ phí riêng cho xe điện. Nên chuẩn bị thêm chi phí sửa chữa dự phòng nếu xe có hạng mục chưa đạt khi kiểm tra sơ bộ trước khi mang đi đăng kiểm chính thức.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lời khuyên trước khi mua xe cũ</h2>
+<p class="mb-4">Luôn kiểm tra tem đăng kiểm còn hiệu lực bao lâu và tình trạng hồ sơ đăng ký của xe trước khi đặt cọc, để tránh phát sinh chi phí sửa chữa hoặc rủi ro không đăng kiểm được ngay sau khi mua.</p>
+
+<p class="mb-4">Xem thêm: <a href="/tin-tuc/bao-hiem-than-vo-xe-vinfast-cu-bien-trang-vang" class="text-gcm-green font-semibold underline">Bảo hiểm thân vỏ xe VinFast cũ biển trắng và biển vàng</a>.</p>`
+  },
+  {
+    id: 'bao-hiem-than-vo-xe-vinfast-cu-bien-trang-vang',
+    title: 'Bảo Hiểm Thân Vỏ Xe VinFast Cũ: Biển Trắng Và Biển Vàng Khác Nhau Ra Sao?',
+    excerpt: 'So sánh chi phí và điều kiện bảo hiểm thân vỏ giữa xe VinFast cũ biển trắng (cá nhân) và biển vàng (kinh doanh vận tải).',
+    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '02/08/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'bao-hiem-than-vo-xe-vinfast-cu-bien-trang-vang',
+    tags: ['bảo hiểm thân vỏ xe điện', 'xe biển vàng', 'xe biển trắng'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Ngoài bảo hiểm trách nhiệm dân sự bắt buộc, nhiều chủ xe VinFast cũ cân nhắc mua thêm bảo hiểm thân vỏ (vật chất xe) để bảo vệ trước rủi ro va chạm, cháy nổ, thiên tai. Chi phí và điều kiện loại bảo hiểm này khác nhau đáng kể giữa xe biển trắng và biển vàng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao xe biển vàng có phí bảo hiểm cao hơn</h2>
+<p class="mb-4">Xe biển vàng (đăng ký kinh doanh vận tải) có tần suất lưu thông và rủi ro va chạm cao hơn xe cá nhân biển trắng, do đó các công ty bảo hiểm thường tính phí bảo hiểm thân vỏ cao hơn cho nhóm xe này, đồng thời một số gói bảo hiểm có thể áp dụng điều khoản loại trừ hoặc điều kiện riêng cho xe kinh doanh.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Những yếu tố ảnh hưởng đến phí bảo hiểm thân vỏ xe điện cũ</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Loại biển số (trắng/vàng) và mục đích sử dụng</li>
+  <li>Giá trị xe tại thời điểm mua bảo hiểm (thường tính theo giá trị còn lại)</li>
+  <li>Đời xe và lịch sử tai nạn/va chạm trước đó</li>
+  <li>Gói bảo hiểm lựa chọn (mức khấu trừ, phạm vi bảo hiểm)</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Có nên mua bảo hiểm thân vỏ cho xe cũ không?</h2>
+<p class="mb-4">Với xe điện, chi phí sửa chữa một số hạng mục liên quan đến hệ thống pin và điện có thể cao hơn xe xăng thông thường nếu xảy ra va chạm nghiêm trọng — đây là lý do nhiều chủ xe VinFast cũ, đặc biệt là xe chạy dịch vụ biển vàng, vẫn lựa chọn mua thêm bảo hiểm thân vỏ dù không bắt buộc.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lưu ý khi mua bảo hiểm cho xe đã qua sử dụng</h2>
+<p class="mb-4">Nên khai báo trung thực tình trạng xe (lịch sử va chạm, tình trạng pin) khi mua bảo hiểm để tránh bị từ chối bồi thường sau này. Xe đã qua kiểm định minh bạch thường thuận lợi hơn khi làm thủ tục mua bảo hiểm vì có đầy đủ hồ sơ tình trạng xe.</p>
+
+<p class="mb-4">Xem thêm: <a href="/tin-tuc/checklist-20-diem-kiem-tra-xe-vinfast-cu" class="text-gcm-green font-semibold underline">Checklist 20 điểm kiểm tra xe VinFast cũ trước khi đặt cọc</a>.</p>`
+  },
+  {
+    id: 'checklist-20-diem-kiem-tra-xe-vinfast-cu',
+    title: 'Checklist 20 Điểm Kiểm Tra Xe VinFast Cũ Trước Khi Đặt Cọc',
+    excerpt: 'Danh sách 20 điểm cần kiểm tra khi xem xe VinFast cũ trước khi đặt cọc, từ ngoại thất, nội thất đến hệ thống pin và giấy tờ.',
+    image: 'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '06/08/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'checklist-20-diem-kiem-tra-xe-vinfast-cu',
+    tags: ['checklist mua xe cũ', 'kiểm tra xe VinFast cũ', 'kinh nghiệm mua xe điện cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Dưới đây là checklist 20 điểm nên kiểm tra khi xem một chiếc xe VinFast cũ, trước khi quyết định đặt cọc — tổng hợp từ quy trình kiểm định thực tế của GCM.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nhóm 1: Ngoại thất và khung gầm (điểm 1-6)</h2>
+<ol class="list-decimal list-inside mb-6 space-y-2">
+  <li>Kiểm tra sơn xe có dấu hiệu sơn lại, chênh màu giữa các tấm thân vỏ không</li>
+  <li>Kiểm tra khe hở giữa các tấm thân vỏ có đều nhau không (dấu hiệu từng va chạm)</li>
+  <li>Soi gầm xe tìm dấu hiệu han gỉ, móp méo hoặc ngập nước</li>
+  <li>Kiểm tra lốp xe: độ mòn, năm sản xuất, có đều 4 bánh không</li>
+  <li>Kiểm tra kính chắn gió, đèn chiếu sáng có nứt/mờ không</li>
+  <li>Thử đóng mở cửa, cốp, nắp capo xem có khít, êm không</li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nhóm 2: Nội thất và tiện nghi (điểm 7-11)</h2>
+<ol class="list-decimal list-inside mb-6 space-y-2" start="7">
+  <li>Kiểm tra mùi trong xe (dấu hiệu ẩm mốc, ngập nước)</li>
+  <li>Thử toàn bộ ghế chỉnh điện, sưởi/làm mát ghế nếu có</li>
+  <li>Kiểm tra màn hình trung tâm, các nút bấm, điều hòa hoạt động bình thường</li>
+  <li>Kiểm tra hệ thống âm thanh, camera lùi, cảm biến</li>
+  <li>Kiểm tra dây an toàn, túi khí (đèn báo lỗi túi khí trên bảng đồng hồ)</li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nhóm 3: Pin và hệ thống điện (điểm 12-16 — quan trọng nhất với xe điện)</h2>
+<ol class="list-decimal list-inside mb-6 space-y-2" start="12">
+  <li>Yêu cầu đo chỉ số SOH pin bằng máy chuyên dụng, xem ngày đo</li>
+  <li>Xác nhận rõ tình trạng pin: đã mua đứt hay còn hợp đồng thuê</li>
+  <li>Kiểm tra bảo hành pin còn lại theo số VIN</li>
+  <li>Thử sạc xe, quan sát tốc độ sạc và các cảnh báo lỗi (nếu có thể)</li>
+  <li>Kiểm tra mã lỗi hệ thống bằng máy scan chuyên dụng</li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Nhóm 4: Vận hành và giấy tờ (điểm 17-20)</h2>
+<ol class="list-decimal list-inside mb-6 space-y-2" start="17">
+  <li>Lái thử thực tế: phanh, tay lái, hệ thống treo, tiếng ồn động cơ</li>
+  <li>Đối chiếu số khung, số máy trên xe với giấy đăng ký</li>
+  <li>Kiểm tra tem đăng kiểm còn hiệu lực bao lâu</li>
+  <li>Xác minh lịch sử sử dụng: chạy dịch vụ hay cá nhân, số chủ đã qua</li>
+</ol>
+
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+  <p class="mb-0"><strong>Mẹo:</strong> Nếu không tự tin tự kiểm tra hết 20 điểm này, ưu tiên chọn xe đã qua <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">kiểm định 160 điểm tại GCM</a> — toàn bộ các hạng mục trên (và nhiều hơn) đã được kiểm tra sẵn, có biên bản công khai.</p>
+</div>`
+  },
+  {
+    id: '7-chieu-lam-dep-xe-dien-cu-can-biet',
+    title: '7 Chiêu Làm Đẹp Xe Điện Cũ Và Cách Nhận Biết',
+    excerpt: 'Những chiêu thức phổ biến để "làm đẹp" xe điện cũ trước khi bán, và cách người mua nhận biết để tránh mua phải xe có vấn đề tiềm ẩn.',
+    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '09/08/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: '7-chieu-lam-dep-xe-dien-cu-can-biet',
+    tags: ['kinh nghiệm mua xe cũ', 'chiêu làm đẹp xe', 'xe VinFast cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Trước khi bán, không ít xe được "tân trang" để trông đẹp và mới hơn thực tế. Biết trước các chiêu thức phổ biến giúp người mua xe VinFast cũ tránh được rủi ro không đáng có.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">1. Đánh bóng, phủ ceramic che khuyết điểm sơn</h2>
+<p class="mb-4">Lớp đánh bóng có thể tạm thời che đi các vết xước nhỏ hoặc sơn lại không đều màu. <strong>Cách nhận biết:</strong> quan sát dưới ánh sáng tự nhiên ở nhiều góc độ, dùng đèn pin rọi chéo vào thân xe để phát hiện gợn sóng sơn.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">2. Vệ sinh khoang máy/khoang pin sạch bóng bất thường</h2>
+<p class="mb-4">Khoang máy/pin quá sạch so với tuổi xe đôi khi là dấu hiệu che giấu rò rỉ hoặc sửa chữa gần đây. <strong>Cách nhận biết:</strong> so sánh độ sạch giữa khoang máy với các bộ phận gầm xe ít được vệ sinh kỹ.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">3. "Tua" lại số km hiển thị</h2>
+<p class="mb-4">Dù khó hơn với xe điện do dữ liệu lưu trên hệ thống điện tử, vẫn cần cảnh giác. <strong>Cách nhận biết:</strong> đối chiếu số km với lịch sử bảo dưỡng tại đại lý chính hãng và mức độ mòn thực tế của lốp, ghế, vô-lăng.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">4. Che giấu thông tin tình trạng pin thực tế</h2>
+<p class="mb-4">Một số người bán tránh nhắc đến việc đo SOH hoặc chỉ đưa ra con số ước lượng không có căn cứ. <strong>Cách nhận biết:</strong> luôn yêu cầu đo bằng máy chuyên dụng có ghi ngày đo, không chấp nhận lời hứa miệng "pin còn tốt lắm".</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">5. Thay thảm sàn, bọc ghế mới để che vết bẩn cũ</h2>
+<p class="mb-4"><strong>Cách nhận biết:</strong> kiểm tra dưới thảm sàn, các khe ghế, cốp sau xem có dấu hiệu ẩm mốc, ố vàng không tương xứng với "vẻ ngoài mới" của nội thất.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">6. Xóa đèn báo lỗi tạm thời trên bảng đồng hồ</h2>
+<p class="mb-4">Một số lỗi có thể được xóa tạm thời qua máy chẩn đoán nhưng sẽ xuất hiện lại sau một thời gian ngắn sử dụng. <strong>Cách nhận biết:</strong> yêu cầu quét lỗi bằng máy chuyên dụng thay vì chỉ nhìn đèn báo trên taplo lúc xem xe.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">7. Giấu lịch sử va chạm/ngập nước qua giấy tờ không đầy đủ</h2>
+<p class="mb-4"><strong>Cách nhận biết:</strong> yêu cầu xem đầy đủ lịch sử bảo dưỡng, sửa chữa tại hãng; với xe nghi ngờ, có thể nhờ bên thứ ba kiểm định độc lập trước khi đặt cọc.</p>
+
+<p class="mb-4">Cách an toàn nhất để tránh toàn bộ 7 rủi ro trên: chọn xe đã qua <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">kiểm định 160 điểm minh bạch tại GCM</a>, có biên bản kiểm định công khai đi kèm.</p>`
+  },
+  {
+    id: 'mua-xe-dien-cu-lap-sac-tai-nha-het-bao-nhieu',
+    title: 'Mua Xe Điện Cũ Rồi Lắp Sạc Tại Nhà Hết Bao Nhiêu?',
+    excerpt: 'Chi phí tham khảo lắp bộ sạc tại nhà cho xe VinFast sau khi mua xe cũ, và những điều cần chuẩn bị về hạ tầng điện.',
+    image: 'https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '13/08/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'mua-xe-dien-cu-lap-sac-tai-nha-het-bao-nhieu',
+    tags: ['lắp sạc tại nhà', 'sạc xe điện VinFast', 'xe VinFast cũ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Sau khi mua xe VinFast cũ, nhiều chủ xe cân nhắc lắp bộ sạc tại nhà để tiện sạc qua đêm, tiết kiệm chi phí và thời gian so với việc phải ra trạm sạc công cộng thường xuyên.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Các loại bộ sạc tại nhà phổ biến</h2>
+<p class="mb-4">Phổ biến nhất cho nhu cầu gia đình là bộ sạc AC công suất từ 7kW đến 22kW, lắp gắn tường hoặc gắn trụ tại nhà, cho tốc độ sạc qua đêm phù hợp với hầu hết nhu cầu di chuyển hàng ngày.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Chi phí tham khảo</h2>
+<p class="mb-4">Tổng chi phí lắp đặt gồm hai phần: giá thiết bị bộ sạc và chi phí thi công/đấu nối điện. Với bộ sạc AC công suất nhỏ (7kW), chi phí đấu nối tương đối đơn giản vì chỉ cần nguồn điện sinh hoạt một pha. Với công suất lớn hơn (22kW), cần nguồn điện ba pha, có thể phát sinh thêm chi phí nâng cấp hạ tầng điện tùy tình trạng nhà ở hiện tại.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Những điều cần kiểm tra trước khi lắp đặt</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>Hệ thống điện nhà ở có đủ công suất và an toàn để lắp thêm tải sạc xe điện không</li>
+  <li>Vị trí lắp đặt có thuận tiện cho việc cắm sạc hàng ngày không (gara, sân, bãi đỗ)</li>
+  <li>Có cần xin phép hoặc thông báo với đơn vị quản lý tòa nhà/khu dân cư không (với nhà chung cư)</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lợi ích khi sạc tại nhà so với trạm công cộng</h2>
+<p class="mb-4">Sạc tại nhà qua đêm thường tận dụng được khung giờ điện giá thấp điểm, tiết kiệm chi phí đáng kể so với sạc nhanh tại trạm công cộng, đồng thời tiện lợi hơn vì không phải chủ động đi ra ngoài chờ sạc.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Tìm hiểu thêm về hạ tầng trạm sạc</h2>
+<p class="mb-4">Nếu bạn cần tìm hiểu thêm về các loại trụ sạc, thông số kỹ thuật và chi phí đầu tư trạm sạc quy mô lớn hơn, tham khảo chuyên mục <a href="/tin-tuc?category=tmt-egreen" class="text-gcm-green font-semibold underline">Nhượng Quyền Trạm Sạc</a> hoặc trang <a href="/tram-sac-vinfast" class="text-gcm-green font-semibold underline">Trạm sạc VinFast</a> của GCM để được tư vấn lắp đặt.</p>`
+  },
+  {
+    id: 'thue-thu-vinfast-3-ngay-truoc-khi-mua-xe-cu',
+    title: 'Thuê Thử VinFast 3 Ngày Trước Khi Mua Xe Cũ — Trải Nghiệm Trước Khi Quyết Định',
+    excerpt: 'Dịch vụ thuê thử xe VinFast 3 ngày của GCM giúp người mua trải nghiệm thực tế trước khi quyết định xuống tiền mua xe cũ — điều ít đối thủ tại miền Tây làm được.',
+    image: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '16/08/2026',
+    author: 'GreenCM',
+    views: 0,
+    slug: 'thue-thu-vinfast-3-ngay-truoc-khi-mua-xe-cu',
+    tags: ['thuê thử xe VinFast', 'xe VinFast cũ', 'trải nghiệm trước khi mua'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Mua xe là quyết định tài chính lớn, nhưng phần lớn người mua chỉ có vài phút lái thử ngắn trước khi quyết định. GCM mang đến giải pháp khác: thuê thử VinFast trong 3 ngày để trải nghiệm thực tế trước khi quyết định mua xe cũ.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao nên thuê thử trước khi mua?</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li>3 ngày đủ để trải nghiệm xe trong nhiều tình huống thực tế: đi làm, đưa đón gia đình, di chuyển đường dài.</li>
+  <li>Có thời gian đánh giá thói quen sạc, quãng đường thực tế đi được sau mỗi lần sạc đầy.</li>
+  <li>Cảm nhận được không gian, tiện nghi, độ êm ái vận hành mà vài phút lái thử tại showroom không thể hiện đủ.</li>
+  <li>Giúp xác định đúng dòng xe phù hợp nhu cầu trước khi quyết định mua xe cũ dòng đó.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Đây là lợi thế mà ít đối thủ tại miền Tây có được</h2>
+<p class="mb-4">Hầu hết sàn rao vặt và salon xe cũ chỉ cho phép lái thử ngắn tại chỗ, không có dịch vụ cho thuê trải nghiệm dài ngày. GCM tận dụng hệ sinh thái cho thuê xe sẵn có để mang đến trải nghiệm "dùng thử trước khi mua" — giảm rủi ro quyết định sai cho người mua.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Quy trình thuê thử</h2>
+<ol class="list-decimal list-inside mb-6 space-y-3 font-semibold">
+  <li><span class="font-normal">Liên hệ GCM chọn dòng xe muốn trải nghiệm (nên chọn đúng dòng đang cân nhắc mua xe cũ).</span></li>
+  <li><span class="font-normal">Hoàn tất thủ tục thuê xe theo quy định của dịch vụ cho thuê xe GCM.</span></li>
+  <li><span class="font-normal">Sử dụng xe trong 3 ngày, trải nghiệm thực tế theo nhu cầu sử dụng hàng ngày.</span></li>
+  <li><span class="font-normal">Sau khi trải nghiệm, quyết định mua xe VinFast cũ phù hợp — GCM tư vấn xe cụ thể theo đúng dòng đã trải nghiệm.</span></li>
+</ol>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Tìm hiểu dịch vụ cho thuê xe</h2>
+<p class="mb-4">Xem chi tiết các dòng xe và chính sách cho thuê tại <a href="/thue-xe" class="text-gcm-green font-semibold underline">trang Cho thuê xe của GCM</a>, hoặc xem ngay <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">danh sách xe VinFast cũ đang bán</a> để chuẩn bị trước khi quyết định.</p>`
+  },
+  {
+    id: 'mua-xe-vinfast-cu-chay-dich-vu-dieu-kien-len-app',
+    title: 'Mua Xe VinFast Cũ Chạy Dịch Vụ — Điều Kiện Được Duyệt Lên Ứng Dụng',
+    excerpt: 'Điều kiện về đời xe, số km, loại biển số để xe VinFast cũ được duyệt chạy trên các ứng dụng gọi xe công nghệ, và bài toán hoàn vốn cho tài xế.',
+    image: 'https://images.unsplash.com/photo-1550136513-548af4445338?w=1200&h=800&fit=crop&q=80',
+    category: 'xe-vinfast-cu',
+    categoryLabel: 'Xe VinFast Cũ',
+    date: '23/08/2026',
+    author: 'GreenCM',
+    isFeatured: true,
+    views: 0,
+    slug: 'mua-xe-vinfast-cu-chay-dich-vu-dieu-kien-len-app',
+    tags: ['xe điện chạy dịch vụ', 'xe VinFast cũ chạy ứng dụng', 'tài xế công nghệ'],
+    parentCategory: 'news',
+    content: `<p class="mb-4">Với nhóm tài xế công nghệ vốn mỏng, mua xe VinFast cũ để chạy dịch vụ là lựa chọn ngày càng phổ biến nhờ chi phí đầu tư thấp hơn xe mới và chi phí vận hành rẻ hơn xe xăng. Bài viết tổng hợp điều kiện cần biết trước khi quyết định.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Điều kiện chung để xe được duyệt lên ứng dụng gọi xe</h2>
+<ul class="list-disc list-inside mb-4 space-y-2">
+  <li><strong>Đời xe:</strong> hầu hết ứng dụng gọi xe có giới hạn số năm tối đa kể từ ngày sản xuất/đăng ký, cần kiểm tra quy định cụ thể của từng nền tảng tại thời điểm đăng ký.</li>
+  <li><strong>Loại biển số:</strong> cần đăng ký biển số kinh doanh vận tải (biển vàng) theo đúng quy định pháp luật hiện hành.</li>
+  <li><strong>Tình trạng đăng kiểm:</strong> xe phải còn hạn đăng kiểm hợp lệ và đáp ứng tiêu chuẩn kỹ thuật cho xe kinh doanh vận tải.</li>
+  <li><strong>Ngoại hình xe:</strong> không móp méo, trầy xước nghiêm trọng — một số nền tảng có tiêu chuẩn thẩm định ngoại quan riêng.</li>
+</ul>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Vì sao nên ưu tiên xe đã qua kiểm định khi mua để chạy dịch vụ</h2>
+<p class="mb-4">Xe chạy dịch vụ có cường độ sử dụng cao, nên chỉ số SOH pin và tình trạng cơ khí ảnh hưởng trực tiếp đến thu nhập hàng ngày của tài xế (thời gian phải sạc lại, chi phí sửa chữa phát sinh). Ưu tiên xe có hồ sơ kiểm định minh bạch, đặc biệt là chỉ số SOH pin thực đo, giúp giảm rủi ro gián đoạn thu nhập.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Bài toán hoàn vốn khi mua xe cũ chạy dịch vụ</h2>
+<p class="mb-4">So với mua xe mới, mua xe VinFast cũ (đã qua kiểm định, tình trạng pin tốt) giúp giảm đáng kể vốn đầu tư ban đầu, rút ngắn thời gian hoàn vốn nhờ chi phí khấu hao ban đầu đã được người chủ trước "gánh" một phần. Kết hợp với chi phí sạc điện thấp hơn nhiên liệu xăng đáng kể, đây là mô hình được nhiều tài xế công nghệ lựa chọn khi bắt đầu hoặc mở rộng đội xe.</p>
+
+<h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Lưu ý về hỗ trợ tài chính</h2>
+<p class="mb-4">Nhiều tài xế lựa chọn hình thức trả góp khi mua xe VinFast cũ để chạy dịch vụ — nên tính toán kỹ dòng tiền hàng tháng (bao gồm góp xe, chi phí sạc, bảo dưỡng) so với thu nhập dự kiến từ chạy xe trước khi quyết định.</p>
+
+<p class="mb-4">Xem <a href="/xe-vinfast-cu" class="text-gcm-green font-semibold underline">xe VinFast cũ biển vàng đã kiểm định tại GCM</a>, hoặc tìm hiểu <a href="/tin-tuc/vi-sao-xe-bien-vang-cu-re-hon-bien-trang" class="text-gcm-green font-semibold underline">vì sao xe biển vàng cũ có giá tốt hơn</a> để tối ưu ngân sách đầu tư.</p>`
   }
 ];
 

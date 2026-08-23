@@ -4,12 +4,22 @@ const nextConfig = {
   experimental: {
     optimizeCss: true, // Bật tính năng tối ưu CSS - tự động minify và optimize
   },
-  
+
   // Compress output để giảm kích thước file
   compress: true,
-  
+
   // Tối ưu hóa production build
   swcMinify: true,
+
+  async redirects() {
+    return [
+      {
+        source: '/xe-sieu-luot',
+        destination: '/xe-vinfast-cu',
+        permanent: true,
+      },
+    ];
+  },
   images: {
     // Cho phép Next.js tối ưu ảnh từ các domain này
     remotePatterns: [

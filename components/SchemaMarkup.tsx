@@ -9,9 +9,12 @@ const CORP_NAME = 'Công ty Cổ Phần Green CM';
 // (Giữ nguyên các Interface của bạn, chỉ sửa logic bên dưới)
 interface OrganizationSchemaProps {
   name?: string;
+  legalName?: string;
+  taxID?: string;
   url?: string;
   logo?: string;
   description?: string;
+  areaServed?: string[];
   address?: {
     streetAddress?: string;
     addressLocality?: string;
@@ -120,9 +123,12 @@ interface CorporationSchemaProps {
 
 export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   name = BRAND_NAME,
+  legalName,
+  taxID,
   url = SITE_URL,
   logo = `${SITE_URL}/logo.png`, // Tự động nối domain
   description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
+  areaServed,
   address = {
     streetAddress: '59, Đường Số 10, KDC Diệu Hiền',
     addressLocality: 'Phường Cái Răng',
@@ -141,10 +147,14 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'AutoDealer', // Cụ thể hơn 'Organization' - giúp lên Google Maps/local pack
+    '@id': `${SITE_URL}/#organization`,
     name,
+    ...(legalName && { legalName }),
+    ...(taxID && { taxID }),
     url,
     logo,
     description,
+    ...(areaServed && { areaServed }),
     address: {
       '@type': 'PostalAddress',
       ...address,
@@ -335,6 +345,103 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
     }));
   } 
   // QUAN TRỌNG: Đã xóa phần else if tự tạo review giả
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+interface CarSchemaProps {
+  name: string;
+  url: string;
+  brand?: string;
+  model: string;
+  modelYear: number;
+  mileageKm: number;
+  color?: string;
+  previousOwnersCount?: number;
+  image?: string[];
+  price: number;
+  priceCurrency?: string;
+  availability?: 'InStock' | 'OutOfStock' | 'Discontinued';
+}
+
+// Dành riêng cho xe cũ (thay cho ProductSchema @type:'Product' chung chung khi mặt hàng là ô tô)
+export const CarSchema: React.FC<CarSchemaProps> = ({
+  name,
+  url,
+  brand = 'VinFast',
+  model,
+  modelYear,
+  mileageKm,
+  color,
+  previousOwnersCount,
+  image,
+  price,
+  priceCurrency = 'VND',
+  availability = 'InStock',
+}) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Car',
+    name,
+    url,
+    brand: { '@type': 'Brand', name: brand },
+    model,
+    vehicleModelDate: String(modelYear),
+    itemCondition: 'https://schema.org/UsedCondition',
+    mileageFromOdometer: {
+      '@type': 'QuantitativeValue',
+      value: mileageKm,
+      unitCode: 'KMT',
+    },
+    fuelType: 'Electric',
+    ...(color && { color }),
+    ...(previousOwnersCount !== undefined && { numberOfPreviousOwners: previousOwnersCount }),
+    ...(image && image.length > 0 && { image }),
+    offers: {
+      '@type': 'Offer',
+      price,
+      priceCurrency,
+      availability: `https://schema.org/${availability}`,
+      itemCondition: 'https://schema.org/UsedCondition',
+      url,
+      seller: { '@id': `${SITE_URL}/#organization` },
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+};
+
+interface ItemListSchemaProps {
+  name: string;
+  items: Array<{ name: string; url: string }>;
+}
+
+// Dùng cho trang danh sách (vd /xe-vinfast-cu) — chỉ nên render khi items không rỗng
+export const ItemListSchema: React.FC<ItemListSchemaProps> = ({ name, items }) => {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name,
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: items.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  };
 
   return (
     <script
