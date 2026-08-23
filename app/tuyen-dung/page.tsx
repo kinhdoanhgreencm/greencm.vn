@@ -6,6 +6,9 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 export const metadata: Metadata = {
   title: 'Tuyển dụng GCM | Việc làm ô tô điện – Cơ hội phát triển',
   description: 'Gia nhập đội ngũ GCM - Kiến tạo tương lai di chuyển xanh. Môi trường làm việc năng động, thu nhập hấp dẫn, phúc lợi toàn diện. Xem các vị trí đang tuyển dụng ngay.',
+  alternates: {
+    canonical: `${baseUrl}/tuyen-dung`,
+  },
   openGraph: {
     title: 'Tuyển dụng GCM | Việc làm ô tô điện – Cơ hội phát triển',
     description: 'Gia nhập đội ngũ GCM - Kiến tạo tương lai di chuyển xanh. Môi trường làm việc năng động, thu nhập hấp dẫn.',

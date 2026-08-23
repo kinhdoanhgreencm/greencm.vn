@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -10,12 +9,6 @@ import Breadcrumbs from '../../components/Breadcrumbs';
 import { BreadcrumbSchema } from '../../components/SchemaMarkup';
 import { getPageBreadcrumbs } from '../../lib/breadcrumbUtils';
 import { Mail, Phone, MapPin, Clock, Send, CheckCircle, AlertCircle } from 'lucide-react';
-
-// Dynamic import MapComponent with SSR disabled
-const MapComponent = dynamic(() => import('../../components/MapComponent'), {
-  ssr: false,
-  loading: () => <div className="h-80 bg-gray-200 rounded-lg flex items-center justify-center">Đang tải bản đồ...</div>
-});
 
 export default function LienHeClient() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
@@ -305,12 +298,18 @@ export default function LienHeClient() {
                 </div>
 
                 {/* Map Embed */}
-                <MapComponent 
-                  latitude={10.02978}
-                  longitude={105.76869}
-                  title="59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ"
-                  height="h-80"
-                />
+                <div className="h-80 rounded-lg overflow-hidden shadow-md w-full">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.57194012846293!2d105.79089589169087!3d10.004379848993974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a063dcf21fc33d%3A0xf54027ed1728229a!2zR3JlZW4gQ00gLSBQaMOhdCB0cmnhu4NuIHRy4bqhbSBz4bqhYyBNaeG7gW4gTmFt!5e0!3m2!1svi!2s!4v1787501351802!5m2!1svi!2s"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    title="Vị trí Green CM trên Google Maps"
+                  />
+                </div>
 
                 {/* Quick Contact */}
                 <div className="bg-gcm-green text-white p-6 rounded-lg">

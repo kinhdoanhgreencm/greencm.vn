@@ -6,6 +6,9 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 export const metadata: Metadata = {
   title: 'Phụ kiện ô tô điện VinFast | Chính hãng – Giá tốt – GCM',
   description: 'Cửa hàng phụ kiện ô tô điện VinFast chính hãng tại GCM. Sạc tại nhà, nội thất, công nghệ, bảo vệ, nâng cấp. Đa dạng sản phẩm, tương thích VF5, VF8, VF9, VF e34. Giao hàng toàn quốc.',
+  alternates: {
+    canonical: `${baseUrl}/phu-kien`,
+  },
   openGraph: {
     title: 'Phụ kiện ô tô điện VinFast | Chính hãng – Giá tốt – GCM',
     description: 'Cửa hàng phụ kiện ô tô điện VinFast chính hãng tại GCM. Sạc tại nhà, nội thất, công nghệ, bảo vệ, nâng cấp.',

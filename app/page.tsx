@@ -1,37 +1,38 @@
-'use client';
-
-import { useState } from 'react';
-import Header from '../components/Header';
-import Hero from '../components/Hero';
-import Services from '../components/Services';
-import Fleet from '../components/Fleet';
-import Footer from '../components/Footer';
-import AuthModal from '../components/AuthModal';
-import { BreadcrumbSchema, CorporationSchema } from '../components/SchemaMarkup';
+import type { Metadata } from 'next';
+import HomeClient from '../components/HomeClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
+export const metadata: Metadata = {
+  title: 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện',
+  description: 'Hệ sinh thái ô tô toàn diện trực thuộc Green CM tại Cần Thơ, Vĩnh Long, Hậu Giang. Chuyên mua bán xe VinFast cũ, thuê xe, trạm sạc, phụ kiện và dịch vụ chăm sóc xe uy tín, chất lượng.',
+  alternates: {
+    canonical: baseUrl,
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'vi_VN',
+    url: baseUrl,
+    siteName: 'GCM - All About Cars',
+    title: 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện',
+    description: 'Chuyên mua bán xe VinFast cũ, thuê xe, trạm sạc, phụ kiện và dịch vụ chăm sóc xe uy tín, chất lượng tại khu vực ĐBSCL.',
+    images: [
+      {
+        url: '/Banner%20hero%20homepage.png',
+        width: 3104,
+        height: 1376,
+        alt: 'GCM - All About Cars - Hệ sinh thái ô tô điện toàn diện',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện',
+    description: 'Chuyên mua bán xe VinFast cũ, thuê xe, trạm sạc, phụ kiện và dịch vụ chăm sóc xe uy tín, chất lượng.',
+    images: ['/Banner%20hero%20homepage.png'],
+  },
+};
+
 export default function Home() {
-  const [isAuthOpen, setIsAuthOpen] = useState(false);
-  
-  // Breadcrumb for homepage (just home)
-  const breadcrumbItems = [
-    { name: 'Trang chủ', url: `${baseUrl}/` }
-  ];
-
-  return (
-    <div>
-      <BreadcrumbSchema items={breadcrumbItems} />
-      <CorporationSchema />
-      <Header onLoginClick={() => setIsAuthOpen(true)} />
-      <main>
-        <Hero />
-        <Services />
-        <Fleet />
-      </main>
-      <Footer />
-      {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}
-    </div>
-  );
+  return <HomeClient />;
 }
-

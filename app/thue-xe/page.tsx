@@ -6,6 +6,9 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 export const metadata: Metadata = {
   title: 'Cho thuê xe ô tô điện | Tự lái, có tài xế, xe hoa – GCM',
   description: 'Dịch vụ cho thuê xe điện VinFast chuyên nghiệp tại GCM. Thuê xe tự lái, có tài xế, xe hoa cưới, xe sự kiện. Giá tốt, xe mới, đầy đủ bảo hiểm. Đặt xe ngay hôm nay.',
+  alternates: {
+    canonical: `${baseUrl}/thue-xe`,
+  },
   openGraph: {
     title: 'Cho thuê xe ô tô điện | Tự lái, có tài xế, xe hoa – GCM',
     description: 'Dịch vụ cho thuê xe điện VinFast chuyên nghiệp tại GCM. Thuê xe tự lái, có tài xế, xe hoa cưới, xe sự kiện.',

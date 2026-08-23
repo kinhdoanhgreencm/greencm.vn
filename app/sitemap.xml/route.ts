@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { BLOG_POSTS } from '../../constants';
 
 export async function GET() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
@@ -35,8 +36,17 @@ export async function GET() {
   });
 }
 
-// MOCK FUNCTION
 async function getLastPostUpdatedAt() {
-  // Thực tế: return db.posts.findFirst({ orderBy: { updatedAt: 'desc' } }).updatedAt
-  return new Date().toISOString();
+  const now = new Date().toISOString();
+
+  let latest: Date | null = null;
+  for (const post of BLOG_POSTS) {
+    if (!post.date) continue;
+    const [day, month, year] = post.date.split('/');
+    const parsed = new Date(`${year}-${month}-${day}`);
+    if (isNaN(parsed.getTime())) continue;
+    if (!latest || parsed > latest) latest = parsed;
+  }
+
+  return latest ? latest.toISOString() : now;
 }

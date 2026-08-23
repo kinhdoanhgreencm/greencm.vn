@@ -27,6 +27,9 @@ const LIMO_GREEN_METADATA: Metadata = {
     'xe mpv điện 7 chỗ',
     'báo giá xe limo tại Cần Thơ',
   ],
+  alternates: {
+    canonical: `${BASE_URL}/oto-vinfast/limo-green`,
+  },
   openGraph: {
     title: 'Đầu Tư Limo Green 7 Chỗ - Vốn Thấp, Lời Cao',
     description:
@@ -114,6 +117,9 @@ export async function generateMetadata({ params }: ModelPageProps): Promise<Meta
   return {
     title: `${modelDisplayName} | Xe điện VinFast – GCM`,
     description: `Thông tin chi tiết về ${modelDisplayName} - Xe điện VinFast tại GCM. Giá tốt, hỗ trợ vay 90%, bảo hành dài hạn.`,
+    alternates: {
+      canonical: `${BASE_URL}/oto-vinfast/${model}`,
+    },
   };
 }
 
