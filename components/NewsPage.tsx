@@ -105,7 +105,7 @@ const NewsPage: React.FC = () => {
        </div>
 
        {/* Widget: Franchise Consultation CTA */}
-       <Link href="/lien-he" className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer block">
+       <Link href="/tram-sac-tmt-egreen" className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer block">
           <Image
             src={imageErrors['ads'] ? getFallbackImage() : "/images/tmt-egreen/240kw.webp"}
             fill

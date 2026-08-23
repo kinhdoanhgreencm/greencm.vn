@@ -8,8 +8,20 @@ export const BUSINESS_TAX_ID = '1801813513';
 export const NAV_ITEMS: NavItem[] = [
   { label: 'Giới thiệu', href: '#about' },
   { label: 'Ô tô VinFast', href: '#sales' },
-  { label: 'Xe VinFast Cũ', href: '#used-cars' },
-  { label: 'Trạm sạc VinFast', href: '#charging' },
+  {
+    label: 'Xe VinFast Cũ', href: '#used-cars',
+    children: [
+      { label: 'Mua xe VinFast cũ', href: '#used-cars' },
+      { label: 'Bán/Ký gửi xe cũ', href: '#sell-used-car' },
+    ],
+  },
+  {
+    label: 'Trạm sạc', href: '#charging',
+    children: [
+      { label: 'Trạm sạc VinFast', href: '#charging' },
+      { label: 'Trạm sạc TMT-EGREEN', href: '#charging-tmt-egreen' },
+    ],
+  },
   { label: 'Thuê xe', href: '#rental' },
   { label: 'Phụ kiện', href: '#accessories' },
   { label: 'Tin tức', href: '#news' },
@@ -31,8 +43,14 @@ export const SERVICES: ServiceCard[] = [
   {
     id: 6,
     title: 'Trạm sạc VinFast',
-    description: 'Hệ thống trạm sạc VinFast và nhượng quyền TMT‑EGREEN phủ khắp toàn quốc. Hỗ trợ tìm trạm sạc, hướng dẫn sử dụng và tư vấn đầu tư, lắp đặt trạm.',
+    description: 'Tư vấn đầu tư nhượng quyền trạm sạc chính hãng VinFast, hỗ trợ mặt bằng, pháp lý và lắp đặt trọn gói.',
     image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png',
+  },
+  {
+    id: 7,
+    title: 'Trạm sạc TMT-EGREEN',
+    description: 'Đại lý/đối tác chính thức của TMT-EGREEN. Tư vấn đầu tư nhượng quyền trạm sạc chuẩn CCS2, chia sẻ lợi nhuận tới 85%.',
+    image: '/images/tmt-egreen/240kw.webp',
   },
   {
     id: 3,
@@ -2040,12 +2058,14 @@ export const JOB_OPENINGS: JobOpening[] = [
 
 export const SYSTEM_PROMPT = `Bạn là trợ lý ảo của GCM (Green Car Management).
 GCM là hệ sinh thái ô tô toàn diện với slogan "All About Cars", xoay quanh 3 lĩnh vực kinh doanh chính: Trạm Sạc, Xe Lướt và Phụ Kiện.
+LƯU Ý QUAN TRỌNG: Trạm sạc VinFast và Trạm sạc TMT-EGREEN là HAI thương hiệu/đơn vị hoàn toàn độc lập, không liên quan nhau — TMT-EGREEN không phải sản phẩm của VinFast. GCM là đại lý/đối tác chính thức của CẢ HAI, nhưng luôn phải nói rõ ràng đây là 2 lựa chọn tách biệt khi tư vấn khách hàng.
 Các dịch vụ của GCM bao gồm:
-1. Trạm sạc: Hệ thống trạm sạc VinFast và nhượng quyền TMT‑EGREEN phủ khắp toàn quốc, hỗ trợ tìm trạm, tư vấn đầu tư và lắp đặt trạm sạc.
-2. Xe Lướt (xe VinFast cũ): Sàn giao dịch minh bạch, thẩm định 160 điểm, đo chỉ số pin (SOH) thực tế trước khi mua/bán.
-3. Phụ kiện ô tô: Mua bán và lắp đặt đồ chơi xe, phụ kiện chính hãng.
-4. Mua bán ô tô: Xe mới (Family & Service) và xe đã qua sử dụng chất lượng cao.
-5. Cho thuê ô tô: Tự lái, Có tài xế, Xe sự kiện, Đưa đón sân bay.
+1. Trạm sạc VinFast: Tư vấn đầu tư nhượng quyền trạm sạc chính hãng VinFast, hỗ trợ mặt bằng, pháp lý và lắp đặt trọn gói.
+2. Trạm sạc TMT-EGREEN: Tư vấn đầu tư nhượng quyền trạm sạc TMT-EGREEN (thương hiệu độc lập, thuộc Công ty CP Ô tô TMT) — chia sẻ lợi nhuận tới 85%, hỗ trợ tài chính năm đầu, bảo hành 5 năm.
+3. Xe Lướt (xe VinFast cũ): Sàn giao dịch minh bạch, thẩm định 160 điểm, đo chỉ số pin (SOH) thực tế trước khi mua/bán.
+4. Phụ kiện ô tô: Mua bán và lắp đặt đồ chơi xe, phụ kiện chính hãng.
+5. Mua bán ô tô: Xe mới (Family & Service) và xe đã qua sử dụng chất lượng cao.
+6. Cho thuê ô tô: Tự lái, Có tài xế, Xe sự kiện, Đưa đón sân bay.
 
 Phong cách trả lời: Chuyên nghiệp, am hiểu về xe, thân thiện. 
 Nếu khách hàng hỏi về giá xe hoặc chi phí dịch vụ, hãy mời họ để lại thông tin hoặc liên hệ hotline 1900 1877 để được tư vấn chi tiết nhất.`;

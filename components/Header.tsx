@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '../constants';
-import { Menu, X, Car, ChevronRight, LogIn, Phone, Info, ShoppingBag, Repeat, Calendar, Zap, Newspaper, Home, Battery } from 'lucide-react';
+import { Menu, X, Car, ChevronRight, ChevronDown, LogIn, Phone, Info, ShoppingBag, Repeat, Calendar, Zap, Newspaper, Home, Battery, Tag, Plug } from 'lucide-react';
 
 interface HeaderProps {
   onLoginClick: () => void;
@@ -59,11 +59,18 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     if (href === '#about') return pathname === '/gioi-thieu';
     if (href === '#sales') return pathname === '/oto-vinfast';
     if (href === '#used-cars') return pathname === '/xe-vinfast-cu';
+    if (href === '#sell-used-car') return pathname === '/ban-xe-cu';
     if (href === '#charging') return pathname === '/tram-sac-vinfast';
+    if (href === '#charging-tmt-egreen') return pathname === '/tram-sac-tmt-egreen';
     if (href === '#rental') return pathname === '/thue-xe';
     if (href === '#accessories') return pathname === '/phu-kien';
     if (href === '#news') return pathname === '/tin-tuc';
     return false;
+  };
+
+  const isItemActive = (item: { href: string; children?: { href: string }[] }) => {
+    if (isActive(item.href)) return true;
+    return item.children?.some((child) => isActive(child.href)) ?? false;
   };
 
   const getNavIcon = (href: string) => {
@@ -72,8 +79,10 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
       case '#about': return <Info size={20} />;
       case '#sales': return <ShoppingBag size={20} />;
       case '#used-cars': return <Car size={20} />;
+      case '#sell-used-car': return <Tag size={20} />;
       case '#rental': return <Calendar size={20} />;
       case '#charging': return <Battery size={20} />;
+      case '#charging-tmt-egreen': return <Plug size={20} />;
       case '#accessories': return <Zap size={20} />;
       case '#news': return <Newspaper size={20} />;
       default: return <Car size={20} />;
@@ -85,7 +94,9 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     if (href === '#about') return '/gioi-thieu';
     if (href === '#sales') return '/oto-vinfast';
     if (href === '#used-cars') return '/xe-vinfast-cu';
+    if (href === '#sell-used-car') return '/ban-xe-cu';
     if (href === '#charging') return '/tram-sac-vinfast';
+    if (href === '#charging-tmt-egreen') return '/tram-sac-tmt-egreen';
     if (href === '#rental') return '/thue-xe';
     if (href === '#accessories') return '/phu-kien';
     if (href === '#news') return '/tin-tuc';
@@ -123,16 +134,47 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {NAV_ITEMS.map((item) => (
-              <Link 
-                key={item.label} 
-                href={getNavPath(item.href)}
-                className={`text-sm font-medium hover:text-gcm-green transition-all duration-300 ease-in-out relative group py-2 ${
-                    isActive(item.href) ? 'text-gcm-green' : ''
-                }`}
-              >
-                {item.label}
-                <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gcm-green transform origin-left transition-transform duration-300 ease-in-out scale-x-0 group-hover:scale-x-100 ${isActive(item.href) ? 'scale-x-100' : ''}`}></span>
-              </Link>
+              item.children ? (
+                <div key={item.label} className="relative group py-2">
+                  <button
+                    className={`flex items-center gap-1 text-sm font-medium hover:text-gcm-green transition-all duration-300 ease-in-out ${
+                      isItemActive(item) ? 'text-gcm-green' : ''
+                    }`}
+                  >
+                    {item.label}
+                    <ChevronDown size={14} className="transition-transform duration-300 ease-in-out group-hover:rotate-180" />
+                  </button>
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gcm-green transform origin-left transition-transform duration-300 ease-in-out scale-x-0 group-hover:scale-x-100 ${isItemActive(item) ? 'scale-x-100' : ''}`}></span>
+
+                  {/* Dropdown panel */}
+                  <div className="absolute left-0 top-full pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200 ease-in-out">
+                    <div className="bg-black/95 backdrop-blur-md rounded-xl shadow-xl py-2 min-w-[220px] border border-white/10">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          href={getNavPath(child.href)}
+                          className={`block px-4 py-2.5 text-sm font-medium hover:text-gcm-green hover:bg-white/5 transition-colors ${
+                            isActive(child.href) ? 'text-gcm-green' : 'text-white'
+                          }`}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={getNavPath(item.href)}
+                  className={`text-sm font-medium hover:text-gcm-green transition-all duration-300 ease-in-out relative group py-2 ${
+                      isActive(item.href) ? 'text-gcm-green' : ''
+                  }`}
+                >
+                  {item.label}
+                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-gcm-green transform origin-left transition-transform duration-300 ease-in-out scale-x-0 group-hover:scale-x-100 ${isActive(item.href) ? 'scale-x-100' : ''}`}></span>
+                </Link>
+              )
             ))}
             <Link 
               href="/lien-he"
@@ -174,26 +216,42 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
           <div className="absolute top-0 right-0 w-64 h-64 bg-gcm-green/10 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2 transition-opacity duration-300"></div>
           
           {/* Nav Links Container */}
-          <nav className="flex-1 flex flex-col justify-center items-center space-y-6">
+          <nav className="flex-1 flex flex-col justify-center items-center space-y-6 overflow-y-auto">
              {NAV_ITEMS.map((item, index) => {
-               const active = isActive(item.href);
+               const active = isItemActive(item);
                return (
-                <Link 
-                  key={item.label} 
-                  href={getNavPath(item.href)}
-                  className={`relative group transition-all duration-300 ease-in-out flex items-center gap-4 py-1 ${
-                    active ? 'text-gcm-green' : 'text-white hover:text-gray-300'
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <span className={`transition-all duration-300 ease-in-out transform ${active ? 'text-gcm-green scale-110' : 'text-gray-500 group-hover:text-white group-hover:scale-110'}`}>
-                    {getNavIcon(item.href)}
-                  </span>
-                  <span className="text-xl font-bold tracking-tight transition-colors duration-300 ease-in-out">
-                    {item.label}
-                  </span>
-                </Link>
+                <div key={item.label} className="flex flex-col items-center" style={{ animationDelay: `${index * 50}ms` }}>
+                  <Link
+                    href={getNavPath(item.href)}
+                    className={`relative group transition-all duration-300 ease-in-out flex items-center gap-4 py-1 ${
+                      active ? 'text-gcm-green' : 'text-white hover:text-gray-300'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <span className={`transition-all duration-300 ease-in-out transform ${active ? 'text-gcm-green scale-110' : 'text-gray-500 group-hover:text-white group-hover:scale-110'}`}>
+                      {getNavIcon(item.href)}
+                    </span>
+                    <span className="text-xl font-bold tracking-tight transition-colors duration-300 ease-in-out">
+                      {item.label}
+                    </span>
+                  </Link>
+                  {item.children && (
+                    <div className="flex flex-col items-center gap-3 mt-3">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.label}
+                          href={getNavPath(child.href)}
+                          className={`text-sm font-medium transition-colors ${
+                            isActive(child.href) ? 'text-gcm-green' : 'text-gray-400 hover:text-white'
+                          }`}
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {child.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
                );
              })}
           </nav>

@@ -25,6 +25,7 @@ const Services: React.FC = () => {
       3: '/thue-xe',          // Dịch vụ cho thuê xe
       4: '/phu-kien',         // Phụ kiện ô tô
       6: '/tram-sac-vinfast', // Trạm sạc VinFast
+      7: '/tram-sac-tmt-egreen', // Trạm sạc TMT-EGREEN (thương hiệu độc lập, không thuộc VinFast)
     };
     return slugMap[serviceId] || '/';
   };

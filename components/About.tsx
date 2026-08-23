@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Target, Users, Shield, Zap, Wrench, ShoppingBag, Repeat, Car } from 'lucide-react';
+import { Target, Users, Shield, Zap, Wrench, ShoppingBag, Repeat, Car, Plug } from 'lucide-react';
 import { SERVICES } from '../constants';
 
 const About: React.FC = () => {
@@ -31,7 +31,7 @@ const About: React.FC = () => {
             Tiên Phong Kiến Tạo Hệ Sinh Thái Ô Tô Điện Toàn Diện
           </h2>
           <p className="text-gray-200 text-lg md:text-xl max-w-3xl mb-12 font-light">
-            3 trụ cột chính: Trạm Sạc (VinFast &amp; TMT‑EGREEN) • Xe Lướt • Phụ Kiện
+            3 trụ cột chính: Trạm Sạc • Xe Lướt • Phụ Kiện
           </p>
         </div>
 
@@ -53,7 +53,7 @@ const About: React.FC = () => {
               Trong kỷ nguyên chuyển dịch sang năng lượng xanh, ô tô điện không chỉ là phương tiện di chuyển, mà còn là đại diện cho lối sống văn minh và bền vững. Tuy nhiên, việc sở hữu và vận hành một chiếc xe điện đôi khi mang đến những lo lắng về hạ tầng trạm sạc hay thanh khoản khi cần bán lại xe.
             </p>
             <p className="text-gray-600 text-lg leading-relaxed">
-              Thấu hiểu điều đó, <span className="font-bold text-gcm-dark">GCM</span> tập trung phát triển 3 trụ cột chính: <span className="font-bold text-gcm-dark">Trạm Sạc</span> (hệ thống trạm sạc VinFast và nhượng quyền TMT‑EGREEN), <span className="font-bold text-gcm-dark">Xe Lướt</span> (sàn giao dịch xe VinFast cũ minh bạch, thẩm định pin thực tế) và <span className="font-bold text-gcm-dark">Phụ Kiện</span> (đồ chơi, phụ kiện nâng cấp chính hãng). Đây là nền tảng để GCM đồng hành cùng bạn trong suốt vòng đời sở hữu một chiếc xe điện.
+              Thấu hiểu điều đó, <span className="font-bold text-gcm-dark">GCM</span> tập trung phát triển 3 trụ cột chính: <span className="font-bold text-gcm-dark">Trạm Sạc</span> (đại lý/đối tác chính thức của VinFast và TMT-EGREEN), <span className="font-bold text-gcm-dark">Xe Lướt</span> (sàn giao dịch xe VinFast cũ minh bạch, thẩm định pin thực tế) và <span className="font-bold text-gcm-dark">Phụ Kiện</span> (đồ chơi, phụ kiện nâng cấp chính hãng). Đây là nền tảng để GCM đồng hành cùng bạn trong suốt vòng đời sở hữu một chiếc xe điện.
             </p>
           </div>
         </div>
@@ -105,6 +105,7 @@ const About: React.FC = () => {
                 3: <Car />,
                 4: <Wrench />,
                 6: <Zap />,
+                7: <Plug />,
               };
               const Icon = IconMap[service.id] ?? <Zap />;
               return (

@@ -228,7 +228,8 @@ export default function LienHeClient() {
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gcm-green"
                     >
                       <option value="">Chọn chủ đề liên hệ</option>
-                      <option value="tram-sac">Trạm sạc (VinFast / TMT-EGREEN)</option>
+                      <option value="tram-sac-vinfast">Trạm sạc VinFast</option>
+                      <option value="tram-sac-tmt-egreen">Trạm sạc TMT-EGREEN</option>
                       <option value="xe-luot">Xe Lướt (VinFast cũ)</option>
                       <option value="phụ-kiện">Phụ kiện & đồ chơi</option>
                       <option value="oto-vinfast">Mua bán ô tô</option>
