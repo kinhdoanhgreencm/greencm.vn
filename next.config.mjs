@@ -8,9 +8,6 @@ const nextConfig = {
   // Compress output để giảm kích thước file
   compress: true,
 
-  // Tối ưu hóa production build
-  swcMinify: true,
-
   async redirects() {
     return [
       {

@@ -86,10 +86,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // 7. Verification: Nơi điền mã xác thực Google Search Console (nếu chưa verify bằng DNS)
-  verification: {
-    google: 'mã-xác-thực-google-search-console-của-bạn', 
-  },
 
   other: {
     'sitemap': `${baseUrl}/sitemap.xml`, // Nên giữ full URL cho sitemap
