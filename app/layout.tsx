@@ -3,6 +3,7 @@ import Script from 'next/script';
 import { Inter, Noto_Sans } from 'next/font/google';
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
+import FloatingContactDock from '../components/FloatingContactDock';
 import { BUSINESS_TAX_ID } from '../constants';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
@@ -159,8 +160,9 @@ export default function RootLayout({
           ]}
         />
         <WebsiteSchema />
-        
+
         {children}
+        <FloatingContactDock />
       </body>
     </html>
   );
