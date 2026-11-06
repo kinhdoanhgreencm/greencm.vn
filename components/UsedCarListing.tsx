@@ -4,11 +4,12 @@ import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Gauge, Calendar, MessageCircle, MapPin, Car, Zap, BatteryCharging, CreditCard } from 'lucide-react';
+import { Search, Gauge, Calendar, MessageCircle, MapPin, Car, Zap, BatteryCharging, CreditCard, CheckCircle } from 'lucide-react';
 import { UsedCarListing as UsedCarListingType } from '../types';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
 import CustomerForm from './CustomerForm';
 import UsedCarEmptyState from './UsedCarEmptyState';
+import PageHero from './PageHero';
 
 interface UsedCarListingProps {
   cars: UsedCarListingType[];
@@ -55,42 +56,31 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-page">
       {/* 1. Hero + Filter */}
-      <section className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-32 pb-16">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80"
-            alt="Mua bán xe VinFast cũ đã kiểm định tại Cần Thơ - GCM"
-            fill
-            priority
-            quality={90}
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
-        </div>
+      <PageHero
+        eyebrow="Xe VinFast cũ"
+        title="Xe VinFast cũ tại Cần Thơ"
+        summary={
+          <>
+            <span className="block font-semibold text-sky-light">Kiểm định 160 điểm, đo pin thực tế (SOH)</span>
+            <span className="mt-2 block">GCM bán xe VinFast đã qua sử dụng và ghi rõ tình trạng pin, loại biển số của từng xe. Có hỗ trợ trả góp; GCM lo trọn thủ tục sang tên và bao kiểm tra xe toàn quốc.</span>
+          </>
+        }
+        crumbs={[{ href: '/xe-vinfast-cu', label: 'Xe VinFast cũ' }]}
+        image="/images/xe/vf6.webp"
+      />
 
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-              Mua Bán Xe VinFast Cũ Cần Thơ
-            </h1>
-            <p className="text-xl md:text-2xl font-semibold text-white mb-4">
-              <span className="text-gcm-green">Kiểm Định 160 Điểm — Đo Pin Thực Tế (SOH)</span>
-            </p>
-            <p className="text-gray-200 text-base md:text-lg max-w-3xl mx-auto">
-              Xe VinFast đã qua sử dụng, minh bạch tình trạng pin và biển số. Hỗ trợ trả góp, sang tên trọn gói, bao test toàn quốc.
-            </p>
-          </div>
-
-          <div className="max-w-5xl mx-auto w-full">
-            <div className="bg-white p-4 md:p-6 rounded-2xl shadow-2xl">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+      {/* Bộ lọc ngay dưới dải đầu trang */}
+      <section className="pt-8 md:pt-10">
+        <div className="gcm-container">
+          <div className="w-full">
+            <div className="gcm-card p-4 md:p-6">
+              <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">Dòng xe</label>
+                  <label className="mb-2 gcm-label block">Dòng xe</label>
                   <select
-                    className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green"
+                    className="gcm-input"
                     value={filterState.model}
                     onChange={(e) => setFilterState(prev => ({ ...prev, model: e.target.value }))}
                   >
@@ -101,9 +91,9 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1">Khoảng giá</label>
+                  <label className="mb-2 gcm-label block">Khoảng giá</label>
                   <select
-                    className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green"
+                    className="gcm-input"
                     value={filterState.priceBand}
                     onChange={(e) => setFilterState(prev => ({ ...prev, priceBand: e.target.value }))}
                   >
@@ -113,9 +103,9 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1 flex items-center gap-1"><BatteryCharging size={12} /> Tình trạng pin</label>
+                  <label className="mb-2 gcm-label flex items-center gap-1"><BatteryCharging size={12} /> Tình trạng pin</label>
                   <select
-                    className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green"
+                    className="gcm-input"
                     value={filterState.batteryOwnership}
                     onChange={(e) => setFilterState(prev => ({ ...prev, batteryOwnership: e.target.value }))}
                   >
@@ -125,9 +115,9 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-gray-500 mb-1 flex items-center gap-1"><CreditCard size={12} /> Loại biển số</label>
+                  <label className="mb-2 gcm-label flex items-center gap-1"><CreditCard size={12} /> Loại biển số</label>
                   <select
-                    className="w-full bg-gray-100 rounded-lg p-3 text-sm font-semibold outline-none focus:ring-2 focus:ring-gcm-green"
+                    className="gcm-input"
                     value={filterState.plateColor}
                     onChange={(e) => setFilterState(prev => ({ ...prev, plateColor: e.target.value }))}
                   >
@@ -138,11 +128,11 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 border-t border-dashed border-gray-200 pt-4">
+              <div className="mb-6 grid grid-cols-1 gap-4 pt-4 md:grid-cols-3">
                 <div className="flex items-center gap-2">
-                  <Gauge className="text-gcm-green" size={16} />
+                  <Gauge className="flex-shrink-0 text-ocean" size={16} />
                   <select
-                    className="w-full bg-transparent text-sm font-medium outline-none"
+                    className="gcm-input"
                     value={filterState.maxOdoKm}
                     onChange={(e) => setFilterState(prev => ({ ...prev, maxOdoKm: e.target.value }))}
                   >
@@ -156,9 +146,9 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
 
               <button
                 onClick={applyFilters}
-                className="w-full bg-gcm-green hover:bg-green-500 text-black font-extrabold py-4 rounded-xl shadow-lg shadow-green-500/30 transition-all flex items-center justify-center gap-2 uppercase tracking-wide"
+                className="gcm-btn w-full"
               >
-                <Search size={20} /> Tìm Xe Ngay
+                <Search size={18} /> Tìm xe
               </button>
             </div>
           </div>
@@ -166,170 +156,146 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
       </section>
 
       {/* 2. Product Grid */}
-      <section className="py-16 container mx-auto px-4">
-        <div className="mb-8">
-          <h2 className="text-3xl font-bold text-gcm-dark">
-            {hasActiveFilters ? 'Kết Quả Tìm Kiếm' : 'Xe VinFast Cũ Đang Có'}
-          </h2>
-          <p className="text-gray-500 mt-2 font-semibold">CAM KẾT</p>
-          <ul className="text-gray-500 mt-1 space-y-1 text-sm list-none">
-            <li>👉 Không đâm đụng ảnh hưởng đến khung gầm</li>
-            <li>👉 Không ngập nước, thủy kích</li>
-            <li>👉 Minh bạch tình trạng pin (mua đứt / thuê pin) và chỉ số SOH</li>
-            <li>👉 Bao check test toàn quốc</li>
-          </ul>
-        </div>
+      <section className="gcm-section">
+        <div className="gcm-container">
+          <div className="mb-8 flex flex-col gap-3">
+            <h2 className="gcm-h2">
+              {hasActiveFilters ? 'Kết quả tìm kiếm' : 'Xe VinFast cũ đang bán'}
+            </h2>
+            <p className="gcm-label mt-2">Cam kết</p>
+            <ul className="list-none space-y-1.5 text-sm text-ink-soft">
+              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Không đâm đụng ảnh hưởng đến khung gầm</li>
+              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Không ngập nước, thủy kích</li>
+              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Minh bạch tình trạng pin (mua đứt / thuê pin) và chỉ số SOH</li>
+              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Bao kiểm tra xe toàn quốc</li>
+            </ul>
+          </div>
 
-        {cars.length === 0 ? (
-          <UsedCarEmptyState hasActiveFilters={hasActiveFilters} />
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {cars.map((car) => {
-              const coverImage = car.images?.[0]?.url;
-              return (
-                <div key={car.id} className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group border border-gray-100">
-                  <div className="relative aspect-[4/3] w-full overflow-hidden">
-                    <Image
-                      src={imageErrors[car.id] || !coverImage ? getFallbackImage() : coverImage}
-                      alt={`${car.brand} ${car.model} ${car.trim || ''} ${car.modelYear} cũ tại Green CM`}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                      onError={() => handleImageError(car.id)}
-                    />
-                    {car.status === 'sold' && (
-                      <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                        <span className="text-white font-extrabold text-lg uppercase tracking-wide">Đã bán</span>
-                      </div>
-                    )}
-                    {car.status === 'reserved' && (
-                      <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-1 rounded shadow-sm bg-orange-500 text-white">Đã cọc</span>
-                    )}
-                    <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded flex items-center gap-1">
-                      <MapPin size={10} /> {car.region}
-                    </div>
-                  </div>
-
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-1 group-hover:text-gcm-green transition-colors">
-                      {car.brand} {car.model} {car.trim} {car.modelYear}
-                    </h3>
-
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
-                        <Gauge size={16} className="text-gray-400 mb-1" />
-                        <span className="text-xs font-semibold text-gray-700">{car.odoKm.toLocaleString('vi-VN')} km</span>
-                      </div>
-                      <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
-                        <BatteryCharging size={16} className="text-gray-400 mb-1" />
-                        <span className="text-xs font-semibold text-gray-700">
-                          {car.batterySohPercent ? `SOH ${car.batterySohPercent}%` : '—'}
-                        </span>
-                      </div>
-                      <div className="flex flex-col items-center bg-gray-50 p-2 rounded-lg">
-                        <Calendar size={16} className="text-gray-400 mb-1" />
-                        <span className="text-xs font-semibold text-gray-700">{car.modelYear}</span>
-                      </div>
-                    </div>
-
-                    <div className="mb-4">
-                      <div className="text-xl font-extrabold text-red-600">{car.price.toLocaleString('vi-VN')}₫</div>
-                      {car.oldPrice && (
-                        <div className="text-sm text-gray-400 line-through font-medium">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
+          {cars.length === 0 ? (
+            <UsedCarEmptyState hasActiveFilters={hasActiveFilters} />
+          ) : (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {cars.map((car) => {
+                const coverImage = car.images?.[0]?.url;
+                return (
+                  <div key={car.id} className="group gcm-card gcm-card-hover flex flex-col overflow-hidden">
+                    <div className="gcm-photo aspect-[16/9] w-full rounded-none">
+                      <Image
+                        src={imageErrors[car.id] || !coverImage ? getFallbackImage() : coverImage}
+                        alt={`${car.brand} ${car.model} ${car.trim || ''} ${car.modelYear} cũ tại Green CM`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        onError={() => handleImageError(car.id)}
+                      />
+                      {car.status === 'sold' && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-night-900/70">
+                          <span className="text-lg font-semibold text-white">Đã bán</span>
+                        </div>
                       )}
+                      {car.status === 'reserved' && (
+                        <span className="absolute left-3 top-3 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-800">Đã cọc</span>
+                      )}
+                      <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-night-900/75 px-2.5 py-1 text-xs text-white">
+                        <MapPin size={10} /> {car.region}
+                      </div>
                     </div>
 
-                    <div className="flex gap-2">
-                      <Link
-                        href={`/xe-vinfast-cu/xe/${car.slug}`}
-                        className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-bold py-2 rounded-lg transition-colors text-center"
-                      >
-                        Xem chi tiết
-                      </Link>
-                      <a
-                        href="https://zalo.me/0916513720"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 rounded-lg transition-colors flex items-center justify-center gap-1"
-                      >
-                        <MessageCircle size={14} /> Chat Zalo
-                      </a>
+                    <div className="flex flex-1 flex-col p-4">
+                      <h3 className="gcm-h3 mb-3 line-clamp-1 text-base transition-colors group-hover:text-ocean">
+                        {car.brand} {car.model} {car.trim} {car.modelYear}
+                      </h3>
+
+                      <div className="mb-4 grid grid-cols-3 gap-2">
+                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
+                          <Gauge size={16} className="mb-1 text-ink-mute" />
+                          <span className="text-xs font-medium tabular text-ink">{car.odoKm.toLocaleString('vi-VN')} km</span>
+                        </div>
+                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
+                          <BatteryCharging size={16} className="mb-1 text-ink-mute" />
+                          <span className="text-xs font-medium tabular text-ink">
+                            {car.batterySohPercent ? `SOH ${car.batterySohPercent}%` : '—'}
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
+                          <Calendar size={16} className="mb-1 text-ink-mute" />
+                          <span className="text-xs font-medium tabular text-ink">{car.modelYear}</span>
+                        </div>
+                      </div>
+
+                      <div className="mb-4">
+                        <div className="text-lg font-semibold tabular text-ocean">{car.price.toLocaleString('vi-VN')}₫</div>
+                        {car.oldPrice && (
+                          <div className="text-sm font-medium tabular text-ink-mute line-through">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
+                        )}
+                      </div>
+
+                      <div className="mt-auto flex gap-2">
+                        <Link
+                          href={`/xe-vinfast-cu/xe/${car.slug}`}
+                          className="gcm-btn-ghost flex-1 px-3 text-sm"
+                        >
+                          Xem chi tiết
+                        </Link>
+                        <a
+                          href="https://zalo.me/0916513720"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="gcm-btn flex-1 gap-1 px-3 text-sm"
+                        >
+                          <MessageCircle size={14} /> Chat Zalo
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
-      </section>
-
-      {/* 3. Consignment Banner */}
-      <section className="bg-black text-white py-16 my-8">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Bạn muốn bán lại xe điện? <br className="md:hidden" /> GCM định giá siêu tốc trong 30 phút!</h2>
-          <p className="text-gray-400 mb-8 max-w-2xl mx-auto">Cam kết giá tốt hơn thị trường 5-10 triệu. Thủ tục sang tên trọn gói, giải ngân ngay trong ngày.</p>
-          <Link
-            href="/ban-xe-cu"
-            className="inline-block bg-gcm-green text-black font-bold px-8 py-3 rounded-full hover:bg-green-400 transition-transform hover:scale-105 shadow-[0_0_20px_rgba(0,210,106,0.5)]"
-          >
-            Gửi thông tin xe ngay
-          </Link>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
-      {/* 4. Inspection Process */}
-      <section className="py-16 container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl font-bold text-gcm-dark uppercase tracking-wide">Quy Trình Kiểm Định Xe Điện 3 Bước Tại GCM</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="text-center p-6 border rounded-2xl hover:shadow-lg transition-all">
-            <div className="w-16 h-16 mx-auto bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-4">
-              <Search size={32} />
-            </div>
-            <h3 className="font-bold text-lg mb-2">1. Kiểm tra Ngoại quan & Nội thất</h3>
-            <p className="text-sm text-gray-500">Đảm bảo xe không đâm đụng, không ngập nước, keo chỉ nguyên bản.</p>
+      {/* 3. Inspection Process */}
+      <section className="gcm-section">
+        <div className="gcm-container">
+          <div className="mb-8 flex flex-col gap-3">
+            <span className="gcm-label">Kiểm định</span>
+            <h2 className="gcm-h2">GCM kiểm định xe điện cũ qua 3 bước</h2>
           </div>
-          <div className="text-center p-6 border rounded-2xl hover:shadow-lg transition-all">
-            <div className="w-16 h-16 mx-auto bg-green-50 rounded-full flex items-center justify-center text-gcm-green mb-4">
-              <Zap size={32} />
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="gcm-card flex flex-col p-6">
+              <div className="gcm-icon-box mb-4">
+                <Search size={20} />
+              </div>
+              <h3 className="gcm-h3 mb-2">1. Kiểm tra ngoại thất và nội thất</h3>
+              <p className="text-sm leading-relaxed text-ink-soft">Xem xe từng đâm đụng hay ngập nước chưa, keo chỉ còn nguyên bản không.</p>
             </div>
-            <h3 className="font-bold text-lg mb-2">2. Scan Lỗi & Check Pin</h3>
-            <p className="text-sm text-gray-500">Sử dụng máy quét chuyên dụng đo độ chai pin (SOH) thực tế và lịch sử sạc.</p>
-          </div>
-          <div className="text-center p-6 border rounded-2xl hover:shadow-lg transition-all">
-            <div className="w-16 h-16 mx-auto bg-orange-50 rounded-full flex items-center justify-center text-orange-600 mb-4">
-              <Car size={32} />
+            <div className="gcm-card flex flex-col p-6">
+              <div className="gcm-icon-box mb-4">
+                <Zap size={20} />
+              </div>
+              <h3 className="gcm-h3 mb-2">2. Quét lỗi và đo pin</h3>
+              <p className="text-sm leading-relaxed text-ink-soft">Máy quét chuyên dụng đọc mã lỗi, đo độ chai pin (SOH) thực tế và lấy lịch sử sạc.</p>
             </div>
-            <h3 className="font-bold text-lg mb-2">3. Lái thử & Vận hành</h3>
-            <p className="text-sm text-gray-500">Kiểm tra hệ thống treo, phanh, tiếng ồn động cơ và trải nghiệm lái thực tế.</p>
+            <div className="gcm-card flex flex-col p-6">
+              <div className="gcm-icon-box mb-4">
+                <Car size={20} />
+              </div>
+              <h3 className="gcm-h3 mb-2">3. Lái thử</h3>
+              <p className="text-sm leading-relaxed text-ink-soft">Chạy xe trên đường để nghe tiếng ồn động cơ, thử phanh và hệ thống treo.</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Forms Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div id="sell-form" className="bg-white p-8 rounded-3xl shadow-xl">
-              <h3 className="text-2xl font-bold mb-6 text-gcm-dark border-l-4 border-gcm-green pl-4">Đăng ký bán xe / Định giá</h3>
-              <CustomerForm
-                formType="sell-car"
-                fields={[
-                  { name: 'carModel', label: 'Dòng xe cần bán', type: 'text', placeholder: 'Ví dụ: VF8 Eco 2022 màu trắng' },
-                  { name: 'expectedPrice', label: 'Mong muốn bán giá (VNĐ)', type: 'text', placeholder: 'Nhập giá mong muốn' },
-                ]}
-                submitButtonText="ĐỊNH GIÁ NGAY"
-                submitButtonClassName="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors"
-                showSuccessMessage={true}
-              />
-            </div>
-
-            <div className="bg-gcm-green/10 p-8 rounded-3xl border border-gcm-green/20 relative overflow-hidden">
-              <Car className="absolute -bottom-10 -right-10 w-64 h-64 text-gcm-green/10 rotate-[-15deg]" />
+      {/* 4. Form tìm xe */}
+      <section className="gcm-section pt-0">
+        <div className="gcm-container">
+          <div className="mx-auto max-w-3xl">
+            <div className="gcm-card relative overflow-hidden bg-tint p-6 md:p-8">
               <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2 text-gcm-dark">Chưa tìm thấy xe ưng ý?</h3>
-                <p className="text-gray-600 mb-6 text-sm">Hãy để GCM tìm giúp bạn! Nhận thông báo ngay khi có xe về.</p>
+                <h3 className="gcm-h3 mb-2 text-lg">Chưa tìm thấy xe ưng ý?</h3>
+                <p className="mb-6 text-sm text-ink-soft">Cho GCM biết bạn cần xe gì. Khi có xe phù hợp về, GCM sẽ báo bạn.</p>
                 <CustomerForm
                   formType="find-car"
                   fields={[
@@ -357,8 +323,8 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                       placeholder: 'Ví dụ: VF5, màu trắng, ODO 20.000km',
                     },
                   ]}
-                  submitButtonText="TÌM XE GIÚP TÔI"
-                  submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg"
+                  submitButtonText="Tìm xe giúp tôi"
+                  submitButtonClassName="gcm-btn w-full"
                   showSuccessMessage={true}
                 />
               </div>

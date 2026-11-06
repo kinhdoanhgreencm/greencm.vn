@@ -26,11 +26,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const car = await getUsedCarBySlug(slug);
 
   if (!car) {
-    return { title: 'Xe không tồn tại | GCM' };
+    return { title: 'Không tìm thấy xe | GCM' };
   }
 
   const carTitle = buildCarTitle(car);
-  const pageTitle = `${carTitle} Cũ${car.status === 'sold' ? ' (Đã bán)' : ''} | Xe VinFast Cũ Cần Thơ - GCM`;
+  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Xe VinFast cũ Cần Thơ, GCM`;
   const description = `${carTitle}, ODO ${car.odoKm.toLocaleString('vi-VN')}km${car.batterySohPercent ? `, pin SOH ${car.batterySohPercent}%` : ''}. Giá ${car.price.toLocaleString('vi-VN')}₫. Kiểm định 160 điểm tại GCM Cần Thơ.`;
   const cover = car.images?.[0];
   const ogImage = cover
@@ -76,12 +76,12 @@ export default async function XeChiTietPage({ params }: PageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Trang chủ', url: '/' },
-          { name: 'Xe VinFast Cũ', url: '/xe-vinfast-cu' },
+          { name: 'Xe VinFast cũ', url: '/xe-vinfast-cu' },
           { name: carTitle, url: `/xe-vinfast-cu/xe/${slug}` },
         ]}
       />
       <CarSchema
-        name={`${carTitle} — Xe VinFast cũ tại Green CM`}
+        name={`${carTitle}, xe VinFast cũ tại Green CM`}
         url={url}
         model={car.model}
         modelYear={car.modelYear}

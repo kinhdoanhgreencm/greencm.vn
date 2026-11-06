@@ -45,7 +45,7 @@ const SafeImage: React.FC<SafeImageProps> = ({
   if (!currentSrc) return null;
 
   return (
-    <div className={`relative overflow-hidden ${className}`.trim()}>
+    <div className={`relative overflow-hidden bg-tint ${className}`.trim()}>
       <Image
         src={currentSrc}
         alt={alt}

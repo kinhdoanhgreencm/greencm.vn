@@ -3,9 +3,10 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Gauge, Calendar, BatteryCharging, CreditCard, ShieldCheck, MessageCircle, FileText, MapPin } from 'lucide-react';
+import { Gauge, Calendar, BatteryCharging, CreditCard, ShieldCheck, MessageCircle, FileText, MapPin, ArrowUpRight } from 'lucide-react';
 import { UsedCarListing } from '../types';
 import CustomerForm from './CustomerForm';
+import PageHero from './PageHero';
 
 interface UsedCarDetailViewProps {
   car: UsedCarListing;
@@ -31,12 +32,22 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
   const carTitle = `${car.brand} ${car.model} ${car.trim || ''} ${car.modelYear}`.replace(/\s+/g, ' ').trim();
 
   return (
-    <div className="bg-gray-50 min-h-screen pt-24 pb-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div className="min-h-screen bg-page">
+      <PageHero
+        eyebrow="Xe VinFast cũ"
+        title={`${carTitle} cũ tại Cần Thơ`}
+        summary={
+          <span className="inline-flex items-center gap-2">
+            <MapPin size={16} /> {car.region}
+          </span>
+        }
+        crumbs={[{ href: '/xe-vinfast-cu', label: 'Xe VinFast cũ' }]}
+      />
+      <div className="gcm-container pt-8 pb-16 md:pt-10">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
           {/* Gallery + specs */}
           <div className="lg:col-span-2">
-            <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-white shadow-md mb-4">
+            <div className="gcm-photo mb-4 aspect-[16/9]">
               <Image
                 src={imageError || !images[activeImage] ? getFallbackImage() : images[activeImage].url}
                 alt={images[activeImage]?.alt || `${carTitle} - ảnh thật tại Green CM`}
@@ -47,12 +58,12 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                 onError={() => setImageError(true)}
               />
               {car.status === 'sold' && (
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
-                  <span className="text-white font-extrabold text-2xl uppercase tracking-wide">Đã bán</span>
+                <div className="absolute inset-0 flex items-center justify-center bg-night-900/70">
+                  <span className="text-2xl font-semibold text-white">Đã bán</span>
                 </div>
               )}
               {car.status === 'reserved' && (
-                <span className="absolute top-4 left-4 text-xs font-bold px-3 py-1.5 rounded shadow-sm bg-orange-500 text-white">Đã cọc</span>
+                <span className="absolute left-4 top-4 rounded-full border border-amber-200 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-800">Đã cọc</span>
               )}
             </div>
 
@@ -62,7 +73,7 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                   <button
                     key={idx}
                     onClick={() => setActiveImage(idx)}
-                    className={`relative aspect-[4/3] rounded-lg overflow-hidden border-2 ${activeImage === idx ? 'border-gcm-green' : 'border-transparent'}`}
+                    className={`gcm-photo aspect-[16/9] rounded-control border-2 transition-colors ${activeImage === idx ? 'border-sky' : 'border-line hover:border-line-strong'}`}
                   >
                     <Image src={img.url} alt={img.alt || `${carTitle} ${idx + 1}`} fill className="object-cover" sizes="120px" />
                   </button>
@@ -70,55 +81,50 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
               </div>
             )}
 
-            <h1 className="text-2xl md:text-3xl font-bold text-gcm-dark mb-2">{carTitle} — Xe VinFast Cũ Tại Cần Thơ</h1>
-            <div className="flex items-center gap-2 text-gray-500 mb-6">
-              <MapPin size={16} /> {car.region}
-            </div>
-
             {/* Spec table */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-              <h2 className="text-lg font-bold text-gcm-dark mb-4">Thông số & tình trạng xe</h2>
-              <dl className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <Gauge className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Số km đã đi</dt>
-                  <dd className="font-bold text-gray-800">{car.odoKm.toLocaleString('vi-VN')} km</dd>
+            <div className="gcm-card mb-8 p-6">
+              <h2 className="gcm-h3 mb-4">Thông số và tình trạng xe</h2>
+              <dl className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <Gauge className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Số km đã đi</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.odoKm.toLocaleString('vi-VN')} km</dd>
                 </div>
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <Calendar className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Năm sản xuất</dt>
-                  <dd className="font-bold text-gray-800">{car.modelYear}{car.registrationYear ? ` / ĐK ${car.registrationYear}` : ''}</dd>
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <Calendar className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Năm sản xuất</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.modelYear}{car.registrationYear ? ` / ĐK ${car.registrationYear}` : ''}</dd>
                 </div>
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <BatteryCharging className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Chỉ số pin (SOH)</dt>
-                  <dd className="font-bold text-gray-800">
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <BatteryCharging className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Chỉ số pin (SOH)</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">
                     {car.batterySohPercent ? `${car.batterySohPercent}%` : 'Đang cập nhật'}
                   </dd>
                 </div>
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <ShieldCheck className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Tình trạng pin</dt>
-                  <dd className="font-bold text-gray-800">
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <ShieldCheck className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Tình trạng pin</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">
                     {car.batteryOwnership ? BATTERY_OWNERSHIP_LABEL[car.batteryOwnership] : 'Đang cập nhật'}
                   </dd>
                 </div>
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <CreditCard className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Loại biển số</dt>
-                  <dd className="font-bold text-gray-800">
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <CreditCard className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Loại biển số</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">
                     {car.plateColor ? PLATE_COLOR_LABEL[car.plateColor] : 'Đang cập nhật'}
                   </dd>
                 </div>
-                <div className="flex flex-col items-center bg-gray-50 rounded-xl p-4 text-center">
-                  <ShieldCheck className="text-gcm-green mb-2" size={20} />
-                  <dt className="text-xs text-gray-400">Bảo hành còn lại</dt>
-                  <dd className="font-bold text-gray-800">{car.warrantyRemaining || 'Đang cập nhật'}</dd>
+                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
+                  <ShieldCheck className="text-ocean mb-2" size={20} />
+                  <dt className="text-xs text-ink-mute">Bảo hành còn lại</dt>
+                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.warrantyRemaining || 'Đang cập nhật'}</dd>
                 </div>
               </dl>
 
               {(car.previousOwnersCount || car.usageHistoryNote) && (
-                <p className="text-sm text-gray-500 mt-4 border-t border-gray-100 pt-4">
+                <p className="mt-4 pt-4 text-sm text-ink-soft">
                   {car.previousOwnersCount && <>Đã qua {car.previousOwnersCount} chủ. </>}
                   {car.usageHistoryNote}
                 </p>
@@ -129,7 +135,7 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                   href={car.inspectionReportUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 mt-4 text-gcm-green font-semibold hover:underline"
+                  className="gcm-link mt-4"
                 >
                   <FileText size={16} /> Xem biên bản kiểm định 160 điểm (PDF)
                 </a>
@@ -138,8 +144,8 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
 
             {car.videoUrl && (
               <div className="mb-8">
-                <h2 className="text-lg font-bold text-gcm-dark mb-4">Video thực tế</h2>
-                <a href={car.videoUrl} target="_blank" rel="noopener noreferrer" className="text-gcm-green font-semibold hover:underline">
+                <h2 className="gcm-h3 mb-4">Video thực tế</h2>
+                <a href={car.videoUrl} target="_blank" rel="noopener noreferrer" className="gcm-link">
                   Xem video xe thật trên kênh của GCM →
                 </a>
               </div>
@@ -148,21 +154,21 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
 
           {/* Sidebar: price + CTA */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 sticky top-24">
+            <div className="gcm-card sticky top-24 p-6">
               <div className="mb-6">
-                <div className="text-3xl font-extrabold text-red-600">{car.price.toLocaleString('vi-VN')}₫</div>
+                <div className="text-3xl font-semibold tabular text-ocean">{car.price.toLocaleString('vi-VN')}₫</div>
                 {car.oldPrice && (
-                  <div className="text-gray-400 line-through">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
+                  <div className="tabular text-ink-mute line-through">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
                 )}
                 {car.monthlyInstallment && (
-                  <div className="text-sm text-gray-500 mt-1">
-                    Trả góp từ <strong className="text-gray-800">{car.monthlyInstallment.toLocaleString('vi-VN')}₫/tháng</strong>
+                  <div className="mt-1 text-sm text-ink-soft">
+                    Trả góp từ <strong className="tabular text-ink">{car.monthlyInstallment.toLocaleString('vi-VN')}₫/tháng</strong>
                   </div>
                 )}
               </div>
 
               {car.status === 'sold' ? (
-                <div className="bg-gray-100 rounded-xl p-4 text-center text-gray-600 mb-6">
+                <div className="mb-6 rounded-panel border border-line bg-tint p-4 text-center text-sm text-ink-soft">
                   Xe này đã được bán. Xem các xe tương tự bên dưới hoặc để lại yêu cầu tìm xe.
                 </div>
               ) : (
@@ -170,20 +176,20 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                   href="https://zalo.me/0916513720"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition-colors flex items-center justify-center gap-2 mb-6"
+                  className="gcm-btn-ghost mb-6 w-full"
                 >
-                  <MessageCircle size={18} /> Chat Zalo hỏi ngay
+                  <MessageCircle size={18} /> Hỏi qua Zalo
                 </a>
               )}
 
               <CustomerForm
                 formType="quote-request"
-                title="Đăng ký xem xe / tư vấn"
+                title="Đăng ký xem xe hoặc tư vấn"
                 fields={[
                   { name: 'carModel', label: 'Xe quan tâm', type: 'text', placeholder: carTitle },
                 ]}
-                submitButtonText="ĐĂNG KÝ TƯ VẤN"
-                submitButtonClassName="w-full bg-gcm-green text-black font-bold py-3 rounded-xl hover:bg-green-400 transition-colors"
+                submitButtonText="Đăng ký tư vấn"
+                submitButtonClassName="gcm-btn w-full"
                 showSuccessMessage={true}
               />
             </div>
@@ -192,15 +198,15 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
 
         {similarCars.length > 0 && (
           <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gcm-dark mb-6">Xe tương tự đang có</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <h2 className="gcm-h2 mb-6">Xe tương tự đang có</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               {similarCars.map((similar) => (
                 <Link
                   key={similar.id}
                   href={`/xe-vinfast-cu/xe/${similar.slug}`}
-                  className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+                  className="group gcm-card gcm-card-hover relative overflow-hidden"
                 >
-                  <div className="relative aspect-[4/3]">
+                  <div className="gcm-photo aspect-[16/9] rounded-none">
                     <Image
                       src={similar.images?.[0]?.url || getFallbackImage()}
                       alt={`${similar.brand} ${similar.model} ${similar.modelYear}`}
@@ -209,9 +215,14 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-gray-800 mb-1">{similar.brand} {similar.model} {similar.trim} {similar.modelYear}</h3>
-                    <div className="text-red-600 font-extrabold">{similar.price.toLocaleString('vi-VN')}₫</div>
+                  <div className="flex items-start justify-between gap-4 p-4">
+                    <div>
+                      <h3 className="gcm-h3 mb-1">{similar.brand} {similar.model} {similar.trim} {similar.modelYear}</h3>
+                      <div className="font-semibold tabular text-ocean">{similar.price.toLocaleString('vi-VN')}₫</div>
+                    </div>
+                    <span className="gcm-arrow-box">
+                      <ArrowUpRight size={16} />
+                    </span>
                   </div>
                 </Link>
               ))}

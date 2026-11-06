@@ -6,11 +6,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'GCM - All About Cars',
     short_name: 'GCM',
-    description: 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
+    description: 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn trạm sạc VinFast, TMT-EGREEN tại Cần Thơ',
     start_url: '/',
     display: 'standalone',
     background_color: '#ffffff',
-    theme_color: '#00D26A',
+    theme_color: '#0A3572',
     icons: [
       {
         src: `${baseUrl}/favicon.ico`,

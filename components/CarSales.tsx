@@ -2,12 +2,14 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
-import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users, Truck, CheckCircle, DollarSign, MessageCircle, X } from 'lucide-react';
+import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users, Truck, CheckCircle, DollarSign, MessageCircle, X, ArrowUpRight } from 'lucide-react';
 import { ProductSchema } from './SchemaMarkup';
 import CustomerForm, { FormField } from './CustomerForm';
+import PageHero from './PageHero';
 
 const CarSales: React.FC = () => {
   const router = useRouter();
@@ -57,7 +59,7 @@ const CarSales: React.FC = () => {
   const allCars = [...NEW_CARS_FAMILY, ...NEW_CARS_SERVICE];
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="min-h-screen bg-page">
       {/* Product Schema for all cars */}
       {allCars.map((car) => (
         <ProductSchema
@@ -77,47 +79,48 @@ const CarSales: React.FC = () => {
           numberOfSeats={car.seats}
         />
       ))}
-      
-      {/* 1. Hero Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden pt-20">
-        {/* Background Image - Optimized with Next.js Image and priority */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
-            alt="GCM & VinFast - Kỷ Nguyên Di Chuyển Xanh Toàn Diện - Showroom xe điện VinFast tại Cần Thơ"
-            fill
-            priority={true}
-            quality={90}
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/80"></div>
-        </div>
 
-        <div className="relative z-10 container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
-            GCM & VinFast<br/>
-            <span className="text-gcm-green">Kỷ Nguyên Di Chuyển Xanh Toàn Diện</span>
-          </h1>
-          
-          <div className="flex flex-col md:flex-row gap-6 justify-center mt-10">
-            <div className="relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]">
-              <div className="relative z-10 text-black">
-                <div className="flex items-center gap-4 mb-3">
-                  <Users size={28} className="flex-shrink-0" />
-                  <h3 className="text-xl font-bold whitespace-nowrap">Dành Cho Gia Đình</h3>
-                </div>
-                <p className="text-sm font-medium text-black/80">Sống Xanh - Sống Đẳng Cấp</p>
+      {/* 1. Đầu trang: dải mực cắt xiên */}
+      <PageHero
+        eyebrow="Ô tô VinFast"
+        title={<>GCM & VinFast{' '}<br /><span className="text-sky-light">Ô tô điện VinFast mới tại Cần Thơ</span></>}
+        crumbs={[{ href: '/oto-vinfast', label: 'Ô tô VinFast' }]}
+        image="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
+      />
+
+      {/* Hai nhóm khách hàng + ảnh ba xe trong studio */}
+      <section className="gcm-section">
+        <div className="gcm-container grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <div className="gcm-photo aspect-[16/9] w-full lg:col-span-2">
+            <Image
+              src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
+              alt="Ba mẫu ô tô điện VinFast mới bán tại GCM Cần Thơ"
+              fill
+              priority={true}
+              quality={85}
+              className="object-cover object-center"
+              sizes="(max-width: 1024px) 100vw, 66vw"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <div className="gcm-card flex items-center gap-4 p-5">
+              <span className="gcm-icon-box">
+                <Users size={20} />
+              </span>
+              <div>
+                <h3 className="gcm-h3">Xe cho gia đình</h3>
+                <p className="mt-1 text-sm text-ink-soft">Từ xe đô thị cỡ nhỏ đến SUV hạng sang, dùng đi lại hằng ngày</p>
               </div>
             </div>
 
-            <div className="relative overflow-hidden group p-8 rounded-3xl w-full md:w-80 text-left border-2 bg-gcm-green border-gcm-green shadow-[0_0_30px_rgba(0,210,106,0.4)]">
-              <div className="relative z-10 text-black">
-                <div className="flex items-center gap-4 mb-3">
-                  <Truck size={28} className="flex-shrink-0" />
-                  <h3 className="text-xl font-bold whitespace-nowrap">Vận Tải & Dịch Vụ</h3>
-                </div>
-                <p className="text-sm font-medium text-black/80">Giải Pháp Kinh Doanh Tối Ưu</p>
+            <div className="gcm-card flex items-center gap-4 p-5">
+              <span className="gcm-icon-box">
+                <Truck size={20} />
+              </span>
+              <div>
+                <h3 className="gcm-h3">Xe chạy dịch vụ</h3>
+                <p className="mt-1 text-sm text-ink-soft">Taxi, xe công nghệ và xe chở hàng</p>
               </div>
             </div>
           </div>
@@ -125,96 +128,98 @@ const CarSales: React.FC = () => {
       </section>
 
       {/* 2. FAMILY ZONE */}
-      <section className="py-20 container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="text-3xl font-bold text-gcm-dark mb-4">Bộ Sưu Tập Xe Gia Đình</h2>
-          <p className="text-gray-500">Thiết kế tương lai - Công nghệ thông minh - An toàn vượt trội</p>
-        </div>
+      <section className="gcm-section pt-0">
+        <div className="gcm-container">
+          <div className="mb-8 flex flex-col gap-3">
+            <span className="gcm-label">Xe gia đình</span>
+            <h2 className="gcm-h2">Ô tô điện cho gia đình</h2>
+            <p className="gcm-lead">Mỗi mẫu có giá niêm yết, quãng đường đi được sau một lần sạc và số chỗ ngồi. Bấm nút dưới xe để dự toán chi phí lăn bánh hoặc đăng ký lái thử.</p>
+          </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {NEW_CARS_FAMILY.map((car, index) => (
-            <motion.div 
-              key={car.id} 
-              className="bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group flex flex-col"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: index * 0.1 }}
-              whileHover={{ y: -5, scale: 1.02 }}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
-                <Image
-                  src={imageErrors[car.id] ? getFallbackImage() : car.image}
-                  alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice} tại Green CM`}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  onError={() => handleImageError(car.id)}
-                />
-                <div className="absolute top-4 left-4 bg-black/80 text-white text-xs font-bold px-3 py-1 rounded-full uppercase">
-                  {car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :
-                   car.segment === 'urban' && car.id === 'vf5' ? 'A-SUV' :
-                   car.segment === 'suv-bc' && car.id === 'vf6' ? 'B-SUV' :
-                   car.segment === 'suv-bc' && car.id === 'vf7' ? 'C-SUV' :
-                   car.segment === 'luxury' && car.id === 'vf8' ? 'D-SUV' :
-                   car.segment === 'luxury' && car.id === 'vf9' ? 'E-SUV' :
-                   car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV Cỡ Trung' : 'Hạng Sang'}
-                </div>
-              </div>
-              
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-2xl font-bold text-gray-800 mb-1">{car.name}</h3>
-                <p className="text-xl font-extrabold text-gcm-green mb-4">{car.displayPrice}</p>
-                
-                <div className="grid grid-cols-2 gap-4 mb-6 border-t border-gray-100 pt-4">
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Zap size={18} className="text-yellow-500" />
-                    <span className="text-sm font-semibold">{car.range}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Users size={18} className="text-blue-500" />
-                    <span className="text-sm font-semibold">{car.id === 'vf9' ? '7 chỗ/9 chỗ' : car.seats + ' chỗ'}</span>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {NEW_CARS_FAMILY.map((car, index) => (
+              <motion.div
+                key={car.id}
+                className="gcm-card gcm-card-hover flex flex-col overflow-hidden"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+              >
+                <div className="gcm-photo aspect-[16/9] w-full rounded-none">
+                  <Image
+                    src={imageErrors[car.id] ? getFallbackImage() : car.image}
+                    alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice} tại Green CM`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    onError={() => handleImageError(car.id)}
+                  />
+                  <div className="absolute left-3 top-3 rounded-full bg-night-900/75 px-2.5 py-1 text-label font-semibold uppercase text-white">
+                    {car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :
+                     car.segment === 'urban' && car.id === 'vf5' ? 'A-SUV' :
+                     car.segment === 'suv-bc' && car.id === 'vf6' ? 'B-SUV' :
+                     car.segment === 'suv-bc' && car.id === 'vf7' ? 'C-SUV' :
+                     car.segment === 'luxury' && car.id === 'vf8' ? 'D-SUV' :
+                     car.segment === 'luxury' && car.id === 'vf9' ? 'E-SUV' :
+                     car.segment === 'urban' ? 'Đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'Hạng sang'}
                   </div>
                 </div>
 
-                <div className="mt-auto flex gap-3">
-                  <button 
-                    onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
-                    className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-3 rounded-xl transition-colors text-sm"
-                  >
-                    Dự toán chi phí
-                  </button>
-                  <button 
-                    onClick={() => { setSelectedCarForTestDrive(car); setShowTestDriveModal(true); }}
-                    className="flex-1 bg-black hover:bg-gcm-green hover:text-black text-white font-bold py-3 rounded-xl transition-colors text-sm"
-                  >
-                    Đăng ký lái thử
-                  </button>
+                <div className="flex flex-1 flex-col p-5">
+                  <h3 className="gcm-h3 text-lg">{car.name}</h3>
+                  <p className="mt-1 text-lg font-semibold tabular text-ocean">{car.displayPrice}</p>
+
+                  <div className="my-4 grid grid-cols-2 gap-4 pt-4">
+                    <div className="flex items-center gap-2 text-ink-soft">
+                      <Zap size={16} className="text-ocean" />
+                      <span className="text-sm font-medium tabular">{car.range}</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-ink-soft">
+                      <Users size={16} className="text-ocean" />
+                      <span className="text-sm font-medium">{car.id === 'vf9' ? '7 chỗ/9 chỗ' : car.seats + ' chỗ'}</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto flex gap-3">
+                    <button
+                      onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
+                      className="gcm-btn-ghost flex-1 px-3 text-sm"
+                    >
+                      Dự toán chi phí
+                    </button>
+                    <button
+                      onClick={() => { setSelectedCarForTestDrive(car); setShowTestDriveModal(true); }}
+                      className="gcm-btn flex-1 px-3 text-sm"
+                    >
+                      Đăng ký lái thử
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* 3. SERVICE ZONE */}
-      <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+      <section className="gcm-section pt-0">
+        <div className="gcm-container">
            {/* Solutions Grid */}
-           <div className="mb-20">
-              <div className="text-center mb-12">
-                 <h2 className="text-3xl font-bold text-gcm-dark mb-4">Giải Pháp Vận Tải Xanh</h2>
-                 <p className="text-gray-500">Tối ưu chi phí vận hành - Gia tăng lợi nhuận cho doanh nghiệp</p>
+           <div className="mb-12">
+              <div className="mb-8 flex flex-col gap-3">
+                 <span className="gcm-label">Xe dịch vụ</span>
+                 <h2 className="gcm-h2">Xe điện chạy dịch vụ</h2>
+                 <p className="gcm-lead">Dành cho tài xế công nghệ, hãng taxi và doanh nghiệp vận tải. Bấm vào xe để nhận báo giá; riêng Limo Green có trang giới thiệu đầy đủ.</p>
               </div>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                  {NEW_CARS_SERVICE.map((car, index) => (
                     <motion.div
                       key={car.id}
-                      className="bg-white rounded-3xl p-6 shadow-md border border-gray-100 flex flex-col md:flex-row gap-6 hover:border-gcm-green transition-all cursor-pointer"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      className="group gcm-card gcm-card-hover flex cursor-pointer flex-col overflow-hidden"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: index * 0.1 }}
-                      whileHover={{ x: 5, scale: 1.02 }}
                       onClick={() => {
                         if(car.id === 'limo') {
                           router.push('/oto-vinfast/limo-green');
@@ -224,29 +229,44 @@ const CarSales: React.FC = () => {
                         }
                       }}
                     >
-                       <div className="relative w-full md:w-1/3 h-48 bg-gray-100 rounded-2xl overflow-hidden">
-                          <Image 
-                            src={imageErrors[car.id] ? getFallbackImage() : car.image} 
-                            alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`} 
+                       <div className="gcm-photo aspect-[16/9] w-full rounded-none">
+                          <Image
+                            src={imageErrors[car.id] ? getFallbackImage() : car.image}
+                            alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`}
                             fill
                             className="object-cover"
-                            sizes="(max-width: 768px) 100vw, 33vw"
+                            sizes="(max-width: 768px) 100vw, 50vw"
                             onError={() => handleImageError(car.id)}
                           />
                        </div>
-                       <div className="flex-1 flex flex-col justify-center">
-                          <span className="text-xs font-bold text-gcm-green uppercase tracking-wider mb-2">{car.solutionName}</span>
-                          <h3 className="text-2xl font-bold text-gray-800 mb-2">{car.name}</h3>
-                          <p className="text-gray-500 text-sm mb-4 leading-relaxed">{car.description}</p>
-                          <div className="flex items-center gap-4 mb-6">
-                             <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.seats} chỗ</span>
-                             <span className="bg-gray-100 px-3 py-1 rounded text-xs font-bold">{car.range}</span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                             <span className="text-xl font-bold text-red-600">{car.displayPrice}</span>
-                             <span className="text-sm font-bold border-b-2 border-black pb-1 text-gcm-green">
-                                {car.id === 'limo' ? 'Xem chi tiết Limo' : 'Nhận báo giá'}
+                       <div className="flex flex-1 flex-col p-5">
+                          <div className="mb-2 flex items-start justify-between gap-4">
+                             <div>
+                                <span className="gcm-label">{car.solutionName}</span>
+                                <h3 className="gcm-h3 mt-1 text-lg">{car.name}</h3>
+                             </div>
+                             <span className="gcm-arrow-box">
+                                <ArrowUpRight size={16} />
                              </span>
+                          </div>
+                          <p className="mb-4 text-sm leading-relaxed text-ink-soft">{car.description}</p>
+                          <div className="mb-4 flex items-center gap-2">
+                             <span className="gcm-badge">{car.seats} chỗ</span>
+                             <span className="gcm-badge tabular">{car.range}</span>
+                          </div>
+                          <div className="mt-auto flex items-center justify-between gap-4 pt-4">
+                             <span className="text-lg font-semibold tabular text-ink">{car.displayPrice}</span>
+                             {car.id === 'limo' ? (
+                                <Link href="/oto-vinfast/limo-green" className="gcm-link" onClick={(e) => e.stopPropagation()}>
+                                   Xem trang Limo Green
+                                   <ChevronRight size={14} />
+                                </Link>
+                             ) : (
+                                <span className="gcm-link">
+                                   Nhận báo giá
+                                   <ChevronRight size={14} />
+                                </span>
+                             )}
                           </div>
                        </div>
                     </motion.div>
@@ -255,53 +275,53 @@ const CarSales: React.FC = () => {
            </div>
 
            {/* ROI Calculator */}
-           <div className="bg-black rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-gcm-green/20 to-transparent pointer-events-none"></div>
-              
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+           <div className="gcm-card p-5 md:p-10">
+              <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
                  <div>
-                    <h3 className="text-3xl font-bold mb-6 flex items-center gap-3">
-                       <TrendingUp className="text-gcm-green" size={32} />
-                       Tính Toán Hiệu Quả Đầu Tư
+                    <h3 className="gcm-h2 mb-4 flex items-center gap-3">
+                       <span className="gcm-icon-box">
+                          <TrendingUp size={20} />
+                       </span>
+                       Tính tiền xăng bạn tiết kiệm được
                     </h3>
-                    <p className="text-gray-400 mb-8 text-lg">
-                       Nhập số km di chuyển trung bình mỗi ngày để thấy số tiền bạn tiết kiệm được khi chuyển sang xe điện.
+                    <p className="gcm-lead mb-8">
+                       Kéo thanh trượt theo số km bạn chạy mỗi ngày. Bảng bên dưới so tiền xăng với tiền sạc điện của một tháng, rồi cộng ra số tiền tiết kiệm trong một năm.
                     </p>
-                    
+
                     <div className="space-y-6">
                        <div>
-                          <label className="block text-sm font-bold text-gray-400 mb-2">Quãng đường di chuyển (Km/ngày)</label>
+                          <label className="gcm-label mb-2 block">Quãng đường mỗi ngày (km)</label>
                           <div className="flex items-center gap-4">
-                             <input 
-                               type="range" 
-                               min="50" max="500" step="10" 
-                               value={roiKm} 
+                             <input
+                               type="range"
+                               min="50" max="500" step="10"
+                               value={roiKm}
                                onChange={(e) => setRoiKm(Number(e.target.value))}
-                               className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer accent-gcm-green"
+                               className="h-2 w-full cursor-pointer appearance-none rounded-full bg-line-strong accent-ocean"
                              />
-                             <span className="text-2xl font-bold text-gcm-green w-20 text-right">{roiKm}</span>
+                             <span className="w-20 text-right text-2xl font-semibold tabular text-ocean">{roiKm}</span>
                           </div>
                        </div>
-                       
-                       <div className="bg-white/10 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
-                          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                             <span className="text-gray-300">Chi phí Xăng (Dự kiến)</span>
-                             <span className="text-xl font-bold text-red-400">{(gasCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
+
+                       <div className="rounded-panel border border-line bg-tint p-5">
+                          <div className="mb-4 flex items-center justify-between gap-4 pb-4">
+                             <span className="text-sm text-ink-soft">Tiền xăng (ước tính)</span>
+                             <span className="text-right text-lg font-semibold tabular text-red-700">{(gasCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
                           </div>
-                          <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-4">
-                             <span className="text-gray-300">Chi phí Điện (Sạc)</span>
-                             <span className="text-xl font-bold text-gcm-green">{(evCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
+                          <div className="mb-4 flex items-center justify-between gap-4 pb-4">
+                             <span className="text-sm text-ink-soft">Tiền sạc điện</span>
+                             <span className="text-right text-lg font-semibold tabular text-ocean">{(evCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
                           </div>
                           <div className="pt-2">
-                             <span className="block text-sm text-gray-400 mb-1">Tiết kiệm mỗi năm</span>
-                             <span className="text-4xl font-extrabold text-white">{savingsPerYear.toLocaleString('vi-VN')} VNĐ</span>
+                             <span className="mb-1 block text-xs text-ink-mute">Tiết kiệm mỗi năm</span>
+                             <span className="text-3xl font-semibold tabular text-ink md:text-4xl">{savingsPerYear.toLocaleString('vi-VN')} VNĐ</span>
                           </div>
                        </div>
                     </div>
                  </div>
-                 
-                 <div className="bg-white text-black rounded-3xl p-8 shadow-2xl">
-                    <h4 className="text-xl font-bold mb-6">Liên hệ Báo Giá Dự Án</h4>
+
+                 <div className="rounded-panel border border-line bg-surface p-5 md:p-8">
+                    <h4 className="gcm-h3 mb-6 text-lg">Báo giá cho doanh nghiệp</h4>
                     <CustomerForm
                        formType="quote-request"
                        fields={[
@@ -322,8 +342,8 @@ const CarSales: React.FC = () => {
                              ],
                           },
                        ]}
-                       submitButtonText="Gửi Yêu Cầu Tư Vấn"
-                       submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg"
+                       submitButtonText="Gửi yêu cầu tư vấn"
+                       submitButtonClassName="gcm-btn w-full"
                        showSuccessMessage={false}
                     />
                  </div>
@@ -333,30 +353,30 @@ const CarSales: React.FC = () => {
       </section>
 
       {/* 4. Sales Support Tools (Test Drive Form) */}
-      <section className="py-20 bg-white">
-         <div className="container mx-auto px-4">
-            <div className="flex flex-col lg:flex-row gap-12 items-center">
-               <div className="lg:w-1/2">
-                  <span className="text-gcm-green font-bold uppercase tracking-widest text-sm mb-2 block">Trải nghiệm thực tế</span>
-                  <h2 className="text-4xl font-bold text-gcm-dark mb-6">Trăm Nghe Không Bằng Một Lần Lái</h2>
-                  <p className="text-gray-600 mb-8 text-lg">
-                     GCM hỗ trợ mang xe đến tận nhà cho khách hàng cá nhân hoặc Demo trực tiếp tại doanh nghiệp với các dòng xe dịch vụ. Đăng ký ngay để cảm nhận sự khác biệt.
+      <section className="gcm-section bg-tint">
+         <div className="gcm-container">
+            <div className="flex flex-col items-center gap-10 lg:flex-row">
+               <div className="flex flex-col gap-4 lg:w-1/2">
+                  <span className="gcm-label">Trải nghiệm thực tế</span>
+                  <h2 className="gcm-h2">Lái thử trước khi quyết định</h2>
+                  <p className="gcm-lead">
+                     Khách cá nhân được GCM mang xe đến tận nhà để lái thử. Với xe dịch vụ, GCM đưa xe đến doanh nghiệp để đội tài xế chạy thử. Để lại số điện thoại ở form bên cạnh để hẹn lịch.
                   </p>
-                  <ul className="space-y-4 mb-8">
-                     <li className="flex items-center gap-3 font-medium text-gray-700">
-                        <CheckCircle className="text-gcm-green" size={24} /> Phục vụ 24/7 tất cả các ngày trong tuần
+                  <ul className="mt-2 space-y-3">
+                     <li className="flex items-center gap-3 font-medium text-ink">
+                        <CheckCircle className="flex-shrink-0 text-ocean" size={20} /> Nhận lịch lái thử 24/7, kể cả cuối tuần
                      </li>
-                     <li className="flex items-center gap-3 font-medium text-gray-700">
-                        <CheckCircle className="text-gcm-green" size={24} /> Kỹ thuật viên hướng dẫn tính năng ADAS
+                     <li className="flex items-center gap-3 font-medium text-ink">
+                        <CheckCircle className="flex-shrink-0 text-ocean" size={20} /> Kỹ thuật viên hướng dẫn tính năng ADAS
                      </li>
-                     <li className="flex items-center gap-3 font-medium text-gray-700">
-                        <CheckCircle className="text-gcm-green" size={24} /> Quà tặng lưu niệm khi lái thử
+                     <li className="flex items-center gap-3 font-medium text-ink">
+                        <CheckCircle className="flex-shrink-0 text-ocean" size={20} /> Có quà lưu niệm cho người lái thử
                      </li>
                   </ul>
                </div>
-               
-               <div className="lg:w-1/2 w-full bg-gray-50 p-8 rounded-3xl border border-gray-100 shadow-lg">
-                  <h3 className="text-2xl font-bold mb-6">Đăng Ký Lái Thử</h3>
+
+               <div className="gcm-card w-full p-5 md:p-8 lg:w-1/2">
+                  <h3 className="gcm-h3 mb-6 text-lg">Đăng ký lái thử</h3>
                   <CustomerForm
                      formType="test-drive"
                      fields={[
@@ -372,8 +392,8 @@ const CarSales: React.FC = () => {
                            ],
                         },
                      ]}
-                     submitButtonText="Xác Nhận Đăng Ký"
-                     submitButtonClassName="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors"
+                     submitButtonText="Xác nhận đăng ký"
+                     submitButtonClassName="gcm-btn w-full"
                      showSuccessMessage={true}
                   />
                </div>
@@ -383,57 +403,57 @@ const CarSales: React.FC = () => {
 
       {/* Cost Estimate Modal with Lead Form */}
       {showCostModal && selectedCarForCost && (
-         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative animate-slide-down max-h-[90vh] overflow-y-auto">
-               <button 
+         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/40 p-4 animate-fade-in">
+            <div className="relative max-h-[90vh] w-full max-w-lg overflow-hidden overflow-y-auto rounded-card border border-line bg-surface shadow-2xl animate-slide-down">
+               <button
                  onClick={() => setShowCostModal(false)}
-                 className="absolute top-4 right-4 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition-colors z-10"
+                 className="absolute right-4 top-4 z-10 rounded-control border border-line-strong bg-surface p-2 text-ink-soft transition-colors hover:border-ocean hover:text-ocean"
                >
-                 <X size={20} className="text-gray-600" />
+                 <X size={18} />
                </button>
-               
-               <div className="bg-gcm-green p-6 text-center">
-                  <h3 className="text-xl font-bold text-black">Dự Toán Chi Phí Lăn Bánh</h3>
-                  <p className="text-black/80 text-sm mt-1">{selectedCarForCost.name}</p>
+
+               <div className=" p-6 text-center">
+                  <h3 className="gcm-h3 text-lg">Dự toán chi phí lăn bánh</h3>
+                  <p className="mt-1 text-sm font-medium text-ocean">{selectedCarForCost.name}</p>
                </div>
-               
-               <div className="p-6 space-y-4">
-                  <div className="flex justify-between items-center py-2 border-b">
-                     <span className="text-gray-600">Giá niêm yết</span>
-                     <span className="font-bold">{selectedCarForCost.displayPrice}</span>
+
+               <div className="space-y-4 p-6">
+                  <div className="flex items-center justify-between py-2">
+                     <span className="text-ink-soft">Giá niêm yết</span>
+                     <span className="font-semibold tabular text-ink">{selectedCarForCost.displayPrice}</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b">
-                     <span className="text-gray-600">Lệ phí trước bạ (0%)</span>
-                     <span className="font-bold text-gcm-green">0 đ</span>
+                  <div className="flex items-center justify-between py-2">
+                     <span className="text-ink-soft">Lệ phí trước bạ (0%)</span>
+                     <span className="font-semibold tabular text-ocean">0 đ</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b">
-                     <span className="text-gray-600">Phí biển số (Dự kiến)</span>
-                     <span className="font-bold">20.000.000 đ</span>
+                  <div className="flex items-center justify-between py-2">
+                     <span className="text-ink-soft">Phí biển số (Dự kiến)</span>
+                     <span className="font-semibold tabular text-ink">20.000.000 đ</span>
                   </div>
-                  <div className="flex justify-between items-center py-2 border-b">
-                     <span className="text-gray-600">Phí đường bộ + BH (1 năm)</span>
-                     <span className="font-bold">2.560.000 đ</span>
+                  <div className="flex items-center justify-between py-2">
+                     <span className="text-ink-soft">Phí đường bộ + BH (1 năm)</span>
+                     <span className="font-semibold tabular text-ink">2.560.000 đ</span>
                   </div>
-                  
-                  <div className="bg-gray-50 p-4 rounded-xl mt-4">
-                     <div className="flex justify-between items-center">
-                        <span className="text-lg font-bold text-gray-800">Tổng lăn bánh</span>
-                        <span className="text-2xl font-extrabold text-red-600">
+
+                  <div className="mt-4 rounded-panel border border-line bg-tint p-4">
+                     <div className="flex items-center justify-between gap-4">
+                        <span className="text-base font-semibold text-ink">Tổng lăn bánh</span>
+                        <span className="text-2xl font-semibold tabular text-ocean">
                            {calculateRollingCost(selectedCarForCost.priceFrom).toLocaleString('vi-VN')} đ
                         </span>
                      </div>
                   </div>
 
-                  <p className="text-xs text-gray-400 text-center italic mt-2">
-                     *Giá trên là tạm tính. Để nhận bảng tính chính xác nhất và ưu đãi giảm giá, vui lòng để lại thông tin:
+                  <p className="mt-2 text-center text-xs italic text-ink-mute">
+                     *Đây là số tạm tính. Để lại thông tin, GCM gửi bảng tính theo nơi bạn đăng ký xe kèm ưu đãi giảm giá đang có:
                   </p>
 
                   <div className="pt-2">
                      <CustomerForm
                         formType="cost-estimate"
                         fields={[]}
-                        submitButtonText="GỬI BÁO GIÁ QUA ZALO"
-                        submitButtonClassName="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition-colors mt-2"
+                        submitButtonText="Nhận báo giá qua Zalo"
+                        submitButtonClassName="gcm-btn mt-2 w-full"
                         showSuccessMessage={false}
                         onSubmit={(data) => {
                            console.log('Cost estimate submission:', { ...data, carName: selectedCarForCost.name });
@@ -447,35 +467,35 @@ const CarSales: React.FC = () => {
 
       {/* Test Drive Modal */}
       {showTestDriveModal && selectedCarForTestDrive && (
-         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative animate-slide-down">
-               <button 
+         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/40 p-4 animate-fade-in">
+            <div className="relative max-h-[90vh] w-full max-w-lg overflow-hidden overflow-y-auto rounded-card border border-line bg-surface shadow-2xl animate-slide-down">
+               <button
                  onClick={() => setShowTestDriveModal(false)}
-                 className="absolute top-4 right-4 bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition-colors z-10"
+                 className="absolute right-4 top-4 z-10 rounded-control border border-line-strong bg-surface p-2 text-ink-soft transition-colors hover:border-ocean hover:text-ocean"
                >
-                 <X size={20} className="text-gray-600" />
+                 <X size={18} />
                </button>
-               
-               <div className="bg-black p-6 text-white text-center">
-                  <h3 className="text-xl font-bold">Đăng Ký Lái Thử</h3>
-                  <p className="text-gcm-green text-sm mt-1">{selectedCarForTestDrive.name}</p>
+
+               <div className=" p-6 text-center">
+                  <h3 className="gcm-h3 text-lg">Đăng ký lái thử</h3>
+                  <p className="mt-1 text-sm font-medium text-ocean">{selectedCarForTestDrive.name}</p>
                </div>
 
-               <div className="p-8 space-y-4">
-                  <div className="bg-gray-50 p-4 rounded-xl flex items-center gap-4 mb-4">
-                     <div className="relative w-20 h-14 rounded-lg overflow-hidden flex-shrink-0">
-                       <Image 
-                         src={imageErrors[selectedCarForTestDrive.id] ? getFallbackImage() : selectedCarForTestDrive.image} 
-                         alt={`${selectedCarForTestDrive.name} - Đăng ký lái thử xe điện`} 
+               <div className="space-y-4 p-6 md:p-8">
+                  <div className="mb-4 flex items-center gap-4 rounded-panel border border-line bg-tint p-4">
+                     <div className="gcm-photo aspect-[16/9] w-24 flex-shrink-0 rounded-control">
+                       <Image
+                         src={imageErrors[selectedCarForTestDrive.id] ? getFallbackImage() : selectedCarForTestDrive.image}
+                         alt={`${selectedCarForTestDrive.name} - Đăng ký lái thử xe điện`}
                          fill
                          className="object-cover"
-                         sizes="80px"
+                         sizes="96px"
                          onError={() => handleImageError(selectedCarForTestDrive.id)}
                        />
                      </div>
                      <div>
-                        <p className="font-bold text-sm text-gray-800">Xe lái thử</p>
-                        <p className="text-xs text-gray-500">Chúng tôi sẽ mang xe đến tận nơi</p>
+                        <p className="text-sm font-semibold text-ink">Xe lái thử</p>
+                        <p className="text-xs text-ink-soft">Chúng tôi sẽ mang xe đến tận nơi</p>
                      </div>
                   </div>
 
@@ -494,13 +514,13 @@ const CarSales: React.FC = () => {
                            type: 'select',
                            gridCols: 2,
                            options: [
-                              { value: 'showroom', label: 'Tại Showroom' },
-                              { value: 'home', label: 'Tại Nhà Riêng' },
+                              { value: 'showroom', label: 'Tại showroom' },
+                              { value: 'home', label: 'Tại nhà riêng' },
                            ],
                         },
                      ]}
-                     submitButtonText="XÁC NHẬN ĐĂNG KÝ"
-                     submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg mt-2"
+                     submitButtonText="Xác nhận đăng ký"
+                     submitButtonClassName="gcm-btn mt-2 w-full"
                      showSuccessMessage={false}
                      onSubmit={(data) => {
                         console.log('Test drive submission:', { ...data, carName: selectedCarForTestDrive.name });
@@ -514,31 +534,31 @@ const CarSales: React.FC = () => {
 
       {/* Quote Request Modal (Existing for Services) */}
       {showQuoteModal && selectedCarForQuote && (
-         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
-            <div className="bg-white rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl relative animate-slide-down">
-               <button 
+         <div className="fixed inset-0 z-[60] flex items-center justify-center bg-ink/40 p-4 animate-fade-in">
+            <div className="relative max-h-[90vh] w-full max-w-lg overflow-hidden overflow-y-auto rounded-card border border-line bg-surface shadow-2xl animate-slide-down">
+               <button
                  onClick={() => setShowQuoteModal(false)}
-                 className="absolute top-4 right-4 bg-white/10 p-2 rounded-full hover:bg-white/20 transition-colors text-white"
+                 className="absolute right-4 top-4 z-10 rounded-control border border-line-strong bg-surface p-2 text-ink-soft transition-colors hover:border-ocean hover:text-ocean"
                >
-                 <X size={20} />
+                 <X size={18} />
                </button>
-               
-               <div className="bg-black p-6 text-white">
-                  <h3 className="text-xl font-bold">Yêu Cầu Báo Giá</h3>
-                  <p className="text-gcm-green text-sm mt-1">{selectedCarForQuote.name}</p>
-                  <div className="mt-4 flex items-center gap-2 text-xs text-gray-400">
-                    <CheckCircle size={14} className="text-gcm-green" />
-                    <span>Cam kết phản hồi trong 30 phút</span>
+
+               <div className=" p-6">
+                  <h3 className="gcm-h3 text-lg">Yêu cầu báo giá</h3>
+                  <p className="mt-1 text-sm font-medium text-ocean">{selectedCarForQuote.name}</p>
+                  <div className="mt-4 flex items-center gap-2 text-xs text-ink-soft">
+                    <CheckCircle size={14} className="text-ocean" />
+                    <span>GCM trả lời trong 30 phút</span>
                   </div>
                </div>
-               
-               <div className="p-8">
+
+               <div className="p-6 md:p-8">
                   <CustomerForm
                      formType="quote-request"
                      fields={[
                         {
                            name: 'companyName',
-                           label: 'Tên Doanh Nghiệp / Cá Nhân',
+                           label: 'Tên doanh nghiệp hoặc cá nhân',
                            type: 'text',
                            placeholder: 'Nhập tên của bạn',
                         },
@@ -556,8 +576,8 @@ const CarSales: React.FC = () => {
                            placeholder: 'Yêu cầu đặc biệt, địa điểm giao xe...',
                         },
                      ]}
-                     submitButtonText="GỬI YÊU CẦU NGAY"
-                     submitButtonClassName="w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg mt-2"
+                     submitButtonText="Gửi yêu cầu"
+                     submitButtonClassName="gcm-btn mt-2 w-full"
                      showSuccessMessage={false}
                      onSubmit={(data) => {
                         console.log('Quote request submission:', { ...data, carName: selectedCarForQuote.name });

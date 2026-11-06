@@ -4,29 +4,29 @@ import PhuKienClient from './PhuKienClient';
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
-  title: 'Phụ kiện ô tô điện VinFast | Chính hãng – Giá tốt – GCM',
-  description: 'Cửa hàng phụ kiện ô tô điện VinFast chính hãng tại GCM. Sạc tại nhà, nội thất, công nghệ, bảo vệ, nâng cấp. Đa dạng sản phẩm, tương thích VF5, VF8, VF9, VF e34. Giao hàng toàn quốc.',
+  title: 'Phụ kiện ô tô điện VinFast chính hãng',
+  description: 'Phụ kiện chính hãng cho VinFast VF5, VF8, VF9, VF e34 tại GCM: bộ sạc tại nhà, nội thất, camera, phim cách nhiệt, gói độ. Giao hàng toàn quốc.',
   alternates: {
     canonical: `${baseUrl}/phu-kien`,
   },
   openGraph: {
-    title: 'Phụ kiện ô tô điện VinFast | Chính hãng – Giá tốt – GCM',
-    description: 'Cửa hàng phụ kiện ô tô điện VinFast chính hãng tại GCM. Sạc tại nhà, nội thất, công nghệ, bảo vệ, nâng cấp.',
+    title: 'Phụ kiện ô tô điện VinFast chính hãng | GCM',
+    description: 'Phụ kiện VinFast chính hãng tại GCM: bộ sạc tại nhà, nội thất, đồ công nghệ, đồ bảo vệ xe và gói độ.',
     url: `${baseUrl}/phu-kien`,
     images: [
       {
-        url: 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80',
-        width: 1920,
-        height: 1080,
+        url: '/images/xe/vf9.webp',
+        width: 1024,
+        height: 572,
         alt: 'Phụ kiện ô tô điện VinFast - GCM',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Phụ kiện ô tô điện VinFast | Chính hãng – Giá tốt – GCM',
-    description: 'Cửa hàng phụ kiện ô tô điện VinFast chính hãng tại GCM.',
-    images: ['https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920&h=1080&fit=crop&q=80'],
+    title: 'Phụ kiện ô tô điện VinFast chính hãng | GCM',
+    description: 'Phụ kiện ô tô điện VinFast chính hãng tại GCM.',
+    images: ['/images/xe/vf9.webp'],
   },
 };
 

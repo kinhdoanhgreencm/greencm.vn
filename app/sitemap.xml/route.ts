@@ -8,14 +8,13 @@ export async function GET() {
   // Logic: Nếu có bài viết mới, sitemap posts cần được Google ghé thăm ngay
   const lastPostUpdated = await getLastPostUpdatedAt(); 
   
-  // Với static pages, có thể hardcode hoặc lấy ngày build
-  const pagesLastUpdated = new Date().toISOString(); 
+  // Trang tĩnh và tin rao xe không ghi lastmod: thời điểm request không phải ngày nội dung đổi,
+  // ghi vào chỉ khiến Google bỏ qua lastmod của cả sitemap.
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
     <loc>${baseUrl}/sitemap/pages.xml</loc>
-    <lastmod>${pagesLastUpdated}</lastmod>
   </sitemap>
   <sitemap>
     <loc>${baseUrl}/sitemap/posts.xml</loc>
@@ -23,7 +22,6 @@ export async function GET() {
   </sitemap>
   <sitemap>
     <loc>${baseUrl}/sitemap/listings.xml</loc>
-    <lastmod>${pagesLastUpdated}</lastmod>
   </sitemap>
 </sitemapindex>`;
 

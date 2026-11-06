@@ -5,90 +5,99 @@ import Link from 'next/link';
 import { Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react';
 import { BUSINESS_TAX_ID } from '../constants';
 
+const SERVICE_LINKS = [
+  { href: '/oto-vinfast', label: 'Ô tô VinFast' },
+  { href: '/xe-vinfast-cu', label: 'Xe VinFast Cũ' },
+  { href: '/tram-sac-vinfast', label: 'Trạm sạc VinFast' },
+  { href: '/tram-sac-tmt-egreen', label: 'Trạm sạc TMT-EGREEN' },
+  { href: '/phu-kien', label: 'Phụ kiện VinFast' },
+];
+
+const ABOUT_LINKS = [
+  { href: '/gioi-thieu', label: 'Giới thiệu' },
+  { href: '/tin-tuc', label: 'Tin tức & Sự kiện' },
+  { href: '/tuyen-dung', label: 'Tuyển dụng' },
+  { href: '/lien-he', label: 'Liên hệ' },
+];
+
 const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const socialClass =
+    'flex h-10 w-10 items-center justify-center rounded-control border border-white/25 text-white/80 transition-colors hover:border-[#00D26A] hover:text-[#00D26A]';
+
   return (
-    <footer className="bg-white pt-20">
-      {/* The main footer container with the unique curved shape */}
-      <div className="bg-black text-white rounded-t-[40px] md:rounded-t-[80px] pt-16 pb-8 px-4 md:px-12 relative overflow-hidden">
-        
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            
-            {/* Column 1: Company Info */}
-            <div className="space-y-6">
-              <div className="flex items-center gap-2 mb-4">
-                 <img src="/logo.png" alt="GCM All About Cars" width={160} height={40} className="h-10 w-auto" />
-              </div>
-              
-              <h3 className="font-bold text-sm uppercase text-gray-200">Công ty cổ phần Green CM</h3>
-              <p className="text-xs text-gray-300" data-nosnippet style={{textDecoration: 'none', pointerEvents: 'none'}}>MST/MSDN: {BUSINESS_TAX_ID}</p>
-              
-              <div className="text-xs text-gray-200 space-y-2">
-                <p>Địa chỉ: 59, Đường Số 10, KDC Diệu Hiền, Phường Cái Răng, TP Cần Thơ</p>
-              </div>
-            </div>
-
-            {/* Column 2: Ecosystem */}
-            <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Dịch vụ chính</h4>
-              <ul className="space-y-4 text-sm text-gray-200">
-                <li><Link href="/oto-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Mua bán ô tô</Link></li>
-                <li><Link href="/xe-vinfast-cu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Xe VinFast Cũ</Link></li>
-                <li><Link href="/ban-xe-cu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Bán / Ký gửi xe cũ</Link></li>
-                <li><Link href="/tram-sac-vinfast" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Trạm sạc VinFast</Link></li>
-                <li><Link href="/tram-sac-tmt-egreen" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Trạm sạc TMT-EGREEN</Link></li>
-                <li><Link href="/thue-xe" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Cho thuê xe</Link></li>
-                <li><Link href="/phu-kien" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Phụ kiện & Đồ chơi</Link></li>
-              </ul>
-            </div>
-
-             {/* Column 3: About */}
-             <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Về GCM</h4>
-              <ul className="space-y-4 text-sm text-gray-200">
-                <li><Link href="/gioi-thieu" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Giới thiệu</Link></li>
-                <li><Link href="/tin-tuc" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tin tức & Sự kiện</Link></li>
-                <li><Link href="/tuyen-dung" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Tuyển dụng</Link></li>
-                <li><Link href="/lien-he" onClick={scrollToTop} className="hover:text-gcm-green transition-colors">Liên hệ</Link></li>
-              </ul>
-            </div>
-
-            {/* Column 4: Contact */}
-            <div>
-              <h4 className="text-lg font-bold mb-6 text-white">Tổng đài hỗ trợ</h4>
-              <ul className="space-y-4 text-sm text-gray-200">
-                <li className="flex items-center gap-2">
-                  <Phone size={16} className="text-gcm-green" />
-                  <span className="text-gcm-green font-bold text-lg">0916 513 720</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Mail size={16} className="text-gray-200" />
-                  <span className="text-gray-200">kinhdoanhgreencm@gmail.com</span>
-                </li>
-              </ul>
-
-              <div className="flex gap-4 mt-6">
-                <a href="https://www.tiktok.com/@gcm.all.about.car" target="_blank" rel="noopener noreferrer" aria-label="Truy cập TikTok của GCM" className="bg-gcm-green/20 p-2 rounded-full text-gcm-green hover:bg-gcm-green hover:text-black transition-colors">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                  </svg>
-                </a>
-                <a href="https://www.youtube.com/@Green-CM" target="_blank" rel="noopener noreferrer" aria-label="Truy cập YouTube của GCM" className="bg-gcm-green/20 p-2 rounded-full text-gcm-green hover:bg-gcm-green hover:text-black transition-colors"><Youtube size={20} aria-hidden="true" /></a>
-                <a href="https://www.facebook.com/kinhdoanhgreencm" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Facebook của GCM" className="bg-gcm-green/20 p-2 rounded-full text-gcm-green hover:bg-gcm-green hover:text-black transition-colors"><Facebook size={20} aria-hidden="true" /></a>
-              </div>
+    <footer className="relative bg-black pt-12 pb-8 text-white">
+      <div className="gcm-container">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_0.8fr_1.1fr]">
+          {/* Column 1: Company Info */}
+          <div className="flex flex-col gap-5">
+            <img src="/brand/gcm-logo-xe-nen-toi.png" alt="GCM All About Cars" width={148} height={36} className="h-9 w-auto self-start" />
+            <div className="flex flex-col gap-2 text-sm text-white/75">
+              <h3 className="text-sm font-semibold text-white">Công ty Cổ phần Green CM</h3>
+              <p className="text-xs text-white/60" data-nosnippet style={{ textDecoration: 'none', pointerEvents: 'none' }}>MST/MSDN: {BUSINESS_TAX_ID}</p>
+              <p className="flex items-start gap-2">
+                <MapPin size={15} className="mt-0.5 shrink-0 text-[#00D26A]" />
+                59, Đường Số 10, KDC Diệu Hiền, Phường Cái Răng, TP Cần Thơ
+              </p>
             </div>
           </div>
 
-          <div className="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-300">
-            <p>©{new Date().getFullYear()} GCM - All About Cars. All rights reserved.</p>
-            <div className="flex gap-6 mt-4 md:mt-0">
-               <Link href="/dieu-khoan-su-dung" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Điều khoản sử dụng</Link>
-               <Link href="/chinh-sach-bao-mat" onClick={scrollToTop} className="text-gray-300 hover:text-gcm-green transition-colors">Chính sách bảo mật</Link>
+          {/* Column 2: Ecosystem */}
+          <div>
+            <h4 className="gcm-label mb-4 !text-[#00D26A]">Dịch vụ chính</h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-white/75">
+              {SERVICE_LINKS.map((l) => (
+                <li key={l.href}><Link href={l.href} onClick={scrollToTop} className="transition-colors hover:text-[#00D26A]">{l.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: About */}
+          <div>
+            <h4 className="gcm-label mb-4 !text-[#00D26A]">Về GCM</h4>
+            <ul className="flex flex-col gap-2.5 text-sm text-white/75">
+              {ABOUT_LINKS.map((l) => (
+                <li key={l.href}><Link href={l.href} onClick={scrollToTop} className="transition-colors hover:text-[#00D26A]">{l.label}</Link></li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact */}
+          <div>
+            <h4 className="gcm-label mb-4 !text-[#00D26A]">Tổng đài hỗ trợ</h4>
+            <ul className="flex flex-col gap-3 text-sm">
+              <li>
+                <a href="tel:0916513720" className="flex items-center gap-2 text-xl font-semibold tabular text-white transition-colors hover:text-[#00D26A]">
+                  <Phone size={18} className="text-[#00D26A]" />
+                  0916 513 720
+                </a>
+              </li>
+              <li className="flex items-center gap-2 text-white/75">
+                <Mail size={15} className="shrink-0 text-[#00D26A]" />
+                <span className="break-all">kinhdoanhgreencm@gmail.com</span>
+              </li>
+            </ul>
+
+            <div className="mt-6 flex gap-3">
+              <a href="https://www.tiktok.com/@gcm.all.about.car" target="_blank" rel="noopener noreferrer" aria-label="Truy cập TikTok của GCM" className={socialClass}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+              </a>
+              <a href="https://www.youtube.com/@Green-CM" target="_blank" rel="noopener noreferrer" aria-label="Truy cập YouTube của GCM" className={socialClass}><Youtube size={18} aria-hidden="true" /></a>
+              <a href="https://www.facebook.com/kinhdoanhgreencm" target="_blank" rel="noopener noreferrer" aria-label="Truy cập Facebook của GCM" className={socialClass}><Facebook size={18} aria-hidden="true" /></a>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 pt-6 text-xs text-white/60 md:flex-row">
+          <p>©{new Date().getFullYear()} GCM - All About Cars. All rights reserved.</p>
+          <div className="flex gap-6">
+            <Link href="/dieu-khoan-su-dung" onClick={scrollToTop} className="transition-colors hover:text-[#00D26A]">Điều khoản sử dụng</Link>
+            <Link href="/chinh-sach-bao-mat" onClick={scrollToTop} className="transition-colors hover:text-[#00D26A]">Chính sách bảo mật</Link>
           </div>
         </div>
       </div>

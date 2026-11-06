@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import Header from '../../../components/Header';
 import LimoGreenPage from '../../../components/LimoGreenPage';
 import Footer from '../../../components/Footer';
+import PageHero from '../../../components/PageHero';
 import AuthModal from '../../../components/AuthModal';
 import { BreadcrumbSchema } from '../../../components/SchemaMarkup';
 import { getModelBreadcrumbs } from '../../../lib/breadcrumbUtils';
@@ -26,17 +27,17 @@ export default function ModelPageClient() {
     return (
       <div>
         <Header onLoginClick={() => setIsAuthOpen(true)} />
-        <main className="min-h-screen flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">404</h1>
-            <p className="text-gray-600 mb-8">Model không tồn tại</p>
-            <a
-              href="/oto-vinfast"
-              className="bg-gcm-green text-black font-bold px-6 py-3 rounded-lg hover:bg-green-500 transition-colors"
-            >
-              Quay lại trang danh sách
+        <main className="min-h-[60vh]">
+          <PageHero
+            eyebrow="Ô tô VinFast"
+            title="404"
+            summary="Không tìm thấy mẫu xe này."
+            crumbs={[{ href: '/oto-vinfast', label: 'Ô tô VinFast' }]}
+          >
+            <a href="/oto-vinfast" className="gcm-btn">
+              Xem danh sách ô tô VinFast
             </a>
-          </div>
+          </PageHero>
         </main>
         <Footer />
         {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}

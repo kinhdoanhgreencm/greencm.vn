@@ -3,8 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ArrowRight, ArrowUpRight, Phone } from 'lucide-react';
 import { SERVICES } from '../constants';
 import { ServiceSchema } from './SchemaMarkup';
+import SpeedBars from './SpeedBars';
+
+// ID của Trạm sạc VinFast và Trạm sạc TMT-EGREEN trong SERVICES
+const CHARGING_IDS = [6, 7];
 
 const Services: React.FC = () => {
   const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
@@ -22,7 +27,6 @@ const Services: React.FC = () => {
     const slugMap: Record<number, string> = {
       1: '/oto-vinfast',      // Mua bán ô tô
       2: '/xe-vinfast-cu',    // Xe VinFast Cũ
-      3: '/thue-xe',          // Dịch vụ cho thuê xe
       4: '/phu-kien',         // Phụ kiện ô tô
       6: '/tram-sac-vinfast', // Trạm sạc VinFast
       7: '/tram-sac-tmt-egreen', // Trạm sạc TMT-EGREEN (thương hiệu độc lập, không thuộc VinFast)
@@ -31,7 +35,7 @@ const Services: React.FC = () => {
   };
 
   return (
-    <section id="services" className="py-20 bg-gcm-gray">
+    <section id="services" className="gcm-section bg-tint">
       {/* Service Schema for all services */}
       {SERVICES.map((service) => (
         <ServiceSchema
@@ -41,63 +45,70 @@ const Services: React.FC = () => {
           serviceType={service.title}
         />
       ))}
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Hệ sinh thái dịch vụ</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            GCM cung cấp chuỗi giá trị khép kín, đáp ứng mọi nhu cầu từ sở hữu, chăm sóc đến nâng cấp xế yêu của bạn.
+      <div className="gcm-container">
+        <div className="mb-8 flex flex-col gap-3 md:mb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="gcm-label mb-3.5">Dịch vụ</p>
+            <h2 className="gcm-h2">Hệ sinh thái dịch vụ</h2>
+          </div>
+          <p className="max-w-md text-md text-ink-soft">
+            Xe VinFast mới, xe VinFast cũ đã qua thẩm định và phụ kiện chính hãng. Hai dịch vụ trạm sạc có khối riêng ở phía trên.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
-          {SERVICES.map((service) => {
-            const serviceUrl = getServiceSlug(service.id);
-            
-            return (
-              <Link
-                key={service.id}
-                href={serviceUrl}
-                className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-[450px] flex flex-col cursor-pointer"
-              >
-                {/* Image Container */}
-                <div className="h-1/2 w-full overflow-hidden relative">
-                   <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors z-10"></div>
-                  <Image 
-                    src={imageErrors[service.id] ? getFallbackImage() : service.image} 
-                    alt={`${service.title} - Dịch vụ ${service.title.toLowerCase()} chuyên nghiệp tại GCM`} 
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-110"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    onError={() => handleImageError(service.id)}
-                  />
-                  {service.isComingSoon && (
-                    <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-                      <span className="text-white text-3xl font-extrabold tracking-widest uppercase border-4 border-gcm-green px-6 py-2 rounded transform -rotate-12">
-                        Coming Soon
-                      </span>
-                    </div>
-                  )}
+        {/* Hai dịch vụ trạm sạc đã có khối riêng (ChargingHighlight) phía trên */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.filter((service) => !CHARGING_IDS.includes(service.id)).map((service) => (
+            <Link
+              key={service.id}
+              href={getServiceSlug(service.id)}
+              className="group gcm-card gcm-card-hover flex flex-col overflow-hidden"
+            >
+              <div className="gcm-photo aspect-[16/9] rounded-none">
+                <Image
+                  src={imageErrors[service.id] ? getFallbackImage() : service.image}
+                  alt={`${service.title} tại GCM Cần Thơ`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  onError={() => handleImageError(service.id)}
+                />
+                {service.isComingSoon && (
+                  <span className="gcm-badge absolute left-3 top-3">Sắp ra mắt</span>
+                )}
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <h3 className="gcm-h3">{service.title}</h3>
+                  <span className="gcm-arrow-box"><ArrowUpRight size={16} /></span>
                 </div>
+                <p className="text-sm leading-relaxed text-ink-soft">{service.description}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
 
-                {/* Content */}
-                <div className="h-1/2 p-6 bg-black text-white flex flex-col justify-between relative">
-                  {/* Decorative curve connector */}
-                   <div className="absolute -top-6 left-0 right-0 h-6 bg-black rounded-t-[30px] z-10"></div>
-
-                  <div>
-                    <h3 className="text-xl font-bold text-gcm-green mb-2">{service.title}</h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {service.description}
-                    </p>
-                  </div>
-                  
-                  <div className="self-start mt-4 text-sm font-semibold text-white border-b border-gcm-green pb-1 hover:text-gcm-green transition-colors">
-                    Tìm hiểu thêm &rarr;
-                  </div>
-                </div>
+        {/* Dải mời tư vấn */}
+        <div className="relative mt-4 overflow-hidden rounded-card border border-line bg-surface p-6 md:p-8">
+          <div className="relative z-10 flex flex-col gap-5 lg:max-w-[62%]">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-lg font-semibold text-ink md:text-xl">
+                Để lại yêu cầu, GCM gọi lại tư vấn miễn phí
+              </h3>
+              <p className="text-sm text-ink-soft">Mua xe VinFast mới, xe VinFast cũ, phụ kiện hay đầu tư trạm sạc đều có người phụ trách riêng.</p>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Link href="/lien-he" className="gcm-btn">
+                Gửi yêu cầu
+                <ArrowRight size={16} />
               </Link>
-            );
-          })}
+              <a href="tel:0916513720" className="inline-flex items-center gap-2 text-lg font-semibold tabular text-ink transition-colors hover:text-ocean">
+                <Phone size={18} className="text-ocean" />
+                0916 513 720
+              </a>
+            </div>
+          </div>
+          <SpeedBars className="pointer-events-none absolute right-0 top-1/2 w-[32%] -translate-y-1/2 [--t:1.5rem] max-lg:hidden" />
         </div>
       </div>
     </section>

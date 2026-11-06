@@ -109,7 +109,7 @@ export async function generateMetadata({ params }: NewsPostPageProps): Promise<M
   const ogImage = getOgImage(post.image);
 
   return {
-    title: post.title,
+    title: post.seoTitle ?? post.title,
     description: post.excerpt,
     alternates: {
       canonical: `${baseUrl}/tin-tuc/${slug}`,
@@ -151,7 +151,6 @@ export default async function NewsPostPage({ params }: NewsPostPageProps) {
         image={post.image}
         url={`${baseUrl}/tin-tuc/${slug}`}
         datePublished={toIsoDate(post.date)}
-        authorName={post.author}
       />
       <NewsPostClient post={post} />
     </>

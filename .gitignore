@@ -53,3 +53,6 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# ?nh ch?p và báo cáo do giao di?n (design-taste-frontend)
+.taste-skill/

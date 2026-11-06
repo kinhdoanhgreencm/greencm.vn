@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import ModelPageClient from './ModelPageClient';
-import { getModelDisplayName } from '../../../lib/breadcrumbUtils';
 
 interface ModelPageProps {
   params: Promise<{
@@ -14,9 +14,9 @@ const LIMO_HERO_IMAGE =
 
 // --- Metadata: Limo Green (tối ưu cho nhóm khách chạy dịch vụ) ---
 const LIMO_GREEN_METADATA: Metadata = {
-  title: 'VinFast Limo Green | MPV điện 7 chỗ chạy dịch vụ - Giá lăn bánh & Ưu đãi',
+  title: 'Limo Green | MPV điện 7 chỗ chạy dịch vụ, giá lăn bánh',
   description:
-    'Đầu tư xe điện chạy dịch vụ VinFast Limo Green 7 chỗ. Giá chỉ 749 triệu, hỗ trợ vay 90%, lãi suất ưu đãi. Hoàn vốn nhanh, chi phí sạc rẻ hơn xăng 1/3.',
+    'VinFast Limo Green 7 chỗ cho tài xế chạy dịch vụ: giá từ 749 triệu, vay đến 90% với lãi suất ưu đãi, tiền sạc chỉ khoảng 1/3 tiền xăng.',
   keywords: [
     'xe ô tô điện 7 chỗ chạy dịch vụ',
     'vinfast limo green giá lăn bánh',
@@ -31,16 +31,16 @@ const LIMO_GREEN_METADATA: Metadata = {
     canonical: `${BASE_URL}/oto-vinfast/limo-green`,
   },
   openGraph: {
-    title: 'Đầu Tư Limo Green 7 Chỗ - Vốn Thấp, Lời Cao',
+    title: 'Limo Green 7 chỗ chạy dịch vụ, giá từ 749 triệu',
     description:
-      'Giải pháp kinh doanh vận tải số 1 hiện nay. Pin chạy 450km, bảo hành 7 năm. Xem bảng tính dòng tiền ngay.',
+      'MPV điện 7 chỗ đi được 450 km mỗi lần sạc, bảo hành 7 năm. Xem bảng tính dòng tiền khi chạy dịch vụ.',
     url: `${BASE_URL}/oto-vinfast/limo-green`,
     images: [
       {
         url: LIMO_HERO_IMAGE,
         width: 1408,
         height: 736,
-        alt: 'VinFast Limo Green - Xe điện quốc dân cho tài xế dịch vụ',
+        alt: 'VinFast Limo Green, MPV điện 7 chỗ cho tài xế chạy dịch vụ',
       },
     ],
     locale: 'vi_VN',
@@ -48,9 +48,9 @@ const LIMO_GREEN_METADATA: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Limo Green | MPV điện 7 chỗ – Đầu tư thấp, hoàn vốn thần tốc',
+    title: 'Limo Green | MPV điện 7 chỗ cho tài xế dịch vụ',
     description:
-      'VinFast Limo Green - MPV điện 7 chỗ lý tưởng cho kinh doanh vận tải. Quãng đường 450km/lần sạc.',
+      'VinFast Limo Green là MPV điện 7 chỗ dùng chạy dịch vụ, đi được 450 km mỗi lần sạc.',
     images: [LIMO_HERO_IMAGE],
   },
 };
@@ -60,17 +60,17 @@ const LIMO_GREEN_FAQ = [
   {
     question: 'Giá lăn bánh VinFast Limo Green là bao nhiêu?',
     answer:
-      'Giá niêm yết từ 749 triệu đồng. Tùy khu vực (Hà Nội, TP.HCM, Tỉnh), chi phí lăn bánh sẽ khác nhau do phí biển số. Liên hệ 0916 513 720 để nhận bảng giá chi tiết.',
+      'Giá niêm yết từ 749 triệu đồng. Chi phí lăn bánh ở Hà Nội, TP.HCM và các tỉnh khác nhau vì phí biển số khác nhau. Gọi 0916 513 720 để nhận bảng giá chi tiết.',
   },
   {
     question: 'Tôi muốn mua xe chạy dịch vụ (Grab/Xanh SM), ngân hàng cho vay bao nhiêu?',
     answer:
-      'GCM liên kết với các ngân hàng (MB, Techcombank, VPBank) hỗ trợ vay tới 80-90% giá trị xe, thời gian vay tối đa 8 năm. Bạn chỉ cần trả trước khoảng 150-200 triệu là nhận xe.',
+      'GCM làm việc với MB, Techcombank và VPBank; ngân hàng cho vay 80-90% giá trị xe, thời hạn tối đa 8 năm. Thường bạn trả trước khoảng 150-200 triệu là nhận xe.',
   },
   {
     question: 'Chi phí sạc điện so với đổ xăng như thế nào?',
     answer:
-      'Chi phí năng lượng của Limo Green chỉ khoảng 400-500đ/km, rẻ bằng 1/3 so với xe xăng cùng phân khúc (khoảng 1.500-2.000đ/km). Giúp tài xế tối ưu lợi nhuận.',
+      'Tiền sạc của Limo Green khoảng 400-500đ/km, bằng chừng 1/3 xe xăng cùng phân khúc (1.500-2.000đ/km).',
   },
 ] as const;
 
@@ -110,41 +110,39 @@ function buildLimoGreenFaqSchema(): object {
   };
 }
 
+// Chỉ Limo Green có trang riêng; slug khác trả 404 thật để Google không index trang rỗng.
+const MODEL_SLUGS = ['limo-green'] as const;
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return MODEL_SLUGS.map((model) => ({ model }));
+}
+
 export async function generateMetadata({ params }: ModelPageProps): Promise<Metadata> {
   const { model } = await params;
-  if (model === 'limo-green') return LIMO_GREEN_METADATA;
-  const modelDisplayName = getModelDisplayName(model);
-  return {
-    title: `${modelDisplayName} | Xe điện VinFast – GCM`,
-    description: `Thông tin chi tiết về ${modelDisplayName} - Xe điện VinFast tại GCM. Giá tốt, hỗ trợ vay 90%, bảo hành dài hạn.`,
-    alternates: {
-      canonical: `${BASE_URL}/oto-vinfast/${model}`,
-    },
-  };
+  if (model !== 'limo-green') notFound();
+  return LIMO_GREEN_METADATA;
 }
 
 export default async function ModelPage({ params }: ModelPageProps) {
   const { model } = await params;
-  const isLimoGreen = model === 'limo-green';
+  if (model !== 'limo-green') notFound();
 
   return (
     <>
-      {isLimoGreen && (
-        <>
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(buildLimoGreenProductSchema()),
-            }}
-          />
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify(buildLimoGreenFaqSchema()),
-            }}
-          />
-        </>
-      )}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildLimoGreenProductSchema()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(buildLimoGreenFaqSchema()),
+        }}
+      />
       <ModelPageClient />
     </>
   );

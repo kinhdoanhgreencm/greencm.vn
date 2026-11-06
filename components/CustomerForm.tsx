@@ -40,8 +40,8 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   description,
   fields,
   onSubmit,
-  submitButtonText = 'Gửi Yêu Cầu',
-  submitButtonClassName = 'w-full bg-gcm-green text-black font-bold py-4 rounded-xl hover:bg-green-400 transition-colors shadow-lg',
+  submitButtonText = 'Gửi yêu cầu',
+  submitButtonClassName = 'gcm-btn w-full',
   className = '',
   showSuccessMessage = true,
 }) => {
@@ -88,7 +88,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
   const handleChange = (name: string, value: string, field: FormField) => {
     setFormData(prev => ({ ...prev, [name]: value }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => {
@@ -137,7 +137,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       setSubmitStatus('error');
       setSubmitMessage('Vui lòng kiểm tra lại thông tin đã nhập.');
@@ -175,7 +175,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       }
 
       setSubmitStatus('success');
-      setSubmitMessage(result.message || 'Cảm ơn bạn đã gửi thông tin! Chúng tôi sẽ liên hệ lại sớm nhất.');
+      setSubmitMessage(result.message || 'Cảm ơn bạn đã gửi thông tin. GCM sẽ gọi lại cho bạn.');
 
       // Reset form after successful submission
       if (showSuccessMessage) {
@@ -201,14 +201,14 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     const error = errors[field.name];
     const hasError = !!error;
 
-    const baseInputClassName = `w-full p-3 bg-gray-50 rounded-xl border ${
-      hasError ? 'border-red-500' : 'border-gray-200 focus:border-gcm-green'
-    } outline-none transition-colors`;
+    const baseInputClassName = `gcm-input transition-colors ${
+      hasError ? 'border-red-300 focus:border-red-700 focus:ring-red-200' : ''
+    }`;
 
     const fieldElement = (
       <div className={field.gridCols === 2 ? 'col-span-2 md:col-span-1' : ''}>
-        <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
-          {field.label} {field.required && <span className="text-red-500">*</span>}
+        <label className="mb-1.5 block text-sm font-medium text-ink">
+          {field.label} {field.required && <span className="text-red-700">*</span>}
         </label>
         {field.type === 'textarea' ? (
           <textarea
@@ -249,7 +249,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
           />
         )}
         {hasError && (
-          <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+          <p className="mt-1 text-xs text-red-700 flex items-center gap-1">
             <AlertCircle size={12} />
             {error}
           </p>
@@ -264,22 +264,22 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
     <div className={className}>
       {title && (
         <div className="mb-6">
-          <h3 className="text-2xl font-bold mb-2">{title}</h3>
-          {description && <p className="text-gray-500 text-sm">{description}</p>}
+          <h3 className="gcm-h3 mb-2 text-lg">{title}</h3>
+          {description && <p className="text-ink-soft text-sm">{description}</p>}
         </div>
       )}
 
       {submitStatus === 'success' && showSuccessMessage && (
-        <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl flex items-center gap-3">
-          <CheckCircle className="text-green-600 flex-shrink-0" size={20} />
-          <p className="text-green-800 text-sm font-medium">{submitMessage}</p>
+        <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 rounded-panel flex items-center gap-3">
+          <CheckCircle className="text-emerald-700 flex-shrink-0" size={20} />
+          <p className="text-emerald-800 text-sm font-medium">{submitMessage}</p>
         </div>
       )}
 
       {submitStatus === 'error' && (
-        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl flex items-center gap-3">
-          <XCircle className="text-red-600 flex-shrink-0" size={20} />
-          <p className="text-red-800 text-sm font-medium">{submitMessage}</p>
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-panel flex items-center gap-3">
+          <XCircle className="text-red-700 flex-shrink-0" size={20} />
+          <p className="text-red-700 text-sm font-medium">{submitMessage}</p>
         </div>
       )}
 
@@ -287,8 +287,8 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
         {/* Always include name and phone fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
-              Họ tên <span className="text-red-500">*</span>
+            <label className="mb-1.5 block text-sm font-medium text-ink">
+              Họ tên <span className="text-red-700">*</span>
             </label>
             <input
               type="text"
@@ -298,20 +298,20 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               onBlur={(e) => handleBlur('name', e.target.value, { name: 'name', label: 'Họ tên', type: 'text', required: true })}
               placeholder="Nguyễn Văn A"
               required
-              className={`w-full p-3 bg-gray-50 rounded-xl border ${
-                errors.name ? 'border-red-500' : 'border-gray-200 focus:border-gcm-green'
-              } outline-none transition-colors`}
+              className={`gcm-input transition-colors ${
+                errors.name ? 'border-red-300 focus:border-red-700 focus:ring-red-200' : ''
+              }`}
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+              <p className="mt-1 text-xs text-red-700 flex items-center gap-1">
                 <AlertCircle size={12} />
                 {errors.name}
               </p>
             )}
           </div>
           <div>
-            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
-              Số điện thoại <span className="text-red-500">*</span>
+            <label className="mb-1.5 block text-sm font-medium text-ink">
+              Số điện thoại <span className="text-red-700">*</span>
             </label>
             <input
               type="tel"
@@ -321,12 +321,12 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
               onBlur={(e) => handleBlur('phone', e.target.value, { name: 'phone', label: 'Số điện thoại', type: 'tel', required: true })}
               placeholder="09xxxxxxx"
               required
-              className={`w-full p-3 bg-gray-50 rounded-xl border ${
-                errors.phone ? 'border-red-500' : 'border-gray-200 focus:border-gcm-green'
-              } outline-none transition-colors`}
+              className={`gcm-input transition-colors ${
+                errors.phone ? 'border-red-300 focus:border-red-700 focus:ring-red-200' : ''
+              }`}
             />
             {errors.phone && (
-              <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
+              <p className="mt-1 text-xs text-red-700 flex items-center gap-1">
                 <AlertCircle size={12} />
                 {errors.phone}
               </p>
@@ -361,7 +361,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
             )}
           </button>
           {submitStatus === 'success' && !showSuccessMessage && (
-            <p className="text-center text-xs text-gray-400 mt-3">
+            <p className="text-center text-xs text-ink-mute mt-3">
               GCM sẽ liên hệ lại xác nhận trong vòng 5 phút.
             </p>
           )}

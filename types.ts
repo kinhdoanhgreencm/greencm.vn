@@ -64,18 +64,6 @@ export interface UsedCarListing {
   updatedAt: string;
 }
 
-export interface RentalCar {
-  id: string;
-  name: string;
-  image: string;
-  priceDay: string; // Daily rate
-  range: string;
-  seats: number;
-  luggage: number;
-  features: string[];
-  category: 'self-drive' | 'chauffeur' | 'wedding' | 'event';
-}
-
 export interface AccessoryProduct {
   id: string;
   name: string;
@@ -112,6 +100,7 @@ export interface NewCar {
 export interface BlogPost {
   id: string;
   title: string;
+  seoTitle?: string; // Title ngắn cho thẻ <title> khi tiêu đề bài dài hơn 54 ký tự
   excerpt: string;
   image: string;
   category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen' | 'xe-vinfast-cu';

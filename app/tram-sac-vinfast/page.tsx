@@ -6,8 +6,8 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 const ogImage = 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png';
 
 export const metadata: Metadata = {
-  title: 'Đầu tư trạm sạc VinFast nhượng quyền | Kinh doanh siêu lợi nhuận',
-  description: 'Tư vấn đầu tư trạm sạc VinFast nhượng quyền trọn gói tại GCM. Hỗ trợ pháp lý, lắp đặt trụ sạc 11kW - 120kW. Mô hình kinh doanh thụ động, sinh lời bền vững.',
+  title: 'Đầu tư trạm sạc VinFast nhượng quyền',
+  description: 'GCM tư vấn đầu tư trạm sạc VinFast nhượng quyền trọn gói: lo thủ tục pháp lý, lắp trụ sạc từ 11kW đến 120kW. Gọi 0916 513 720 để nhận báo giá.',
   keywords: [
     'trạm sạc vinfast nhượng quyền',
     'chi phí lắp đặt trạm sạc xe điện',
@@ -28,8 +28,8 @@ export const metadata: Metadata = {
     canonical: `${baseUrl}/tram-sac-vinfast`,
   },
   openGraph: {
-    title: 'Đầu tư trạm sạc VinFast nhượng quyền | Lợi nhuận cao cùng GCM',
-    description: 'Hợp tác đầu tư trạm sạc VinFast: Vốn linh hoạt, hỗ trợ mặt bằng và pháp lý từ A-Z. Nhận báo giá ngay.',
+    title: 'Đầu tư trạm sạc VinFast nhượng quyền cùng GCM',
+    description: 'Hợp tác đầu tư trạm sạc VinFast: vốn linh hoạt, GCM hỗ trợ mặt bằng và pháp lý từ khảo sát đến nghiệm thu. Nhận báo giá ngay.',
     url: `${baseUrl}/tram-sac-vinfast`,
     images: [
       {
@@ -44,8 +44,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Đầu tư trạm sạc VinFast nhượng quyền | GCM',
-    description: 'Cơ hội đầu tư trạm sạc xe điện VinFast lợi nhuận cao.',
+    title: 'Đầu tư trạm sạc VinFast nhượng quyền',
+    description: 'Tư vấn đầu tư trạm sạc xe điện VinFast nhượng quyền tại GCM.',
     images: [ogImage],
   },
 };

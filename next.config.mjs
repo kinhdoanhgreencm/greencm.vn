@@ -15,6 +15,23 @@ const nextConfig = {
         destination: '/xe-vinfast-cu',
         permanent: true,
       },
+      // Đã ngừng dịch vụ cho thuê xe
+      {
+        source: '/thue-xe',
+        destination: '/oto-vinfast',
+        permanent: true,
+      },
+      // Đã ngừng ký gửi và thu mua xe cũ; chỉ còn đăng bán
+      {
+        source: '/ban-xe-cu',
+        destination: '/xe-vinfast-cu',
+        permanent: true,
+      },
+      {
+        source: '/tin-tuc/thue-thu-vinfast-3-ngay-truoc-khi-mua-xe-cu',
+        destination: '/xe-vinfast-cu',
+        permanent: true,
+      },
     ];
   },
   images: {

@@ -4,14 +4,14 @@ import LienHeClient from './LienHeClient';
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
-  title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
-  description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast, dịch vụ mua bán, cho thuê xe. Hotline: 0916 513 720. Địa chỉ: 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ. Giờ làm việc: 07:30 - 17:30, Thứ Hai - Thứ Bảy.',
+  title: 'Liên hệ tư vấn mua xe VinFast tại Cần Thơ',
+  description: 'Hotline 0916 513 720. Showroom 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ. Tư vấn xe VinFast mới và cũ, phụ kiện, trạm sạc.',
   alternates: {
     canonical: `${baseUrl}/lien-he`,
   },
   openGraph: {
-    title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
-    description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast, dịch vụ mua bán, cho thuê xe. Hotline: 0916 513 720.',
+    title: 'Liên hệ GCM | Tư vấn mua xe VinFast tại Cần Thơ',
+    description: 'Tư vấn xe VinFast mới và cũ, phụ kiện, trạm sạc. Hotline 0916 513 720.',
     url: `${baseUrl}/lien-he`,
     images: [
       {
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Liên hệ GCM | Tư vấn mua bán xe điện VinFast – Cần Thơ',
-    description: 'Liên hệ với GCM để được tư vấn về xe điện VinFast.',
+    title: 'Liên hệ GCM | Tư vấn mua xe VinFast tại Cần Thơ',
+    description: 'Gọi GCM tư vấn xe VinFast: 0916 513 720.',
     images: [`${baseUrl}/Banner%20hero%20homepage.png`],
   },
 };

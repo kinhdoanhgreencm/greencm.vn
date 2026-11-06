@@ -3,60 +3,84 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FLEET } from '../constants';
-import { ChevronRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
+
+type Tab = 'family' | 'service';
+
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'family', label: 'Xe gia đình' },
+  { id: 'service', label: 'Xe dịch vụ' },
+];
 
 const Fleet: React.FC = () => {
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
-
-  const handleImageError = (carId: string) => {
-    setImageErrors(prev => ({ ...prev, [carId]: true }));
-  };
-
-  const getFallbackImage = (carId: string) => {
-    return 'https://via.placeholder.com/800x450/0B0F19/00D26A?text=GCM+Car';
-  };
+  const [tab, setTab] = useState<Tab>('family');
+  const cars = tab === 'family' ? NEW_CARS_FAMILY : NEW_CARS_SERVICE;
 
   return (
-    <section className="py-24 bg-white overflow-hidden">
-       <div className="container mx-auto px-4 text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-4">Sản phẩm nổi bật</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto mb-8">
-            Khám phá các mẫu xe đang được quan tâm nhất tại GCM. Từ xe sang lướt, xe điện thông minh đến các dòng xe cho thuê sự kiện.
-          </p>
-          <button className="px-8 py-3 bg-gray-100 rounded-full text-sm font-medium hover:bg-gray-200 transition-colors">
-            Xem tất cả xe
-          </button>
+    <section className="gcm-section">
+      <div className="gcm-container">
+        <div className="mb-8 flex flex-col gap-5 md:mb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="gcm-label mb-3.5">Ô tô VinFast</p>
+            <h2 className="gcm-h2">Các dòng xe VinFast</h2>
+          </div>
+          <div className="flex gap-1 self-start rounded-panel border border-line bg-surface p-1" role="tablist" aria-label="Nhóm xe">
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                role="tab"
+                aria-selected={tab === t.id}
+                onClick={() => setTab(t.id)}
+                className={`whitespace-nowrap rounded-control px-4 py-2 text-sm font-semibold transition-colors ${
+                  tab === t.id ? 'bg-tint-strong text-ocean-deep' : 'text-ink-soft hover:text-ink'
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Cars Showcase */}
-        <div className="container mx-auto px-4">
-           <div className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20">
-             {FLEET.map((car, index) => (
-               <div key={car.id} className="relative group cursor-pointer w-full md:w-1/3 flex flex-col items-center">
-                 <div className="relative w-full aspect-[16/9] mb-6">
-                    <Image
-                      src={imageErrors[car.id] ? getFallbackImage(car.id) : car.image}
-                      alt={`Hình ảnh chi tiết xe ${car.name} - ${car.category} - Xe điện hiện đại tại GCM All About Cars`}
-                      fill
-                      className="object-contain drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 z-10 relative"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      onError={() => handleImageError(car.id)}
-                    />
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-black/20 blur-xl rounded-[100%]"></div>
-                 </div>
-                 
-                 {/* Badge Overlay */}
-                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/70 text-white px-4 py-2 rounded-full text-xs font-bold tracking-widest opacity-0 group-hover:opacity-100 transition-opacity backdrop-blur-sm">
-                    CHI TIẾT
-                 </div>
-
-                 <h3 className="text-2xl font-bold text-gray-800 group-hover:text-gcm-green transition-colors">{car.name}</h3>
-                 <p className="text-sm text-gray-500 uppercase tracking-wide font-semibold mt-1">{car.category}</p>
-               </div>
-             ))}
-           </div>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {cars.map((car) => (
+            <Link
+              key={car.id}
+              href="/oto-vinfast"
+              className="group gcm-card gcm-card-hover flex flex-col overflow-hidden"
+            >
+              <div className="gcm-photo aspect-[16/9] rounded-none">
+                <Image
+                  src={car.image}
+                  alt={`${car.name} - Xe điện VinFast tại GCM All About Cars`}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                />
+              </div>
+              <div className="flex flex-1 flex-col gap-4 p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex flex-col gap-1.5">
+                    <h3 className="gcm-h3">{car.name}</h3>
+                    <span className="gcm-badge self-start">{car.seats} chỗ</span>
+                  </div>
+                  <span className="gcm-arrow-box"><ArrowUpRight size={16} /></span>
+                </div>
+                <dl className="mt-auto grid grid-cols-2 gap-3 pt-4">
+                  <div>
+                    <dt className="text-xs text-ink-mute">Giá từ</dt>
+                    <dd className="text-md font-semibold tabular text-ocean">{car.displayPrice}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs text-ink-mute">Quãng đường</dt>
+                    <dd className="text-md font-semibold tabular text-ink">{car.range}</dd>
+                  </div>
+                </dl>
+              </div>
+            </Link>
+          ))}
         </div>
+      </div>
     </section>
   );
 };

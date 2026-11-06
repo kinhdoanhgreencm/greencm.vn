@@ -4,14 +4,14 @@ import TinTucClient from './TinTucClient';
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
-  title: 'Tin tức ô tô điện VinFast | Cập nhật thị trường, đánh giá xe – GCM',
-  description: 'Tin tức mới nhất về xe điện VinFast, thị trường ô tô điện, đánh giá xe, kiến thức sử dụng, pháp lý và khuyến mãi. Cập nhật liên tục từ GCM - All About Cars.',
+  title: 'Tin tức xe điện VinFast và trạm sạc',
+  description: 'Tin xe điện VinFast: đánh giá xe, kinh nghiệm dùng xe, pháp lý, khuyến mãi và nhượng quyền trạm sạc. Bài viết từ GCM - All About Cars.',
   alternates: {
     canonical: `${baseUrl}/tin-tuc`,
   },
   openGraph: {
-    title: 'Tin tức ô tô điện VinFast | Cập nhật thị trường, đánh giá xe – GCM',
-    description: 'Tin tức mới nhất về xe điện VinFast, thị trường ô tô điện, đánh giá xe, kiến thức sử dụng.',
+    title: 'Tin tức xe điện VinFast, đánh giá xe, trạm sạc | GCM',
+    description: 'Tin xe điện VinFast: đánh giá xe, kinh nghiệm dùng xe và trạm sạc.',
     url: `${baseUrl}/tin-tuc`,
     images: [
       {
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tin tức ô tô điện VinFast | Cập nhật thị trường, đánh giá xe – GCM',
-    description: 'Tin tức mới nhất về xe điện VinFast, thị trường ô tô điện.',
+    title: 'Tin tức xe điện VinFast, đánh giá xe, trạm sạc | GCM',
+    description: 'Tin xe điện VinFast và trạm sạc từ GCM.',
     images: [`${baseUrl}/Banner%20hero%20homepage.png`],
   },
 };

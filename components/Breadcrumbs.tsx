@@ -31,12 +31,12 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
     <>
       <BreadcrumbSchema items={breadcrumbItems} />
       <nav 
-        className={`flex items-center gap-2 text-sm text-gray-500 mb-6 ${className}`}
+        className={`flex items-center gap-2 text-sm text-ink-mute mb-6 ${className}`}
         aria-label="Breadcrumb"
       >
         <Link 
           href="/" 
-          className="flex items-center gap-1 hover:text-gcm-green transition-colors"
+          className="flex items-center gap-1 hover:text-ocean transition-colors"
           aria-label="Trang chủ"
         >
           <Home size={16} />
@@ -44,15 +44,15 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
         
         {items.map((item, index) => (
           <React.Fragment key={index}>
-            <ChevronRight size={14} className="text-gray-400" />
+            <ChevronRight size={14} className="text-line-strong" />
             {index === items.length - 1 ? (
-              <span className="text-gray-800 font-medium truncate max-w-[200px] md:max-w-none" aria-current="page">
+              <span className="text-ink font-medium truncate max-w-[200px] md:max-w-none" aria-current="page">
                 {item.label}
               </span>
             ) : (
               <Link 
                 href={item.href}
-                className="hover:text-gcm-green transition-colors truncate max-w-[200px] md:max-w-none"
+                className="hover:text-ocean transition-colors truncate max-w-[200px] md:max-w-none"
               >
                 {item.label}
               </Link>

@@ -1,56 +1,112 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import heroBanner from '@/public/Banner hero homepage.png';
+
+// Hero theo bố cục trang chủ EVGreen: nền Tint, ảnh đường phố Cần Thơ phủ nửa phải và mờ dần sang trái,
+// chiếc VF 6 đặt trên mặt đường, hàng ô màu ngay dưới gầm xe để đổi màu sơn.
+// Các lớp thân xe dùng chung một khung cắt nên đổi màu không làm xe xê dịch.
+// Chưa bấm ô màu thì màn hình rộng tự đổi màu sau mỗi 8 giây; giảm chuyển động thì đứng yên.
+const COLORS = [
+  { key: 'trang', label: 'Trắng Infinity Blanc', swatch: '#F3F4F4' },
+  { key: 'xam', label: 'Xám Zenith Grey', swatch: '#8E9296' },
+  { key: 'den', label: 'Đen Jet Black', swatch: '#232425' },
+  { key: 'do', label: 'Đỏ Solar Ruby', swatch: '#9E1B2A' },
+  { key: 'mint', label: 'Xanh Urban Mint', swatch: '#B9D8CF' },
+] as const;
+const AUTO_MS = 8000;
 
 const Hero: React.FC = () => {
+  const [color, setColor] = useState(0);
+  const [picked, setPicked] = useState(false);
+
+  useEffect(() => {
+    if (picked) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wide = window.matchMedia('(min-width: 900px)').matches;
+    if (reduce || !wide) return;
+    const t = window.setInterval(() => setColor((c) => (c + 1) % COLORS.length), AUTO_MS);
+    return () => window.clearInterval(t);
+  }, [picked]);
+
+  const pick = (i: number) => {
+    setColor(i);
+    setPicked(true);
+  };
+
   return (
-    <section className="relative h-screen w-full overflow-hidden">
-      {/* Background Image - Optimized with Next.js Image and priority */}
-      <div className="absolute inset-0 z-0">
+    <section className="relative overflow-hidden bg-tint pt-16 [--hero-h:clamp(26.25rem,44vw,42.5rem)]">
+      {/* Lớp ảnh: máy tính phủ nửa phải và mờ sang trái; điện thoại nằm dưới chữ, mờ dần lên trên */}
+      <div className="absolute inset-x-0 bottom-0 top-[min(52%,22rem)] min-[900px]:inset-y-0 min-[900px]:left-[max(28%,calc(100%-var(--hero-h)*16/9))] min-[900px]:top-0 [mask-image:linear-gradient(180deg,transparent_0,#000_34%)] min-[900px]:[mask-image:linear-gradient(90deg,transparent_0,#000_16%)]">
         <Image
-          src={heroBanner}
-          alt="Showroom Green CM với các dòng xe VinFast và dịch vụ trạm sạc - Hệ sinh thái ô tô điện toàn diện"
+          src="/images/hero/bg-cantho.webp"
+          alt=""
           fill
-          priority={true}
-          quality={90}
-          placeholder="blur"
-          className="object-cover object-center"
-          sizes="100vw"
+          priority
+          className="object-cover object-[100%_50%]"
+          sizes="(max-width: 900px) 100vw, 75vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/90"></div>
-      </div>
+        {/* Lớp sương Tint bên trái cho chữ dễ đọc */}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,245,247,.92)_0%,rgba(245,245,247,.6)_22%,rgba(245,245,247,0)_46%)] max-[899px]:hidden"></div>
 
-      {/* Content */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 md:px-20 mt-10">
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-          <span className="text-gcm-green">GCM</span> – All About Cars
-        </h1>
-        <h2 className="text-2xl md:text-4xl font-semibold text-white mb-6">
-          Hệ sinh thái ô tô toàn diện
-        </h2>
-        <p className="text-gray-200 text-lg md:text-xl max-w-3xl mb-12 font-light leading-relaxed">
-          Trạm sạc VinFast • Trạm sạc TMT-EGREEN • Xe VinFast Cũ • Phụ kiện • Ô tô VinFast • Cho thuê xe
-          <br/>
-          <span className="text-gray-400 text-base mt-2 block">Giải pháp trọn gói cho mọi nhu cầu về ô tô của bạn.</span>
-        </p>
+        {/* Vệt tốc độ xiên mảnh dưới gầm xe */}
+        <span aria-hidden="true" className="absolute bottom-[9%] right-[30%] h-[3px] w-[18%] bg-sky [clip-path:polygon(2px_0,100%_0,calc(100%-2px)_100%,0_100%)]"></span>
+        <span aria-hidden="true" className="absolute bottom-[6.5%] right-[8%] h-[3px] w-[12%] bg-white/90 [clip-path:polygon(2px_0,100%_0,calc(100%-2px)_100%,0_100%)]"></span>
 
-        <div className="flex flex-col sm:flex-row gap-4 w-full max-w-lg">
-          <Link href="/oto-vinfast" className="flex-1 bg-gcm-green text-black font-bold py-4 px-8 rounded-full hover:bg-green-400 transition-transform transform hover:scale-105 shadow-lg shadow-green-900/20 text-center">
-            Ô tô VinFast
-          </Link>
-          <Link href="/tram-sac-vinfast" className="flex-1 bg-white text-black font-bold py-4 px-8 rounded-full hover:bg-gray-100 transition-transform transform hover:scale-105 text-center">
-            Trạm sạc VinFast
-          </Link>
+        {/* Xe VF 6 và bóng gầm */}
+        <div className="absolute bottom-[10%] right-[3%] aspect-[1400/725] w-[min(92%,48rem)] min-[900px]:bottom-[12%] min-[900px]:right-[5%] min-[900px]:w-[min(54%,46rem)]">
+          {COLORS.map((c, i) => (
+            <Image
+              key={c.key}
+              src={`/images/hero/vf6-${c.key}.webp`}
+              alt={i === color ? `VinFast VF 6 màu ${c.label} tại GCM Cần Thơ` : ''}
+              fill
+              priority={i === 0}
+              className={`object-contain transition-opacity duration-300 ${i === color ? 'opacity-100' : 'opacity-0'}`}
+              sizes="(max-width: 900px) 92vw, 48vw"
+            />
+          ))}
+
+          {/* Ô chọn màu ngay dưới gầm xe */}
+          <div
+            role="radiogroup"
+            aria-label="Chọn màu xe VinFast VF 6"
+            className="absolute left-1/2 top-full flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-full bg-white px-1.5 py-1"
+          >
+            {COLORS.map((c, i) => (
+              <button
+                key={c.key}
+                type="button"
+                role="radio"
+                aria-checked={i === color}
+                aria-label={c.label}
+                title={c.label}
+                onClick={() => pick(i)}
+                style={{ background: c.swatch }}
+                className={`h-4 w-4 rounded-full border border-navy/20 transition-transform hover:scale-110 max-[899px]:h-[1.125rem] max-[899px]:w-[1.125rem] ${
+                  i === color ? 'ring-2 ring-sky ring-offset-2 ring-offset-white' : ''
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
-        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center pt-2">
-          <div className="w-1 h-2 bg-white rounded-full"></div>
+      {/* Chữ: tiêu đề nghiêng có khung gạch chân và nhãn đóng khung, như hero EVGreen */}
+      <div className="gcm-container relative z-10 flex min-h-[calc(var(--hero-h)+1rem)] flex-col items-start pt-12 max-[899px]:min-h-[max(38rem,calc(90vw+18rem))] min-[900px]:justify-center min-[900px]:pt-0">
+        <div className="relative inline-block origin-bottom-left -rotate-[5deg] pb-[0.5em] pr-[0.6em] text-[clamp(2.1rem,9vw,3.9rem)] max-[899px]:ml-2 max-[899px]:origin-center max-[899px]:-rotate-[4deg] min-[900px]:text-[clamp(2.1rem,5vw,4.25rem)] after:absolute after:-left-[0.35em] after:bottom-0 after:right-0 after:h-[1.25em] after:rounded-br-[0.32em] after:border-b-[3px] after:border-r-[3px] after:border-b-sky after:border-r-ocean after:[mask-image:linear-gradient(90deg,transparent,#000_18%)]">
+          <h1 className="skew-x-[-8deg] text-[1em] font-extrabold uppercase leading-[1.04] tracking-[-0.02em] text-navy">
+            <span className="block">GCM –</span>{' '}
+            <span className="block">All About Cars</span>
+          </h1>
+        </div>
+        <div className="relative mt-8 max-w-[26rem] max-[899px]:mt-6">
+          <p className="text-[1.0625rem] font-medium leading-[1.55] text-ink">
+            Hệ sinh thái ô tô điện VinFast tại Cần Thơ: xe mới, xe cũ đã kiểm định, phụ kiện và đầu tư trạm sạc.
+          </p>
+          <a href="tel:0916513720" className="gcm-btn mt-5">
+            Gọi tư vấn 0916 513 720
+          </a>
         </div>
       </div>
     </section>

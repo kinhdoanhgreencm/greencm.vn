@@ -9,8 +9,6 @@ export type FormType =
   | 'test-drive'           // Đăng ký lái thử
   | 'quote-request'        // Yêu cầu báo giá
   | 'cost-estimate'        // Dự toán chi phí
-  | 'rental-booking'       // Đặt thuê xe
-  | 'sell-car'             // Đăng ký bán xe / Định giá
   | 'find-car'             // Tìm xe theo yêu cầu
   | 'limo-quote'           // Báo giá Limo Green
   | 'job-application'     // Ứng tuyển
@@ -101,10 +99,10 @@ export async function POST(request: NextRequest) {
                 <meta charset="utf-8">
                 <style>
                   body { font-family: Arial, sans-serif; color: #333; }
-                  h2, h3 { color: #00D26A; }
+                  h2, h3 { color: #0077C8; }
                   p { margin: 10px 0; }
                   strong { color: #333; }
-                  a { color: #00D26A; text-decoration: none; }
+                  a { color: #0077C8; text-decoration: none; }
                   .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #999; }
                 </style>
               </head>

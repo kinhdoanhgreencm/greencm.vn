@@ -5,6 +5,11 @@ import Header from './Header';
 import Hero from './Hero';
 import Services from './Services';
 import Fleet from './Fleet';
+import HomeIntro from './HomeIntro';
+import WhyGcm from './WhyGcm';
+import CtaBand from './CtaBand';
+import LatestPosts from './LatestPosts';
+import ChargingHighlight from './ChargingHighlight';
 import Footer from './Footer';
 import AuthModal from './AuthModal';
 import { BreadcrumbSchema, CorporationSchema } from './SchemaMarkup';
@@ -26,8 +31,13 @@ export default function HomeClient() {
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
         <Hero />
+        <ChargingHighlight />
+        <HomeIntro />
         <Services />
         <Fleet />
+        <WhyGcm />
+        <LatestPosts />
+        <CtaBand />
       </main>
       <Footer />
       {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}

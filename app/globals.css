@@ -2,22 +2,201 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar for better aesthetics */
+/* ==========================================================================
+   GCM design system, bảng màu GCM gốc: đen #0B0F19, xanh lá #00D26A, xám #F5F5F7.
+   Phẳng: không bóng đổ, không chuyển sắc, không viền mảnh trang trí; bề mặt tách
+   nhau bằng một bậc nền (trắng / xám). Một họ chữ Plus Jakarta Sans, chữ nội dung
+   16px màu mực đậm. Không nhãn in hoa nhỏ trên tiêu đề, không tô màu chữ nhấn.
+   Xem DESIGN.md để biết cách dùng từng class.
+   ========================================================================== */
+
+@layer base {
+  html {
+    background: #FFFFFF;
+    color-scheme: light;
+  }
+
+  body {
+    @apply bg-page text-ink;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    @apply bg-sky/30 text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid #00A651;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  /* Khung nội dung: tối đa 1120px, lề co giãn 16–40px */
+  .gcm-container {
+    @apply mx-auto w-full max-w-site;
+    padding-inline: clamp(16px, 4vw, 40px);
+  }
+
+  /* Khoảng cách dọc giữa các mục: 48–96px */
+  .gcm-section {
+    @apply relative;
+    padding-block: clamp(3rem, 7vw, 6rem);
+  }
+
+  /* Nhãn nhóm (tiêu đề cột chân trang, tiêu đề nhóm): chữ thường, cỡ đọc được.
+     Nhãn đặt ngay trên tiêu đề lặp lại ý của tiêu đề nên được ẩn. */
+  .gcm-eyebrow,
+  .gcm-label {
+    @apply text-[0.9375rem] font-semibold text-ink;
+  }
+  .gcm-eyebrow:has(+ :is(h1, h2, h3, .gcm-h1, .gcm-h2)),
+  .gcm-label:has(+ :is(h1, h2, h3, .gcm-h1, .gcm-h2)) {
+    display: none;
+  }
+
+  /* Tiêu đề: một họ chữ, 600, không in hoa, cỡ gọn */
+  .gcm-h1 {
+    @apply font-semibold text-navy;
+    font-size: clamp(2rem, 4.4vw, 3.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  .gcm-h2 {
+    @apply font-semibold text-navy;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .gcm-h3 {
+    @apply text-[1.125rem] font-semibold text-navy;
+    line-height: 1.35;
+  }
+
+  /* Chữ nhấn trong tiêu đề: không tô màu riêng, chữ tự mang ý nhấn */
+  .gcm-accent {
+    color: inherit;
+  }
+
+  /* Đoạn dẫn */
+  .gcm-lead {
+    @apply text-base text-ink md:text-[1.0625rem];
+    line-height: 1.6;
+    max-width: 52ch;
+  }
+
+  /* Nút chính: nền xanh rừng, chữ trắng, bo 8px, cao 44px */
+  .gcm-btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control bg-ocean px-5 py-2.5 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:bg-ocean-deep;
+  }
+
+  /* Nút phụ: nền trắng, viền mảnh, chữ xanh rừng */
+  .gcm-btn-ghost {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control border border-line-strong bg-surface px-5 py-2.5 text-[0.9375rem] font-semibold text-ocean transition-colors duration-200 hover:border-ocean hover:bg-tint-strong;
+  }
+
+  /* Liên kết chữ */
+  .gcm-link {
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-ocean transition-colors hover:text-ocean-deep;
+  }
+
+  /* Thẻ: một bậc nền so với nền mục (xám trên nền trắng, trắng trên nền xám), không viền */
+  .gcm-card {
+    @apply rounded-card border border-transparent bg-tint;
+  }
+  :is(.bg-tint, .bg-tint-strong, .bg-gray-50) .gcm-card {
+    @apply bg-surface;
+  }
+
+  /* Thẻ bấm được: rê chuột nền chuyển xanh nhạt */
+  .gcm-card-hover {
+    @apply transition-colors duration-200 hover:bg-tint-strong;
+  }
+
+  /* Ô mũi tên góc phải trên của thẻ liên kết (đặt trong phần tử có class group) */
+  .gcm-arrow-box {
+    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-tint-strong text-ocean transition-colors duration-200 group-hover:bg-ocean group-hover:text-white;
+  }
+
+  /* Ô biểu tượng. Trong thẻ thì ẩn: tiêu đề thẻ đã đủ nghĩa, tránh kiểu hàng thẻ có icon trên đầu */
+  .gcm-card > .gcm-icon-box,
+  .gcm-card > div:first-child > .gcm-icon-box:only-child,
+  .gcm-card > div:first-child:has(> .gcm-icon-box:only-child) {
+    display: none;
+  }
+  .gcm-icon-box {
+    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-tint-strong text-ocean;
+  }
+
+  /* Nhãn tròn */
+  .gcm-badge {
+    @apply inline-flex items-center rounded-full bg-tint-strong px-2 py-0.5 text-xs font-semibold text-ocean-deep;
+  }
+
+  /* Khung ảnh xe studio */
+  .gcm-photo {
+    @apply relative overflow-hidden rounded-card bg-night-900;
+  }
+
+  /* Ô nhập: trắng, viền 1px, bo 8px, cao 44px; focus viền xanh rừng và vòng xanh GCM mờ */
+  .gcm-input {
+    @apply min-h-11 w-full rounded-control border border-line-strong bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-ink-mute focus:border-ocean focus:outline-none focus:ring-[3px] focus:ring-sky/25;
+  }
+
+  /* Dải đầu trang con: nền Navy, cạnh dưới cắt xiên */
+  .gcm-pagehero {
+    @apply relative overflow-hidden bg-navy text-white;
+    padding-block: calc(4rem + clamp(2rem, 5vw, 3.5rem)) clamp(3.5rem, 7vw, 5rem);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+  }
+
+  /* Không còn dùng ánh sáng chuyển sắc — giữ class để code cũ không vỡ */
+  .gcm-glow,
+  .gcm-glow-center {
+    display: none;
+  }
+
+  /* Đường kẻ phân cách: bỏ nét, giữ khoảng trống */
+  .gcm-rule {
+    @apply border-t border-transparent;
+  }
+}
+
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #FFFFFF;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #D1D5DB;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #00A651;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Next.js portal positioning reset */
@@ -25,4 +204,3 @@ nextjs-portal {
   left: unset !important;
   top: unset !important;
 }
-

@@ -14,11 +14,11 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   const isFiltered = hasAnyUsedCarFilter(params);
 
   const base: Metadata = {
-    title: 'Mua Bán Xe VinFast Cũ Cần Thơ | Kiểm Định Pin, Bao Test Toàn Quốc',
-    description: 'Xe VinFast đã qua sử dụng tại Cần Thơ, kiểm định 160 điểm, đo chỉ số pin (SOH) thực tế, minh bạch tình trạng pin và biển số. Hỗ trợ trả góp, sang tên trọn gói.',
+    title: 'Xe VinFast cũ Cần Thơ | Kiểm định 160 điểm, đo pin SOH',
+    description: 'GCM bán xe VinFast cũ tại Cần Thơ: kiểm định 160 điểm, đo pin (SOH) thực tế, ghi rõ tình trạng pin và biển số. Có trả góp, làm trọn thủ tục sang tên.',
     keywords: [
       'xe vinfast cũ cần thơ',
-      'mua bán xe vinfast cũ',
+      'mua xe vinfast cũ',
       'xe điện cũ miền tây',
       'xe vinfast lướt cần thơ',
       'kiểm định xe điện cũ',
@@ -27,14 +27,14 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       'thẩm định xe điện cũ',
     ],
     openGraph: {
-      title: 'Xe VinFast Cũ Cần Thơ — Kiểm Định 160 Điểm, Bao Test Toàn Quốc',
-      description: 'Xe VinFast đã qua sử dụng, minh bạch pin và biển số. Hỗ trợ trả góp, sang tên trọn gói.',
+      title: 'Xe VinFast cũ Cần Thơ: kiểm định 160 điểm, bao test toàn quốc',
+      description: 'Xe VinFast đã qua sử dụng, ghi rõ tình trạng pin và loại biển số. Có trả góp và làm thủ tục sang tên.',
       url: `${baseUrl}/xe-vinfast-cu`,
       images: [
         {
-          url: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80',
-          width: 1920,
-          height: 1080,
+          url: '/images/xe/vf6.webp',
+          width: 1024,
+          height: 572,
           alt: 'Xe VinFast cũ đã kiểm định tại GCM Cần Thơ',
         },
       ],
@@ -43,9 +43,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'Mua Bán Xe VinFast Cũ Cần Thơ - Green CM',
+      title: 'Xe VinFast cũ tại Cần Thơ | Green CM',
       description: 'Xe VinFast đã qua sử dụng, kiểm định 160 điểm, đo pin (SOH) thực tế.',
-      images: ['https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=1920&h=1080&fit=crop&q=80'],
+      images: ['/images/xe/vf6.webp'],
     },
   };
 
@@ -67,19 +67,19 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 const faqData = [
   {
     question: 'Mua xe ô tô điện VinFast cũ có được bảo hành pin không?',
-    answer: 'Có. Chính sách bảo hành pin của VinFast được chuyển nhượng cho chủ mới theo đúng thời hạn còn lại. Green CM hỗ trợ kiểm tra lịch sử bảo hành hãng chi tiết trước khi giao dịch.',
+    answer: 'Có. Bảo hành pin của VinFast chuyển sang chủ mới với thời hạn còn lại. Trước khi bạn mua, Green CM kiểm tra lịch sử bảo hành của xe với hãng.',
   },
   {
     question: 'Green CM kiểm định chất lượng xe cũ như thế nào?',
-    answer: 'Áp dụng quy trình kiểm định 3 bước: 1. Kiểm tra ngoại quan/nội thất (không đâm đụng, ngập nước) — 2. Scan lỗi hệ thống & đo độ chai pin (SOH) — 3. Lái thử thực tế.',
+    answer: 'Xe qua 3 bước: kiểm tra ngoại thất và nội thất (đâm đụng, ngập nước); quét lỗi hệ thống và đo độ chai pin (SOH); lái thử trên đường.',
   },
   {
     question: 'Xe VinFast cũ còn hợp đồng thuê pin có mua được không?',
-    answer: 'Có. Green CM hỗ trợ kiểm tra tình trạng hợp đồng thuê pin và hướng dẫn thủ tục chuyển giao hoặc thanh lý hợp đồng khi sang tên.',
+    answer: 'Có. Green CM kiểm tra hợp đồng thuê pin của xe và hướng dẫn bạn chuyển giao hoặc thanh lý hợp đồng khi sang tên.',
   },
   {
     question: 'Thủ tục sang tên đổi chủ xe điện có phức tạp không?',
-    answer: 'Green CM hỗ trợ dịch vụ sang tên trọn gói, bao gồm rút hồ sơ gốc và đăng ký biển mới, thời gian chỉ từ 3-5 ngày làm việc.',
+    answer: 'Không. Green CM làm trọn thủ tục sang tên, gồm rút hồ sơ gốc và đăng ký biển mới, mất khoảng 3-5 ngày làm việc.',
   },
 ];
 
@@ -94,7 +94,7 @@ export default async function XeVinfastCuPage({ searchParams }: PageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Trang chủ', url: '/' },
-          { name: 'Xe VinFast Cũ', url: '/xe-vinfast-cu' },
+          { name: 'Xe VinFast cũ', url: '/xe-vinfast-cu' },
         ]}
       />
 

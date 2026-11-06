@@ -11,7 +11,6 @@ import Services from '@/components/Services';
 import Fleet from '@/components/Fleet';
 import CarSales from '@/components/CarSales';
 import About from '@/components/About';
-import RentalService from '@/components/RentalService';
 import AccessoriesPage from '@/components/AccessoriesPage';
 import ChargingStationPage from '@/components/ChargingStationPage';
 import NewsPage from '@/components/NewsPage';
@@ -45,11 +44,6 @@ export const routeComponents: Record<string, () => React.ReactElement> = {
   'sales': () => (
     <PageWrapper>
       <CarSales />
-    </PageWrapper>
-  ),
-  'rental': () => (
-    <PageWrapper>
-      <RentalService />
     </PageWrapper>
   ),
   'accessories': () => (

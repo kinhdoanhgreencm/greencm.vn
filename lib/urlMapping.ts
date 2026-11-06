@@ -24,9 +24,6 @@ export const URL_MAPPINGS: RouteMapping[] = [
   // Trạm sạc
   { slug: 'tram-sac-vinfast', componentKey: 'charging', title: 'Trạm sạc VinFast' },
   
-  // Dịch vụ thuê xe
-  { slug: 'thue-xe', componentKey: 'rental', title: 'Thuê xe' },
-  
   // Phụ kiện
   { slug: 'phu-kien', componentKey: 'accessories', title: 'Phụ kiện' },
   

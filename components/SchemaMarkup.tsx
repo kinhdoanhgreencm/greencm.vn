@@ -132,7 +132,7 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   taxID,
   url = SITE_URL,
   logo = `${SITE_URL}/logo.png`, // Tự động nối domain
-  description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
+  description = 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn trạm sạc VinFast, TMT-EGREEN tại Cần Thơ',
   areaServed,
   address = {
     streetAddress: '59, Đường Số 10, KDC Diệu Hiền',
@@ -611,7 +611,7 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
     '@type': 'Article',
     headline,
     ...(description && { description }),
-    ...(image && { image: [image] }),
+    ...(image && { image: [image.startsWith('/') ? `${SITE_URL}${image}` : image] }),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': url,
@@ -619,6 +619,7 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
     author: {
       '@type': 'Organization',
       name: authorName,
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
@@ -629,7 +630,7 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
       },
     },
     ...(datePublished && { datePublished }),
-    ...(dateModified && { dateModified: dateModified || datePublished }),
+    ...((dateModified || datePublished) && { dateModified: dateModified || datePublished }),
   };
 
   return (
@@ -643,7 +644,7 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
 export const WebsiteSchema: React.FC<WebsiteSchemaProps> = ({
   name = BRAND_NAME,
   url = SITE_URL,
-  description = 'Hệ sinh thái ô tô toàn diện - Mua bán, thuê xe, phụ kiện và dịch vụ chăm sóc xe',
+  description = 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn trạm sạc VinFast, TMT-EGREEN tại Cần Thơ',
   potentialAction,
 }) => {
   

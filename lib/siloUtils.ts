@@ -157,7 +157,7 @@ export function generateInternalLinks(
     // Chỉ link nếu chưa link từ khóa này
     if (!usedLinks.has(titleWords.toLowerCase()) && linkedContent.includes(titleWords)) {
       const postUrl = post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
-      const link = `<a href="${postUrl}" class="text-gcm-green hover:underline font-semibold" title="${post.title}">${titleWords}</a>`;
+      const link = `<a href="${postUrl}" class="text-sky hover:underline font-semibold" title="${post.title}">${titleWords}</a>`;
       
       // Thay thế lần đầu tiên tìm thấy
       linkedContent = linkedContent.replace(

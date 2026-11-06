@@ -5,9 +5,10 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BLOG_POSTS, NEW_CARS_FAMILY } from '../constants';
-import { Search, Calendar, User, Eye, ArrowRight, Share2, Facebook, MessageCircle, Clock, ChevronRight } from 'lucide-react';
+import { Search, Calendar, User, Eye, ArrowRight, ArrowUpRight, Share2, Facebook, MessageCircle, Clock, ChevronRight } from 'lucide-react';
 import { BlogPost } from '../types';
-import Breadcrumbs from './Breadcrumbs';
+import PageHero from './PageHero';
+import { BreadcrumbSchema } from './SchemaMarkup';
 import RelatedPosts from './RelatedPosts';
 import { getBreadcrumbsFromCategory } from '../lib/siloUtils';
 
@@ -52,8 +53,8 @@ const NewsPage: React.FC = () => {
 
   const categories = [
     { id: 'all', label: 'Tất cả' },
-    { id: 'tmt-egreen', label: 'Nhượng Quyền Trạm Sạc' },
-    { id: 'xe-vinfast-cu', label: 'Xe VinFast Cũ' },
+    { id: 'tmt-egreen', label: 'Nhượng quyền trạm sạc' },
+    { id: 'xe-vinfast-cu', label: 'Xe VinFast cũ' },
   ];
 
   const featuredPost = shuffledFeatured[0];
@@ -82,10 +83,10 @@ const NewsPage: React.FC = () => {
 
   // --- SUB-COMPONENT: Sidebar ---
   const Sidebar = () => (
-    <aside className="space-y-8">
+    <aside className="space-y-4">
        {/* Widget: Most Viewed */}
-       <div className="bg-white border border-gray-100 p-6 rounded-2xl shadow-sm">
-          <h3 className="font-bold text-lg mb-4 border-l-4 border-gcm-green pl-3">Đọc Nhiều Nhất</h3>
+       <div className="gcm-card p-6">
+          <h3 className="gcm-h3 mb-4">Đọc nhiều nhất</h3>
           <div className="space-y-4">
              {BLOG_POSTS.slice().sort((a,b) => {
                 const aPriority = a.category === 'tmt-egreen' ? 1 : 0;
@@ -94,10 +95,10 @@ const NewsPage: React.FC = () => {
                 return (b.views || 0) - (a.views || 0);
              }).slice(0, 5).map((post, idx) => (
                 <Link key={post.id} href={getPostUrl(post)} className="flex gap-3 cursor-pointer group">
-                   <span className="text-2xl font-bold text-gray-200 group-hover:text-gcm-green transition-colors">0{idx + 1}</span>
+                   <span className="text-xl font-semibold tabular text-line-strong group-hover:text-ocean transition-colors">0{idx + 1}</span>
                    <div>
-                      <h4 className="text-sm font-semibold text-gray-800 leading-snug group-hover:text-gcm-green transition-colors line-clamp-2">{post.title}</h4>
-                      <span className="text-xs text-gray-400 mt-1 block">{post.views} xem</span>
+                      <h4 className="text-sm font-semibold text-ink leading-snug group-hover:text-ocean transition-colors line-clamp-2">{post.title}</h4>
+                      <span className="text-xs text-ink-mute mt-1 block">{post.views} xem</span>
                    </div>
                 </Link>
              ))}
@@ -105,20 +106,20 @@ const NewsPage: React.FC = () => {
        </div>
 
        {/* Widget: Franchise Consultation CTA */}
-       <Link href="/tram-sac-tmt-egreen" className="relative rounded-2xl overflow-hidden aspect-[4/5] group cursor-pointer block">
+       <Link href="/tram-sac-tmt-egreen" className="relative rounded-card overflow-hidden aspect-[4/5] group cursor-pointer block gcm-photo">
           <Image
             src={imageErrors['ads'] ? getFallbackImage() : "/images/tmt-egreen/240kw.webp"}
             fill
-            className="object-cover transition-transform duration-700 group-hover:scale-110"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             alt="Tư vấn nhượng quyền trạm sạc xe điện TMT-EGREEN"
             sizes="(max-width: 768px) 100vw, 400px"
             onError={() => handleImageError('ads')}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-             <span className="bg-gcm-green text-black text-xs font-bold px-2 py-1 rounded w-fit mb-2">NHƯỢNG QUYỀN</span>
-             <h3 className="text-white font-bold text-xl mb-1">Đầu Tư Trạm Sạc TMT‑EGREEN</h3>
-             <p className="text-gray-200 text-sm">Chia sẻ lợi nhuận 1.500đ/kWh — hoàn vốn ~3 năm</p>
-             <button className="mt-4 bg-white text-black font-bold py-2 rounded-lg hover:bg-gcm-green transition-colors">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex flex-col justify-end p-6">
+             <span className="gcm-badge w-fit mb-3">Nhượng quyền</span>
+             <h3 className="gcm-h3 text-white text-lg mb-1">Đầu tư trạm sạc TMT‑EGREEN</h3>
+             <p className="text-white/80 text-sm">Chia sẻ lợi nhuận 1.500đ/kWh, hoàn vốn khoảng 3 năm</p>
+             <button className="gcm-btn mt-4 w-full">
                 Đăng ký tư vấn
              </button>
           </div>
@@ -127,47 +128,62 @@ const NewsPage: React.FC = () => {
   );
 
   // Main Feed View
-  const categoryBreadcrumbs = activeCategory !== 'all' 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
+  const categoryBreadcrumbs = activeCategory !== 'all'
     ? getBreadcrumbsFromCategory(activeCategory)
     : [{ label: 'Trang chủ', href: '/' }, { label: 'Tin tức', href: '/tin-tuc' }];
 
   return (
-    <div className="pt-20 bg-gray-50 min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        {/* Breadcrumbs cho trang danh mục */}
-        {activeCategory !== 'all' && (
-          <Breadcrumbs items={categoryBreadcrumbs} />
-        )}
-        
-        {/* Page Title - H1 */}
-        <h1 className="text-3xl md:text-4xl font-bold text-gcm-dark mb-8 text-center md:text-left">
-          {activeCategory === 'all' ? 'Tin Tức & Sự Kiện' : categories.find(c => c.id === activeCategory)?.label || 'Tin Tức'}
-        </h1>
-        
+    <div className="min-h-screen">
+      {/* Breadcrumb JSON-LD cho trang danh mục (đường dẫn hiển thị nằm trong PageHero) */}
+      {activeCategory !== 'all' && (
+        <BreadcrumbSchema
+          items={[
+            ...categoryBreadcrumbs.map(item => ({
+              name: item.label,
+              url: item.href.startsWith('http') ? item.href : `${siteUrl}${item.href}`,
+            })),
+          ]}
+        />
+      )}
+
+      {/* Page header */}
+      <PageHero
+        eyebrow="Tin tức"
+        title={activeCategory === 'all' ? 'Tin tức & sự kiện' : categories.find(c => c.id === activeCategory)?.label || 'Tin tức'}
+        summary="Tin xe điện, nhượng quyền trạm sạc và xe VinFast cũ từ GCM."
+        crumbs={activeCategory !== 'all'
+          ? categoryBreadcrumbs.filter(c => c.href !== '/')
+          : [{ href: '/tin-tuc', label: 'Tin tức' }]}
+      />
+
+      <div className="gcm-container pb-20 md:pb-28">
+
         {/* 1. Featured News (Asymmetric Grid) */}
-        <section className="mb-16 lg:mb-20">
-           <h2 className="text-2xl font-bold text-gcm-dark mb-6 border-l-4 border-gcm-green pl-4">Tiêu Điểm</h2>
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-auto lg:h-[500px] overflow-hidden">
+        <section className="pt-10 mb-12 lg:mb-16">
+           <h2 className="gcm-label mb-4 block">Tiêu điểm</h2>
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 h-auto lg:h-[500px] overflow-hidden">
               {/* Big Story */}
               {featuredPost && (
-                 <article className="lg:col-span-2 overflow-hidden rounded-3xl">
-                 <Link 
+                 <article className="lg:col-span-2 overflow-hidden rounded-card">
+                 <Link
                    href={getPostUrl(featuredPost)}
-                   className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[16/9]"
+                   className="relative rounded-card overflow-hidden cursor-pointer group block aspect-[16/9] gcm-photo"
                  >
                     <Image
                       src={imageErrors[featuredPost.id] ? getFallbackImage() : featuredPost.image}
-                      alt={`${featuredPost.title} - ${featuredPost.categoryLabel} - Tin tức nổi bật về xe điện`}
+                      alt={`${featuredPost.title} - ${featuredPost.categoryLabel} - Tin tức tiêu điểm về xe điện`}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 66vw"
                       onError={() => handleImageError(featuredPost.id)}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-8">
-                       <span className="bg-gcm-green text-black text-xs font-bold px-3 py-1 rounded-full w-fit mb-3">{featuredPost.categoryLabel}</span>
-                       <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 leading-tight group-hover:text-gcm-green transition-colors">{featuredPost.title}</h3>
-                       <p className="text-gray-300 line-clamp-2 md:text-lg">{featuredPost.excerpt}</p>
-                       <div className="flex items-center gap-4 text-gray-400 text-sm mt-4">
+                    <span className="gcm-arrow-box absolute right-4 top-4 z-10"><ArrowUpRight size={16} /></span>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6 md:p-8">
+                       <span className="gcm-badge w-fit mb-3">{featuredPost.categoryLabel}</span>
+                       <h3 className="text-xl md:text-2xl font-semibold leading-[1.25] tracking-[-0.015em] text-white mb-2 group-hover:underline underline-offset-4">{featuredPost.title}</h3>
+                       <p className="text-white/80 line-clamp-2 md:text-base">{featuredPost.excerpt}</p>
+                       <div className="flex items-center gap-4 text-white/60 text-sm mt-4">
                           <span>{featuredPost.author}</span>
                           <span>• {featuredPost.date}</span>
                        </div>
@@ -175,14 +191,14 @@ const NewsPage: React.FC = () => {
                  </Link>
                  </article>
               )}
-              
+
               {/* Side Stories */}
-              <div className="flex flex-col gap-6 overflow-hidden">
+              <div className="flex flex-col gap-4 overflow-hidden">
                  {subFeaturedPosts.map(post => (
-                    <article key={post.id} className="flex-1 min-h-0 overflow-hidden rounded-3xl">
-                    <Link 
+                    <article key={post.id} className="flex-1 min-h-0 overflow-hidden rounded-card">
+                    <Link
                       href={getPostUrl(post)}
-                      className="relative rounded-3xl overflow-hidden cursor-pointer group shadow-lg block aspect-[4/3]"
+                      className="relative rounded-card overflow-hidden cursor-pointer group block aspect-[4/3] gcm-photo"
                     >
                        <Image
                          src={imageErrors[post.id] ? getFallbackImage() : post.image}
@@ -192,9 +208,10 @@ const NewsPage: React.FC = () => {
                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 33vw"
                          onError={() => handleImageError(post.id)}
                        />
-                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent flex flex-col justify-end p-6">
-                          <span className="text-gcm-green text-xs font-bold mb-1 uppercase">{post.categoryLabel}</span>
-                          <h3 className="text-lg font-bold text-white leading-snug group-hover:text-gcm-green transition-colors">{post.title}</h3>
+                       <span className="gcm-arrow-box absolute right-4 top-4 z-10"><ArrowUpRight size={16} /></span>
+                       <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6">
+                          <span className="gcm-badge w-fit mb-2">{post.categoryLabel}</span>
+                          <h3 className="text-base md:text-lg font-semibold text-white leading-snug group-hover:underline underline-offset-4">{post.title}</h3>
                        </div>
                     </Link>
                     </article>
@@ -203,33 +220,33 @@ const NewsPage: React.FC = () => {
            </div>
         </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
            {/* 2. Main Feed */}
            <div id="main-feed" className="lg:col-span-2 min-w-0 scroll-mt-24">
               {/* Category Tabs */}
-              <div className="flex overflow-x-auto gap-4 mb-8 pb-2 scrollbar-hide border-b border-gray-200">
+              <div className="flex overflow-x-auto gap-4 mb-8 pb-2 scrollbar-hide">
                  {categories.map(cat => (
                     <motion.button
                       key={cat.id}
                       onClick={() => handleCategoryChange(cat.id)}
-                      className={`whitespace-nowrap px-4 py-2 font-bold text-sm transition-colors relative ${
-                        activeCategory === cat.id 
-                        ? 'text-gcm-green' 
-                        : 'text-gray-500 hover:text-black'
+                      className={`whitespace-nowrap px-4 py-2 font-semibold text-sm transition-colors relative ${
+                        activeCategory === cat.id
+                        ? 'text-ocean'
+                        : 'text-ink-mute hover:text-ink'
                       }`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       initial={false}
                       animate={{
-                        color: activeCategory === cat.id ? '#00D26A' : '#6B7280'
+                        color: activeCategory === cat.id ? '#00A651' : '#9CA3AF'
                       }}
                       transition={{ duration: 0.2 }}
                     >
                        {cat.label}
                        <AnimatePresence>
                           {activeCategory === cat.id && (
-                             <motion.div 
-                                className="absolute bottom-0 left-0 w-full h-0.5 bg-gcm-green"
+                             <motion.div
+                                className="absolute bottom-0 left-0 w-full h-0.5 bg-sky"
                                 initial={{ scaleX: 0 }}
                                 animate={{ scaleX: 1 }}
                                 exit={{ scaleX: 0 }}
@@ -243,9 +260,9 @@ const NewsPage: React.FC = () => {
 
               {/* List */}
               <AnimatePresence mode="wait">
-                <motion.div 
+                <motion.div
                   key={activeCategory}
-                  className="space-y-8"
+                  className="space-y-4"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
@@ -253,34 +270,36 @@ const NewsPage: React.FC = () => {
                 >
                  {paginatedPosts.map((post, index) => (
                     <article key={post.id}>
-                    <Link 
+                    <Link
                       href={getPostUrl(post)}
+                      className="group block"
                     >
-                    <motion.div 
-                      className="flex flex-col md:flex-row gap-6 group cursor-pointer border-b border-gray-100 pb-8 last:border-0" 
+                    <motion.div
+                      className="gcm-card gcm-card-hover relative flex flex-col md:flex-row gap-5 p-4 cursor-pointer"
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: index * 0.1 }}
                       whileHover={{ x: 5 }}
                     >
-                       <div className="relative w-full md:w-64 aspect-[4/3] rounded-2xl overflow-hidden flex-shrink-0">
+                       <div className="relative w-full md:w-60 aspect-[4/3] rounded-panel overflow-hidden flex-shrink-0 gcm-photo">
                           <Image
                             src={imageErrors[post.id] ? getFallbackImage() : post.image}
                             alt={`${post.title} - ${post.categoryLabel} - Tin tức ${post.excerpt}`}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             sizes="(max-width: 768px) 100vw, 256px"
                             onError={() => handleImageError(post.id)}
                           />
                        </div>
-                       <div className="flex flex-col justify-center">
-                          <div className="flex items-center gap-3 mb-2">
-                             <span className="text-xs font-bold text-gcm-green uppercase tracking-wide">{post.categoryLabel}</span>
-                             <span className="text-xs text-gray-400 flex items-center gap-1"><Clock size={12} /> {post.date}</span>
+                       <span className="gcm-arrow-box absolute right-4 top-4"><ArrowUpRight size={16} /></span>
+                       <div className="flex flex-col justify-center md:pr-10">
+                          <div className="flex flex-wrap items-center gap-3 mb-2">
+                             <span className="gcm-badge">{post.categoryLabel}</span>
+                             <span className="text-xs text-ink-mute flex items-center gap-1"><Clock size={12} /> {post.date}</span>
                           </div>
-                          <h3 className="text-xl font-bold text-gray-800 mb-3 leading-snug group-hover:text-gcm-green transition-colors">{post.title}</h3>
-                          <p className="text-gray-500 text-sm line-clamp-2 mb-4">{post.excerpt}</p>
-                          <span className="text-sm font-bold text-black flex items-center gap-1 group-hover:translate-x-2 transition-transform w-fit">
+                          <h3 className="text-lg font-semibold text-ink mb-2 leading-snug group-hover:text-ocean transition-colors">{post.title}</h3>
+                          <p className="text-ink-soft text-sm leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
+                          <span className="gcm-link w-fit">
                              Đọc tiếp <ArrowRight size={16} />
                           </span>
                        </div>
@@ -288,10 +307,10 @@ const NewsPage: React.FC = () => {
                     </Link>
                     </article>
                  ))}
-                 
+
                  {mainFeedPosts.length === 0 && (
-                    <motion.div 
-                      className="text-center py-10 text-gray-500"
+                    <motion.div
+                      className="text-center py-10 text-ink-soft"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 0.3 }}
@@ -301,7 +320,7 @@ const NewsPage: React.FC = () => {
                  )}
                 </motion.div>
               </AnimatePresence>
-              
+
               {/* Pagination */}
               {totalPages > 1 && (
                  <div className="flex justify-center mt-12 gap-2">
@@ -310,10 +329,10 @@ const NewsPage: React.FC = () => {
                          key={page}
                          onClick={() => handlePageChange(page)}
                          aria-current={safePage === page ? 'page' : undefined}
-                         className={`w-10 h-10 rounded-full font-bold flex items-center justify-center transition-colors ${
+                         className={`w-10 h-10 rounded-control font-semibold tabular flex items-center justify-center transition-colors ${
                            safePage === page
-                             ? 'bg-black text-white'
-                             : 'bg-gray-200 text-gray-600 hover:bg-gcm-green hover:text-black'
+                             ? 'bg-ocean text-white'
+                             : 'border border-line-strong text-ink-soft hover:border-ocean hover:text-ocean'
                          }`}
                        >
                          {page}

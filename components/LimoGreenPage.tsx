@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Phone, MessageCircle, CheckCircle, Battery, Zap, Gauge, Wind, Shield, MapPin, ChevronRight, Star, User, X, ChevronLeft } from 'lucide-react';
+import { Phone, MessageCircle, CheckCircle, Battery, Zap, Gauge, Wind, Shield, MapPin, ChevronRight, Star, User, X, ChevronLeft, FileText, Handshake, Wallet } from 'lucide-react';
 import CustomerForm, { FormField } from './CustomerForm';
+import PageHero from './PageHero';
 
 const LimoGreenPage: React.FC = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -101,64 +102,65 @@ const LimoGreenPage: React.FC = () => {
   }, [lightboxOpen, galleryImages.length]);
 
   return (
-    <div className="bg-white min-h-screen font-sans">
-      {/* 2. Hero Section */}
-      <section className="relative min-h-[850px] md:h-[700px] w-full bg-black overflow-hidden">
-        {/* Slider - Optimized with Next.js Image */}
-        {slides.map((slide, index) => (
-          <div 
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
-          >
-            <Image
-              src={imageErrors[`slide-${index}`] ? getFallbackImage() : slide.image}
-              alt={slide.alt}
-              fill
-              priority={index === 0}
-              quality={90}
-              className="object-cover opacity-60"
-              sizes="100vw"
-              onError={() => {
-                if (!imageErrors[`slide-${index}`]) {
-                  handleImageError(`slide-${index}`);
-                }
-              }}
-            />
-          </div>
-        ))}
-        
-        {/* Overlay Content */}
-        <div className="absolute inset-0 z-10 container mx-auto px-4 flex flex-col md:flex-row items-center justify-center md:justify-between pt-20 md:pt-10 pb-10 md:pb-0 gap-10">
-          
-          {/* Text Hook */}
-          <div className="text-white text-center md:text-left max-w-2xl">
-            <div className="inline-block bg-gcm-green text-black font-bold px-4 py-1 rounded-full mb-4 animate-bounce">
-              🔥 HOT DEAL THÁNG 01/2026
-            </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">
-              LIMO GREEN<br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-gcm-green to-white">MPV ĐIỆN 7 CHỖ</span>
-            </h1>
-            <h2 className="text-xl md:text-2xl font-bold text-gray-200 mb-6">
-              ĐẦU TƯ THẤP - HOÀN VỐN THẦN TỐC
-            </h2>
-            <ul className="text-gray-300 space-y-2 mb-8 hidden md:block">
-              <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> 450km/lần sạc (Chuẩn NEDC)</li>
-              <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> Tiết kiệm chi phí vận hành</li>
-              <li className="flex items-center gap-2"><CheckCircle className="text-gcm-green" size={20}/> Bảo hành chính hãng 7 năm</li>
-            </ul>
+    <div className="min-h-screen bg-page font-sans">
+      {/* 1. Dải đầu trang */}
+      <PageHero
+        eyebrow="Ưu đãi tháng 01/2026"
+        title={<>Limo Green, <span className="text-sky-light">MPV điện 7 chỗ</span></>}
+        summary={
+          <>
+            <span className="font-semibold text-white">Vốn đầu tư thấp, hoàn vốn nhanh khi chạy dịch vụ.</span>
+            <span className="mt-3 hidden flex-col gap-1.5 md:flex">
+              <span className="flex items-center gap-2"><CheckCircle className="text-sky-light" size={18}/> <span className="tabular">450km mỗi lần sạc (chuẩn NEDC)</span></span>
+              <span className="flex items-center gap-2"><CheckCircle className="text-sky-light" size={18}/> Bảo hành chính hãng 7 năm</span>
+            </span>
+          </>
+        }
+        crumbs={[
+          { href: '/oto-vinfast', label: 'Ô tô VinFast' },
+          { href: '/oto-vinfast/limo-green', label: 'Limo Green' },
+        ]}
+        image="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Banner%20Hero%20Limo%20Green.png"
+      />
+
+      {/* 2. Ảnh xe + form báo giá ngay dưới dải đầu trang */}
+      <section className="gcm-section">
+        <div className="gcm-container grid gap-4 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          {/* Slider ảnh xe studio trong khung bo góc */}
+          <div className="gcm-photo aspect-[16/9] w-full lg:aspect-auto lg:min-h-[360px]">
+            {slides.map((slide, index) => (
+              <div
+                key={index}
+                className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+              >
+                <Image
+                  src={imageErrors[`slide-${index}`] ? getFallbackImage() : slide.image}
+                  alt={slide.alt}
+                  fill
+                  priority={index === 0}
+                  quality={90}
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  onError={() => {
+                    if (!imageErrors[`slide-${index}`]) {
+                      handleImageError(`slide-${index}`);
+                    }
+                  }}
+                />
+              </div>
+            ))}
           </div>
 
           {/* Quick Form */}
-          <div className="bg-white p-6 rounded-2xl shadow-2xl w-full max-w-md animate-slide-down border-t-4 border-gcm-green">
-            <h3 className="text-xl font-bold text-gray-900 mb-2 text-center">Nhận Báo Giá Lăn Bánh & Ưu Đãi</h3>
-            <p className="text-xs text-center text-gray-500 mb-6">Đăng ký ngay để nhận bảng tính dòng tiền chạy dịch vụ</p>
+          <div className="gcm-card w-full p-6">
+            <h3 className="gcm-h3 mb-1 text-lg">Nhận báo giá lăn bánh và ưu đãi</h3>
+            <p className="mb-5 text-sm text-ink-soft">Chọn khu vực, để lại số điện thoại. GCM gửi bạn bảng tính dòng tiền khi chạy xe dịch vụ.</p>
             <CustomerForm
                formType="limo-quote"
                fields={[
                   {
                      name: 'address',
-                     label: 'ĐỊA CHỈ',
+                     label: 'Địa chỉ',
                      type: 'select',
                      required: true,
                      options: [
@@ -170,42 +172,42 @@ const LimoGreenPage: React.FC = () => {
                      ],
                   },
                ]}
-               submitButtonText="GỬI YÊU CẦU NGAY"
-               submitButtonClassName="w-full bg-red-600 text-white font-bold py-4 rounded-lg hover:bg-red-700 transition-all shadow-lg text-lg uppercase"
+               submitButtonText="Gửi yêu cầu"
+               submitButtonClassName="gcm-btn w-full"
                showSuccessMessage={false}
             />
-            <p className="text-[10px] text-gray-400 text-center italic mt-4">*Thông tin của bạn được bảo mật tuyệt đối</p>
+            <p className="mt-4 text-center text-xs italic text-ink-mute">*Thông tin của bạn được bảo mật.</p>
           </div>
         </div>
       </section>
 
       {/* 3. Consultant Section (Trust) */}
-      <section id="consultant" className="py-12 bg-gray-50 border-b border-gray-200">
-        <div className="container mx-auto px-4">
-           <div className="bg-white rounded-2xl p-8 shadow-sm flex flex-col md:flex-row items-center gap-8 max-w-4xl mx-auto">
+      <section id="consultant" className="pb-10 md:pb-16">
+        <div className="gcm-container">
+           <div className="gcm-card flex flex-col items-center gap-6 p-6 md:flex-row md:p-8">
               <div className="relative">
-                 <div className="relative w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-gcm-green shadow-lg">
-                    <Image 
-                      src={imageErrors['consultant'] ? getFallbackImage() : "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=800&fit=crop&q=80"} 
-                      alt="Tư vấn viên GCM Auto - Chuyên gia tư vấn xe điện Limo Green" 
+                 <div className="relative h-24 w-24 overflow-hidden rounded-full border-2 border-sky md:h-28 md:w-28">
+                    <Image
+                      src={imageErrors['consultant'] ? getFallbackImage() : "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=800&h=800&fit=crop&q=80"}
+                      alt="Tư vấn viên GCM Auto - Chuyên gia tư vấn xe điện Limo Green"
                       fill
                       className="object-cover"
-                      sizes="128px"
+                      sizes="112px"
                       onError={() => handleImageError('consultant')}
                     />
                  </div>
-                 <div className="absolute bottom-0 right-0 bg-gcm-green text-black text-xs font-bold px-2 py-1 rounded-full border border-white">Online</div>
+                 <div className="gcm-badge absolute bottom-0 right-0 border border-surface">Online</div>
               </div>
-              <div className="text-center md:text-left flex-1">
-                 <h4 className="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Tư Vấn Bán Hàng Chuyên Nghiệp - GCM Auto</h4>
-                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Mr. Tuấn Anh</h3>
-                 <p className="text-gray-600 mb-6 text-sm italic">"Tôi cam kết hỗ trợ anh/chị chọn được chiếc xe ưng ý nhất với bài toán tài chính tối ưu. Hỗ trợ vay ngân hàng tới 90%."</p>
-                 <div className="flex flex-wrap justify-center md:justify-start gap-4">
-                    <a href="tel:0916513720" className="flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full hover:bg-black transition-colors font-bold">
+              <div className="flex-1 text-center md:text-left">
+                 <h4 className="gcm-label mb-1">Tư vấn bán hàng, GCM Auto</h4>
+                 <h3 className="gcm-h3 mb-2 text-xl">Mr. Tuấn Anh</h3>
+                 <p className="mb-5 text-sm italic text-ink-soft">&quot;Tôi giúp anh/chị chọn xe hợp nhu cầu và tính trước dòng tiền trả góp. GCM hỗ trợ vay ngân hàng tới 90%.&quot;</p>
+                 <div className="flex flex-wrap justify-center gap-3 md:justify-start">
+                    <a href="tel:0916513720" className="gcm-btn tabular">
                        <Phone size={18} /> 0916 513 720
                     </a>
-                    <a href="https://zalo.me/0916513720" target="_blank" className="flex items-center gap-2 bg-[#0068FF] text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors font-bold shadow-lg shadow-blue-200">
-                       <MessageCircle size={18} /> Chat Zalo Ngay
+                    <a href="https://zalo.me/0916513720" target="_blank" className="gcm-btn-ghost">
+                       <MessageCircle size={18} /> Chat Zalo
                     </a>
                  </div>
               </div>
@@ -214,193 +216,179 @@ const LimoGreenPage: React.FC = () => {
       </section>
 
       {/* 4. USPs - Unique Selling Points */}
-      <section className="py-16 container mx-auto px-4">
-         <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gcm-dark mb-4">Tại Sao Nên Đầu Tư Xe Điện Limo Green Chạy Dịch Vụ?</h2>
-            <p className="text-gray-500">Giải pháp tối ưu cho kinh doanh vận tải thời đại mới</p>
+      <section className="gcm-section bg-tint">
+        <div className="gcm-container">
+         <div className="mb-8 flex flex-col gap-3">
+            <span className="gcm-label">Vì sao chọn Limo Green</span>
+            <h2 className="gcm-h2">Vì sao nên đầu tư Limo Green chạy dịch vụ?</h2>
+            <p className="gcm-lead">MPV điện 7 chỗ chạy được cả ngày, nghỉ trưa là sạc gần đầy.</p>
          </div>
-         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-6 border border-gray-100 rounded-2xl hover:shadow-xl transition-all hover:border-gcm-green group bg-white">
-               <div className="w-14 h-14 bg-green-50 text-gcm-green rounded-xl flex items-center justify-center mb-4 group-hover:bg-gcm-green group-hover:text-white transition-colors">
-                  <Battery size={28} />
+         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+               { icon: Battery, title: 'Pin trâu 450km', desc: 'Chạy cả ngày không lo hết điện; quãng đường 450km đo theo chuẩn NEDC.' },
+               { icon: Zap, title: 'Sạc nhanh 30 phút', desc: 'Sạc DC 80kW. Nghỉ trưa xong là pin lên 70%.' },
+               { icon: Gauge, title: 'Chạy êm', desc: 'Động cơ 150kW. Khách ngồi không say xe, tài xế lái cả ngày cũng đỡ mệt.' },
+               { icon: Shield, title: 'Bảo hành chính hãng', desc: 'Bảo hành theo chính sách của VinFast.' },
+            ].map((item) => (
+               <div key={item.title} className="gcm-card flex flex-col gap-3 p-5">
+                  <div className="gcm-icon-box">
+                     <item.icon size={20} />
+                  </div>
+                  <h3 className="gcm-h3">{item.title}</h3>
+                  <p className="text-sm text-ink-soft">{item.desc}</p>
                </div>
-               <h3 className="font-bold text-lg mb-2">Pin Trâu 450Km</h3>
-               <p className="text-sm text-gray-500">Thoải mái chạy cả ngày không lo hết điện. Chuẩn NEDC đã được kiểm chứng.</p>
-            </div>
-            <div className="p-6 border border-gray-100 rounded-2xl hover:shadow-xl transition-all hover:border-gcm-green group bg-white">
-               <div className="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-yellow-600 group-hover:text-white transition-colors">
-                  <Zap size={28} />
-               </div>
-               <h3 className="font-bold text-lg mb-2">Sạc Nhanh 30 Phút</h3>
-               <p className="text-sm text-gray-500">Công nghệ sạc DC 80kW. Tranh thủ nghỉ trưa là đầy 70% pin.</p>
-            </div>
-            <div className="p-6 border border-gray-100 rounded-2xl hover:shadow-xl transition-all hover:border-gcm-green group bg-white">
-               <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                  <Gauge size={28} />
-               </div>
-               <h3 className="font-bold text-lg mb-2">Vận Hành Êm Ái</h3>
-               <p className="text-sm text-gray-500">Động cơ 150kW mạnh mẽ. Khách đi xe không say, tài xế lái không mệt.</p>
-            </div>
-            <div className="p-6 border border-gray-100 rounded-2xl hover:shadow-xl transition-all hover:border-gcm-green group bg-white">
-               <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                  <Shield size={28} />
-               </div>
-               <h3 className="font-bold text-lg mb-2">Bảo Hành Uy Tín</h3>
-               <p className="text-sm text-gray-500">Bảo hành theo chính sách của VinFast</p>
-            </div>
+            ))}
          </div>
+        </div>
       </section>
 
       {/* 5. Specs Table */}
-      <section className="py-20 bg-gray-100">
-         <div className="container mx-auto px-4">
-            <div className="flex flex-col lg:flex-row gap-12">
+      <section className="gcm-section">
+         <div className="gcm-container">
+            <div className="flex flex-col gap-8 lg:flex-row">
                <div className="lg:w-1/2">
-                  <h2 className="text-3xl font-bold text-gcm-dark mb-8 border-l-4 border-gcm-green pl-4">Thông Số Kỹ Thuật Xe VinFast Limo Green (7 Chỗ)</h2>
-                  <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                     <table className="w-full text-sm text-left">
-                        <thead className="bg-gray-50 text-gray-700 uppercase font-bold">
+                  <span className="gcm-label">Thông số</span>
+                  <h2 className="gcm-h2 mb-6 mt-3">Thông số kỹ thuật VinFast Limo Green (7 chỗ)</h2>
+                  <div className="overflow-hidden rounded-card border border-line bg-surface">
+                     <table className="w-full text-left text-sm">
+                        <thead className="border-b border-line bg-tint-strong text-ink">
                            <tr>
-                              <th className="px-6 py-4">Thông số</th>
-                              <th className="px-6 py-4">Giá trị</th>
+                              <th className="px-5 py-3 font-semibold">Thông số</th>
+                              <th className="px-5 py-3 font-semibold">Giá trị</th>
                            </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-100">
+                        <tbody className="divide-y divide-line text-ink-soft">
                            <tr>
-                              <td className="px-6 py-4 font-medium">Kích thước (DxRxC)</td>
-                              <td className="px-6 py-4">4.740 x 1.872 x 1.723 mm</td>
+                              <td className="px-5 py-3">Kích thước (DxRxC)</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">4.740 x 1.872 x 1.723 mm</td>
                            </tr>
                            <tr>
-                              <td className="px-6 py-4 font-medium">Chiều dài cơ sở</td>
-                              <td className="px-6 py-4">2.840 mm (Siêu rộng)</td>
+                              <td className="px-5 py-3">Chiều dài cơ sở</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">2.840 mm</td>
                            </tr>
                            <tr>
-                              <td className="px-6 py-4 font-medium">Khoảng sáng gầm</td>
-                              <td className="px-6 py-4">170 mm</td>
+                              <td className="px-5 py-3">Khoảng sáng gầm</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">170 mm</td>
                            </tr>
-                           <tr className="bg-green-50/50">
-                              <td className="px-6 py-4 font-bold text-gcm-green flex items-center gap-2"><Battery size={16}/> Dung lượng Pin</td>
-                              <td className="px-6 py-4 font-bold">60.13 kWh</td>
-                           </tr>
-                           <tr>
-                              <td className="px-6 py-4 font-medium">Quãng đường (NEDC)</td>
-                              <td className="px-6 py-4">450 km</td>
+                           <tr className="bg-tint">
+                              <td className="flex items-center gap-2 px-5 py-3 font-semibold text-ocean"><Battery size={16}/> Dung lượng pin</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ocean">60.13 kWh</td>
                            </tr>
                            <tr>
-                              <td className="px-6 py-4 font-medium">Công suất tối đa</td>
-                              <td className="px-6 py-4">150 kW (~201 Hp)</td>
+                              <td className="px-5 py-3">Quãng đường (NEDC)</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">450 km</td>
                            </tr>
                            <tr>
-                              <td className="px-6 py-4 font-medium">Mô men xoắn</td>
-                              <td className="px-6 py-4">280 Nm</td>
+                              <td className="px-5 py-3">Công suất tối đa</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">150 kW (~201 Hp)</td>
                            </tr>
                            <tr>
-                              <td className="px-6 py-4 font-medium">Màn hình giải trí</td>
-                              <td className="px-6 py-4">Cảm ứng 10.1 inch</td>
+                              <td className="px-5 py-3">Mô men xoắn</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">280 Nm</td>
+                           </tr>
+                           <tr>
+                              <td className="px-5 py-3">Màn hình giải trí</td>
+                              <td className="px-5 py-3 font-semibold tabular text-ink">Cảm ứng 10.1 inch</td>
                            </tr>
                         </tbody>
                      </table>
                   </div>
                </div>
-               
-               <div className="lg:w-1/2 flex flex-col gap-6">
-                   <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
-                      <Image 
-                        src={imageErrors['gallery1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Lai%20Limo%20Green.png"} 
-                        alt="Khoang lái Limo Green - Bảng điều khiển hiện đại, công nghệ cao"
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        onError={() => handleImageError('gallery1')}
-                      />
-                      <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-bold">Khoang lái hiện đại</div>
-                   </div>
-                   <div className="rounded-2xl overflow-hidden shadow-lg h-64 relative group">
-                      <Image 
-                        src={imageErrors['gallery2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Hanh%20Khach%20Limo%20Green.png"} 
-                        alt="Khoang hành khách Limo Green - Không gian rộng rãi 7 chỗ ngồi tiện nghi"
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                        sizes="(max-width: 1024px) 100vw, 50vw"
-                        onError={() => handleImageError('gallery2')}
-                      />
-                      <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-bold">Khoang hành khách rộng rãi</div>
-                   </div>
+
+               <div className="flex flex-col gap-4 lg:w-1/2 lg:pt-16">
+                   <figure className="overflow-hidden rounded-card border border-line bg-surface">
+                      <div className="relative h-60 bg-tint">
+                         <Image
+                           src={imageErrors['gallery1'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Lai%20Limo%20Green.png"}
+                           alt="Khoang lái Limo Green - Bảng điều khiển hiện đại, công nghệ cao"
+                           fill
+                           className="object-cover"
+                           sizes="(max-width: 1024px) 100vw, 50vw"
+                           onError={() => handleImageError('gallery1')}
+                         />
+                      </div>
+                      <figcaption className="px-4 py-3 text-sm font-semibold text-ink">Khoang lái</figcaption>
+                   </figure>
+                   <figure className="overflow-hidden rounded-card border border-line bg-surface">
+                      <div className="relative h-60 bg-tint">
+                         <Image
+                           src={imageErrors['gallery2'] ? getFallbackImage() : "https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Khoang%20Hanh%20Khach%20Limo%20Green.png"}
+                           alt="Khoang hành khách Limo Green - Không gian rộng rãi 7 chỗ ngồi tiện nghi"
+                           fill
+                           className="object-cover"
+                           sizes="(max-width: 1024px) 100vw, 50vw"
+                           onError={() => handleImageError('gallery2')}
+                         />
+                      </div>
+                      <figcaption className="px-4 py-3 text-sm font-semibold text-ink">Khoang hành khách 7 chỗ</figcaption>
+                   </figure>
                </div>
             </div>
          </div>
       </section>
 
       {/* 6. Turnkey Solutions (Business) */}
-      <section className="py-20 bg-gcm-dark text-white">
-         <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-               <h2 className="text-3xl md:text-4xl font-bold mb-4">Giải Pháp "Chìa Khóa Trao Tay" - Hỗ Trợ Gia Nhập Hợp Tác Xã</h2>
-               <p className="text-gray-400">Mua xe tại GCM - Chúng tôi lo tất cả thủ tục kinh doanh</p>
+      <section className="gcm-section bg-tint">
+         <div className="gcm-container">
+            <div className="mb-8 flex flex-col gap-3">
+               <span className="gcm-label">Chìa khóa trao tay</span>
+               <h2 className="gcm-h2">Gói &quot;chìa khóa trao tay&quot;: hỗ trợ vào hợp tác xã</h2>
+               <p className="gcm-lead">Mua xe tại GCM, chúng tôi làm giúp các thủ tục để xe chạy kinh doanh được ngay.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-               <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all">
-                  <div className="text-4xl mb-4">📝</div>
-                  <h3 className="text-xl font-bold mb-4 text-gcm-green">Hỗ Trợ Đăng Ký Biển Số</h3>
-                  <ul className="text-gray-400 space-y-3 text-sm">
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Đăng ký biển trắng (Gia đình)</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Đăng ký biển vàng trọn gói</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Bấm biển đẹp phong thủy</li>
-                  </ul>
-               </div>
-
-               <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all">
-                  <div className="text-4xl mb-4">🤝</div>
-                  <h3 className="text-xl font-bold mb-4 text-gcm-green">Gia Nhập Hợp Tác Xã</h3>
-                  <ul className="text-gray-400 space-y-3 text-sm">
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Đăng ký Xanh SM Platform</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Đăng ký Grab/Be Car</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Lắp định vị, phù hiệu vận tải</li>
-                  </ul>
-               </div>
-
-               <div className="bg-white/5 border border-white/10 p-8 rounded-3xl hover:bg-white/10 transition-all">
-                  <div className="text-4xl mb-4">💰</div>
-                  <h3 className="text-xl font-bold mb-4 text-gcm-green">Bài Toán Tài Chính</h3>
-                  <ul className="text-gray-400 space-y-3 text-sm">
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Trả góp lên đến 90% giá trị</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Thời gian vay tối đa 8 năm</li>
-                     <li className="flex gap-2"><CheckCircle size={16} className="text-gcm-green"/> Duyệt hồ sơ nhanh trong 24h</li>
-                  </ul>
-               </div>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+               {[
+                  { icon: FileText, title: 'Đăng ký biển số', items: ['Đăng ký biển trắng (gia đình)', 'Đăng ký biển vàng trọn gói', 'Bấm biển đẹp phong thủy'] },
+                  { icon: Handshake, title: 'Vào hợp tác xã', items: ['Đăng ký Xanh SM Platform', 'Đăng ký Grab/Be Car', 'Lắp định vị, phù hiệu vận tải'] },
+                  { icon: Wallet, title: 'Tài chính', items: ['Trả góp tới 90% giá trị xe', 'Vay tối đa 8 năm', 'Duyệt hồ sơ trong 24h'] },
+               ].map((card) => (
+                  <div key={card.title} className="gcm-card p-5 md:p-6">
+                     <div className="gcm-icon-box mb-4">
+                        <card.icon size={20} />
+                     </div>
+                     <h3 className="gcm-h3 mb-3">{card.title}</h3>
+                     <ul className="space-y-2.5 text-sm text-ink-soft">
+                        {card.items.map((line) => (
+                           <li key={line} className="flex gap-2"><CheckCircle size={16} className="mt-0.5 shrink-0 text-ocean"/> {line}</li>
+                        ))}
+                     </ul>
+                  </div>
+               ))}
             </div>
 
-            <div className="mt-16 text-center">
-               <button 
+            <div className="mt-8">
+               <button
                  onClick={() => document.getElementById('consultant')?.scrollIntoView({behavior: 'smooth'})}
-                 className="bg-gcm-green text-black font-extrabold text-xl py-4 px-12 rounded-full hover:bg-white transition-all shadow-lg hover:shadow-green-500/50"
+                 className="gcm-btn"
                >
-                 NHẬN TƯ VẤN KINH DOANH NGAY
+                 Nhận tư vấn kinh doanh
                </button>
             </div>
          </div>
       </section>
 
       {/* 7. Gallery */}
-      <section className="py-20 bg-white">
-         <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center mb-10">Hình Ảnh Thực Tế</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <section className="gcm-section">
+         <div className="gcm-container">
+            <div className="mb-6 flex flex-col gap-3">
+               <span className="gcm-label">Thư viện ảnh</span>
+               <h2 className="gcm-h2">Ảnh thực tế</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                {galleryImages.map((image, index) => (
-                 <div 
+                 <div
                    key={image.id}
-                   className="relative rounded-xl h-48 w-full overflow-hidden cursor-pointer"
+                   className="relative h-48 w-full cursor-pointer overflow-hidden rounded-card border border-line bg-tint transition-colors hover:border-sky"
                    onClick={() => openLightbox(index)}
                    role="button"
                    tabIndex={0}
                    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); } }}
                  >
-                   <Image 
-                     src={imageErrors[image.id] ? getFallbackImage() : image.src} 
+                   <Image
+                     src={imageErrors[image.id] ? getFallbackImage() : image.src}
                      alt={image.alt}
                      fill
-                     className="object-cover hover:opacity-90 transition-opacity"
+                     className="object-cover"
                      sizes="(max-width: 768px) 50vw, 25vw"
                      onError={() => handleImageError(image.id)}
                    />
@@ -410,11 +398,11 @@ const LimoGreenPage: React.FC = () => {
          </div>
       </section>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal — lớp phủ tối có chủ đích */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-night-950/95 p-4">
           {/* Backdrop - Click to close */}
-          <div 
+          <div
             className="absolute inset-0"
             onClick={closeLightbox}
           ></div>
@@ -422,7 +410,7 @@ const LimoGreenPage: React.FC = () => {
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 md:top-8 md:right-8 z-20 p-2 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+            className="absolute right-4 top-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-2 text-white transition-colors hover:border-sky hover:text-sky md:right-8 md:top-8"
             aria-label="Đóng"
           >
             <X size={24} />
@@ -432,7 +420,7 @@ const LimoGreenPage: React.FC = () => {
           {galleryImages.length > 1 && (
             <button
               onClick={prevImage}
-              className="absolute left-4 md:left-8 z-20 p-3 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+              className="absolute left-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-sky hover:text-sky md:left-8"
               aria-label="Ảnh trước"
             >
               <ChevronLeft size={28} />
@@ -443,7 +431,7 @@ const LimoGreenPage: React.FC = () => {
           {galleryImages.length > 1 && (
             <button
               onClick={nextImage}
-              className="absolute right-4 md:right-8 z-20 p-3 bg-black/70 hover:bg-black/90 text-white rounded-full transition-colors"
+              className="absolute right-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-sky hover:text-sky md:right-8"
               aria-label="Ảnh sau"
             >
               <ChevronRight size={28} />
@@ -451,13 +439,13 @@ const LimoGreenPage: React.FC = () => {
           )}
 
           {/* Image Container */}
-          <div className="relative z-10 w-full h-full flex items-center justify-center max-w-7xl mx-auto min-h-[50vh]" onClick={(e) => e.stopPropagation()}>
-            <div className="relative w-full h-full min-h-[300px] max-h-[80vh]">
+          <div className="relative z-10 mx-auto flex h-full min-h-[50vh] w-full max-w-7xl items-center justify-center" onClick={(e) => e.stopPropagation()}>
+            <div className="relative h-full max-h-[80vh] min-h-[300px] w-full">
               <Image
                 src={imageErrors[galleryImages[lightboxIndex].id] ? getFallbackImage() : galleryImages[lightboxIndex].src}
                 alt={galleryImages[lightboxIndex].alt}
                 fill
-                className="object-contain rounded-lg"
+                className="rounded-panel object-contain"
                 sizes="100vw"
                 onError={() => handleImageError(galleryImages[lightboxIndex].id)}
               />
@@ -466,7 +454,7 @@ const LimoGreenPage: React.FC = () => {
 
           {/* Image Counter */}
           {galleryImages.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-black/70 text-white px-4 py-2 rounded-full text-sm">
+            <div className="absolute bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full border border-white/20 bg-night-900/80 px-4 py-2 text-sm tabular text-white">
               {lightboxIndex + 1} / {galleryImages.length}
             </div>
           )}

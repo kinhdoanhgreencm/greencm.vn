@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>GCM</title>
+  <rect width="512" height="512" rx="112" fill="#E6F5FE"/>
+  <path fill="#0AA8F5" transform="translate(130 158) scale(1.25)" d="M0,36 A36,36 0 0 1 36,0 L178.4,0 L200,36 L36,36 L36,132 L164,132 L164,102 L110,102 L88.4,66 L200,66 L200,132 A36,36 0 0 1 164,168 L36,168 A36,36 0 0 1 0,132 Z"/>
+</svg>
