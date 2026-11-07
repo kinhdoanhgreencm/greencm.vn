@@ -63,7 +63,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
         title="Xe VinFast cũ tại Cần Thơ"
         summary={
           <>
-            <span className="block font-semibold text-sky-light">Kiểm định 160 điểm, đo pin thực tế (SOH)</span>
+            <span className="block font-semibold text-navy">Kiểm định 160 điểm, đo pin thực tế (SOH)</span>
             <span className="mt-2 block">GCM bán xe VinFast đã qua sử dụng và ghi rõ tình trạng pin, loại biển số của từng xe. Có hỗ trợ trả góp; GCM lo trọn thủ tục sang tên và bao kiểm tra xe toàn quốc.</span>
           </>
         }
@@ -174,7 +174,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
           {cars.length === 0 ? (
             <UsedCarEmptyState hasActiveFilters={hasActiveFilters} />
           ) : (
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="gcm-grid">
               {cars.map((car) => {
                 const coverImage = car.images?.[0]?.url;
                 return (
@@ -230,10 +230,10 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                         )}
                       </div>
 
-                      <div className="mt-auto flex gap-2">
+                      <div className="mt-auto flex flex-col gap-2">
                         <Link
                           href={`/xe-vinfast-cu/xe/${car.slug}`}
-                          className="gcm-btn-ghost flex-1 px-3 text-sm"
+                          className="gcm-btn-ghost w-full"
                         >
                           Xem chi tiết
                         </Link>
@@ -241,7 +241,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
                           href="https://zalo.me/0916513720"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="gcm-btn flex-1 gap-1 px-3 text-sm"
+                          className="gcm-btn w-full"
                         >
                           <MessageCircle size={14} /> Chat Zalo
                         </a>

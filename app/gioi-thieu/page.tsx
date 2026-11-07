@@ -1,32 +1,27 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import GioiThieuClient from './GioiThieuClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
-  title: 'Giới thiệu Green CM, showroom xe VinFast Cần Thơ',
-  description: 'GCM bán ô tô VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn nhượng quyền trạm sạc VinFast và TMT-EGREEN tại Cần Thơ.',
+  title: 'Giới thiệu Green CM, trạm sạc và xe VinFast',
+  description: 'GCM bán ô tô VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn nhượng quyền trạm sạc xe điện tại Cần Thơ.',
   alternates: {
     canonical: `${baseUrl}/gioi-thieu`,
   },
   openGraph: {
-    title: 'Giới thiệu GCM - All About Cars | Xe VinFast tại Cần Thơ',
-    description: 'GCM bán ô tô VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn nhượng quyền trạm sạc VinFast và TMT-EGREEN tại Cần Thơ.',
+    ...OG_BASE,
+    title: 'Giới thiệu Green CM | Xe VinFast và trạm sạc tại Cần Thơ',
+    description: 'GCM bán ô tô VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn nhượng quyền trạm sạc xe điện tại Cần Thơ.',
     url: `${baseUrl}/gioi-thieu`,
-    images: [
-      {
-        url: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png',
-        width: 1600,
-        height: 893,
-        alt: 'GCM All About Cars - xe VinFast tại Cần Thơ',
-      },
-    ],
+    images: [OG_IMAGES.macDinh],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Giới thiệu GCM - All About Cars | Xe VinFast tại Cần Thơ',
+    title: 'Giới thiệu Green CM | Xe VinFast và trạm sạc tại Cần Thơ',
     description: 'GCM bán ô tô VinFast mới và cũ, phụ kiện, tư vấn trạm sạc tại Cần Thơ.',
-    images: ['https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png'],
+    images: [OG_IMAGES.macDinh.url],
   },
 };
 

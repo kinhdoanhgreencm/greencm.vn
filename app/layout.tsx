@@ -3,9 +3,9 @@ import Script from 'next/script';
 import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { OrganizationSchema, WebsiteSchema } from '../components/SchemaMarkup';
-import FloatingContactDock from '../components/FloatingContactDock';
 import Reveal from '../components/Reveal';
 import { BUSINESS_TAX_ID } from '../constants';
+import { OG_IMAGES } from '@/lib/seo';
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
@@ -23,7 +23,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 // 1. Tách cấu hình Viewport (Theme color, scale) ra riêng theo chuẩn Next.js mới
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF',
+  themeColor: '#F6F9FD',
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5, // Cho phép zoom để tốt cho UX/Accessiblity (Google thích điều này)
@@ -35,16 +35,15 @@ export const metadata: Metadata = {
   // 2. Title Template: Tốt
   title: {
     template: '%s | GCM', // Ngắn để title trang con không vượt 60 ký tự
-    default: 'GCM - All About Cars | Xe VinFast và trạm sạc tại Cần Thơ', // Title trang chủ nên dài và đủ ý hơn
+    default: 'Đầu tư trạm sạc xe điện miền Nam tại Cần Thơ | Green CM',
   },
   
-  description: 'Green CM ở Cần Thơ bán ô tô VinFast mới, xe VinFast cũ đã thẩm định, phụ kiện VinFast và tư vấn đầu tư trạm sạc VinFast, TMT-EGREEN.',
+  description: 'Green CM ở Cần Thơ phân phối trụ sạc V-Green và tư vấn đầu tư trạm sạc xe điện cho miền Nam. Green CM cũng là đối tác trụ sạc TMT-EGREEN.',
   
   // 3. Keywords: Sửa lại cho đồng nhất GCM/CGM
   keywords: [
-    'GCM - All About Cars', // Đã sửa CGM -> GCM
     'Green CM',
-    'Công ty Cổ Phần Green CM',
+    'Công ty Cổ phần Green CM',
     'ô tô VinFast Cần Thơ',
     'xe VinFast cũ',
     'phụ kiện VinFast',
@@ -60,9 +59,8 @@ export const metadata: Metadata = {
   // 5. Icons: Vì đã có metadataBase, bạn có thể viết gọn lại
   icons: {
     icon: [
-      { url: '/web-app-manifest-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
-      { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: [
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
@@ -91,24 +89,17 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'vi_VN',
     url: './', // Relative URL để tự động map theo từng trang
-    siteName: 'GCM - All About Cars',
-    title: 'GCM - All About Cars | Xe VinFast và trạm sạc tại Cần Thơ',
-    description: 'Ô tô VinFast mới, xe VinFast cũ, trạm sạc và phụ kiện VinFast tại Cần Thơ.',
-    images: [
-      {
-        url: '/Banner%20hero%20homepage.png', // Tự động nối với metadataBase
-        width: 3104,
-        height: 1376,
-        alt: 'Showroom GCM - All About Cars với các mẫu xe VinFast',
-      },
-    ],
+    siteName: 'GCM',
+    title: 'Đầu tư trạm sạc xe điện miền Nam tại Cần Thơ | Green CM',
+    description: 'Trụ sạc, tư vấn đầu tư trạm sạc xe điện và xe VinFast tại Cần Thơ.',
+    images: [OG_IMAGES.macDinh],
   },
-  
+
   twitter: {
     card: 'summary_large_image',
-    title: 'GCM - All About Cars',
-    description: 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện và trạm sạc tại Cần Thơ.',
-    images: ['/Banner%20hero%20homepage.png'], 
+    title: 'Green CM',
+    description: 'Trụ sạc, tư vấn đầu tư trạm sạc xe điện và xe VinFast tại Cần Thơ.',
+    images: [OG_IMAGES.macDinh.url],
   },
 };
 
@@ -143,11 +134,7 @@ export default function RootLayout({
         <OrganizationSchema
           legalName="Công ty Cổ phần Green CM"
           taxID={BUSINESS_TAX_ID}
-          areaServed={['Cần Thơ', 'Vĩnh Long', 'Hậu Giang', 'Sóc Trăng', 'An Giang', 'Cà Mau', 'Bạc Liêu', 'Kiên Giang']}
-          aggregateRating={{
-            ratingValue: 4.8,
-            reviewCount: 150
-          }}
+          areaServed={['TP Hồ Chí Minh', 'Đồng Nai', 'Tây Ninh', 'Cần Thơ', 'Vĩnh Long', 'Đồng Tháp', 'An Giang', 'Cà Mau']}
           sameAs={[
             'https://www.facebook.com/kinhdoanhgreencm',
             'https://www.tiktok.com/@gcm.all.about.car',
@@ -157,7 +144,6 @@ export default function RootLayout({
         <WebsiteSchema />
 
         {children}
-        <FloatingContactDock />
         <Reveal />
       </body>
     </html>

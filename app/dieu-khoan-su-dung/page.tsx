@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Điều khoản sử dụng',
-  description: 'Điều khoản sử dụng dịch vụ và website greencm.vn của Công ty Cổ phần Green CM (GCM - All About Cars).',
+  description: 'Điều khoản sử dụng dịch vụ và website greencm.vn của Công ty Cổ phần Green CM (GCM).',
   alternates: {
     canonical: `${baseUrl}/dieu-khoan-su-dung`,
   },

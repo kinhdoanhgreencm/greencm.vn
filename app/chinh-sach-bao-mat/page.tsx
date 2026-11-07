@@ -5,7 +5,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Chính sách bảo mật',
-  description: 'Cách Công ty Cổ phần Green CM (GCM - All About Cars) thu thập, dùng và bảo vệ thông tin khách hàng trên website greencm.vn.',
+  description: 'Cách Công ty Cổ phần Green CM (GCM) thu thập, dùng và bảo vệ thông tin khách hàng trên website greencm.vn.',
   alternates: {
     canonical: `${baseUrl}/chinh-sach-bao-mat`,
   },

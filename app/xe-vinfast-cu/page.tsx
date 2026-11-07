@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_BASE } from '@/lib/seo';
 import XeVinfastCuClient from './XeVinfastCuClient';
 import { BreadcrumbSchema, ItemListSchema } from '../../components/SchemaMarkup';
 import { getAvailableUsedCars, parseUsedCarFilters, hasAnyUsedCarFilter } from '../../lib/usedCars';
@@ -27,6 +28,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       'thẩm định xe điện cũ',
     ],
     openGraph: {
+      ...OG_BASE,
       title: 'Xe VinFast cũ Cần Thơ: kiểm định 160 điểm, bao test toàn quốc',
       description: 'Xe VinFast đã qua sử dụng, ghi rõ tình trạng pin và loại biển số. Có trả góp và làm thủ tục sang tên.',
       url: `${baseUrl}/xe-vinfast-cu`,
@@ -38,8 +40,6 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
           alt: 'Xe VinFast cũ đã kiểm định tại GCM Cần Thơ',
         },
       ],
-      locale: 'vi_VN',
-      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',

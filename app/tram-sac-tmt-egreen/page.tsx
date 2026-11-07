@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import TramSacTmtEgreenClient from './TramSacTmtEgreenClient';
 import { ServiceSchema, BreadcrumbSchema } from '@/components/SchemaMarkup';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
-const ogImage = `${baseUrl}/images/tmt-egreen/240kw.webp`;
 
 export const metadata: Metadata = {
   title: 'Nhượng quyền trạm sạc TMT-EGREEN',
@@ -22,25 +22,17 @@ export const metadata: Metadata = {
     canonical: `${baseUrl}/tram-sac-tmt-egreen`,
   },
   openGraph: {
+    ...OG_BASE,
     title: 'Trạm sạc TMT-EGREEN | Nhượng quyền đầu tư trạm sạc xe điện',
     description: 'GCM là đại lý/đối tác chính thức của TMT-EGREEN tại Cần Thơ & ĐBSCL. Nhượng quyền đầu tư, chuẩn CCS2, chia lợi nhuận tới 85%.',
     url: `${baseUrl}/tram-sac-tmt-egreen`,
-    images: [
-      {
-        url: ogImage,
-        width: 1200,
-        height: 800,
-        alt: 'Trụ sạc TMT-EGREEN',
-      },
-    ],
-    locale: 'vi_VN',
-    type: 'website',
+    images: [OG_IMAGES.tramSacTmt],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Trạm sạc TMT-EGREEN | GCM',
     description: 'Nhượng quyền đầu tư trạm sạc TMT-EGREEN, chia lợi nhuận tới 85%.',
-    images: [ogImage],
+    images: [OG_IMAGES.tramSacTmt.url],
   },
 };
 
@@ -63,10 +55,6 @@ export default function TramSacTmtEgreenPage() {
         description="Tư vấn đầu tư nhượng quyền trạm sạc TMT-EGREEN. Hỗ trợ mặt bằng, pháp lý, lắp đặt và vận hành."
         serviceType="InvestmentService"
         areaServed="Vietnam"
-        offers={{
-          price: 'Liên hệ',
-          priceCurrency: 'VND',
-        }}
       />
 
       <BreadcrumbSchema

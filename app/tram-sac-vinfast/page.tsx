@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import TramSacVinFastClient from './TramSacVinFastClient';
+import { FAQ_V_GREEN } from '@/lib/faqVGreen';
 import { ServiceSchema, BreadcrumbSchema } from '@/components/SchemaMarkup';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
-const ogImage = 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Tram%20sac%20VF.png';
 
 export const metadata: Metadata = {
-  title: 'Đầu tư trạm sạc VinFast nhượng quyền',
-  description: 'GCM tư vấn đầu tư trạm sạc VinFast nhượng quyền trọn gói: lo thủ tục pháp lý, lắp trụ sạc từ 11kW đến 120kW. Gọi 0916 513 720 để nhận báo giá.',
+  title: 'Trạm sạc VinFast nhượng quyền: cập nhật 2026, giá trụ',
+  description: 'Bảng giá trụ sạc V-Green từ AC 7,4kW đến DC 120kW tại GCM. V-Green tạm dừng nhận hồ sơ nhượng quyền mới từ 06/08/2026; hợp đồng đã ký vẫn hiệu lực.',
   keywords: [
     'trạm sạc vinfast nhượng quyền',
     'chi phí lắp đặt trạm sạc xe điện',
@@ -28,49 +29,31 @@ export const metadata: Metadata = {
     canonical: `${baseUrl}/tram-sac-vinfast`,
   },
   openGraph: {
-    title: 'Đầu tư trạm sạc VinFast nhượng quyền cùng GCM',
-    description: 'Hợp tác đầu tư trạm sạc VinFast: vốn linh hoạt, GCM hỗ trợ mặt bằng và pháp lý từ khảo sát đến nghiệm thu. Nhận báo giá ngay.',
+    ...OG_BASE,
+    title: 'Trụ sạc V-Green và nhượng quyền trạm sạc VinFast 2026',
+    description: 'Bảng giá trụ sạc V-Green tại GCM. V-Green tạm dừng nhận hồ sơ nhượng quyền mới từ 06/08/2026.',
     url: `${baseUrl}/tram-sac-vinfast`,
-    images: [
-      {
-        url: ogImage,
-        width: 2528,
-        height: 1528,
-        alt: 'Mô hình trạm sạc VinFast nhượng quyền thực tế',
-      },
-    ],
-    locale: 'vi_VN',
-    type: 'website',
+    images: [OG_IMAGES.tramSacVGreen],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Đầu tư trạm sạc VinFast nhượng quyền',
-    description: 'Tư vấn đầu tư trạm sạc xe điện VinFast nhượng quyền tại GCM.',
-    images: [ogImage],
+    title: 'Trụ sạc V-Green và nhượng quyền trạm sạc VinFast 2026',
+    description: 'Bảng giá trụ sạc V-Green tại GCM và cập nhật chương trình nhượng quyền.',
+    images: [OG_IMAGES.tramSacVGreen.url],
   },
 };
 
-const faqData = [
-  {
-    question: 'Chi phí đầu tư một trạm sạc VinFast nhượng quyền là bao nhiêu?',
-    answer: 'Chi phí phụ thuộc vào số lượng trụ và mặt bằng. GCM cung cấp các gói trụ từ 11kW đến 120kW với giá niêm yết từ 12 triệu đến 416 triệu đồng. Liên hệ 0916 513 720 để nhận bảng dự toán chi tiết.',
-  },
-  {
-    question: 'Tôi có mặt bằng trống, GCM có hỗ trợ khảo sát không?',
-    answer: 'Có. GCM hỗ trợ quy trình khép kín: Khảo sát mặt bằng -> Check quy hoạch -> Đăng ký kinh doanh -> Thi công trạm biến áp và lắp đặt trụ.',
-  },
-];
 
 export default function TramSacVinFastPage() {
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
-    name: 'Trụ sạc nhanh DC VinFast 60kW',
-    image: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/Tru%20Sac%2060kw%20VinFast.png',
+    name: 'Trụ sạc nhanh DC V-Green 60kW',
+    image: `${baseUrl}/images/v-green/dc-60kw.webp`,
     description: 'Trụ sạc nhanh DC công suất 60kW, phù hợp trạm sạc đô thị.',
     brand: {
       '@type': 'Brand',
-      name: 'VinFast',
+      name: 'V-Green',
     },
     offers: {
       '@type': 'Offer',
@@ -78,6 +61,7 @@ export default function TramSacVinFastPage() {
       priceCurrency: 'VND',
       price: '278000000',
       availability: 'https://schema.org/InStock',
+      seller: { '@id': `${baseUrl}/#organization` },
     },
   };
 
@@ -85,14 +69,10 @@ export default function TramSacVinFastPage() {
     <>
       {/* KHAI BÁO SCHEMA TẠI SERVER - Google sẽ đọc được ngay lập tức */}
       <ServiceSchema
-        name="Dịch vụ Tư vấn & Lắp đặt Trạm sạc VinFast Nhượng quyền"
-        description="Cung cấp giải pháp đầu tư trạm sạc ô tô điện VinFast trọn gói: Tư vấn mặt bằng, thủ tục pháp lý, thi công lắp đặt và vận hành."
-        serviceType="InvestmentService"
+        name="Bán và lắp đặt trụ sạc V-Green"
+        description="Bán và lắp đặt trụ sạc V-Green cho nhà riêng, văn phòng và bãi xe tại các tỉnh miền Nam."
+        serviceType="Bán và lắp đặt trụ sạc xe điện"
         areaServed="Vietnam"
-        offers={{
-          price: 'Liên hệ',
-          priceCurrency: 'VND',
-        }}
       />
 
       <BreadcrumbSchema
@@ -109,7 +89,7 @@ export default function TramSacVinFastPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            mainEntity: faqData.map((item) => ({
+            mainEntity: FAQ_V_GREEN.map((item) => ({
               '@type': 'Question',
               name: item.question,
               acceptedAnswer: {

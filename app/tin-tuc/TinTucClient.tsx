@@ -8,7 +8,7 @@ import AuthModal from '../../components/AuthModal';
 import { BreadcrumbSchema } from '../../components/SchemaMarkup';
 import { getPageBreadcrumbs } from '../../lib/breadcrumbUtils';
 
-export default function TinTucClient() {
+export default function TinTucClient({ initialPage = 1 }: { initialPage?: number }) {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const breadcrumbItems = getPageBreadcrumbs('tin-tuc', 'Tin tức');
 
@@ -17,7 +17,7 @@ export default function TinTucClient() {
       <BreadcrumbSchema items={breadcrumbItems} />
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
-        <NewsPage />
+        <NewsPage initialPage={initialPage} />
       </main>
       <Footer />
       {isAuthOpen && <AuthModal onClose={() => setIsAuthOpen(false)} />}

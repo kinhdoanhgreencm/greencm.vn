@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Phone, MessageCircle, Zap, ShieldCheck, Wallet, RefreshCw, Building2, CheckCircle, MapPin, Smartphone, Search, QrCode, BatteryCharging, Calculator, ArrowUpRight } from 'lucide-react';
 import PageHero from './PageHero';
 import SpeedBars from './SpeedBars';
+import { TMT_PRODUCTS } from '../lib/tmtProducts';
 
 // Mức chia sẻ lợi nhuận 1.500đ/kWh đã công bố tại bài "Lợi nhuận chia sẻ theo kWh là gì?" (/tin-tuc/loi-nhuan-chia-se-theo-kwh-tmt-egreen)
 const REVENUE_SHARE_PER_KWH = 1500;
@@ -20,20 +21,7 @@ const CALCULATOR_POLES = [
   { label: 'DC 320kW', kw: 320 },
 ];
 
-// Danh mục trụ sạc GCM đang phân phối theo chính sách giá TMT-EGREEN 11/2026 (10 dòng). Thông số theo tmt-egreen.com.
-// Tất cả đạt IP55, IK10; DC giao tiếp OCPP 1.6J, AC giao tiếp 4G + LAN + OCPP.
-const TMT_PRODUCTS = [
-  { model: 'AC 22kW Auto Charge', type: 'AC', power: '22 kW', ports: 1, connector: 'Type 2', voltage: '400 VAC ±10%, 50/60Hz', form: 'Treo tường', image: '/images/tmt-egreen/7kw.webp', desc: 'Sạc AC treo tường có Auto Charge, cắm súng là sạc. Đầu sạc Type 2, công suất định mức 22kW, hợp với bãi xe đỗ lâu hoặc sạc qua đêm.' },
-  { model: 'DC 20kW', type: 'DC', power: '20 kW', ports: 1, connector: 'CCS2', voltage: '400 VAC ±10%, 50/60Hz', form: 'Gắn trụ / treo tường', image: '/images/tmt-egreen/20kw.webp', desc: 'Sạc nhanh DC 1 súng, công suất tối đa 20kW. Hợp với quán cà phê, nhà hàng, gara nơi khách dừng 1–2 giờ.' },
-  { model: 'DC 30kW', type: 'DC', power: '30 kW', ports: 1, connector: 'CCS2', voltage: '400 VAC ±10%, 50/60Hz', form: 'Gắn trụ / treo tường', image: '/images/tmt-egreen/30kw.webp', desc: 'Sạc nhanh DC treo tường hoặc gắn trụ, 1 cổng sạc, công suất tối đa 30kW.' },
-  { model: 'DC 60kW', type: 'DC', power: '60 kW', ports: 2, connector: 'CCS2', voltage: '3 pha, 400 VAC ±10%, 50/60Hz', form: 'Tủ đứng', image: '/images/tmt-egreen/60kw.webp', desc: 'Sạc nhanh DC dạng tủ đứng, 2 cổng sạc. Công suất tối đa 60kW (tuỳ vị trí trạm).' },
-  { model: 'DC 120kW', type: 'DC', power: '120 kW', ports: 2, connector: 'CCS2', voltage: '400 VAC ±10%, 50/60Hz', form: 'Tủ đứng', image: '/images/tmt-egreen/120kw.webp', desc: 'Sạc nhanh DC dạng tủ đứng, 2 súng sạc CCS2, công suất tối đa 120kW; hiệu suất chuyển đổi từ 96,5%.' },
-  { model: 'DC 240kW', type: 'DC', power: '240 kW', ports: 2, connector: 'CCS2', voltage: '400 VAC ±10%, 50/60Hz, 3 pha (L1+L2+L3+N+PE)', form: 'Tủ đứng', image: '/images/tmt-egreen/240kw.webp', desc: 'Sạc siêu nhanh DC dạng tủ đứng, 2 cổng sạc, công suất tối đa 240kW, kết nối 4G/Wi-Fi/Ethernet.' },
-  { model: 'DC 320kW', type: 'DC', power: '320 kW', ports: 2, connector: 'CCS2', voltage: '400V ±10%, 50/60Hz, 3P+PE', form: 'Tủ đứng', image: '/images/tmt-egreen/320kw.webp', desc: 'Sạc siêu nhanh DC dạng tủ đứng, 2 cổng sạc, công suất tối đa 320kW tuỳ vị trí trạm.' },
-  { model: 'DC 400kW', type: 'DC', power: '400 kW', ports: 2, connector: 'CCS2', voltage: '400V ±10%, 50/60Hz, 3P+PE', form: 'Tủ đứng', image: '/images/tmt-egreen/400kw.webp', desc: 'Sạc siêu nhanh DC dạng tủ đứng, 2 cổng sạc, công suất tối đa 400kW tuỳ vị trí trạm.' },
-  { model: 'DC 480kW', type: 'DC', power: '480 kW', ports: 2, connector: 'CCS2', voltage: '400V ±10%, 50/60Hz, 3P+PE', form: 'Tủ đứng', image: '/images/tmt-egreen/480kw.webp', desc: 'Sạc siêu nhanh DC dạng tủ đứng, 2 cổng sạc, công suất tối đa 480kW tuỳ vị trí trạm.' },
-  { model: 'DC 960kW', type: 'DC', power: '960 kW', ports: 10, connector: 'CCS2', voltage: '400V ±10%, 50/60Hz, 3P+PE', form: 'Tủ công suất + trụ sạc đứng', image: '/images/tmt-egreen/960kw.webp', desc: 'Hệ thống tủ công suất và các trụ sạc đứng, mỗi trụ 2 cổng, tổng công suất tối đa 960kW. Dành cho depot, trạm quy mô lớn.' },
-];
+// Danh mục 10 dòng trụ: lib/tmtProducts.ts (dùng chung với trang riêng từng mẫu)
 
 const COVERAGE_PROVINCES = [
   'Cần Thơ', 'Hà Nội', 'TP.HCM', 'Đà Nẵng', 'Hải Phòng', 'Huế', 'An Giang', 'Bắc Ninh', 'Cà Mau',
@@ -79,7 +67,7 @@ const TmtEgreenChargingPage: React.FC = () => {
         summary={
           <>
             Nhượng quyền đầu tư trạm sạc xe điện chuẩn CCS2, sạc được cho mọi hãng xe. GCM là đại lý/đối tác chính thức của TMT-EGREEN tại Cần Thơ và Đồng bằng sông Cửu Long.
-            <span className="mt-2 block text-sm text-white/60">
+            <span className="mt-2 block text-sm text-ink-mute">
               TMT-EGREEN là công ty thành viên của Công ty Cổ phần Ô tô TMT (TMT Motors).
             </span>
           </>
@@ -165,11 +153,12 @@ const TmtEgreenChargingPage: React.FC = () => {
               <h2 className="gcm-h2">Danh mục trụ sạc TMT-EGREEN</h2>
             </div>
             <p className="max-w-md text-ink-soft">
-              10 dòng trụ sạc ô tô điện GCM đang phân phối, từ AC 22kW treo tường đến hệ thống DC 960kW. GCM giúp bạn chọn cấu hình theo mặt bằng và lượng xe ra vào.
+              10 dòng trụ sạc ô tô điện GCM đang phân phối, từ AC 22kW treo tường đến hệ thống DC 960kW. GCM giúp bạn chọn cấu hình theo mặt bằng và lượng xe ra vào.{' '}
+              <Link href="/tram-sac-tmt-egreen/bang-gia" className="font-semibold text-navy underline">Xem bảng giá từng mẫu</Link>.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="gcm-grid">
             {TMT_PRODUCTS.map((product) => (
               <article key={product.model} className="gcm-card flex flex-col overflow-hidden">
                 <div className="relative aspect-[4/3] bg-tint">
@@ -183,7 +172,9 @@ const TmtEgreenChargingPage: React.FC = () => {
                   <span className="gcm-badge absolute left-3 top-3 bg-white">{product.type === 'AC' ? 'Sạc AC' : 'Sạc nhanh DC'}</span>
                 </div>
                 <div className="flex flex-1 flex-col gap-3 p-5">
-                  <h3 className="gcm-h3">Trụ sạc {product.model}</h3>
+                  <h3 className="gcm-h3">
+                    <Link href={`/tram-sac-tmt-egreen/${product.slug}`} className="hover:underline">Trụ sạc {product.model}</Link>
+                  </h3>
                   <dl className="grid grid-cols-3 gap-2 py-3 text-xs">
                     <div>
                       <dt className="text-ink-mute">Công suất</dt>
@@ -199,9 +190,9 @@ const TmtEgreenChargingPage: React.FC = () => {
                     </div>
                   </dl>
                   <p className="text-sm leading-relaxed text-ink-soft">{product.desc}</p>
-                  <a href="tel:0916513720" className="gcm-link mt-auto">
-                    Nhận báo giá <ArrowUpRight size={14} />
-                  </a>
+                  <Link href={`/tram-sac-tmt-egreen/${product.slug}`} className="gcm-link mt-auto">
+                    Xem giá và thông số <ArrowUpRight size={14} />
+                  </Link>
                 </div>
               </article>
             ))}
@@ -395,8 +386,8 @@ const TmtEgreenChargingPage: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { title: 'Bảng giá trụ sạc TMT-EGREEN mới nhất', href: '/tin-tuc/bang-gia-tru-sac-xe-dien-tmt-egreen' },
-              { title: 'So sánh TMT-EGREEN và VinFast: nên chọn đối tác nào?', href: '/tin-tuc/so-sanh-nhuong-quyen-tram-sac-tmt-egreen-vinfast' },
+              { title: 'Bảng giá trụ sạc TMT-EGREEN mới nhất', href: '/tram-sac-tmt-egreen/bang-gia' },
+              { title: 'Tiêu chuẩn thi công trạm sạc TMT-EGREEN', href: '/tin-tuc/tieu-chuan-thi-cong-tram-sac-xe-dien-tmt-egreen' },
               { title: 'Đầu tư trạm sạc có lời không? Phân tích ROI, IRR', href: '/tin-tuc/dau-tu-tram-sac-xe-dien-co-loi-khong' },
               { title: 'Case study: trạm sạc 2 trụ hoàn vốn sau 3 năm', href: '/tin-tuc/case-study-dau-tu-tram-sac-xe-dien-hoan-von-3-nam' },
               { title: 'Thông số kỹ thuật đầy đủ 12 model trụ sạc', href: '/tin-tuc/thong-so-ky-thuat-tru-sac-xe-dien-tmt-egreen' },

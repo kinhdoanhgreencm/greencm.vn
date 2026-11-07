@@ -3,39 +3,27 @@
 import { useState } from 'react';
 import Header from './Header';
 import Hero from './Hero';
-import Services from './Services';
-import Fleet from './Fleet';
-import HomeIntro from './HomeIntro';
-import WhyGcm from './WhyGcm';
-import CtaBand from './CtaBand';
+import HomeMission from './HomeMission';
+import ChargerShowcase from './ChargerShowcase';
+import HomeServices from './HomeServices';
 import LatestPosts from './LatestPosts';
-import ChargingHighlight from './ChargingHighlight';
+import CtaBand from './CtaBand';
 import Footer from './Footer';
 import AuthModal from './AuthModal';
-import { BreadcrumbSchema, CorporationSchema } from './SchemaMarkup';
-
-const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export default function HomeClient() {
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
-  // Breadcrumb for homepage (just home)
-  const breadcrumbItems = [
-    { name: 'Trang chủ', url: `${baseUrl}/` }
-  ];
-
   return (
     <div>
-      <BreadcrumbSchema items={breadcrumbItems} />
-      <CorporationSchema />
       <Header onLoginClick={() => setIsAuthOpen(true)} />
       <main>
+        {/* Bố cục theo mẫu Tidepost: hero ảnh, giới thiệu, bảng giá trụ sạc (nội dung chính), dịch vụ khác, bài viết, kêu gọi */}
         <Hero />
-        <ChargingHighlight />
-        <HomeIntro />
-        <Services />
-        <Fleet />
-        <WhyGcm />
+        <HomeMission />
+        <ChargerShowcase brand="vinfast" />
+        <ChargerShowcase brand="tmt" />
+        <HomeServices />
         <LatestPosts />
         <CtaBand />
       </main>

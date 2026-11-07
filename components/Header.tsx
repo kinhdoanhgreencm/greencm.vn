@@ -99,52 +99,54 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
     return '/';
   };
 
-  // Vạch xiên xanh GCM dưới mục menu đang xem / rê chuột, như nét logo
+  // Chấm ngọc dưới mục menu đang xem / rê chuột
   const underline =
-    "after:absolute after:inset-x-0 after:bottom-0 after:h-[3px] after:bg-[#00D26A] after:origin-left after:transition-transform after:duration-200 after:[clip-path:polygon(3px_0,100%_0,calc(100%-3px)_100%,0_100%)]";
+    "after:absolute after:left-1/2 after:bottom-3 after:h-1 after:w-1 after:-translate-x-1/2 after:rounded-full after:bg-sky after:transition-transform after:duration-300";
 
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-colors duration-200 ${
-          isScrolled || pathname !== '/' ? 'bg-black border-black' : 'bg-black border-black'
+        className={`fixed top-0 left-0 w-full z-50 border-b transition-all duration-300 ${
+          isScrolled || pathname !== '/'
+            ? 'border-line bg-white shadow-[0_8px_24px_-20px_rgba(10,53,114,.35)]'
+            : 'border-line bg-white'
         }`}
       >
-        <div className="gcm-container flex h-16 items-stretch justify-between gap-5 text-white">
+        <div className="gcm-container flex h-16 items-stretch justify-between gap-5 text-navy">
           {/* Logo */}
-          <Link href="/" className="flex items-center z-50" aria-label="GCM - All About Cars, về trang chủ">
+          <Link href="/" className="flex items-center z-50" aria-label="GCM, về trang chủ">
             <img
-              src="/brand/gcm-logo-xe-nen-toi.png"
-              alt="GCM All About Cars"
-              width={164}
-              height={40}
-              className="h-10 w-auto"
+              src="/brand/v3/gcm-logo.svg"
+              alt="GCM"
+              width={114}
+              height={36}
+              className="h-9 w-auto"
             />
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-stretch gap-6 ml-auto">
+          <nav className="hidden lg:flex items-stretch gap-4 xl:gap-7 mx-auto whitespace-nowrap">
             {NAV_ITEMS.map((item) => (
               item.children ? (
                 <div key={item.label} className="relative group flex">
                   <button
-                    className={`relative flex items-center gap-1 text-[0.9375rem] font-medium transition-colors hover:text-[#00D26A] ${underline} ${
-                      isItemActive(item) ? 'text-[#00D26A] after:scale-x-100' : 'text-white after:scale-x-0 group-hover:after:scale-x-100'
+                    className={`relative flex items-center gap-1 text-[0.8125rem] xl:text-[0.875rem] font-medium transition-colors hover:text-ocean ${underline} ${
+                      isItemActive(item) ? 'text-ocean after:scale-100' : 'text-navy after:scale-0 group-hover:after:scale-100'
                     }`}
                   >
                     {item.label}
-                    <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
+                    <ChevronDown size={14} className="transition-transform duration-300 group-hover:rotate-180" />
                   </button>
 
                   {/* Dropdown panel */}
-                  <div className="absolute left-0 top-full pt-1 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
-                    <div className="rounded-panel border border-line bg-surface p-1.5 min-w-[220px] shadow-[0_12px_24px_-16px_rgba(11,23,48,.25)]">
+                  <div className="absolute left-1/2 top-full -translate-x-1/2 pt-1 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300">
+                    <div className="rounded-panel border border-line bg-surface p-1.5 min-w-[230px] shadow-[0_20px_40px_-24px_rgba(10,53,114,.4)]">
                       {item.children.map((child) => (
                         <Link
                           key={child.label}
                           href={getNavPath(child.href)}
-                          className={`block rounded-control px-3 py-2 text-sm font-medium transition-colors hover:bg-tint-strong hover:text-ocean ${
-                            isActive(child.href) ? 'bg-tint-strong text-ocean-deep' : 'text-ink'
+                          className={`block rounded-xl px-3 py-2 text-sm font-medium transition-colors hover:bg-tint hover:text-ocean ${
+                            isActive(child.href) ? 'bg-tint text-ocean-deep' : 'text-ink'
                           }`}
                         >
                           {child.label}
@@ -157,8 +159,8 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
                 <Link
                   key={item.label}
                   href={getNavPath(item.href)}
-                  className={`relative flex items-center text-[0.9375rem] font-medium transition-colors hover:text-[#00D26A] ${underline} ${
-                    isActive(item.href) ? 'text-[#00D26A] after:scale-x-100' : 'text-white after:scale-x-0 hover:after:scale-x-100'
+                  className={`relative flex items-center text-[0.8125rem] xl:text-[0.875rem] font-medium transition-colors hover:text-ocean ${underline} ${
+                    isActive(item.href) ? 'text-ocean after:scale-100' : 'text-navy after:scale-0 hover:after:scale-100'
                   }`}
                 >
                   {item.label}
@@ -167,33 +169,17 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
             ))}
             <Link
               href="/lien-he"
-              className={`relative flex items-center text-[0.9375rem] font-medium transition-colors hover:text-[#00D26A] ${underline} ${
-                isActive('/lien-he') ? 'text-[#00D26A] after:scale-x-100' : 'text-white after:scale-x-0 hover:after:scale-x-100'
+              className={`relative flex items-center text-[0.8125rem] xl:text-[0.875rem] font-medium transition-colors hover:text-ocean ${underline} ${
+                isActive('/lien-he') ? 'text-ocean after:scale-100' : 'text-navy after:scale-0 hover:after:scale-100'
               }`}
             >
               Liên hệ
             </Link>
           </nav>
 
-          {/* Right Side Actions */}
-          <div className="hidden lg:flex items-center gap-2">
-            <a href="tel:0916513720" className="inline-flex h-9 items-center gap-2 rounded-control bg-[#00D26A] px-3.5 text-sm font-semibold tabular text-black transition-colors hover:bg-white">
-              <Phone size={15} />
-              0916 513 720
-            </a>
-            <button
-              onClick={onLoginClick}
-              className="flex h-9 w-9 items-center justify-center rounded-control border border-white/30 text-white/80 transition-colors hover:border-[#00D26A] hover:text-[#00D26A]"
-              aria-label="Đăng nhập"
-              title="Đăng nhập"
-            >
-              <LogIn size={16} />
-            </button>
-          </div>
-
           {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden flex h-11 w-11 self-center items-center justify-center rounded-panel text-white z-50 relative -mr-2"
+            className="lg:hidden relative z-50 flex h-11 w-11 self-center items-center justify-center rounded-[12px] border border-line-strong bg-white text-navy transition-colors hover:border-navy hover:bg-tint"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
           >
@@ -204,7 +190,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
 
       {/* Mobile Menu Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-x-0 top-16 bottom-0 z-40 bg-white animate-fade-in flex flex-col px-4 pb-6 lg:hidden overflow-y-auto">
+        <div className="fixed inset-x-0 top-16 bottom-0 z-40 bg-page animate-fade-in flex flex-col px-4 pb-6 lg:hidden overflow-y-auto">
           <nav>
             <ul className="divide-y divide-line">
               {NAV_ITEMS.map((item) => {
@@ -213,7 +199,7 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
                   <li key={item.label} className="py-1">
                     <Link
                       href={getNavPath(item.href)}
-                      className={`flex items-center gap-3 rounded-control px-2 py-2.5 text-md font-medium transition-colors ${
+                      className={`flex items-center gap-3 rounded-2xl px-3 py-2.5 text-md font-medium transition-colors ${
                         active ? 'bg-tint-strong text-ocean-deep' : 'text-ink'
                       }`}
                       onClick={() => setMobileMenuOpen(false)}
@@ -253,22 +239,6 @@ const Header: React.FC<HeaderProps> = ({ onLoginClick }) => {
             </ul>
           </nav>
 
-          <div className="mt-6 grid gap-3">
-            <a href="tel:0916513720" className="gcm-btn w-full">
-              <Phone size={16} />
-              Gọi 0916 513 720
-            </a>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onLoginClick();
-              }}
-              className="gcm-btn-ghost w-full"
-            >
-              <LogIn size={16} />
-              Đăng nhập / Đăng ký
-            </button>
-          </div>
         </div>
       )}
     </>

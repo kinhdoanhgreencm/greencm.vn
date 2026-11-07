@@ -94,6 +94,8 @@ export interface NewCar {
   segment: 'urban' | 'suv-bc' | 'luxury' | 'micro-transit' | 'vip-transit' | 'cargo';
   description?: string;
   features?: string[];
+  variants?: Array<{ name: string; price: number }>; // giá từng phiên bản
+  vtlx2?: 'low' | 'mid' | 'high'; // nhóm ưu đãi "Vì Tương Lai Xanh 2" (lib/vinfastPolicy.ts)
 }
 
 
@@ -103,7 +105,7 @@ export interface BlogPost {
   seoTitle?: string; // Title ngắn cho thẻ <title> khi tiêu đề bài dài hơn 54 ký tự
   excerpt: string;
   image: string;
-  category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen' | 'xe-vinfast-cu';
+  category: 'market' | 'review' | 'tips' | 'legal' | 'promo' | 'tmt-egreen' | 'v-green' | 'xe-vinfast-cu';
   categoryLabel: string;
   date: string;
   author: string;

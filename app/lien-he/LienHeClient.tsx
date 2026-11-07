@@ -83,7 +83,7 @@ export default function LienHeClient() {
     },
     {
       icon: MapPin,
-      label: 'Địa chỉ showroom',
+      label: 'Địa chỉ văn phòng',
       value: '59, Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ',
       link: '#',
       color: 'text-green-500'
@@ -108,7 +108,7 @@ export default function LienHeClient() {
         <PageHero
           eyebrow="Liên hệ"
           title="Liên hệ với chúng tôi"
-          summary="Gọi hotline, gửi tin nhắn hoặc ghé showroom ở Cái Răng. GCM tư vấn xe VinFast, phụ kiện và đầu tư trạm sạc."
+          summary="Gọi hotline, gửi tin nhắn hoặc ghé văn phòng ở Cái Răng. GCM tư vấn xe VinFast, phụ kiện và đầu tư trạm sạc."
           crumbs={[{ href: '/lien-he', label: 'Liên hệ' }]}
         />
 
@@ -279,7 +279,7 @@ export default function LienHeClient() {
                       <strong className="font-semibold text-ink">Công ty Cổ phần Green CM</strong> là đơn vị chuyên bán ô tô điện VinFast mới và đã qua sử dụng, phụ kiện VinFast và tư vấn đầu tư trạm sạc tại Cần Thơ.
                     </p>
                     <p>
-                      Showroom mở cửa từ 07:30 đến 17:30, Thứ Hai đến Thứ Bảy. Bạn có thể ghé xem xe trực tiếp hoặc gọi trước để hẹn.
+                      Văn phòng mở cửa từ 07:30 đến 17:30, Thứ Hai đến Thứ Bảy. Bạn có thể ghé xem xe trực tiếp hoặc gọi trước để hẹn.
                     </p>
                   </div>
                 </div>

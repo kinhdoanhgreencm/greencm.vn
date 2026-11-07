@@ -13,11 +13,11 @@ const REASONS = [
   },
   {
     title: 'Đầu tư trạm sạc',
-    body: 'Tư vấn nhượng quyền trạm sạc VinFast và TMT-EGREEN chuẩn CCS2, chia sẻ lợi nhuận tới 85%, hỗ trợ mặt bằng và pháp lý.',
+    body: 'Tư vấn nhượng quyền trạm sạc xe điện, khảo sát mặt bằng, làm hồ sơ pháp lý và lắp đặt.',
   },
   {
-    title: 'Phủ khắp miền Tây',
-    body: 'Phục vụ Cần Thơ, Vĩnh Long, Hậu Giang, Sóc Trăng, An Giang, Cà Mau, Bạc Liêu và Kiên Giang từ showroom Cái Răng.',
+    title: 'Phủ khắp miền Nam',
+    body: 'Phục vụ TP Hồ Chí Minh, Đồng Nai, Tây Ninh, Cần Thơ, Vĩnh Long, Đồng Tháp, An Giang và Cà Mau từ văn phòng Cái Răng.',
   },
 ];
 

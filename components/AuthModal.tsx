@@ -30,7 +30,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
           {/* Header */}
           <div className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-4">
-               <img src="/brand/gcm-logo-xe-nen-sang.png" alt="GCM All About Cars" width={131} height={32} className="h-8 w-auto" />
+               <img src="/brand/v3/gcm-logo.svg" alt="GCM" width={104} height={32} className="h-8 w-auto" />
             </div>
             <h2 className="gcm-h2 text-2xl">Chào mừng trở lại!</h2>
             <p className="text-ink-soft text-sm mt-2">Đăng nhập để quản lý xe và dịch vụ của bạn</p>

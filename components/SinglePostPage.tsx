@@ -134,7 +134,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
         summary={post.excerpt}
         crumbs={breadcrumbItems.slice(0, -1).filter(item => item.href !== '/')} // Bỏ item cuối (bài viết hiện tại)
       >
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/70">
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-ink-mute">
           <div className="flex items-center gap-2">
             <User size={16} /> {post.author}
           </div>
@@ -209,7 +209,7 @@ const SinglePostPage: React.FC<SinglePostPageProps> = ({ post }) => {
                   <h2>Lái thử tại GCM</h2>
                   <p>
                     Muốn được tư vấn kỹ hơn hoặc đăng ký lái thử,
-                    hãy ghé showroom GCM hoặc gọi 0916 513 720.
+                    hãy ghé văn phòng GCM hoặc gọi 0916 513 720.
                   </p>
                 </>
               )}

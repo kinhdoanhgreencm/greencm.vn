@@ -56,9 +56,10 @@ const AccessoriesPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-page">
-      {/* Product Schema with Ratings for Accessories */}
+      {/* Schema Product cho phụ kiện. Giá "9.500.000đ" → 9500000 (bỏ mọi ký tự không phải chữ số).
+          Không khai báo aggregateRating: chưa có đánh giá thật hiển thị trên trang, số đã bán không phải số đánh giá. */}
       {ACCESSORIES_PRODUCTS.map((product) => {
-        const priceValue = parseFloat(product.price.replace(/[^\d.]/g, ''));
+        const priceValue = Number(product.price.replace(/\D/g, ''));
         return (
           <ProductSchema
             key={product.id}
@@ -72,11 +73,8 @@ const AccessoriesPage: React.FC = () => {
               price: priceValue,
               priceCurrency: 'VND',
               availability: 'https://schema.org/InStock',
+              url: '/phu-kien',
             }}
-            aggregateRating={product.rating ? {
-              ratingValue: product.rating,
-              reviewCount: product.soldCount || 10,
-            } : undefined}
           />
         );
       })}
@@ -87,9 +85,9 @@ const AccessoriesPage: React.FC = () => {
         title="Phụ kiện xe VinFast"
         summary={
           <>
-            <span className="font-semibold text-white">Lắp thêm tiện ích, làm chiếc xe theo ý mình.</span>{' '}
+            <span className="font-semibold text-navy">Lắp thêm tiện ích, làm chiếc xe theo ý mình.</span>{' '}
             Phụ kiện chính hãng, chọn đúng theo từng dòng xe VinFast.
-            <span className="mt-2 block text-sm text-white/60">Bảo hành điện tử 1 đổi 1</span>
+            <span className="mt-2 block text-sm text-ink-mute">Bảo hành điện tử 1 đổi 1</span>
           </>
         }
         crumbs={[{ href: '/phu-kien', label: 'Phụ kiện' }]}
@@ -103,7 +101,7 @@ const AccessoriesPage: React.FC = () => {
           <span className="gcm-label">Danh mục</span>
           <h2 className="gcm-h2">Danh mục phụ kiện</h2>
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="gcm-grid">
           {categories.map((cat) => (
             <div key={cat.id} className="group gcm-card gcm-card-hover flex cursor-pointer flex-col gap-3 p-5">
               <div className="flex items-start justify-between gap-3">
@@ -169,7 +167,7 @@ const AccessoriesPage: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between gap-3 pt-4">
                      <span className="gcm-badge">{combo.tag}</span>
-                     <button className="gcm-btn min-h-10 px-4 py-2 text-sm">
+                     <button className="gcm-btn">
                         Liên hệ ngay
                      </button>
                   </div>
@@ -194,7 +192,7 @@ const AccessoriesPage: React.FC = () => {
            </button>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="gcm-grid">
            {filteredProducts.map((product) => (
              <div key={product.id} className="gcm-card gcm-card-hover flex flex-col overflow-hidden">
                 <div className="relative aspect-square overflow-hidden bg-tint">
@@ -290,7 +288,7 @@ const AccessoriesPage: React.FC = () => {
          <div className="gcm-container">
             <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
                {[
-                 { icon: Wrench, title: 'Lắp đặt tận nơi', desc: 'Tại nhà hoặc tại showroom' },
+                 { icon: Wrench, title: 'Lắp đặt tận nơi', desc: 'Tại nhà hoặc tại văn phòng' },
                  { icon: Shield, title: 'Bảo hành điện tử', desc: '1 đổi 1 chính hãng' },
                  { icon: Truck, title: 'Giao hàng toàn quốc', desc: 'Kiểm tra hàng trước khi nhận' },
                  { icon: Headphones, title: 'Hỗ trợ kỹ thuật 24/7', desc: 'Gọi hotline khi cần' },

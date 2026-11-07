@@ -15,12 +15,12 @@ const HomeIntro: React.FC = () => {
         </div>
         <div className="flex flex-col gap-4">
           <p className="text-md leading-relaxed text-ink-soft">
-            GCM - All About Cars thuộc Công ty Cổ phần Green CM. Chúng tôi bán xe VinFast mới
+            GCM thuộc Công ty Cổ phần Green CM. Chúng tôi bán xe VinFast mới
             và xe VinFast đã qua sử dụng, cung cấp phụ kiện VinFast chính hãng và tư vấn đầu tư trạm sạc.
           </p>
           <p className="text-md leading-relaxed text-ink-soft">
-            Xe VinFast cũ được thẩm định 160 điểm trước khi đăng bán. Khách hàng tại Cần Thơ, Vĩnh Long, Hậu Giang, Sóc Trăng, An Giang
-            và các tỉnh miền Tây được hỗ trợ trực tiếp tại showroom Cái Răng.
+            Xe VinFast cũ được thẩm định 160 điểm trước khi đăng bán. GCM phục vụ khách hàng khắp miền Nam,
+            từ TP Hồ Chí Minh, Đồng Nai, Tây Ninh đến Cần Thơ, Vĩnh Long, Đồng Tháp, An Giang và Cà Mau, từ văn phòng Cái Răng.
           </p>
           <div className="mt-1">
             <Link href="/gioi-thieu" className="gcm-btn-ghost">

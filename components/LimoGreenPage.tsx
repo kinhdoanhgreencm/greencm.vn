@@ -106,13 +106,13 @@ const LimoGreenPage: React.FC = () => {
       {/* 1. Dải đầu trang */}
       <PageHero
         eyebrow="Ưu đãi tháng 01/2026"
-        title={<>Limo Green, <span className="text-sky-light">MPV điện 7 chỗ</span></>}
+        title={<>Limo Green, <span className="gcm-mark">MPV điện 7 chỗ</span></>}
         summary={
           <>
-            <span className="font-semibold text-white">Vốn đầu tư thấp, hoàn vốn nhanh khi chạy dịch vụ.</span>
+            <span className="font-semibold text-navy">Vốn đầu tư thấp, hoàn vốn nhanh khi chạy dịch vụ.</span>
             <span className="mt-3 hidden flex-col gap-1.5 md:flex">
-              <span className="flex items-center gap-2"><CheckCircle className="text-sky-light" size={18}/> <span className="tabular">450km mỗi lần sạc (chuẩn NEDC)</span></span>
-              <span className="flex items-center gap-2"><CheckCircle className="text-sky-light" size={18}/> Bảo hành chính hãng 7 năm</span>
+              <span className="flex items-center gap-2"><CheckCircle className="text-navy" size={18}/> <span className="tabular">450km mỗi lần sạc (chuẩn NEDC)</span></span>
+              <span className="flex items-center gap-2"><CheckCircle className="text-navy" size={18}/> Bảo hành chính hãng 7 năm</span>
             </span>
           </>
         }
@@ -201,7 +201,7 @@ const LimoGreenPage: React.FC = () => {
               <div className="flex-1 text-center md:text-left">
                  <h4 className="gcm-label mb-1">Tư vấn bán hàng, GCM Auto</h4>
                  <h3 className="gcm-h3 mb-2 text-xl">Mr. Tuấn Anh</h3>
-                 <p className="mb-5 text-sm italic text-ink-soft">&quot;Tôi giúp anh/chị chọn xe hợp nhu cầu và tính trước dòng tiền trả góp. GCM hỗ trợ vay ngân hàng tới 90%.&quot;</p>
+                 <p className="mb-5 text-sm italic text-ink-soft">&quot;Tôi giúp anh/chị chọn xe hợp nhu cầu và tính trước dòng tiền trả góp. Đến 31/12/2026 có thể vay tới 100% giá xe.&quot;</p>
                  <div className="flex flex-wrap justify-center gap-3 md:justify-start">
                     <a href="tel:0916513720" className="gcm-btn tabular">
                        <Phone size={18} /> 0916 513 720
@@ -340,7 +340,7 @@ const LimoGreenPage: React.FC = () => {
                {[
                   { icon: FileText, title: 'Đăng ký biển số', items: ['Đăng ký biển trắng (gia đình)', 'Đăng ký biển vàng trọn gói', 'Bấm biển đẹp phong thủy'] },
                   { icon: Handshake, title: 'Vào hợp tác xã', items: ['Đăng ký Xanh SM Platform', 'Đăng ký Grab/Be Car', 'Lắp định vị, phù hiệu vận tải'] },
-                  { icon: Wallet, title: 'Tài chính', items: ['Trả góp tới 90% giá trị xe', 'Vay tối đa 8 năm', 'Duyệt hồ sơ trong 24h'] },
+                  { icon: Wallet, title: 'Tài chính', items: ['Vay tới 100% giá xe đến 31/12/2026', 'Không cần vốn đối ứng', 'Duyệt hồ sơ trong 24h'] },
                ].map((card) => (
                   <div key={card.title} className="gcm-card p-5 md:p-6">
                      <div className="gcm-icon-box mb-4">
@@ -410,7 +410,7 @@ const LimoGreenPage: React.FC = () => {
           {/* Close Button */}
           <button
             onClick={closeLightbox}
-            className="absolute right-4 top-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-2 text-white transition-colors hover:border-sky hover:text-sky md:right-8 md:top-8"
+            className="absolute right-4 top-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-2 text-white transition-colors hover:border-white hover:text-white/80 md:right-8 md:top-8"
             aria-label="Đóng"
           >
             <X size={24} />
@@ -420,7 +420,7 @@ const LimoGreenPage: React.FC = () => {
           {galleryImages.length > 1 && (
             <button
               onClick={prevImage}
-              className="absolute left-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-sky hover:text-sky md:left-8"
+              className="absolute left-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-white hover:text-white/80 md:left-8"
               aria-label="Ảnh trước"
             >
               <ChevronLeft size={28} />
@@ -431,7 +431,7 @@ const LimoGreenPage: React.FC = () => {
           {galleryImages.length > 1 && (
             <button
               onClick={nextImage}
-              className="absolute right-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-sky hover:text-sky md:right-8"
+              className="absolute right-4 z-20 rounded-control border border-white/20 bg-night-900/80 p-3 text-white transition-colors hover:border-white hover:text-white/80 md:right-8"
               aria-label="Ảnh sau"
             >
               <ChevronRight size={28} />

@@ -17,7 +17,7 @@ export const SILO_CATEGORIES: SiloCategory[] = [
     id: 'root',
     label: 'Trang chủ',
     slug: '/',
-    description: 'Trang chủ GCM - All About Cars'
+    description: 'Trang chủ GCM'
   },
   {
     id: 'news',
@@ -67,6 +67,13 @@ export const SILO_CATEGORIES: SiloCategory[] = [
     slug: '/tin-tuc?category=tmt-egreen',
     parentId: 'news',
     description: 'Nhượng quyền trạm sạc xe điện TMT-EGREEN: chi phí đầu tư, lợi nhuận, so sánh đối tác'
+  },
+  {
+    id: 'v-green',
+    label: 'Trạm Sạc V-Green',
+    slug: '/tin-tuc?category=v-green',
+    parentId: 'news',
+    description: 'Nhượng quyền trạm sạc V-Green: chi phí theo công suất, thủ tục, điện lực, PCCC'
   },
   {
     id: 'xe-vinfast-cu',
@@ -157,7 +164,7 @@ export function generateInternalLinks(
     // Chỉ link nếu chưa link từ khóa này
     if (!usedLinks.has(titleWords.toLowerCase()) && linkedContent.includes(titleWords)) {
       const postUrl = post.slug ? `/tin-tuc/${post.slug}` : `/tin-tuc?post=${post.id}`;
-      const link = `<a href="${postUrl}" class="text-sky hover:underline font-semibold" title="${post.title}">${titleWords}</a>`;
+      const link = `<a href="${postUrl}" class="text-navy hover:underline font-semibold" title="${post.title}">${titleWords}</a>`;
       
       // Thay thế lần đầu tiên tìm thấy
       linkedContent = linkedContent.replace(

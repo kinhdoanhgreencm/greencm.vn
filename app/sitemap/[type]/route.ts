@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { BLOG_POSTS } from '../../../constants'; // Check lại đường dẫn import này nhé
+import { newsPageCount } from '../../../lib/news';
+import { TMT_PRODUCTS } from '../../../lib/tmtProducts';
 import { getAllUsedCarSlugsForSitemap } from '../../../lib/usedCars';
 
 // Hàm Clean URL để tránh lỗi XML (quan trọng)
@@ -37,6 +39,7 @@ export async function GET(
       { path: 'xe-vinfast-cu', changefreq: 'daily', priority: '0.9' },
       { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
       { path: 'tram-sac-tmt-egreen', changefreq: 'weekly', priority: '0.8' },
+      { path: 'tram-sac-tmt-egreen/bang-gia', changefreq: 'weekly', priority: '0.85' },
       { path: 'phu-kien', changefreq: 'weekly', priority: '0.8' },
       { path: 'tin-tuc', changefreq: 'daily', priority: '0.8' },
       { path: 'lien-he', changefreq: 'monthly', priority: '0.7' },
@@ -44,6 +47,12 @@ export async function GET(
       { path: 'dieu-khoan-su-dung', changefreq: 'yearly', priority: '0.3' },
       { path: 'chinh-sach-bao-mat', changefreq: 'yearly', priority: '0.3' },
     ];
+    // Trang riêng từng mẫu trụ TMT-EGREEN
+    TMT_PRODUCTS.forEach((p) => pages.push({ path: `tram-sac-tmt-egreen/${p.slug}`, changefreq: 'monthly', priority: '0.7' }));
+    // Trang 2 trở đi của /tin-tuc
+    for (let n = 2; n <= newsPageCount(); n++) {
+      pages.push({ path: `tin-tuc/trang/${n}`, changefreq: 'daily', priority: '0.5' });
+    }
 
     pages.forEach((page) => {
       // Logic xử lý đường dẫn: tránh double slash //

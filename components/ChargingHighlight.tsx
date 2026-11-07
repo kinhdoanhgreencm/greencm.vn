@@ -48,7 +48,7 @@ const ChargingHighlight: React.FC = () => {
             </h2>
           </div>
           <p className="max-w-md text-md text-ink-soft">
-            Hai mô hình nhượng quyền trạm sạc GCM đang triển khai tại Cần Thơ và miền Tây. Mỗi mô hình có chuyên viên tư vấn riêng.
+            Hai mô hình nhượng quyền trạm sạc GCM đang triển khai tại Cần Thơ và các tỉnh miền Nam. Mỗi mô hình có chuyên viên tư vấn riêng.
           </p>
         </div>
 

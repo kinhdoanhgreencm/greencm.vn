@@ -11,8 +11,7 @@ import PageHero from './PageHero';
 import { BreadcrumbSchema } from './SchemaMarkup';
 import RelatedPosts from './RelatedPosts';
 import { getBreadcrumbsFromCategory } from '../lib/siloUtils';
-
-const POSTS_PER_PAGE = 8;
+import { NEWS_PER_PAGE as POSTS_PER_PAGE, newsPageHref } from '../lib/news';
 
 // DD/MM/YYYY -> timestamp, dùng để sắp xếp bài viết mới nhất lên đầu
 function parsePostDate(date: string): number {
@@ -29,9 +28,9 @@ function shuffle<T>(arr: T[]): T[] {
   return result;
 }
 
-const NewsPage: React.FC = () => {
+const NewsPage: React.FC<{ initialPage?: number }> = ({ initialPage = 1 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(initialPage);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Tiêu điểm: chọn ngẫu nhiên trong các bài isFeatured, không ưu tiên chuyên mục nào.
@@ -54,6 +53,7 @@ const NewsPage: React.FC = () => {
   const categories = [
     { id: 'all', label: 'Tất cả' },
     { id: 'tmt-egreen', label: 'Nhượng quyền trạm sạc' },
+    { id: 'v-green', label: 'Trạm sạc V-Green' },
     { id: 'xe-vinfast-cu', label: 'Xe VinFast cũ' },
   ];
 
@@ -150,7 +150,7 @@ const NewsPage: React.FC = () => {
       {/* Page header */}
       <PageHero
         eyebrow="Tin tức"
-        title={activeCategory === 'all' ? 'Tin tức & sự kiện' : categories.find(c => c.id === activeCategory)?.label || 'Tin tức'}
+        title={activeCategory === 'all' ? 'Tin tức trạm sạc và xe điện VinFast' : categories.find(c => c.id === activeCategory)?.label || 'Tin tức'}
         summary="Tin xe điện, nhượng quyền trạm sạc và xe VinFast cũ từ GCM."
         crumbs={activeCategory !== 'all'
           ? categoryBreadcrumbs.filter(c => c.href !== '/')
@@ -238,7 +238,7 @@ const NewsPage: React.FC = () => {
                       whileTap={{ scale: 0.95 }}
                       initial={false}
                       animate={{
-                        color: activeCategory === cat.id ? '#00A651' : '#9CA3AF'
+                        color: activeCategory === cat.id ? '#1556B0' : '#9CA3AF'
                       }}
                       transition={{ duration: 0.2 }}
                     >
@@ -262,46 +262,38 @@ const NewsPage: React.FC = () => {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={activeCategory}
-                  className="space-y-4"
+                  className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
                  {paginatedPosts.map((post, index) => (
-                    <article key={post.id}>
+                    <article key={post.id} className="h-full">
                     <Link
                       href={getPostUrl(post)}
-                      className="group block"
+                      className="group block h-full"
                     >
                     <motion.div
-                      className="gcm-card gcm-card-hover relative flex flex-col md:flex-row gap-5 p-4 cursor-pointer"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.3, delay: index * 0.1 }}
-                      whileHover={{ x: 5 }}
+                      className="gcm-tile"
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, delay: index * 0.05 }}
                     >
-                       <div className="relative w-full md:w-60 aspect-[4/3] rounded-panel overflow-hidden flex-shrink-0 gcm-photo">
+                       <div className="gcm-tile-media">
                           <Image
                             src={imageErrors[post.id] ? getFallbackImage() : post.image}
-                            alt={`${post.title} - ${post.categoryLabel} - Tin tức ${post.excerpt}`}
+                            alt={post.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            sizes="(max-width: 768px) 100vw, 256px"
+                            sizes="(max-width: 1024px) 50vw, 260px"
                             onError={() => handleImageError(post.id)}
                           />
                        </div>
-                       <span className="gcm-arrow-box absolute right-4 top-4"><ArrowUpRight size={16} /></span>
-                       <div className="flex flex-col justify-center md:pr-10">
-                          <div className="flex flex-wrap items-center gap-3 mb-2">
-                             <span className="gcm-badge">{post.categoryLabel}</span>
-                             <span className="text-xs text-ink-mute flex items-center gap-1"><Clock size={12} /> {post.date}</span>
-                          </div>
-                          <h3 className="text-lg font-semibold text-ink mb-2 leading-snug group-hover:text-ocean transition-colors">{post.title}</h3>
-                          <p className="text-ink-soft text-sm leading-relaxed line-clamp-2 mb-3">{post.excerpt}</p>
-                          <span className="gcm-link w-fit">
-                             Đọc tiếp <ArrowRight size={16} />
-                          </span>
+                       <div className="gcm-tile-body">
+                          <h3 className="gcm-tile-title group-hover:text-ocean">{post.title}</h3>
+                          <p className="gcm-tile-text">{post.excerpt}</p>
+                          <span className="mt-auto flex items-center gap-1 pt-3 text-xs text-ink-mute tabular"><Clock size={12} /> {post.date}</span>
                        </div>
                     </motion.div>
                     </Link>
@@ -324,20 +316,25 @@ const NewsPage: React.FC = () => {
               {/* Pagination */}
               {totalPages > 1 && (
                  <div className="flex justify-center mt-12 gap-2">
-                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                       <button
-                         key={page}
-                         onClick={() => handlePageChange(page)}
-                         aria-current={safePage === page ? 'page' : undefined}
-                         className={`w-10 h-10 rounded-control font-semibold tabular flex items-center justify-center transition-colors ${
-                           safePage === page
-                             ? 'bg-ocean text-white'
-                             : 'border border-line-strong text-ink-soft hover:border-ocean hover:text-ocean'
-                         }`}
-                       >
-                         {page}
-                       </button>
-                    ))}
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => {
+                       const cls = `w-10 h-10 rounded-control font-semibold tabular flex items-center justify-center transition-colors ${
+                         safePage === page
+                           ? 'bg-ocean text-white'
+                           : 'border border-line-strong text-ink-soft hover:border-ocean hover:text-ocean'
+                       }`;
+                       // "Tất cả": liên kết thật tới /tin-tuc/trang/N để công cụ tìm kiếm lần theo được; lọc chuyên mục: nút bấm
+                       return activeCategory === 'all' ? (
+                         <Link key={page} href={newsPageHref(page)} scroll={false} onClick={() => handlePageChange(page)}
+                           aria-current={safePage === page ? 'page' : undefined} className={cls}>
+                           {page}
+                         </Link>
+                       ) : (
+                         <button key={page} onClick={() => handlePageChange(page)}
+                           aria-current={safePage === page ? 'page' : undefined} className={cls}>
+                           {page}
+                         </button>
+                       );
+                    })}
                  </div>
               )}
            </div>

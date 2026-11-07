@@ -3,6 +3,7 @@ import NewsPostClient from '../../../components/NewsPostClient';
 import { BLOG_POSTS } from '../../../constants';
 import { ArticleSchema } from '../../../components/SchemaMarkup';
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES, compressedOgFor } from '@/lib/seo';
 
 // Chuyển 'DD/MM/YYYY' -> ISO 8601 cho schema.org
 function toIsoDate(vnDate: string): string | undefined {
@@ -19,12 +20,8 @@ interface NewsPostPageProps {
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
-// Ảnh mặc định khi bài viết không có ảnh riêng — kích thước khớp file thật (3104x1376)
-const DEFAULT_OG_IMAGE = {
-  url: `${baseUrl}/Banner%20hero%20homepage.png`,
-  width: 3104,
-  height: 1376,
-};
+// Ảnh mặc định khi bài viết không có ảnh riêng: bản nén 1200x630
+const DEFAULT_OG_IMAGE = OG_IMAGES.macDinh;
 
 // Banner Supabase dùng chung cho nhiều bài — kích thước đo trực tiếp từ file gốc
 const SUPABASE_IMAGE_DIMS: Record<string, { width: number; height: number }> = {
@@ -67,6 +64,10 @@ function getOgImage(imageUrl?: string): { url: string; width?: number; height?: 
   if (imageUrl.startsWith('/images/tmt-egreen/')) {
     return { url: `${baseUrl}${imageUrl}`, width: 1200, height: 864 };
   }
+
+  // Banner Supabase gốc nặng vài MB: dùng bản nén 1200x630 trong public/og nếu có
+  const compressed = compressedOgFor(imageUrl);
+  if (compressed) return compressed;
 
   // Banner lưu trên Supabase Storage
   const supabaseMatch = imageUrl.match(/\/GCM\/([^/?]+)$/);
@@ -115,6 +116,9 @@ export async function generateMetadata({ params }: NewsPostPageProps): Promise<M
       canonical: `${baseUrl}/tin-tuc/${slug}`,
     },
     openGraph: {
+      ...OG_BASE,
+      type: 'article',
+      ...(toIsoDate(post.date) && { publishedTime: toIsoDate(post.date) }),
       title: post.title,
       description: post.excerpt,
       url: `${baseUrl}/tin-tuc/${slug}`,

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_BASE } from '@/lib/seo';
 import TuyenDungClient from './TuyenDungClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
     canonical: `${baseUrl}/tuyen-dung`,
   },
   openGraph: {
+    ...OG_BASE,
     title: 'Tuyển dụng GCM | Việc làm ngành ô tô điện VinFast',
     description: 'GCM tuyển người làm việc với ô tô điện VinFast. Lương thưởng cạnh tranh, BHXH, BHYT đầy đủ.',
     url: `${baseUrl}/tuyen-dung`,

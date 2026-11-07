@@ -1,112 +1,171 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Search } from 'lucide-react';
+import Wave from './Wave';
 
-// Hero theo bố cục trang chủ EVGreen: nền Tint, ảnh đường phố Cần Thơ phủ nửa phải và mờ dần sang trái,
-// chiếc VF 6 đặt trên mặt đường, hàng ô màu ngay dưới gầm xe để đổi màu sơn.
-// Các lớp thân xe dùng chung một khung cắt nên đổi màu không làm xe xê dịch.
-// Chưa bấm ô màu thì màn hình rộng tự đổi màu sau mỗi 8 giây; giảm chuyển động thì đứng yên.
-const COLORS = [
-  { key: 'trang', label: 'Trắng Infinity Blanc', swatch: '#F3F4F4' },
-  { key: 'xam', label: 'Xám Zenith Grey', swatch: '#8E9296' },
-  { key: 'den', label: 'Đen Jet Black', swatch: '#232425' },
-  { key: 'do', label: 'Đỏ Solar Ruby', swatch: '#9E1B2A' },
-  { key: 'mint', label: 'Xanh Urban Mint', swatch: '#B9D8CF' },
-] as const;
-const AUTO_MS = 8000;
+// Hero trang chủ: hai ảnh trưng bày trượt qua lại, mỗi ảnh một hãng trụ (V-Green, TMT-EGREEN) để không đặt chung hai hãng.
+// Chữ bên trái, ảnh trong khung riêng bên phải (điện thoại: ảnh dưới chữ), không lớp phủ; nút xem giá đổi theo hãng.
+const ease = [0.2, 0.7, 0.2, 1] as const;
+const INTERVAL = 6000;
+
+const SLIDES = [
+  {
+    key: 'v-green',
+    image: '/images/home/hero-v-green-trung-bay.webp',
+    alt: 'Bộ trụ sạc V-Green trưng bày trong phòng trưng bày: DC 120kW, DC 60kW, DC 30kW, DC 22kW và trụ AC treo tường',
+    label: 'Bộ trụ sạc V-Green',
+    cta: 'Xem bảng giá trụ V-Green',
+    href: '#tru-sac-v-green',
+  },
+  {
+    key: 'tmt',
+    image: '/images/home/hero-tmt-960.webp',
+    alt: 'Bộ trụ sạc TMT-EGREEN trưng bày trong phòng trưng bày: AC 22kW, DC 30kW, DC 60kW, DC 240kW và hệ DC 960kW',
+    label: 'Bộ trụ sạc TMT-EGREEN',
+    cta: 'Xem bảng giá trụ TMT-EGREEN',
+    href: '#tru-sac-tmt-egreen',
+  },
+];
 
 const Hero: React.FC = () => {
-  const [color, setColor] = useState(0);
-  const [picked, setPicked] = useState(false);
+  const reduce = useReducedMotion();
+  const [[index, dir], setSlide] = useState<[number, number]>([0, 1]);
+  const [paused, setPaused] = useState(false);
+
+  const go = useCallback((step: number) => {
+    setSlide(([i]) => [(i + step + SLIDES.length) % SLIDES.length, step]);
+  }, []);
 
   useEffect(() => {
-    if (picked) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const wide = window.matchMedia('(min-width: 900px)').matches;
-    if (reduce || !wide) return;
-    const t = window.setInterval(() => setColor((c) => (c + 1) % COLORS.length), AUTO_MS);
-    return () => window.clearInterval(t);
-  }, [picked]);
+    if (paused || reduce) return;
+    const t = window.setTimeout(() => go(1), INTERVAL);
+    return () => window.clearTimeout(t);
+  }, [index, paused, reduce, go]);
 
-  const pick = (i: number) => {
-    setColor(i);
-    setPicked(true);
-  };
+  const up = (delay: number) => ({
+    initial: reduce ? false : { opacity: 0, y: 24 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.8, delay, ease },
+  });
+
+  const slide = SLIDES[index];
+
+  const controls = (
+    <div className="flex items-center gap-4">
+      <div className="flex gap-2">
+        <button type="button" onClick={() => go(-1)} aria-label="Ảnh trước" className="gcm-btn-ghost !min-h-9 !w-9 !px-0">
+          <ArrowLeft size={16} />
+        </button>
+        <button type="button" onClick={() => go(1)} aria-label="Ảnh sau" className="gcm-btn-ghost !min-h-9 !w-9 !px-0">
+          <ArrowRight size={16} />
+        </button>
+      </div>
+      <div className="flex items-center gap-2" role="tablist" aria-label="Chọn ảnh">
+        {SLIDES.map((s, i) => (
+          <button
+            key={s.key}
+            type="button"
+            role="tab"
+            aria-selected={i === index}
+            aria-label={s.label}
+            onClick={() => setSlide(([cur]) => [i, i >= cur ? 1 : -1])}
+            className="relative h-1.5 w-10 overflow-hidden rounded-full bg-line-strong"
+          >
+            {i === index && (
+              <motion.span
+                key={`${s.key}-${paused}`}
+                className="absolute inset-y-0 left-0 rounded-full bg-navy"
+                initial={{ width: reduce || paused ? '100%' : '0%' }}
+                animate={{ width: '100%' }}
+                transition={{ duration: reduce || paused ? 0 : INTERVAL / 1000, ease: 'linear' }}
+              />
+            )}
+          </button>
+        ))}
+      </div>
+      <span className="truncate text-[0.875rem] font-semibold text-navy" aria-live="polite">
+        {slide.label}
+      </span>
+    </div>
+  );
 
   return (
-    <section className="relative overflow-hidden bg-tint pt-16 [--hero-h:clamp(26.25rem,44vw,42.5rem)]">
-      {/* Lớp ảnh: máy tính phủ nửa phải và mờ sang trái; điện thoại nằm dưới chữ, mờ dần lên trên */}
-      <div className="absolute inset-x-0 bottom-0 top-[min(52%,22rem)] min-[900px]:inset-y-0 min-[900px]:left-[max(28%,calc(100%-var(--hero-h)*16/9))] min-[900px]:top-0 [mask-image:linear-gradient(180deg,transparent_0,#000_34%)] min-[900px]:[mask-image:linear-gradient(90deg,transparent_0,#000_16%)]">
-        <Image
-          src="/images/hero/bg-cantho.webp"
-          alt=""
-          fill
-          priority
-          className="object-cover object-[100%_50%]"
-          sizes="(max-width: 900px) 100vw, 75vw"
-        />
-        {/* Lớp sương Tint bên trái cho chữ dễ đọc */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(245,245,247,.92)_0%,rgba(245,245,247,.6)_22%,rgba(245,245,247,0)_46%)] max-[899px]:hidden"></div>
-
-        {/* Vệt tốc độ xiên mảnh dưới gầm xe */}
-        <span aria-hidden="true" className="absolute bottom-[9%] right-[30%] h-[3px] w-[18%] bg-sky [clip-path:polygon(2px_0,100%_0,calc(100%-2px)_100%,0_100%)]"></span>
-        <span aria-hidden="true" className="absolute bottom-[6.5%] right-[8%] h-[3px] w-[12%] bg-white/90 [clip-path:polygon(2px_0,100%_0,calc(100%-2px)_100%,0_100%)]"></span>
-
-        {/* Xe VF 6 và bóng gầm */}
-        <div className="absolute bottom-[10%] right-[3%] aspect-[1400/725] w-[min(92%,48rem)] min-[900px]:bottom-[12%] min-[900px]:right-[5%] min-[900px]:w-[min(54%,46rem)]">
-          {COLORS.map((c, i) => (
-            <Image
-              key={c.key}
-              src={`/images/hero/vf6-${c.key}.webp`}
-              alt={i === color ? `VinFast VF 6 màu ${c.label} tại GCM Cần Thơ` : ''}
-              fill
-              priority={i === 0}
-              className={`object-contain transition-opacity duration-300 ${i === color ? 'opacity-100' : 'opacity-0'}`}
-              sizes="(max-width: 900px) 92vw, 48vw"
-            />
-          ))}
-
-          {/* Ô chọn màu ngay dưới gầm xe */}
-          <div
-            role="radiogroup"
-            aria-label="Chọn màu xe VinFast VF 6"
-            className="absolute left-1/2 top-full flex -translate-x-1/2 translate-y-1 items-center gap-1.5 rounded-full bg-white px-1.5 py-1"
-          >
-            {COLORS.map((c, i) => (
-              <button
-                key={c.key}
-                type="button"
-                role="radio"
-                aria-checked={i === color}
-                aria-label={c.label}
-                title={c.label}
-                onClick={() => pick(i)}
-                style={{ background: c.swatch }}
-                className={`h-4 w-4 rounded-full border border-navy/20 transition-transform hover:scale-110 max-[899px]:h-[1.125rem] max-[899px]:w-[1.125rem] ${
-                  i === color ? 'ring-2 ring-sky ring-offset-2 ring-offset-white' : ''
-                }`}
-              />
-            ))}
+    <section
+      className="relative bg-page pt-16 text-navy"
+      aria-roledescription="carousel"
+      aria-label="Bộ trụ sạc GCM phân phối"
+    >
+      {/* Máy tính: ảnh phủ trọn bề ngang màn hình, chữ đặt thẳng trên phần tường trống bên trái (ảnh chừa sẵn), không lớp phủ.
+          Điện thoại và máy tính bảng: ảnh tràn hai mép nằm trên, chữ bên dưới; khung vuông/4:3 cắt lấy phần có trụ. */}
+      <div className="relative flex flex-col-reverse lg:block lg:h-[clamp(520px,min(calc(100vh-4rem),56.25vw),880px)]">
+        <div className="gcm-container relative z-10 pb-12 pt-8 lg:pointer-events-none lg:absolute lg:inset-0 lg:flex lg:items-center lg:py-0">
+          <div className="max-w-xl lg:pointer-events-auto lg:max-w-[min(26rem,34vw)]">
+            <motion.h1
+              {...up(0.1)}
+              className="font-semibold"
+              style={{ fontSize: 'clamp(2rem, 3.4vw, 2.75rem)', lineHeight: 1.1, letterSpacing: '-0.035em' }}
+            >
+              Phát triển trạm sạc
+              <br />
+              <span className="gcm-mark">miền Nam.</span>
+            </motion.h1>
+            <motion.p {...up(0.22)} className="mt-5 max-w-md text-[1.0625rem] leading-relaxed text-ink-soft">
+              GCM tư vấn nhượng quyền trạm sạc xe điện: khảo sát mặt bằng, làm hồ sơ, lắp đặt và bàn giao. Mỗi mẫu trụ có giá niêm yết rõ ràng.
+            </motion.p>
+            <motion.div {...up(0.34)} className="mt-8">
+              <Link href={slide.href} className="gcm-btn gcm-btn-lg group pl-5">
+                <Search size={16} />
+                {slide.cta}
+                <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
+            <motion.div {...up(0.46)} className="mt-6">{controls}</motion.div>
           </div>
         </div>
-      </div>
 
-      {/* Chữ: tiêu đề nghiêng có khung gạch chân và nhãn đóng khung, như hero EVGreen */}
-      <div className="gcm-container relative z-10 flex min-h-[calc(var(--hero-h)+1rem)] flex-col items-start pt-12 max-[899px]:min-h-[max(38rem,calc(90vw+18rem))] min-[900px]:justify-center min-[900px]:pt-0">
-        <div className="relative inline-block origin-bottom-left -rotate-[5deg] pb-[0.5em] pr-[0.6em] text-[clamp(2.1rem,9vw,3.9rem)] max-[899px]:ml-2 max-[899px]:origin-center max-[899px]:-rotate-[4deg] min-[900px]:text-[clamp(2.1rem,5vw,4.25rem)] after:absolute after:-left-[0.35em] after:bottom-0 after:right-0 after:h-[1.25em] after:rounded-br-[0.32em] after:border-b-[3px] after:border-r-[3px] after:border-b-sky after:border-r-ocean after:[mask-image:linear-gradient(90deg,transparent,#000_18%)]">
-          <h1 className="skew-x-[-8deg] text-[1em] font-extrabold uppercase leading-[1.04] tracking-[-0.02em] text-navy">
-            <span className="block">GCM –</span>{' '}
-            <span className="block">All About Cars</span>
-          </h1>
-        </div>
-        <div className="relative mt-8 max-w-[26rem] max-[899px]:mt-6">
-          <p className="text-[1.0625rem] font-medium leading-[1.55] text-ink">
-            Hệ sinh thái ô tô điện VinFast tại Cần Thơ: xe mới, xe cũ đã kiểm định, phụ kiện và đầu tư trạm sạc.
-          </p>
-          <a href="tel:0916513720" className="gcm-btn mt-5">
-            Gọi tư vấn 0916 513 720
-          </a>
+        <div
+          className="relative aspect-square w-full overflow-hidden bg-tint sm:aspect-[4/3] lg:absolute lg:inset-0 lg:aspect-auto"
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+        >
+          <AnimatePresence initial={false} custom={dir}>
+            <motion.div
+              key={slide.key}
+              className="absolute inset-0 touch-pan-y"
+              custom={dir}
+              variants={{
+                enter: (d: number) => ({ x: reduce ? 0 : `${d * 100}%` }),
+                center: { x: 0 },
+                exit: (d: number) => ({ x: reduce ? 0 : `${d * -100}%` }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: reduce ? 0 : 0.8, ease }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.12}
+              onDragEnd={(_, info) => {
+                if (info.offset.x < -60) go(1);
+                else if (info.offset.x > 60) go(-1);
+              }}
+            >
+              <Image
+                src={slide.image}
+                alt={slide.alt}
+                fill
+                priority={index === 0}
+                draggable={false}
+                className="pointer-events-none select-none object-cover object-right"
+                sizes="100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+          <Wave fill="#F6F9FD" className="z-[5] h-[clamp(28px,5vw,72px)]" />
         </div>
       </div>
     </section>

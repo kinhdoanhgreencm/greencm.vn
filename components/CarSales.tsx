@@ -10,6 +10,8 @@ import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users
 import { ProductSchema } from './SchemaMarkup';
 import CustomerForm, { FormField } from './CustomerForm';
 import PageHero from './PageHero';
+import { VTLX2, TRI_AN_XE_XANG, MUA_XE_0_DONG, POLICY_UPDATED } from '../lib/vinfastPolicy';
+import { PHI_BIEN_SO_CAN_THO, PHI_DUONG_BO_NAM, bhTnds, phiLanBanh } from '../lib/lanBanh';
 
 const CarSales: React.FC = () => {
   const router = useRouter();
@@ -47,12 +49,9 @@ const CarSales: React.FC = () => {
   const savingsPerYear = (gasCostPerKm - evCostPerKm) * roiKm * 30 * 12;
 
   // Cost Estimate Logic (Simplified)
-  const calculateRollingCost = (price: number) => {
-    // EV Reg Fee is 0% currently
-    const plateFee = 20000000; // Average for big cities
-    const roadFee = 1560000; // 1 year
-    const insurance = 1000000; // Approx
-    return price + plateFee + roadFee + insurance;
+  // Lăn bánh tại Cần Thơ, xe cá nhân: trước bạ 0%, biển số, phí đường bộ 1 năm, bảo hiểm TNDS (lib/lanBanh.ts)
+  const calculateRollingCost = (price: number, seats: number) => {
+    return price + phiLanBanh(seats);
   };
 
   // Get all cars for Product schema
@@ -65,7 +64,7 @@ const CarSales: React.FC = () => {
         <ProductSchema
           key={car.id}
           name={car.name}
-          description={`${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : car.segment === 'luxury' ? 'hạng sang' : 'dịch vụ'} - Giá ${car.displayPrice}`}
+          description={`${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : car.segment === 'luxury' ? 'hạng sang' : 'dịch vụ'} - Giá từ ${car.displayPrice}`}
           image={car.image}
           brand="VinFast"
           sku={car.id}
@@ -73,6 +72,7 @@ const CarSales: React.FC = () => {
             price: car.priceFrom,
             priceCurrency: 'VND',
             availability: 'https://schema.org/InStock',
+            url: '/oto-vinfast',
           }}
           category="Electric Vehicle"
           fuelType="Electric"
@@ -83,7 +83,7 @@ const CarSales: React.FC = () => {
       {/* 1. Đầu trang: dải mực cắt xiên */}
       <PageHero
         eyebrow="Ô tô VinFast"
-        title={<>GCM & VinFast{' '}<br /><span className="text-sky-light">Ô tô điện VinFast mới tại Cần Thơ</span></>}
+        title="Ô tô điện VinFast mới tại Cần Thơ"
         crumbs={[{ href: '/oto-vinfast', label: 'Ô tô VinFast' }]}
         image="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
       />
@@ -127,6 +127,49 @@ const CarSales: React.FC = () => {
         </div>
       </section>
 
+      {/* Ưu đãi VinFast còn hiệu lực (lib/vinfastPolicy.ts) */}
+      <section className="gcm-section pt-0" id="uu-dai">
+        <div className="gcm-container">
+          <div className="mb-8 flex flex-col gap-3">
+            <span className="gcm-label">Cập nhật {POLICY_UPDATED}</span>
+            <h2 className="gcm-h2">Ưu đãi mua ô tô điện VinFast đang áp dụng</h2>
+            <p className="gcm-lead">Theo chính sách bán hàng VinFast công bố 13/10/2026. Một số ưu đãi không cộng dồn với nhau; GCM kiểm tra điều kiện cho từng khách.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="gcm-card flex flex-col gap-3 p-6">
+              <h3 className="gcm-h3">Vì Tương Lai Xanh 2: đổi xe xăng</h3>
+              <p className="text-sm text-ink-soft">Cho khách đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast. Từ {VTLX2.from} đến {VTLX2.to}, giảm theo % giá niêm yết:</p>
+              <table className="w-full text-sm">
+                <thead><tr className="text-left text-ink-mute"><th className="py-1.5 font-medium">Dòng xe</th><th className="py-1.5 font-medium">Khách thường</th><th className="py-1.5 font-medium">Công an, quân đội, VN Post</th></tr></thead>
+                <tbody className="tabular text-navy">
+                  <tr className="border-t border-line"><td className="py-1.5">VF 2, VF 3, Minio Green</td><td>{VTLX2.standard.low}%</td><td>{VTLX2.special.low}%</td></tr>
+                  <tr className="border-t border-line"><td className="py-1.5">VF 8 Thế hệ mới, VF 9, EC Van, VF Wild</td><td>{VTLX2.standard.mid}%</td><td>{VTLX2.special.mid}%</td></tr>
+                  <tr className="border-t border-line"><td className="py-1.5">VF 5, VF 6, VF 7, VF MPV 7, VF 8, dòng Green còn lại</td><td>{VTLX2.standard.high}%</td><td>{VTLX2.special.high}%</td></tr>
+                </tbody>
+              </table>
+              <p className="text-[0.8125rem] text-ink-mute">Mỗi xe cũ chỉ dùng một lần. Không cộng với voucher tri ân xe xăng VinFast và chính sách VinClub.</p>
+            </div>
+            <div className="flex flex-col gap-4">
+              <div className="gcm-card flex flex-col gap-2 p-6">
+                <h3 className="gcm-h3">Tri ân chủ xe xăng VinFast</h3>
+                <p className="text-sm text-ink-soft">
+                  Chủ sở hữu đầu tiên xe xăng VinFast nhận voucher khi mua ô tô điện VinFast mới:{' '}
+                  {TRI_AN_XE_XANG.map((v) => `${v.car} ${v.value.toLocaleString('vi-VN')}đ`).join(', ')}. Dùng đến 31/12/2026.
+                </p>
+              </div>
+              <div className="gcm-card flex flex-col gap-2 p-6">
+                <h3 className="gcm-h3">Mua xe 0 đồng</h3>
+                <p className="text-sm text-ink-soft">Không cần vốn đối ứng, vay tới {MUA_XE_0_DONG.loanPercent}% giá xe, áp dụng mọi dòng xe đến {MUA_XE_0_DONG.to}.</p>
+              </div>
+              <div className="gcm-card flex flex-col gap-2 p-6">
+                <h3 className="gcm-h3">VF 3: miễn phí màu sơn nâng cao</h3>
+                <p className="text-sm text-ink-soft">Áp dụng cho xe VF 3 Eco và Plus có số VIN 2025 trở về trước, đến khi VinFast có thông báo mới.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 2. FAMILY ZONE */}
       <section className="gcm-section pt-0">
         <div className="gcm-container">
@@ -136,7 +179,7 @@ const CarSales: React.FC = () => {
             <p className="gcm-lead">Mỗi mẫu có giá niêm yết, quãng đường đi được sau một lần sạc và số chỗ ngồi. Bấm nút dưới xe để dự toán chi phí lăn bánh hoặc đăng ký lái thử.</p>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="gcm-grid">
             {NEW_CARS_FAMILY.map((car, index) => (
               <motion.div
                 key={car.id}
@@ -155,7 +198,11 @@ const CarSales: React.FC = () => {
                     onError={() => handleImageError(car.id)}
                   />
                   <div className="absolute left-3 top-3 rounded-full bg-night-900/75 px-2.5 py-1 text-label font-semibold uppercase text-white">
-                    {car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :
+                    {car.id === 'vf2' ? 'MINI CAR' :
+                     car.id === 'vf-mpv7' ? 'MPV 7 CHỖ' :
+                     car.id === 'vf8-the-he-moi' ? 'D-SUV' :
+                     car.id === 'vf-wild' ? 'BÁN TẢI' :
+                     car.segment === 'urban' && car.id === 'vf3' ? 'MINI CAR' :
                      car.segment === 'urban' && car.id === 'vf5' ? 'A-SUV' :
                      car.segment === 'suv-bc' && car.id === 'vf6' ? 'B-SUV' :
                      car.segment === 'suv-bc' && car.id === 'vf7' ? 'C-SUV' :
@@ -167,7 +214,17 @@ const CarSales: React.FC = () => {
 
                 <div className="flex flex-1 flex-col p-5">
                   <h3 className="gcm-h3 text-lg">{car.name}</h3>
-                  <p className="mt-1 text-lg font-semibold tabular text-ocean">{car.displayPrice}</p>
+                  <p className="mt-1 text-lg font-semibold tabular text-ocean"><span className="text-[0.875rem] font-medium text-ink-mute">Từ </span>{car.displayPrice}</p>
+                  {car.variants && car.variants.length > 1 && (
+                    <p className="mt-1 text-[0.8125rem] tabular text-ink-mute">
+                      {car.variants.map((v) => `${v.name} ${v.price.toLocaleString('vi-VN')}đ`).join(' · ')}
+                    </p>
+                  )}
+                  {car.vtlx2 && (
+                    <p className="mt-2 text-[0.8125rem] font-semibold text-navy">
+                      Đổi xe xăng: giảm {VTLX2.standard[car.vtlx2]}% (khoảng {Math.round(car.priceFrom * VTLX2.standard[car.vtlx2] / 100).toLocaleString('vi-VN')}đ) đến {VTLX2.to}
+                    </p>
+                  )}
 
                   <div className="my-4 grid grid-cols-2 gap-4 pt-4">
                     <div className="flex items-center gap-2 text-ink-soft">
@@ -180,19 +237,29 @@ const CarSales: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="mt-auto flex gap-3">
-                    <button
-                      onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
-                      className="gcm-btn-ghost flex-1 px-3 text-sm"
-                    >
-                      Dự toán chi phí
-                    </button>
+                  <div className="mt-auto flex flex-col gap-2">
                     <button
                       onClick={() => { setSelectedCarForTestDrive(car); setShowTestDriveModal(true); }}
-                      className="gcm-btn flex-1 px-3 text-sm"
+                      className="gcm-btn w-full"
                     >
                       Đăng ký lái thử
                     </button>
+                    {/* VF Wild có động cơ mở rộng quãng đường (REEV), không hưởng trước bạ 0% của xe thuần điện: báo giá riêng */}
+                    {car.id === 'vf-wild' ? (
+                      <button
+                        onClick={() => { setSelectedCarForQuote(car); setShowQuoteModal(true); }}
+                        className="gcm-btn-ghost w-full"
+                      >
+                        Nhận báo giá lăn bánh
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => { setSelectedCarForCost(car); setShowCostModal(true); }}
+                        className="gcm-btn-ghost w-full"
+                      >
+                        Dự toán chi phí
+                      </button>
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -253,6 +320,7 @@ const CarSales: React.FC = () => {
                           <div className="mb-4 flex items-center gap-2">
                              <span className="gcm-badge">{car.seats} chỗ</span>
                              <span className="gcm-badge tabular">{car.range}</span>
+                             {car.vtlx2 && <span className="gcm-badge">Đổi xe xăng giảm {VTLX2.standard[car.vtlx2]}%</span>}
                           </div>
                           <div className="mt-auto flex items-center justify-between gap-4 pt-4">
                              <span className="text-lg font-semibold tabular text-ink">{car.displayPrice}</span>
@@ -419,7 +487,7 @@ const CarSales: React.FC = () => {
 
                <div className="space-y-4 p-6">
                   <div className="flex items-center justify-between py-2">
-                     <span className="text-ink-soft">Giá niêm yết</span>
+                     <span className="text-ink-soft">Giá niêm yết (bản thấp nhất)</span>
                      <span className="font-semibold tabular text-ink">{selectedCarForCost.displayPrice}</span>
                   </div>
                   <div className="flex items-center justify-between py-2">
@@ -427,25 +495,25 @@ const CarSales: React.FC = () => {
                      <span className="font-semibold tabular text-ocean">0 đ</span>
                   </div>
                   <div className="flex items-center justify-between py-2">
-                     <span className="text-ink-soft">Phí biển số (Dự kiến)</span>
-                     <span className="font-semibold tabular text-ink">20.000.000 đ</span>
+                     <span className="text-ink-soft">Lệ phí biển số (Cần Thơ)</span>
+                     <span className="font-semibold tabular text-ink">{PHI_BIEN_SO_CAN_THO.toLocaleString('vi-VN')} đ</span>
                   </div>
                   <div className="flex items-center justify-between py-2">
-                     <span className="text-ink-soft">Phí đường bộ + BH (1 năm)</span>
-                     <span className="font-semibold tabular text-ink">2.560.000 đ</span>
+                     <span className="text-ink-soft">Phí đường bộ + BH TNDS (1 năm)</span>
+                     <span className="font-semibold tabular text-ink">{(PHI_DUONG_BO_NAM + bhTnds(selectedCarForCost.seats)).toLocaleString('vi-VN')} đ</span>
                   </div>
 
                   <div className="mt-4 rounded-panel border border-line bg-tint p-4">
                      <div className="flex items-center justify-between gap-4">
                         <span className="text-base font-semibold text-ink">Tổng lăn bánh</span>
                         <span className="text-2xl font-semibold tabular text-ocean">
-                           {calculateRollingCost(selectedCarForCost.priceFrom).toLocaleString('vi-VN')} đ
+                           {calculateRollingCost(selectedCarForCost.priceFrom, selectedCarForCost.seats).toLocaleString('vi-VN')} đ
                         </span>
                      </div>
                   </div>
 
                   <p className="mt-2 text-center text-xs italic text-ink-mute">
-                     *Đây là số tạm tính. Để lại thông tin, GCM gửi bảng tính theo nơi bạn đăng ký xe kèm ưu đãi giảm giá đang có:
+                     *Số tạm tính cho xe cá nhân đăng ký tại Cần Thơ. Xe đăng ký kinh doanh vận tải có phí đường bộ 180.000đ/tháng và mức bảo hiểm khác. Để lại thông tin, GCM gửi bảng tính theo nơi bạn đăng ký xe kèm ưu đãi đang có:
                   </p>
 
                   <div className="pt-2">
@@ -514,7 +582,7 @@ const CarSales: React.FC = () => {
                            type: 'select',
                            gridCols: 2,
                            options: [
-                              { value: 'showroom', label: 'Tại showroom' },
+                              { value: 'office', label: 'Tại văn phòng' },
                               { value: 'home', label: 'Tại nhà riêng' },
                            ],
                         },

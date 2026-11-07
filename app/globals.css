@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 /* ==========================================================================
-   GCM design system, bảng màu GCM gốc: đen #0B0F19, xanh lá #00D26A, xám #F5F5F7.
-   Phẳng: không bóng đổ, không chuyển sắc, không viền mảnh trang trí; bề mặt tách
-   nhau bằng một bậc nền (trắng / xám). Một họ chữ Plus Jakarta Sans, chữ nội dung
-   16px màu mực đậm. Không nhãn in hoa nhỏ trên tiêu đề, không tô màu chữ nhấn.
+   GCM design system theo mẫu Tidepost (11/2026): nền nước nhạt, xanh biển sâu,
+   ngọc lam; ảnh bo lớn, cạnh sóng; nút dạng viên thuốc; tiêu đề sans có một từ
+   nhấn bằng chữ nghiêng có chân; ghi chú viết tay nhỏ để trang trí.
    Xem DESIGN.md để biết cách dùng từng class.
    ========================================================================== */
 
 @layer base {
   html {
-    background: #FFFFFF;
+    background: #F6F9FD;
     color-scheme: light;
+    scroll-behavior: smooth;
   }
 
   body {
@@ -23,11 +23,11 @@
   }
 
   ::selection {
-    @apply bg-sky/30 text-ink;
+    @apply bg-navy text-white;
   }
 
   :focus-visible {
-    outline: 2px solid #00A651;
+    outline: 2px solid #1556B0;
     outline-offset: 2px;
   }
 }
@@ -39,37 +39,42 @@
     padding-inline: clamp(16px, 4vw, 40px);
   }
 
-  /* Khoảng cách dọc giữa các mục: 48–96px */
+  /* Khoảng cách dọc giữa các mục: 48–104px */
   .gcm-section {
     @apply relative;
-    padding-block: clamp(3rem, 7vw, 6rem);
+    padding-block: clamp(3rem, 7.5vw, 6.5rem);
   }
 
-  /* Nhãn nhóm (tiêu đề cột chân trang, tiêu đề nhóm): chữ thường, cỡ đọc được.
-     Nhãn đặt ngay trên tiêu đề lặp lại ý của tiêu đề nên được ẩn. */
+  /* Nhãn nhỏ in hoa màu ngọc trên tiêu đề, như "OUR MISSION" của mẫu */
   .gcm-eyebrow,
   .gcm-label {
-    @apply text-[0.9375rem] font-semibold text-ink;
+    @apply inline-flex items-center gap-2 text-[0.75rem] font-semibold uppercase text-ocean;
+    letter-spacing: 0.14em;
   }
+
+  /* Không dùng nhãn nhỏ đặt ngay trên tiêu đề (theo yêu cầu 11/2026): ẩn ở mọi trang */
   .gcm-eyebrow:has(+ :is(h1, h2, h3, .gcm-h1, .gcm-h2)),
   .gcm-label:has(+ :is(h1, h2, h3, .gcm-h1, .gcm-h2)) {
     display: none;
   }
+  :is(.gcm-eyebrow, .gcm-label) + :is(h1, h2, h3, .gcm-h1, .gcm-h2) {
+    margin-top: 0 !important;
+  }
 
-  /* Tiêu đề: một họ chữ, 600, không in hoa, cỡ gọn */
+  /* Tiêu đề: sans 600, xanh biển sâu, chữ khít */
   .gcm-h1 {
     @apply font-semibold text-navy;
-    font-size: clamp(2rem, 4.4vw, 3.25rem);
-    line-height: 1.15;
-    letter-spacing: -0.025em;
+    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
   .gcm-h2 {
     @apply font-semibold text-navy;
-    font-size: clamp(1.75rem, 3.4vw, 2.5rem);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
+    font-size: clamp(1.5rem, 2.6vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -78,92 +83,172 @@
     line-height: 1.35;
   }
 
-  /* Chữ nhấn trong tiêu đề: không tô màu riêng, chữ tự mang ý nhấn */
+  /* Từ nhấn trong tiêu đề: chữ nghiêng có chân, như "the planet." */
   .gcm-accent {
     color: inherit;
   }
 
+  /* Chữ nhấn: màu chủ đạo, đặt trên nền sáng */
+  .gcm-mark {
+    @apply text-navy;
+  }
+
+  /* Ghi chú viết tay trang trí ("Better together") */
+  .gcm-script {
+    @apply font-script text-ocean;
+    font-size: 1.375rem;
+    line-height: 1.1;
+  }
+
   /* Đoạn dẫn */
   .gcm-lead {
-    @apply text-base text-ink md:text-[1.0625rem];
-    line-height: 1.6;
+    @apply text-base text-ink-soft md:text-[1.0625rem];
+    line-height: 1.65;
     max-width: 52ch;
   }
 
-  /* Nút chính: nền xanh rừng, chữ trắng, bo 8px, cao 44px */
-  .gcm-btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control bg-ocean px-5 py-2.5 text-[0.9375rem] font-semibold text-white transition-colors duration-200 hover:bg-ocean-deep;
+  /* Hệ nút GCM (11/2026): khối chữ nhật bo 12px, cao 40px, chữ 14px không xuống dòng.
+     Nút chính có dải sáng mảnh ở mép trên và bóng màu chủ đạo; nhấn vào thì lún nhẹ.
+     .gcm-btn = chính, .gcm-btn-ghost = phụ viền mảnh, .gcm-btn-mint = phụ nền xanh nhạt,
+     thêm .gcm-btn-lg cho nút lớn ở đầu trang. */
+  .gcm-btn,
+  .gcm-btn-ghost,
+  .gcm-btn-mint {
+    @apply relative inline-flex min-h-10 select-none items-center justify-center gap-2 whitespace-nowrap rounded-[12px] px-4 py-2 text-[0.875rem] font-semibold leading-none transition-[background-color,border-color,box-shadow,transform,color] duration-200 active:translate-y-px active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .gcm-btn svg,
+  .gcm-btn-ghost svg,
+  .gcm-btn-mint svg {
+    @apply shrink-0 transition-transform duration-200;
+  }
+  .gcm-btn:hover svg:last-child,
+  .gcm-btn-ghost:hover svg:last-child,
+  .gcm-btn-mint:hover svg:last-child {
+    transform: translateX(2px);
   }
 
-  /* Nút phụ: nền trắng, viền mảnh, chữ xanh rừng */
+  .gcm-btn {
+    @apply text-white;
+    background: linear-gradient(180deg, #124286 0%, #0A3572 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 2px rgba(10, 53, 114, 0.3), 0 6px 16px -8px rgba(10, 53, 114, 0.55);
+  }
+  .gcm-btn:hover {
+    background: linear-gradient(180deg, #0D3B7C 0%, #072A5C 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 1px 2px rgba(10, 53, 114, 0.35), 0 10px 22px -10px rgba(10, 53, 114, 0.7);
+  }
+
   .gcm-btn-ghost {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-control border border-line-strong bg-surface px-5 py-2.5 text-[0.9375rem] font-semibold text-ocean transition-colors duration-200 hover:border-ocean hover:bg-tint-strong;
+    @apply border border-line-strong bg-surface text-navy hover:border-navy hover:bg-tint;
+    box-shadow: 0 1px 2px rgba(10, 53, 114, 0.06);
+  }
+
+  .gcm-btn-mint {
+    @apply bg-tint-strong text-navy hover:bg-mint-deep;
+  }
+
+  .gcm-btn-lg {
+    @apply min-h-12 rounded-[14px] px-6 text-[0.9375rem];
   }
 
   /* Liên kết chữ */
   .gcm-link {
-    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-ocean transition-colors hover:text-ocean-deep;
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold text-navy transition-colors hover:text-ocean;
+  }
+  .gcm-link svg {
+    @apply transition-transform duration-300;
+  }
+  .gcm-link:hover svg {
+    transform: translateX(3px);
   }
 
-  /* Thẻ: một bậc nền so với nền mục (xám trên nền trắng, trắng trên nền xám), không viền */
+  /* Thẻ trắng bo 20px, viền nước nhạt, bóng rất mềm */
   .gcm-card {
-    @apply rounded-card border border-transparent bg-tint;
-  }
-  :is(.bg-tint, .bg-tint-strong, .bg-gray-50) .gcm-card {
-    @apply bg-surface;
+    @apply rounded-card border border-line bg-surface shadow-[0_1px_2px_rgba(10,53,114,.04),0_12px_32px_-20px_rgba(10,53,114,.25)];
   }
 
-  /* Thẻ bấm được: rê chuột nền chuyển xanh nhạt */
+  /* Thẻ bấm được: nhấc nhẹ khi rê chuột */
   .gcm-card-hover {
-    @apply transition-colors duration-200 hover:bg-tint-strong;
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-sky/60 hover:shadow-[0_2px_4px_rgba(10,53,114,.05),0_24px_48px_-24px_rgba(10,53,114,.35)];
   }
 
-  /* Ô mũi tên góc phải trên của thẻ liên kết (đặt trong phần tử có class group) */
+  /* Lưới thẻ dùng chung cho sản phẩm, danh mục, bài viết: cùng cột, cùng khoảng cách, cùng cỡ thẻ */
+  .gcm-grid {
+    @apply grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4;
+  }
+  .gcm-tile {
+    @apply flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-sky/60 hover:shadow-[0_2px_4px_rgba(10,53,114,.05),0_20px_40px_-24px_rgba(10,53,114,.35)];
+  }
+  .gcm-tile-media {
+    @apply relative mx-2 mt-2 aspect-[4/3] overflow-hidden rounded-[14px] bg-tint;
+  }
+  .gcm-tile-body {
+    @apply flex flex-1 flex-col p-3 sm:p-3.5;
+  }
+  .gcm-tile-title {
+    @apply line-clamp-2 text-sm font-semibold leading-snug text-navy;
+  }
+  .gcm-tile-text {
+    @apply mt-1 line-clamp-2 text-xs leading-relaxed text-ink-soft;
+  }
+
+  /* Nút tròn mũi tên ở góc thẻ (đặt trong phần tử có class group) */
   .gcm-arrow-box {
-    @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-control bg-tint-strong text-ocean transition-colors duration-200 group-hover:bg-ocean group-hover:text-white;
+    @apply flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-navy shadow-sm transition-all duration-300 group-hover:bg-navy group-hover:text-white;
+  }
+  .gcm-arrow-box svg {
+    @apply transition-transform duration-300;
+  }
+  .group:hover .gcm-arrow-box svg {
+    transform: translateX(2px) rotate(-45deg);
   }
 
-  /* Ô biểu tượng. Trong thẻ thì ẩn: tiêu đề thẻ đã đủ nghĩa, tránh kiểu hàng thẻ có icon trên đầu */
-  .gcm-card > .gcm-icon-box,
-  .gcm-card > div:first-child > .gcm-icon-box:only-child,
-  .gcm-card > div:first-child:has(> .gcm-icon-box:only-child) {
-    display: none;
-  }
+  /* Ô biểu tượng tròn viền mảnh, như hàng biểu tượng "Sustainable Travel" */
   .gcm-icon-box {
-    @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-control bg-tint-strong text-ocean;
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-tint text-ocean;
+  }
+
+  /* Chip lọc dạng viên thuốc */
+  .gcm-chip {
+    @apply inline-flex min-h-9 items-center rounded-full border border-line-strong bg-surface px-4 text-[0.8125rem] font-medium text-ink-soft transition-colors duration-200 hover:border-ocean hover:text-navy;
+  }
+  .gcm-chip[aria-pressed='true'],
+  .gcm-chip.is-active {
+    @apply border-navy bg-navy text-white;
   }
 
   /* Nhãn tròn */
   .gcm-badge {
-    @apply inline-flex items-center rounded-full bg-tint-strong px-2 py-0.5 text-xs font-semibold text-ocean-deep;
+    @apply inline-flex items-center rounded-full bg-tint-strong px-2.5 py-0.5 text-xs font-semibold text-ocean-deep;
   }
 
-  /* Khung ảnh xe studio */
+  /* Khung ảnh bo lớn */
   .gcm-photo {
-    @apply relative overflow-hidden rounded-card bg-night-900;
+    @apply relative overflow-hidden rounded-photo bg-tint-strong;
   }
 
-  /* Ô nhập: trắng, viền 1px, bo 8px, cao 44px; focus viền xanh rừng và vòng xanh GCM mờ */
+  /* Ô nhập: bo 14px, viền nước nhạt */
   .gcm-input {
-    @apply min-h-11 w-full rounded-control border border-line-strong bg-surface px-3.5 py-2.5 text-base text-ink placeholder:text-ink-mute focus:border-ocean focus:outline-none focus:ring-[3px] focus:ring-sky/25;
+    @apply min-h-11 w-full rounded-[14px] border border-line-strong bg-surface px-4 py-2.5 text-base text-ink placeholder:text-ink-mute focus:border-ocean focus:outline-none focus:ring-[3px] focus:ring-sky/30;
   }
 
-  /* Dải đầu trang con: nền Navy, cạnh dưới cắt xiên */
+  /* Dải đầu trang con: ảnh/nền biển sâu, cạnh dưới lượn sóng */
   .gcm-pagehero {
-    @apply relative overflow-hidden bg-navy text-white;
-    padding-block: calc(4rem + clamp(2rem, 5vw, 3.5rem)) clamp(3.5rem, 7vw, 5rem);
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2.5rem), 0 100%);
+    @apply relative overflow-hidden bg-page text-navy;
+    padding-block: calc(4.5rem + clamp(2rem, 5vw, 3.5rem)) clamp(4.5rem, 8vw, 6.5rem);
   }
 
-  /* Không còn dùng ánh sáng chuyển sắc — giữ class để code cũ không vỡ */
+  /* Cạnh sóng ở đáy một khối (đặt một <svg class="gcm-wave"> làm con cuối) */
+  .gcm-wave {
+    @apply pointer-events-none absolute inset-x-0 bottom-[-1px] h-[clamp(28px,5vw,64px)] w-full;
+  }
+
   .gcm-glow,
   .gcm-glow-center {
     display: none;
   }
 
-  /* Đường kẻ phân cách: bỏ nét, giữ khoảng trống */
   .gcm-rule {
-    @apply border-t border-transparent;
+    @apply border-t border-line;
   }
 }
 
@@ -178,16 +263,16 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFFFFF;
+  background: #F6F9FD;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #D1D5DB;
+  background: #BFD0E6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #00A651;
+  background: #1556B0;
 }
 
 @media (prefers-reduced-motion: reduce) {

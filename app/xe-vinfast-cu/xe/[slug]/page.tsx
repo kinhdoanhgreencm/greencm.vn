@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import XeChiTietClient from './XeChiTietClient';
 import { BreadcrumbSchema, CarSchema } from '../../../../components/SchemaMarkup';
@@ -6,12 +7,8 @@ import { getUsedCarBySlug, getSimilarUsedCars } from '../../../../lib/usedCars';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
-// Banner mặc định khi xe chưa có ảnh thật (kích thước cố định, tránh khai báo sai OG dims)
-const DEFAULT_CAR_OG_IMAGE = {
-  url: `${baseUrl}/Banner%20hero%20homepage.png`,
-  width: 3104,
-  height: 1376,
-};
+// Ảnh mặc định khi xe chưa có ảnh thật: bản nén 1200x630
+const DEFAULT_CAR_OG_IMAGE = OG_IMAGES.otoVinFast;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -26,11 +23,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const car = await getUsedCarBySlug(slug);
 
   if (!car) {
-    return { title: 'Không tìm thấy xe | GCM' };
+    return { title: 'Không tìm thấy xe', robots: { index: false } };
   }
 
   const carTitle = buildCarTitle(car);
-  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Xe VinFast cũ Cần Thơ, GCM`;
+  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Xe VinFast cũ Cần Thơ`;
   const description = `${carTitle}, ODO ${car.odoKm.toLocaleString('vi-VN')}km${car.batterySohPercent ? `, pin SOH ${car.batterySohPercent}%` : ''}. Giá ${car.price.toLocaleString('vi-VN')}₫. Kiểm định 160 điểm tại GCM Cần Thơ.`;
   const cover = car.images?.[0];
   const ogImage = cover
@@ -43,12 +40,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     description,
     alternates: { canonical: url },
     openGraph: {
+      ...OG_BASE,
       title: pageTitle,
       description,
       url,
       images: [{ url: ogImage.url, width: ogImage.width, height: ogImage.height, alt: carTitle }],
-      locale: 'vi_VN',
-      type: 'website',
     },
     twitter: {
       card: 'summary_large_image',

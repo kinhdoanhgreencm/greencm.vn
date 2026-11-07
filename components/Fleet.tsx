@@ -52,7 +52,7 @@ const Fleet: React.FC = () => {
               <div className="gcm-photo aspect-[16/9] rounded-none">
                 <Image
                   src={car.image}
-                  alt={`${car.name} - Xe điện VinFast tại GCM All About Cars`}
+                  alt={`${car.name} - Xe điện VinFast tại GCM`}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

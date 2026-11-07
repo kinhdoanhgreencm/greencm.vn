@@ -2,8 +2,13 @@ import React from 'react';
 
 // --- CONSTANTS: Đảm bảo đồng bộ với layout.tsx ---
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
-const BRAND_NAME = 'GCM - All About Cars';
-const CORP_NAME = 'Công ty Cổ Phần Green CM';
+const BRAND_NAME = 'GCM';
+const CORP_NAME = 'Công ty Cổ phần Green CM';
+// Logo PNG cho Google (cần ảnh raster ≥112px, nền trắng); dùng chung cho Organization và publisher bài viết
+const LOGO_URL = `${SITE_URL}/brand/v3/gcm-logo-google.png`;
+const ORG_ID = `${SITE_URL}/#organization`;
+// Biến đường dẫn tương đối thành URL đầy đủ (Google yêu cầu URL tuyệt đối trong JSON-LD)
+const absUrl = (u: string) => (u.startsWith('http') ? u : `${SITE_URL}${u.startsWith('/') ? '' : '/'}${u}`);
 
 // --- INTERFACES ---
 // (Giữ nguyên các Interface của bạn, chỉ sửa logic bên dưới)
@@ -115,15 +120,6 @@ interface WebsiteSchemaProps {
   potentialAction?: any;
 }
 
-interface CorporationSchemaProps {
-  name?: string;
-  alternateName?: string[];
-  url?: string;
-  logo?: string;
-  description?: string;
-  contactPoint?: any;
-}
-
 // --- COMPONENTS ---
 
 export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
@@ -131,8 +127,8 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   legalName,
   taxID,
   url = SITE_URL,
-  logo = `${SITE_URL}/logo.png`, // Tự động nối domain
-  description = 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn trạm sạc VinFast, TMT-EGREEN tại Cần Thơ',
+  logo = LOGO_URL,
+  description = 'Green CM tại Cần Thơ phân phối trụ sạc V-Green và tư vấn đầu tư trạm sạc xe điện cho miền Nam. Green CM cũng là đối tác trụ sạc TMT-EGREEN. Công ty bán ô tô VinFast mới, xe VinFast cũ và phụ kiện.',
   areaServed,
   address = {
     streetAddress: '59, Đường Số 10, KDC Diệu Hiền',
@@ -156,13 +152,16 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
 }) => {
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'AutoDealer', // Cụ thể hơn 'Organization' - giúp lên Google Maps/local pack
-    '@id': `${SITE_URL}/#organization`,
+    '@type': 'AutoDealer', // Là LocalBusiness, giúp lên Google Maps/local pack; một thực thể duy nhất cho cả công ty
+    '@id': ORG_ID,
     name,
+    alternateName: ['Green CM', CORP_NAME],
     ...(legalName && { legalName }),
     ...(taxID && { taxID }),
     url,
-    logo,
+    logo: { '@type': 'ImageObject', url: logo },
+    image: logo,
+    telephone: contactPoint.telephone,
     description,
     ...(areaServed && { areaServed }),
     address: {
@@ -198,41 +197,6 @@ export const OrganizationSchema: React.FC<OrganizationSchemaProps> = ({
   );
 };
 
-export const CorporationSchema: React.FC<CorporationSchemaProps> = ({
-  name = CORP_NAME,
-  alternateName = ['Green CM', 'GCM - All About Cars'], // Đã sửa CGM -> GCM
-  url = SITE_URL,
-  logo = `${SITE_URL}/logo.png`,
-  description = 'GCM - All About Cars - Hệ sinh thái ô tô toàn diện.',
-  contactPoint = {
-    telephone: '+84916513720',
-    contactType: 'customer service',
-    areaServed: 'VN',
-    availableLanguage: 'Vietnamese',
-  },
-}) => {
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': 'Corporation',
-    name,
-    alternateName,
-    url,
-    logo,
-    description,
-    contactPoint: {
-      '@type': 'ContactPoint',
-      ...contactPoint,
-    },
-  };
-
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-};
-
 export const ProductSchema: React.FC<ProductSchemaProps> = ({
   name,
   description,
@@ -254,7 +218,7 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
     name,
     ...(description && { description }),
     ...(image && {
-      image: Array.isArray(image) ? image : [image],
+      image: (Array.isArray(image) ? image : [image]).map(absUrl),
     }),
     brand: {
       '@type': 'Brand',
@@ -269,66 +233,22 @@ export const ProductSchema: React.FC<ProductSchemaProps> = ({
   };
 
   if (offers) {
-    // XỬ LÝ GIÁ TIỀN AN TOÀN HƠN
-    let priceValue = offers.price;
-    if (typeof offers.price === 'string') {
-        // Loại bỏ mọi ký tự không phải số (giữ lại dấu chấm nếu là format tiếng Anh, nhưng cẩn thận với tiếng Việt)
-        // Cách tốt nhất: Backend nên trả về number. Nếu là string '1.000.000', cần replace dấu . thành rỗng
-        const rawString = offers.price.toString();
-        // Giả sử input là '1.000.000' -> xóa dấu chấm -> 1000000
-        // Nếu input là '1,000,000' -> xóa dấu phẩy -> 1000000
-        priceValue = parseFloat(rawString.replace(/[\.,]/g, ''));
-    }
+    // Giá kiểu Việt Nam "9.500.000đ" → 9500000: bỏ mọi ký tự không phải chữ số
+    const priceValue =
+      typeof offers.price === 'string' ? Number(offers.price.replace(/\D/g, '')) : offers.price;
 
-    const getPriceValidUntil = () => {
-      if (offers.priceValidUntil) return offers.priceValidUntil;
-      const date = new Date();
-      date.setFullYear(date.getFullYear() + 1);
-      return date.toISOString().split('T')[0];
-    };
-
+    // Chỉ khai báo hạn giá, đổi trả, vận chuyển khi có chính sách thật được truyền vào;
+    // không tự bịa chính sách mặc định (ô tô không thể "đổi trả qua bưu điện").
     schema.offers = {
       '@type': 'Offer',
       price: priceValue,
       priceCurrency: offers.priceCurrency || 'VND',
       availability: offers.availability || 'https://schema.org/InStock',
-      priceValidUntil: getPriceValidUntil(),
-      ...(offers.url && { url: offers.url }),
-      hasMerchantReturnPolicy: offers.hasMerchantReturnPolicy || {
-        '@type': 'MerchantReturnPolicy',
-        applicableCountry: 'VN',
-        returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-        merchantReturnDays: 7,
-        returnMethod: 'https://schema.org/ReturnByMail',
-        returnFees: 'https://schema.org/FreeReturn',
-      },
-      shippingDetails: offers.shippingDetails || {
-        '@type': 'OfferShippingDetails',
-        shippingRate: {
-          '@type': 'MonetaryAmount',
-          value: 0,
-          currency: 'VND',
-        },
-        shippingDestination: {
-          '@type': 'DefinedRegion',
-          addressCountry: 'VN',
-        },
-        deliveryTime: {
-          '@type': 'ShippingDeliveryTime',
-          handlingTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 1,
-            maxValue: 2,
-            unitCode: 'DAY',
-          },
-          transitTime: {
-            '@type': 'QuantitativeValue',
-            minValue: 1,
-            maxValue: 3,
-            unitCode: 'DAY',
-          },
-        },
-      },
+      seller: { '@id': ORG_ID },
+      ...(offers.priceValidUntil && { priceValidUntil: offers.priceValidUntil }),
+      ...(offers.url && { url: absUrl(offers.url) }),
+      ...(offers.hasMerchantReturnPolicy && { hasMerchantReturnPolicy: offers.hasMerchantReturnPolicy }),
+      ...(offers.shippingDetails && { shippingDetails: offers.shippingDetails }),
     };
   }
 
@@ -419,7 +339,7 @@ export const CarSchema: React.FC<CarSchemaProps> = ({
     fuelType: 'Electric',
     ...(color && { color }),
     ...(previousOwnersCount !== undefined && { numberOfPreviousOwners: previousOwnersCount }),
-    ...(image && image.length > 0 && { image }),
+    ...(image && image.length > 0 && { image: image.map(absUrl) }),
     offers: {
       '@type': 'Offer',
       price,
@@ -427,7 +347,7 @@ export const CarSchema: React.FC<CarSchemaProps> = ({
       availability: `https://schema.org/${availability}`,
       itemCondition: 'https://schema.org/UsedCondition',
       url,
-      seller: { '@id': `${SITE_URL}/#organization` },
+      seller: { '@id': ORG_ID },
     },
   };
 
@@ -485,11 +405,10 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
     '@type': 'Service',
     name,
     ...(description && { description }),
-    provider: {
-      '@type': 'Organization',
-      name: provider.name,
-      ...(provider.url && { url: provider.url }),
-    },
+    provider:
+      provider.name === BRAND_NAME
+        ? { '@id': ORG_ID }
+        : { '@type': 'Organization', name: provider.name, ...(provider.url && { url: provider.url }) },
     areaServed: {
       '@type': 'Country',
       name: areaServed,
@@ -499,10 +418,8 @@ export const ServiceSchema: React.FC<ServiceSchemaProps> = ({
 
   if (offers) {
      // Xử lý giá tiền đơn giản
-     let priceValue = offers.price;
-     if (typeof offers.price === 'string') {
-        priceValue = parseFloat(offers.price.replace(/[\.,]/g, ''));
-     }
+     const priceValue =
+       typeof offers.price === 'string' ? Number(offers.price.replace(/\D/g, '')) : offers.price;
 
     schema.offers = {
       '@type': 'Offer',
@@ -623,11 +540,9 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
     },
     publisher: {
       '@type': 'Organization',
+      '@id': ORG_ID,
       name: BRAND_NAME,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${SITE_URL}/logo.png`,
-      },
+      logo: { '@type': 'ImageObject', url: LOGO_URL },
     },
     ...(datePublished && { datePublished }),
     ...((dateModified || datePublished) && { dateModified: dateModified || datePublished }),
@@ -644,25 +559,21 @@ export const ArticleSchema: React.FC<ArticleSchemaProps> = ({
 export const WebsiteSchema: React.FC<WebsiteSchemaProps> = ({
   name = BRAND_NAME,
   url = SITE_URL,
-  description = 'Ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn trạm sạc VinFast, TMT-EGREEN tại Cần Thơ',
+  description = 'Trụ sạc, tư vấn đầu tư trạm sạc xe điện và xe VinFast tại Cần Thơ.',
   potentialAction,
 }) => {
-  
+  // Không khai báo SearchAction vì site chưa có trang tìm kiếm (khai báo URL 404 là dữ liệu sai)
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
     name,
-    url: url,
+    alternateName: 'Green CM',
+    url,
     description,
-    potentialAction: potentialAction || {
-      '@type': 'SearchAction',
-      target: {
-        '@type': 'EntryPoint',
-        // Kiểm tra xem trang search của bạn có đúng là /tin-tuc không? Thường là /tim-kiem hoặc /search
-        urlTemplate: `${url}/tim-kiem?q={search_term_string}`, 
-      },
-      'query-input': 'required name=search_term_string',
-    },
+    inLanguage: 'vi-VN',
+    publisher: { '@id': ORG_ID },
+    ...(potentialAction && { potentialAction }),
   };
 
   return (

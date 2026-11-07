@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import ModelPageClient from './ModelPageClient';
 
@@ -16,7 +17,7 @@ const LIMO_HERO_IMAGE =
 const LIMO_GREEN_METADATA: Metadata = {
   title: 'Limo Green | MPV điện 7 chỗ chạy dịch vụ, giá lăn bánh',
   description:
-    'VinFast Limo Green 7 chỗ cho tài xế chạy dịch vụ: giá từ 749 triệu, vay đến 90% với lãi suất ưu đãi, tiền sạc chỉ khoảng 1/3 tiền xăng.',
+    'VinFast Limo Green 7 chỗ cho tài xế chạy dịch vụ: giá từ 699 triệu, vay tới 100% giá xe, tiền sạc chỉ khoảng 1/3 tiền xăng.',
   keywords: [
     'xe ô tô điện 7 chỗ chạy dịch vụ',
     'vinfast limo green giá lăn bánh',
@@ -31,27 +32,19 @@ const LIMO_GREEN_METADATA: Metadata = {
     canonical: `${BASE_URL}/oto-vinfast/limo-green`,
   },
   openGraph: {
-    title: 'Limo Green 7 chỗ chạy dịch vụ, giá từ 749 triệu',
+    ...OG_BASE,
+    title: 'Limo Green 7 chỗ chạy dịch vụ, giá từ 699 triệu',
     description:
       'MPV điện 7 chỗ đi được 450 km mỗi lần sạc, bảo hành 7 năm. Xem bảng tính dòng tiền khi chạy dịch vụ.',
     url: `${BASE_URL}/oto-vinfast/limo-green`,
-    images: [
-      {
-        url: LIMO_HERO_IMAGE,
-        width: 1408,
-        height: 736,
-        alt: 'VinFast Limo Green, MPV điện 7 chỗ cho tài xế chạy dịch vụ',
-      },
-    ],
-    locale: 'vi_VN',
-    type: 'website',
+    images: [OG_IMAGES.limoGreen],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Limo Green | MPV điện 7 chỗ cho tài xế dịch vụ',
     description:
       'VinFast Limo Green là MPV điện 7 chỗ dùng chạy dịch vụ, đi được 450 km mỗi lần sạc.',
-    images: [LIMO_HERO_IMAGE],
+    images: [OG_IMAGES.limoGreen.url],
   },
 };
 
@@ -60,12 +53,12 @@ const LIMO_GREEN_FAQ = [
   {
     question: 'Giá lăn bánh VinFast Limo Green là bao nhiêu?',
     answer:
-      'Giá niêm yết từ 749 triệu đồng. Chi phí lăn bánh ở Hà Nội, TP.HCM và các tỉnh khác nhau vì phí biển số khác nhau. Gọi 0916 513 720 để nhận bảng giá chi tiết.',
+      'Giá niêm yết 699 triệu đồng (đã gồm pin). Chi phí lăn bánh ở Hà Nội, TP.HCM và các tỉnh khác nhau vì phí biển số khác nhau. Gọi 0916 513 720 để nhận bảng giá chi tiết.',
   },
   {
     question: 'Tôi muốn mua xe chạy dịch vụ (Grab/Xanh SM), ngân hàng cho vay bao nhiêu?',
     answer:
-      'GCM làm việc với MB, Techcombank và VPBank; ngân hàng cho vay 80-90% giá trị xe, thời hạn tối đa 8 năm. Thường bạn trả trước khoảng 150-200 triệu là nhận xe.',
+      'Đến hết 31/12/2026, chương trình Mua xe 0 đồng của VinFast cho vay tới 100% giá xe, không cần vốn đối ứng. Hạn mức và thời hạn vay tùy ngân hàng duyệt hồ sơ; GCM làm hồ sơ cùng bạn.',
   },
   {
     question: 'Chi phí sạc điện so với đổ xăng như thế nào?',
@@ -88,7 +81,7 @@ function buildLimoGreenProductSchema(): object {
       '@type': 'Offer',
       url: `${BASE_URL}/oto-vinfast/limo-green`,
       priceCurrency: 'VND',
-      price: '749000000',
+      price: '699000000',
       itemCondition: 'https://schema.org/NewCondition',
       availability: 'https://schema.org/InStock',
     },

@@ -11,8 +11,8 @@ const About: React.FC = () => {
       {/* 1. Page header */}
       <PageHero
         eyebrow="Giới thiệu"
-        title={<>Giới thiệu <span className="text-sky-light">GCM</span> – All About Cars</>}
-        summary={<><span className="block font-medium text-white">Xe VinFast mới và đã qua sử dụng, phụ kiện, trạm sạc tại Cần Thơ</span>3 mảng chính: trạm sạc • xe lướt • phụ kiện</>}
+        title={<>Giới thiệu <span className="gcm-mark">Green CM</span></>}
+        summary={<><span className="block font-medium text-navy">Xe VinFast mới và đã qua sử dụng, phụ kiện, trạm sạc tại Cần Thơ</span>3 mảng chính: trạm sạc • xe lướt • phụ kiện</>}
         crumbs={[{ href: '/gioi-thieu', label: 'Giới thiệu' }]}
       />
 
@@ -26,7 +26,7 @@ const About: React.FC = () => {
               Người định mua xe điện thường hỏi GCM hai câu: sạc ở đâu, và chiếc xe đã qua sử dụng mình đang xem có còn tốt không (nhất là pin). GCM được lập ra để trả lời hai câu đó.
             </p>
             <p className="text-base leading-[1.7] text-ink-soft">
-              <span className="font-semibold text-ink">GCM</span> làm 3 mảng: <span className="font-semibold text-ink">trạm sạc</span> (đại lý/đối tác chính thức của VinFast và TMT-EGREEN), <span className="font-semibold text-ink">xe lướt</span> (xe VinFast cũ do GCM đăng bán, thẩm định pin thực tế) và <span className="font-semibold text-ink">phụ kiện</span> (đồ chơi, phụ kiện nâng cấp chính hãng cho xe VinFast). Chọn xe, tìm chỗ sạc hay lắp thêm phụ kiện, bạn hỏi một nơi là đủ.
+              <span className="font-semibold text-ink">GCM</span> làm 3 mảng: <span className="font-semibold text-ink">trạm sạc</span> (tư vấn nhượng quyền, khảo sát và lắp đặt), <span className="font-semibold text-ink">xe lướt</span> (xe VinFast cũ do GCM đăng bán, thẩm định pin thực tế) và <span className="font-semibold text-ink">phụ kiện</span> (đồ chơi, phụ kiện nâng cấp chính hãng cho xe VinFast). Chọn xe, tìm chỗ sạc hay lắp thêm phụ kiện, bạn hỏi một nơi là đủ.
             </p>
           </div>
 
@@ -34,7 +34,7 @@ const About: React.FC = () => {
           <div className="gcm-photo aspect-[16/9]">
             <Image
               src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/GCM%20Hero%20banner.png"
-              alt="GCM All About Cars - xe VinFast, phụ kiện và trạm sạc tại Cần Thơ"
+              alt="GCM - xe VinFast, phụ kiện và trạm sạc tại Cần Thơ"
               fill
               priority={true}
               quality={90}
@@ -159,13 +159,13 @@ const About: React.FC = () => {
           <div className="relative overflow-hidden rounded-card bg-tint px-6 py-10 md:px-10 md:py-12">
             <SpeedBars className="pointer-events-none absolute right-0 top-1/2 hidden h-24 w-72 -translate-y-1/2 md:block" />
             <div className="relative flex max-w-2xl flex-col gap-4">
-              <h2 className="gcm-h2">GCM – All About Cars</h2>
+              <h2 className="gcm-h2">Green CM</h2>
               <p className="text-base leading-[1.7] text-ink-soft">
-                Muốn xem xe tận nơi? Showroom GCM ở 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ; bạn cũng có thể gọi trước để hẹn giờ.
+                Muốn xem xe tận nơi? Văn phòng GCM ở 59 Đường Số 10, KDC Diệu Hiền, Cái Răng, Cần Thơ; bạn cũng có thể gọi trước để hẹn giờ.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <button className="gcm-btn">
-                  Ghé thăm showroom
+                  Ghé thăm văn phòng
                 </button>
                 <button className="gcm-btn-ghost">
                   Liên hệ 0916 513 720

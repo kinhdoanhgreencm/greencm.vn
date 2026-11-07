@@ -13,7 +13,7 @@ import { BUSINESS_TAX_ID } from '../../constants';
 const SECTIONS = [
   {
     title: '1. Phạm vi áp dụng',
-    body: 'Điều khoản này áp dụng cho mọi cá nhân, tổ chức truy cập và sử dụng website greencm.vn cũng như các dịch vụ bán xe VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn trạm sạc do Công ty Cổ phần Green CM (GCM - All About Cars) cung cấp. Khi tiếp tục dùng website, bạn đồng ý với các điều khoản dưới đây.',
+    body: 'Điều khoản này áp dụng cho mọi cá nhân, tổ chức truy cập và sử dụng website greencm.vn cũng như các dịch vụ bán xe VinFast mới và đã qua sử dụng, phụ kiện VinFast, tư vấn trạm sạc do Công ty Cổ phần Green CM (GCM) cung cấp. Khi tiếp tục dùng website, bạn đồng ý với các điều khoản dưới đây.',
   },
   {
     title: '2. Thông tin sản phẩm và dịch vụ',

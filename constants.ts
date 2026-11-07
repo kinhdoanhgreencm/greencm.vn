@@ -1,21 +1,22 @@
 
 import { NavItem, ServiceCard, CarModel, AccessoryProduct, FaqItem, NewCar, BlogPost, JobOpening } from './types';
+import { V_GREEN_POSTS } from './lib/postsVGreen';
+import { XE_MOI_POSTS } from './lib/postsXeMoi';
 import { Droplets, Wind, Sparkles, Wrench } from 'lucide-react';
 
 // Mã số thuế Công ty Cổ phần Green CM — dùng chung cho Footer và schema AutoDealer
 export const BUSINESS_TAX_ID = '1801813513';
 
 export const NAV_ITEMS: NavItem[] = [
-  { label: 'Giới thiệu', href: '#about' },
-  { label: 'Ô tô VinFast', href: '#sales' },
-  { label: 'Xe VinFast Cũ', href: '#used-cars' },
   {
     label: 'Trạm sạc', href: '#charging',
     children: [
-      { label: 'Trạm sạc VinFast', href: '#charging' },
+      { label: 'Trạm sạc V-Green', href: '#charging' },
       { label: 'Trạm sạc TMT-EGREEN', href: '#charging-tmt-egreen' },
     ],
   },
+  { label: 'Ô tô VinFast', href: '#sales' },
+  { label: 'Xe VinFast Cũ', href: '#used-cars' },
   { label: 'Phụ kiện', href: '#accessories' },
   { label: 'Tin tức', href: '#news' },
 ];
@@ -68,7 +69,7 @@ export const FLEET: CarModel[] = [
   },
   {
     id: 'vf5',
-    name: 'VinFast VF 5 Plus',
+    name: 'VinFast VF 5',
     category: 'SUV hạng A',
     image: '/images/xe/vf5.webp'
   }
@@ -187,72 +188,138 @@ export const ACCESSORIES_PRODUCTS: AccessoryProduct[] = [
   }
 ];
 
+// Giá niêm yết đã gồm pin, lấy từ công cụ dự toán lăn bánh chính hãng shop.vinfastauto.com/vn_vi/chi-phi-lan-banh, tra 06/11/2026.
+// priceFrom = phiên bản thấp nhất.
 export const NEW_CARS_FAMILY: NewCar[] = [
+  {
+    id: 'vf2',
+    name: 'VinFast VF 2',
+    priceFrom: 188000000,
+    displayPrice: '188.000.000đ',
+    range: '210 km',
+    seats: 4,
+    segment: 'urban',
+    image: '/images/xe/vf2.webp',
+    features: ['Xe đô thị cỡ nhỏ', '4 chỗ'],
+    variants: [{ name: 'Tiêu chuẩn', price: 188_000_000 }],
+    vtlx2: 'low'
+  },
   {
     id: 'vf3',
     name: 'VinFast VF 3',
-    priceFrom: 299000000,
-    displayPrice: '299.000.000đ',
+    priceFrom: 285000000,
+    displayPrice: '285.000.000đ',
     range: '215 km',
     seats: 4,
     segment: 'urban',
     image: '/images/xe/vf3.webp',
-    features: ['Sạc nhanh 30p', 'Nhỏ gọn, dễ đỗ']
+    features: ['Sạc nhanh 30p', 'Nhỏ gọn, dễ đỗ'],
+    variants: [{ name: 'Eco', price: 285_000_000 }, { name: 'Plus', price: 296_000_000 }],
+    vtlx2: 'low'
   },
   {
     id: 'vf5',
-    name: 'VinFast VF 5 Plus',
-    priceFrom: 529000000,
-    displayPrice: '529.000.000đ',
+    name: 'VinFast VF 5',
+    priceFrom: 496000000,
+    displayPrice: '496.000.000đ',
     range: '326 km',
     seats: 5,
     segment: 'urban',
     image: '/images/xe/vf5.webp',
-    features: ['ADAS cơ bản', '6 túi khí']
+    features: ['ADAS cơ bản', '6 túi khí'],
+    variants: [{ name: 'Plus', price: 496_000_000 }],
+    vtlx2: 'high'
   },
   {
     id: 'vf6',
     name: 'VinFast VF 6',
-    priceFrom: 689000000,
-    displayPrice: '689.000.000đ',
+    priceFrom: 646000000,
+    displayPrice: '646.000.000đ',
     range: '480 km',
     seats: 5,
     segment: 'suv-bc',
     image: '/images/xe/vf6.webp',
-    features: ['Thiết kế Pininfarina', 'Nội thất tối giản']
+    features: ['Thiết kế Pininfarina', 'Nội thất tối giản'],
+    variants: [{ name: 'Eco', price: 646_000_000 }, { name: 'Plus', price: 699_000_000 }],
+    vtlx2: 'high'
   },
   {
     id: 'vf7',
     name: 'VinFast VF 7',
-    priceFrom: 789000000,
-    displayPrice: '789.000.000đ',
+    priceFrom: 740000000,
+    displayPrice: '740.000.000đ',
     range: '498 km',
     seats: 5,
     segment: 'suv-bc',
     image: '/images/xe/vf7.webp',
-    features: ['Cửa sổ trời toàn cảnh', 'Tăng tốc 5.8s']
+    features: ['Cửa sổ trời toàn cảnh', 'Tăng tốc 5.8s'],
+    variants: [{ name: 'Eco', price: 740_000_000 }, { name: 'Plus', price: 830_000_000 }, { name: 'Plus trần kính', price: 850_000_000 }, { name: 'Plus 2 động cơ', price: 879_000_000 }, { name: 'Plus trần kính, 2 động cơ', price: 899_000_000 }],
+    vtlx2: 'high'
+  },
+  {
+    id: 'vf-mpv7',
+    name: 'VinFast VF MPV 7',
+    priceFrom: 750000000,
+    displayPrice: '750.000.000đ',
+    range: '450 km',
+    seats: 7,
+    segment: 'suv-bc',
+    image: '/images/xe/vf-mpv7.webp',
+    features: ['MPV 7 chỗ', 'Gia đình đông người'],
+    variants: [{ name: 'Tiêu chuẩn', price: 750_000_000 }],
+    vtlx2: 'high'
   },
   {
     id: 'vf8',
     name: 'VinFast VF 8',
-    priceFrom: 1019000000,
-    displayPrice: '1.019.000.000đ',
+    priceFrom: 898000000,
+    displayPrice: '898.000.000đ',
     range: '562 km',
     seats: 5,
     segment: 'luxury',
     image: '/images/xe/vf8.webp',
-    features: ['ADAS cấp độ 2', 'Trợ lý ảo ViVi']
+    features: ['ADAS cấp độ 2', 'Trợ lý ảo ViVi'],
+    variants: [{ name: 'Eco', price: 898_000_000 }, { name: 'Plus', price: 1_079_000_000 }],
+    vtlx2: 'high'
+  },
+  {
+    id: 'vf8-the-he-moi',
+    name: 'VinFast VF 8 Thế hệ mới',
+    priceFrom: 899000000,
+    displayPrice: '899.000.000đ',
+    range: '480 km',
+    seats: 5,
+    segment: 'luxury',
+    image: '/images/xe/vf8-the-he-moi.webp',
+    features: ['Thế hệ mới 2026'],
+    variants: [{ name: 'Comfort', price: 899_000_000 }],
+    vtlx2: 'mid'
   },
   {
     id: 'vf9',
     name: 'VinFast VF 9',
-    priceFrom: 1499000000,
-    displayPrice: '1.499.000.000đ',
+    priceFrom: 1348000000,
+    displayPrice: '1.348.000.000đ',
     range: '626 km',
     seats: 7,
     segment: 'luxury',
     image: '/images/xe/vf9.webp',
-    features: ['Ghế cơ trưởng', 'Massage', 'Cửa hít']
+    features: ['Ghế cơ trưởng', 'Massage', 'Cửa hít'],
+    variants: [{ name: 'Eco', price: 1_348_000_000 }, { name: 'Plus 7 chỗ', price: 1_529_000_000 }, { name: 'Plus ghế cơ trưởng', price: 1_561_000_000 }],
+    vtlx2: 'mid'
+  },
+  {
+    id: 'vf-wild',
+    name: 'VinFast VF Wild',
+    priceFrom: 860000000,
+    displayPrice: '860.000.000đ',
+    range: '1.000 km (REEV)',
+    seats: 5,
+    segment: 'luxury',
+    image: '/images/xe/vf-wild.webp',
+    features: ['Bán tải', 'Thùng 750 kg', 'Có bộ mở rộng quãng đường REEV'],
+    variants: [{ name: 'Tiêu chuẩn', price: 860_000_000 }],
+    vtlx2: 'mid'
   }
 ];
 
@@ -261,66 +328,76 @@ export const NEW_CARS_SERVICE: NewCar[] = [
     id: 'minio',
     name: 'Minio Green',
     solutionName: 'Taxi hẻm nhỏ',
-    priceFrom: 269000000,
-    displayPrice: '269 Triệu',
+    priceFrom: 188000000,
+    displayPrice: '188 Triệu',
     range: '210 km/sạc',
     seats: 4,
     segment: 'micro-transit',
     image: '/images/xe/minio.webp',
-    description: 'Xe nhỏ, đi lọt hẻm hẹp.'
+    description: 'Xe nhỏ, đi lọt hẻm hẹp.',
+    vtlx2: 'low'
   },
   {
     id: 'herio',
     name: 'Herio Green',
     solutionName: 'Taxi công nghệ',
-    priceFrom: 499000000,
-    displayPrice: '499 Triệu',
+    priceFrom: 450000000,
+    displayPrice: 'Từ 450 Triệu',
+    variants: [{ name: 'Tiêu chuẩn 2', price: 450_000_000 }, { name: 'Tiêu chuẩn 1', price: 469_000_000 }],
     range: '326 km/sạc',
     seats: 5,
     segment: 'micro-transit',
     image: '/images/xe/herio.webp',
-    description: 'Hợp chạy dịch vụ XanhSM.'
+    description: 'Hợp chạy dịch vụ XanhSM.',
+    vtlx2: 'high'
   },
   {
     id: 'nerio',
     name: 'Nerio Green',
     solutionName: 'Đưa đón chuyên gia',
-    priceFrom: 668000000,
-    displayPrice: '668 Triệu',
+    priceFrom: 628000000,
+    displayPrice: '628 Triệu',
     range: '318 km/sạc',
     seats: 5,
     segment: 'vip-transit',
     image: '/images/xe/nerio.webp',
-    description: 'Xe êm, hợp đưa đón khách doanh nghiệp.'
+    description: 'Xe êm, hợp đưa đón khách doanh nghiệp.',
+    vtlx2: 'high'
   },
   {
     id: 'limo',
     name: 'Limo Green',
     solutionName: 'Dịch vụ 7 chỗ',
-    priceFrom: 749000000,
-    displayPrice: '749 Triệu',
+    priceFrom: 699000000,
+    displayPrice: '699 Triệu',
     range: '450km/sạc',
     seats: 7,
     segment: 'vip-transit',
     image: '/images/xe/limo.webp',
-    description: 'Bảy chỗ, chạy 450 km mỗi lần sạc.'
+    description: 'Bảy chỗ, chạy 450 km mỗi lần sạc.',
+    vtlx2: 'high'
   },
   {
     id: 'ecvan',
     name: 'EC Van',
     solutionName: 'Chở hàng 24/7',
-    priceFrom: 285000000,
-    displayPrice: '285 Triệu',
+    priceFrom: 268000000,
+    displayPrice: 'Từ 268 Triệu',
+    variants: [{ name: 'Tiêu chuẩn', price: 268_000_000 }, { name: 'Nâng cao, không cửa trượt', price: 286_000_000 }, { name: 'Nâng cao, có cửa trượt', price: 306_000_000 }],
     range: '175km/sạc',
     seats: 2,
     segment: 'cargo',
     image: '/images/xe/ecvan.webp',
-    description: 'Xe van hai chỗ chuyên chở hàng.'
+    description: 'Xe van hai chỗ chuyên chở hàng.',
+    vtlx2: 'mid'
   }
 ];
 
 
 export const BLOG_POSTS: BlogPost[] = [
+  // Cụm bài V-Green (lib/postsVGreen.ts)
+  ...V_GREEN_POSTS,
+  ...XE_MOI_POSTS,
   {
     id: 'nhuong-quyen-tram-sac-xe-dien-la-gi',
     title: 'Nhượng quyền trạm sạc xe điện là gì? Cách mô hình này vận hành tại Việt Nam',
@@ -419,7 +496,7 @@ export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'bang-gia-tru-sac-xe-dien-tmt-egreen',
     title: 'Bảng giá trụ sạc xe điện TMT‑EGREEN mới nhất 11/2026: từ AC 22kW đến DC 960kW',
-    seoTitle: 'Bảng giá trụ sạc TMT-EGREEN 11/2026, AC 22kW đến DC 960kW',
+    seoTitle: 'Giá trụ sạc TMT-EGREEN 11/2026, AC 22kW đến DC 960kW',
     excerpt: 'Giá niêm yết, khoản hỗ trợ khi thanh toán thẳng và giá bán các loại trụ sạc AC, DC TMT-EGREEN áp dụng từ tháng 11/2026.',
     image: '/images/tmt-egreen/240kw.webp',
     category: 'tmt-egreen',
@@ -525,6 +602,7 @@ export const BLOG_POSTS: BlogPost[] = [
     </tbody>
   </table>
 </div>
+<p class="mb-4">Bảng giá kèm ảnh từng mẫu và hỏi đáp có ở trang <a href="/tram-sac-tmt-egreen/bang-gia" class="text-gcm-green font-semibold underline">bảng giá trụ sạc TMT-EGREEN</a>.</p>
 <p class="mb-4"><em>Giá thiết bị chưa gồm hạ tầng điện, thi công mặt bằng và biển bảng; GCM báo giá trọn gói sau khi khảo sát. Chính sách có thể thay đổi theo từng thời điểm, giá áp dụng là giá ghi trên hợp đồng.</em></p>
 
 <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Cách chọn cấu hình trụ sạc phù hợp</h2>
@@ -613,7 +691,8 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: 'so-sanh-nhuong-quyen-tram-sac-tmt-egreen-vinfast',
     tags: ['So sánh nhượng quyền trạm sạc', 'TMT-EGREEN', 'VinFast', 'Đầu tư trạm sạc xe điện'],
     parentCategory: 'news',
-    content: `<p class="mb-4">Khi đã hiểu <a href="/tin-tuc/nhuong-quyen-tram-sac-xe-dien-la-gi" class="text-gcm-green font-semibold underline">mô hình nhượng quyền trạm sạc</a> và cân đối được <a href="/tin-tuc/chi-phi-dau-tu-tram-sac-xe-dien-nhuong-quyen-tmt-egreen" class="text-gcm-green font-semibold underline">chi phí đầu tư</a>, bước tiếp theo là chọn đối tác. Bảng sau đặt hai lựa chọn hay gặp, TMT‑EGREEN và VinFast, cạnh nhau theo 6 tiêu chí.</p>
+    content: `<p class="mb-4 bg-gray-50 p-4"><strong>Cập nhật 06/11/2026:</strong> V-Green (hệ thống trạm sạc của VinFast) đã tạm dừng nhận hồ sơ nhượng quyền trạm sạc mới từ 06/08/2026; hợp đồng đã ký vẫn giữ hiệu lực. Cột VinFast dưới đây giữ để tham khảo. Xem bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac" class="text-gcm-green font-semibold underline">V-Green tạm dừng nhận hồ sơ</a>.</p>
+<p class="mb-4">Khi đã hiểu <a href="/tin-tuc/nhuong-quyen-tram-sac-xe-dien-la-gi" class="text-gcm-green font-semibold underline">mô hình nhượng quyền trạm sạc</a> và cân đối được <a href="/tin-tuc/chi-phi-dau-tu-tram-sac-xe-dien-nhuong-quyen-tmt-egreen" class="text-gcm-green font-semibold underline">chi phí đầu tư</a>, bước tiếp theo là chọn đối tác. Bảng sau đặt hai lựa chọn hay gặp, TMT‑EGREEN và VinFast, cạnh nhau theo 6 tiêu chí.</p>
 
 <h2 class="text-2xl font-bold text-gray-900 mt-8 mb-4">Bảng so sánh 6 tiêu chí</h2>
 <div class="overflow-x-auto my-6">
@@ -675,7 +754,7 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><a href="/tin-tuc/tru-sac-ac-dc-khac-nhau-nhu-the-nao">Trụ sạc AC và DC khác nhau thế nào? Nên chọn loại nào để kinh doanh nhượng quyền</a></li>
     <li><a href="/tin-tuc/thong-so-ky-thuat-tru-sac-xe-dien-tmt-egreen">Thông số kỹ thuật trụ sạc TMT‑EGREEN: đầy đủ 12 model từ AC 7kW đến DC 1040kW</a></li>
   </ul>
-  <p>Chương trình của VinFast xem ở trang <a href="/tram-sac-vinfast">nhượng quyền trạm sạc VinFast</a>.</p>
+  <p>V-Green đang tạm dừng nhận hồ sơ nhượng quyền mới, chi tiết ở bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac">V-Green tạm dừng nhận hồ sơ</a>.</p>
 </div>`
   },
   {
@@ -725,7 +804,7 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><a href="/tin-tuc/tram-sac-xe-dien-sac-duoc-xe-hang-nao">Trạm sạc xe điện sạc được xe hãng nào? Lợi thế của trạm đa hãng CCS2</a></li>
     <li><a href="/tin-tuc/dien-tich-mat-bang-tram-sac-xe-dien-nhuong-quyen">Cần bao nhiêu diện tích mặt bằng để mở trạm sạc xe điện nhượng quyền?</a></li>
   </ul>
-  <p>Chương trình của VinFast xem ở trang <a href="/tram-sac-vinfast">nhượng quyền trạm sạc VinFast</a>.</p>
+  <p>V-Green đang tạm dừng nhận hồ sơ nhượng quyền mới, chi tiết ở bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac">V-Green tạm dừng nhận hồ sơ</a>.</p>
 </div>`
   },
   {
@@ -812,7 +891,7 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><a href="/tin-tuc/ho-tro-tai-chinh-nam-dau-nhuong-quyen-tram-sac-tmt-egreen">Hỗ trợ khi thanh toán thẳng trụ sạc TMT‑EGREEN: được giảm bao nhiêu?</a></li>
     <li><a href="/tin-tuc/loi-nhuan-chia-se-tram-sac-xe-dien-theo-kwh">Lợi nhuận chia sẻ theo kWh là gì? Vì sao TMT‑EGREEN trả 1.500đ/kWh, gần gấp đôi thị trường</a></li>
   </ul>
-  <p>Chương trình của VinFast xem ở trang <a href="/tram-sac-vinfast">nhượng quyền trạm sạc VinFast</a>.</p>
+  <p>V-Green đang tạm dừng nhận hồ sơ nhượng quyền mới, chi tiết ở bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac">V-Green tạm dừng nhận hồ sơ</a>.</p>
 </div>`
   },
   {
@@ -858,7 +937,7 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><a href="/tin-tuc/tieu-chuan-thi-cong-tram-sac-xe-dien-tmt-egreen">Tiêu chuẩn thi công trạm sạc xe điện TMT‑EGREEN: các hạng mục bắt buộc</a></li>
     <li><a href="/tin-tuc/bao-hanh-tru-sac-xe-dien-bao-lau">Bảo hành trụ sạc xe điện bao lâu? So sánh chính sách bảo hành giữa các thương hiệu</a></li>
   </ul>
-  <p>Chương trình của VinFast xem ở trang <a href="/tram-sac-vinfast">nhượng quyền trạm sạc VinFast</a>.</p>
+  <p>V-Green đang tạm dừng nhận hồ sơ nhượng quyền mới, chi tiết ở bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac">V-Green tạm dừng nhận hồ sơ</a>.</p>
 </div>`
   },
   {
@@ -1214,7 +1293,7 @@ export const BLOG_POSTS: BlogPost[] = [
     <li><a href="/tin-tuc/dau-tu-tram-sac-xe-dien-mien-tay">Đầu tư trạm sạc xe điện dọc Quốc lộ 1A và các tuyến đường miền Tây</a></li>
     <li><a href="/tin-tuc/nhuong-quyen-tram-sac-xe-dien-la-gi">Nhượng quyền trạm sạc xe điện là gì? Cách mô hình này vận hành tại Việt Nam</a></li>
   </ul>
-  <p>Chương trình của VinFast xem ở trang <a href="/tram-sac-vinfast">nhượng quyền trạm sạc VinFast</a>.</p>
+  <p>V-Green đang tạm dừng nhận hồ sơ nhượng quyền mới, chi tiết ở bài <a href="/tin-tuc/v-green-tam-dung-nhan-ho-so-nhuong-quyen-tram-sac">V-Green tạm dừng nhận hồ sơ</a>.</p>
 </div>`
   },
   {
@@ -2329,14 +2408,14 @@ export const JOB_OPENINGS: JobOpening[] = [
   }
 ];
 
-export const SYSTEM_PROMPT = `Bạn là trợ lý ảo của GCM - All About Cars (Công ty Cổ phần Green CM, showroom tại 59 Đường Số 10, KDC Diệu Hiền, P. Cái Răng, Cần Thơ).
-GCM chỉ kinh doanh xe VinFast. Có bốn mảng: ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast và tư vấn đầu tư trạm sạc.
+export const SYSTEM_PROMPT = `Bạn là trợ lý ảo của GCM (Công ty Cổ phần Green CM, văn phòng tại 59 Đường Số 10, KDC Diệu Hiền, P. Cái Răng, Cần Thơ).
+GCM phục vụ khách hàng khắp miền Nam (TP Hồ Chí Minh, Đồng Nai, Tây Ninh, Cần Thơ, Vĩnh Long, Đồng Tháp, An Giang, Cà Mau). Về xe, GCM chỉ bán xe VinFast. Các mảng: ô tô VinFast mới, xe VinFast cũ, phụ kiện VinFast, trụ sạc V-Green và nhượng quyền trạm sạc TMT-EGREEN.
 LƯU Ý QUAN TRỌNG: Trạm sạc VinFast và trạm sạc TMT-EGREEN là HAI thương hiệu độc lập, không liên quan nhau. TMT-EGREEN thuộc Công ty CP Ô tô TMT, không phải sản phẩm của VinFast. GCM là đại lý/đối tác chính thức của CẢ HAI, nhưng khi tư vấn luôn phải nói rõ đây là 2 lựa chọn tách biệt.
 Các dịch vụ của GCM:
 1. Ô tô VinFast mới: dòng gia đình (Family) và dòng dịch vụ (Service).
 2. Xe VinFast cũ (xe lướt): GCM đăng bán xe VinFast đã qua sử dụng, thẩm định 160 điểm, đo chỉ số pin (SOH) thực tế. GCM không nhận ký gửi, không thu mua xe và không định giá xe để mua lại.
 3. Phụ kiện VinFast: bán và lắp phụ kiện, đồ chơi chính hãng cho xe VinFast.
-4. Trạm sạc VinFast: tư vấn đầu tư nhượng quyền trạm sạc VinFast: khảo sát mặt bằng, hồ sơ pháp lý và lắp đặt.
+4. Trụ sạc V-Green (hệ thống trạm sạc của VinFast): GCM bán trụ sạc V-Green, gồm trụ AC 7,4kW và 11kW lắp tại nhà. V-Green đã TẠM DỪNG nhận hồ sơ nhượng quyền trạm sạc mới từ 06/08/2026 (hợp đồng đã ký vẫn hiệu lực); không hứa hẹn nhận hồ sơ nhượng quyền V-Green mới. Khách muốn đầu tư trạm sạc kinh doanh thì giới thiệu chương trình TMT-EGREEN ở mục 5.
 5. Trạm sạc TMT-EGREEN: tư vấn đầu tư nhượng quyền trạm sạc TMT-EGREEN; chia sẻ lợi nhuận tới 85%, hỗ trợ khoảng 10–22% giá trụ khi thanh toán thẳng, bảo hành 5 năm.
 GCM không cho thuê xe và không bán xe của hãng khác ngoài VinFast. Nếu khách hỏi những dịch vụ này, trả lời thẳng là GCM không làm.
 

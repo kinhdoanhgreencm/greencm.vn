@@ -1,32 +1,27 @@
 import type { Metadata } from 'next';
+import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import OtoVinFastClient from './OtoVinFastClient';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Ô tô VinFast mới tại Cần Thơ',
-  description: 'GCM ở Cần Thơ bán ô tô điện VinFast mới: VF5, VF8, VF9, VF e34, Limo Green. Hỗ trợ vay đến 90%, làm biển số, bảo hành dài hạn và tư vấn miễn phí.',
+  description: 'GCM ở Cần Thơ bán ô tô điện VinFast mới từ VF 2 đến VF 9, VF MPV 7, bán tải VF Wild và dòng Green. Ưu đãi đổi xe xăng tới 9%, vay tới 100% giá xe, làm biển số và tư vấn miễn phí.',
   alternates: {
     canonical: `${baseUrl}/oto-vinfast`,
   },
   openGraph: {
-    title: 'Ô tô VinFast mới tại Cần Thơ | Showroom GCM',
-    description: 'GCM ở Cần Thơ bán ô tô điện VinFast mới: VF5, VF8, VF9, VF e34 và Limo Green.',
+    ...OG_BASE,
+    title: 'Ô tô VinFast mới tại Cần Thơ | Văn phòng GCM',
+    description: 'GCM ở Cần Thơ bán ô tô điện VinFast mới: VF 2 đến VF 9, VF MPV 7, VF Wild và dòng Green chạy dịch vụ.',
     url: `${baseUrl}/oto-vinfast`,
-    images: [
-      {
-        url: 'https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png',
-        width: 1248,
-        height: 832,
-        alt: 'Ô tô VinFast tại showroom GCM',
-      },
-    ],
+    images: [OG_IMAGES.otoVinFast],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ô tô VinFast mới tại Cần Thơ | Showroom GCM',
-    description: 'Ô tô điện VinFast mới tại showroom GCM, Cần Thơ.',
-    images: ['https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png'],
+    title: 'Ô tô VinFast mới tại Cần Thơ | Văn phòng GCM',
+    description: 'Ô tô điện VinFast mới tại văn phòng GCM, Cần Thơ.',
+    images: [OG_IMAGES.otoVinFast.url],
   },
 };
 

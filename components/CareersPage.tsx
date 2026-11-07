@@ -20,7 +20,7 @@ const CareersPage: React.FC = () => {
       {/* 1. Page header */}
       <PageHero
         eyebrow="Tuyển dụng"
-        title={<>Gia nhập đội ngũ GCM{' '}<br/><span className="text-white/70">Làm việc với xe điện VinFast</span></>}
+        title={<>Gia nhập đội ngũ GCM{' '}<br/><span className="text-ink-mute">Làm việc với xe điện VinFast</span></>}
         summary="Xem các vị trí đang tuyển bên dưới và gửi hồ sơ thẳng cho bộ phận tuyển dụng của GCM."
         crumbs={[{ href: '/tuyen-dung', label: 'Tuyển dụng' }]}
       >
