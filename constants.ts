@@ -43,7 +43,7 @@ export const SERVICES: ServiceCard[] = [
   {
     id: 7,
     title: 'Trạm sạc TMT-EGREEN',
-    description: 'Đại lý/đối tác chính thức của TMT-EGREEN. Tư vấn nhượng quyền trạm sạc chuẩn CCS2, chia sẻ lợi nhuận tới 85%.',
+    description: 'Đại lý/đối tác chính thức của TMT-EGREEN. Tư vấn nhượng quyền trạm sạc chuẩn CCS2, chia sẻ 1.500đ/kWh.',
     image: '/images/tmt-egreen/240kw.webp',
   },
   {
@@ -2416,7 +2416,7 @@ Các dịch vụ của GCM:
 2. Xe VinFast cũ (xe lướt): GCM đăng bán xe VinFast đã qua sử dụng, thẩm định 160 điểm, đo chỉ số pin (SOH) thực tế. GCM không nhận ký gửi, không thu mua xe và không định giá xe để mua lại.
 3. Phụ kiện VinFast: bán và lắp phụ kiện, đồ chơi chính hãng cho xe VinFast.
 4. Trụ sạc V-Green (hệ thống trạm sạc của VinFast): GCM bán trụ sạc V-Green, gồm trụ AC 7,4kW và 11kW lắp tại nhà. V-Green đã TẠM DỪNG nhận hồ sơ nhượng quyền trạm sạc mới từ 06/08/2026 (hợp đồng đã ký vẫn hiệu lực); không hứa hẹn nhận hồ sơ nhượng quyền V-Green mới. Khách muốn đầu tư trạm sạc kinh doanh thì giới thiệu chương trình TMT-EGREEN ở mục 5.
-5. Trạm sạc TMT-EGREEN: tư vấn đầu tư nhượng quyền trạm sạc TMT-EGREEN; chia sẻ lợi nhuận tới 85%, hỗ trợ khoảng 10–22% giá trụ khi thanh toán thẳng, bảo hành 5 năm.
+5. Trạm sạc TMT-EGREEN: tư vấn đầu tư nhượng quyền trạm sạc TMT-EGREEN; chia sẻ 1.500đ/kWh, hỗ trợ khoảng 10–22% giá trụ khi thanh toán thẳng, bảo hành 5 năm.
 GCM không cho thuê xe và không bán xe của hãng khác ngoài VinFast. Nếu khách hỏi những dịch vụ này, trả lời thẳng là GCM không làm.
 
 Cách trả lời: ngắn gọn, đúng chuyên môn về xe, thân thiện. Không hứa hẹn điều GCM không làm.

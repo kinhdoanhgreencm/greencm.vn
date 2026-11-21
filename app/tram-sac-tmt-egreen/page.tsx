@@ -7,7 +7,7 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
 export const metadata: Metadata = {
   title: 'Nhượng quyền trạm sạc TMT-EGREEN',
-  description: 'GCM là đại lý/đối tác chính thức của TMT-EGREEN. Nhượng quyền trạm sạc chuẩn CCS2, chia lợi nhuận tới 85%, xe hãng nào cũng sạc được.',
+  description: 'GCM là đại lý/đối tác chính thức của TMT-EGREEN. Nhượng quyền trạm sạc chuẩn CCS2, chia sẻ 1.500đ/kWh, xe hãng nào cũng sạc được.',
   keywords: [
     'trạm sạc tmt-egreen',
     'nhượng quyền trạm sạc tmt-egreen',
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
   openGraph: {
     ...OG_BASE,
     title: 'Trạm sạc TMT-EGREEN | Nhượng quyền đầu tư trạm sạc xe điện',
-    description: 'GCM là đại lý/đối tác chính thức của TMT-EGREEN tại Cần Thơ & ĐBSCL. Nhượng quyền đầu tư, chuẩn CCS2, chia lợi nhuận tới 85%.',
+    description: 'GCM là đại lý/đối tác chính thức của TMT-EGREEN tại Cần Thơ & ĐBSCL. Nhượng quyền đầu tư, chuẩn CCS2, chia sẻ 1.500đ/kWh.',
     url: `${baseUrl}/tram-sac-tmt-egreen`,
     images: [OG_IMAGES.tramSacTmt],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Trạm sạc TMT-EGREEN | GCM',
-    description: 'Nhượng quyền đầu tư trạm sạc TMT-EGREEN, chia lợi nhuận tới 85%.',
+    description: 'Nhượng quyền đầu tư trạm sạc TMT-EGREEN, chia sẻ 1.500đ/kWh.',
     images: [OG_IMAGES.tramSacTmt.url],
   },
 };
@@ -43,7 +43,7 @@ const faqData = [
   },
   {
     question: 'Đầu tư nhượng quyền trạm sạc TMT-EGREEN có lợi ích gì?',
-    answer: 'Khách thanh toán thẳng được hỗ trợ khoảng 10–22% giá niêm yết tùy loại trụ, chia sẻ lợi nhuận tối đa 85%, thanh toán doanh thu hàng tuần và thiết bị được bảo hành 5 năm.',
+    answer: 'Khách thanh toán thẳng được hỗ trợ khoảng 10–22% giá niêm yết tùy loại trụ, chia sẻ 1.500đ trên mỗi kWh khách sạc, thanh toán hàng tuần và thiết bị được bảo hành 5 năm.',
   },
 ];
 

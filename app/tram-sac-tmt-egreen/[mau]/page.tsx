@@ -103,7 +103,7 @@ export default async function TmtModelPage({ params }: Props) {
     {
       question: 'Đầu tư theo hình thức nhượng quyền TMT-EGREEN thì chia lợi nhuận thế nào?',
       answer:
-        'Chủ đầu tư được chia tới 85% lợi nhuận sau khi trừ chi phí vận hành thực tế, doanh thu đối soát và thanh toán hàng tuần. Chi tiết ở trang nhượng quyền TMT-EGREEN.',
+        'Chủ đầu tư nhận 1.500đ trên mỗi kWh khách sạc, đối soát và thanh toán hàng tuần. Chi tiết ở trang nhượng quyền TMT-EGREEN.',
     },
   ];
 
@@ -207,7 +207,7 @@ export default async function TmtModelPage({ params }: Props) {
               <h2 className="gcm-h3">Khi đầu tư theo hình thức nhượng quyền</h2>
               <ul className="flex flex-col gap-2 text-ink-soft">
                 {[
-                  'Chia tới 85% lợi nhuận sau chi phí vận hành thực tế',
+                  'Nhận 1.500đ trên mỗi kWh khách sạc',
                   'Doanh thu đối soát và thanh toán hàng tuần',
                   'Thiết bị bảo hành chính hãng 5 năm',
                   'GCM khảo sát, làm hồ sơ và lắp đặt tại các tỉnh miền Nam',

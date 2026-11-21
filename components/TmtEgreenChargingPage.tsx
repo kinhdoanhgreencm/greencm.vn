@@ -38,7 +38,7 @@ const faqData = [
   },
   {
     question: 'Đầu tư nhượng quyền trạm sạc TMT-EGREEN có lợi ích gì?',
-    answer: 'Khách thanh toán thẳng được hỗ trợ khoảng 10–22% giá niêm yết tùy loại trụ. Lợi nhuận chia tối đa 85% sau khi trừ chi phí thực tế, doanh thu thanh toán hàng tuần, thiết bị bảo hành 5 năm.',
+    answer: 'Khách thanh toán thẳng được hỗ trợ khoảng 10–22% giá niêm yết tùy loại trụ. Chia sẻ 1.500đ trên mỗi kWh khách sạc, thanh toán hàng tuần, thiết bị bảo hành 5 năm.',
   },
   {
     question: 'Nếu chấm dứt hợp đồng nhượng quyền trước hạn thì sao?',
@@ -341,7 +341,7 @@ const TmtEgreenChargingPage: React.FC = () => {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { icon: Wallet, title: 'Hỗ trợ khi thanh toán thẳng', desc: 'Giảm khoảng 10–22% giá niêm yết tùy loại trụ (áp dụng từ 11/2026).' },
-              { icon: Zap, title: 'Chia sẻ lợi nhuận tới 85%', desc: 'Tính trên phần còn lại sau khi trừ chi phí vận hành thực tế.' },
+              { icon: Zap, title: 'Chia sẻ 1.500đ/kWh', desc: 'Nhận 1.500đ trên mỗi kWh khách sạc tại trạm.' },
               { icon: RefreshCw, title: 'Thanh toán hàng tuần', desc: 'Doanh thu trạm được đối soát và chuyển cho bạn mỗi tuần.' },
               { icon: ShieldCheck, title: 'Bảo hành 5 năm', desc: 'Trụ sạc được bảo hành chính hãng.' },
               { icon: Building2, title: 'TMT-EGREEN mua lại thiết bị', desc: 'Nếu TMT-EGREEN đơn phương chấm dứt hợp đồng trước hạn, họ mua lại thiết bị theo giá trị khấu hao còn lại (khấu hao 10 năm).' },

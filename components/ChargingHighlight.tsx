@@ -29,7 +29,7 @@ const SERVICES = [
     alt: 'Trụ sạc nhanh TMT-EGREEN DC 240kW',
     contain: true,
     stats: [
-      { value: 'Tới 85%', label: 'Chia sẻ lợi nhuận sau chi phí vận hành' },
+      { value: '1.500đ/kWh', label: 'Chia sẻ trên mỗi kWh khách sạc' },
       { value: '10–22%', label: 'Hỗ trợ giá trụ khi thanh toán thẳng' },
       { value: '10 dòng', label: 'Trụ sạc từ AC 22kW đến DC 960kW' },
     ],
