@@ -6,16 +6,15 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
-import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, TrendingUp, Users, Truck, CheckCircle, DollarSign, MessageCircle, X, ArrowUpRight } from 'lucide-react';
+import { Calculator, Calendar, Car, Zap, Shield, ChevronRight, Users, Truck, CheckCircle, DollarSign, MessageCircle, X, ArrowUpRight } from 'lucide-react';
 import { ProductSchema } from './SchemaMarkup';
 import CustomerForm, { FormField } from './CustomerForm';
 import PageHero from './PageHero';
-import { VTLX2, TRI_AN_XE_XANG, MUA_XE_0_DONG, POLICY_UPDATED } from '../lib/vinfastPolicy';
+import LanBanhVinFastCanTho from './LanBanhVinFastCanTho';
 import { PHI_BIEN_SO_CAN_THO, PHI_DUONG_BO_NAM, bhTnds, phiLanBanh } from '../lib/lanBanh';
 
 const CarSales: React.FC = () => {
   const router = useRouter();
-  const [roiKm, setRoiKm] = useState<number>(100);
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Cost Estimate State
@@ -37,16 +36,6 @@ const CarSales: React.FC = () => {
   const getFallbackImage = () => {
     return 'https://via.placeholder.com/800x600/0B0F19/00D26A?text=GCM+Car';
   };
-
-  // ROI Calculation logic
-  const gasPrice = 25000; // VND/liter
-  const gasConsumption = 10; // Liters/100km
-  const evConsumption = 20; // kWh/100km
-  const evPrice = 3200; // VND/kWh
-
-  const gasCostPerKm = (gasPrice * gasConsumption) / 100;
-  const evCostPerKm = (evPrice * evConsumption) / 100;
-  const savingsPerYear = (gasCostPerKm - evCostPerKm) * roiKm * 30 * 12;
 
   // Cost Estimate Logic (Simplified)
   // Lăn bánh tại Cần Thơ, xe cá nhân: trước bạ 0%, biển số, phí đường bộ 1 năm, bảo hiểm TNDS (lib/lanBanh.ts)
@@ -83,27 +72,16 @@ const CarSales: React.FC = () => {
       {/* 1. Đầu trang: dải mực cắt xiên */}
       <PageHero
         eyebrow="Ô tô VinFast"
-        title="Ô tô điện VinFast mới tại Cần Thơ"
+        title="Giá xe VinFast Cần Thơ 2026"
+        summary="Bảng giá xe VinFast Cần Thơ 2026: giá niêm yết và giá lăn bánh từng mẫu ô tô điện khi đăng ký tại Cần Thơ. Xem xe, đăng ký lái thử và nhận bảng tính chi phí tại văn phòng GCM, phường Cái Răng."
         crumbs={[{ href: '/oto-vinfast', label: 'Ô tô VinFast' }]}
         image="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
       />
 
-      {/* Hai nhóm khách hàng + ảnh ba xe trong studio */}
+      {/* Hai nhóm khách hàng */}
       <section className="gcm-section">
-        <div className="gcm-container grid grid-cols-1 gap-4 lg:grid-cols-3">
-          <div className="gcm-photo aspect-[16/9] w-full lg:col-span-2">
-            <Image
-              src="https://zeiyxfdkehwgfbpvgenb.supabase.co/storage/v1/object/public/GCM/VinFast%20Hero%20Banner.png"
-              alt="Ba mẫu ô tô điện VinFast mới bán tại GCM Cần Thơ"
-              fill
-              priority={true}
-              quality={85}
-              className="object-cover object-center"
-              sizes="(max-width: 1024px) 100vw, 66vw"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1">
+        <div className="gcm-container">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="gcm-card flex items-center gap-4 p-5">
               <span className="gcm-icon-box">
                 <Users size={20} />
@@ -121,49 +99,6 @@ const CarSales: React.FC = () => {
               <div>
                 <h3 className="gcm-h3">Xe chạy dịch vụ</h3>
                 <p className="mt-1 text-sm text-ink-soft">Taxi, xe công nghệ và xe chở hàng</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Ưu đãi VinFast còn hiệu lực (lib/vinfastPolicy.ts) */}
-      <section className="gcm-section pt-0" id="uu-dai">
-        <div className="gcm-container">
-          <div className="mb-8 flex flex-col gap-3">
-            <span className="gcm-label">Cập nhật {POLICY_UPDATED}</span>
-            <h2 className="gcm-h2">Ưu đãi mua ô tô điện VinFast đang áp dụng</h2>
-            <p className="gcm-lead">Theo chính sách bán hàng VinFast công bố 13/10/2026. Một số ưu đãi không cộng dồn với nhau; GCM kiểm tra điều kiện cho từng khách.</p>
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="gcm-card flex flex-col gap-3 p-6">
-              <h3 className="gcm-h3">Vì Tương Lai Xanh 2: đổi xe xăng</h3>
-              <p className="text-sm text-ink-soft">Cho khách đang sở hữu ô tô xăng, xe máy xăng, xe máy điện VinFast hoặc ô tô điện VinFast. Từ {VTLX2.from} đến {VTLX2.to}, giảm theo % giá niêm yết:</p>
-              <table className="w-full text-sm">
-                <thead><tr className="text-left text-ink-mute"><th className="py-1.5 font-medium">Dòng xe</th><th className="py-1.5 font-medium">Khách thường</th><th className="py-1.5 font-medium">Công an, quân đội, VN Post</th></tr></thead>
-                <tbody className="tabular text-navy">
-                  <tr className="border-t border-line"><td className="py-1.5">VF 2, VF 3, Minio Green</td><td>{VTLX2.standard.low}%</td><td>{VTLX2.special.low}%</td></tr>
-                  <tr className="border-t border-line"><td className="py-1.5">VF 8 Thế hệ mới, VF 9, EC Van, VF Wild</td><td>{VTLX2.standard.mid}%</td><td>{VTLX2.special.mid}%</td></tr>
-                  <tr className="border-t border-line"><td className="py-1.5">VF 5, VF 6, VF 7, VF MPV 7, VF 8, dòng Green còn lại</td><td>{VTLX2.standard.high}%</td><td>{VTLX2.special.high}%</td></tr>
-                </tbody>
-              </table>
-              <p className="text-[0.8125rem] text-ink-mute">Mỗi xe cũ chỉ dùng một lần. Không cộng với voucher tri ân xe xăng VinFast và chính sách VinClub.</p>
-            </div>
-            <div className="flex flex-col gap-4">
-              <div className="gcm-card flex flex-col gap-2 p-6">
-                <h3 className="gcm-h3">Tri ân chủ xe xăng VinFast</h3>
-                <p className="text-sm text-ink-soft">
-                  Chủ sở hữu đầu tiên xe xăng VinFast nhận voucher khi mua ô tô điện VinFast mới:{' '}
-                  {TRI_AN_XE_XANG.map((v) => `${v.car} ${v.value.toLocaleString('vi-VN')}đ`).join(', ')}. Dùng đến 31/12/2026.
-                </p>
-              </div>
-              <div className="gcm-card flex flex-col gap-2 p-6">
-                <h3 className="gcm-h3">Mua xe 0 đồng</h3>
-                <p className="text-sm text-ink-soft">Không cần vốn đối ứng, vay tới {MUA_XE_0_DONG.loanPercent}% giá xe, áp dụng mọi dòng xe đến {MUA_XE_0_DONG.to}.</p>
-              </div>
-              <div className="gcm-card flex flex-col gap-2 p-6">
-                <h3 className="gcm-h3">VF 3: miễn phí màu sơn nâng cao</h3>
-                <p className="text-sm text-ink-soft">Áp dụng cho xe VF 3 Eco và Plus có số VIN 2025 trở về trước, đến khi VinFast có thông báo mới.</p>
               </div>
             </div>
           </div>
@@ -188,7 +123,7 @@ const CarSales: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
               >
-                <div className="gcm-photo aspect-[16/9] w-full rounded-none">
+                <div className="gcm-photo aspect-[16/10] w-full rounded-none">
                   <Image
                     src={imageErrors[car.id] ? getFallbackImage() : car.image}
                     alt={`Hình ảnh chi tiết xe ${car.name} - Xe điện ${car.segment === 'urban' ? 'đô thị' : car.segment === 'suv-bc' ? 'SUV cỡ trung' : 'hạng sang'} - Giá ${car.displayPrice} tại Green CM`}
@@ -218,11 +153,6 @@ const CarSales: React.FC = () => {
                   {car.variants && car.variants.length > 1 && (
                     <p className="mt-1 text-[0.8125rem] tabular text-ink-mute">
                       {car.variants.map((v) => `${v.name} ${v.price.toLocaleString('vi-VN')}đ`).join(' · ')}
-                    </p>
-                  )}
-                  {car.vtlx2 && (
-                    <p className="mt-2 text-[0.8125rem] font-semibold text-navy">
-                      Đổi xe xăng: giảm {VTLX2.standard[car.vtlx2]}% (khoảng {Math.round(car.priceFrom * VTLX2.standard[car.vtlx2] / 100).toLocaleString('vi-VN')}đ) đến {VTLX2.to}
                     </p>
                   )}
 
@@ -268,6 +198,9 @@ const CarSales: React.FC = () => {
         </div>
       </section>
 
+      {/* Bảng giá lăn bánh, các khoản phí, hỏi đáp (SEO) */}
+      <LanBanhVinFastCanTho />
+
       {/* 3. SERVICE ZONE */}
       <section className="gcm-section pt-0">
         <div className="gcm-container">
@@ -296,7 +229,7 @@ const CarSales: React.FC = () => {
                         }
                       }}
                     >
-                       <div className="gcm-photo aspect-[16/9] w-full rounded-none">
+                       <div className="gcm-photo aspect-[16/10] w-full rounded-none">
                           <Image
                             src={imageErrors[car.id] ? getFallbackImage() : car.image}
                             alt={`${car.name} - Xe điện vận tải dịch vụ - Giải pháp ${car.solutionName} tại GCM`}
@@ -320,7 +253,6 @@ const CarSales: React.FC = () => {
                           <div className="mb-4 flex items-center gap-2">
                              <span className="gcm-badge">{car.seats} chỗ</span>
                              <span className="gcm-badge tabular">{car.range}</span>
-                             {car.vtlx2 && <span className="gcm-badge">Đổi xe xăng giảm {VTLX2.standard[car.vtlx2]}%</span>}
                           </div>
                           <div className="mt-auto flex items-center justify-between gap-4 pt-4">
                              <span className="text-lg font-semibold tabular text-ink">{car.displayPrice}</span>
@@ -342,81 +274,6 @@ const CarSales: React.FC = () => {
               </div>
            </div>
 
-           {/* ROI Calculator */}
-           <div className="gcm-card p-5 md:p-10">
-              <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
-                 <div>
-                    <h3 className="gcm-h2 mb-4 flex items-center gap-3">
-                       <span className="gcm-icon-box">
-                          <TrendingUp size={20} />
-                       </span>
-                       Tính tiền xăng bạn tiết kiệm được
-                    </h3>
-                    <p className="gcm-lead mb-8">
-                       Kéo thanh trượt theo số km bạn chạy mỗi ngày. Bảng bên dưới so tiền xăng với tiền sạc điện của một tháng, rồi cộng ra số tiền tiết kiệm trong một năm.
-                    </p>
-
-                    <div className="space-y-6">
-                       <div>
-                          <label className="gcm-label mb-2 block">Quãng đường mỗi ngày (km)</label>
-                          <div className="flex items-center gap-4">
-                             <input
-                               type="range"
-                               min="50" max="500" step="10"
-                               value={roiKm}
-                               onChange={(e) => setRoiKm(Number(e.target.value))}
-                               className="h-2 w-full cursor-pointer appearance-none rounded-full bg-line-strong accent-ocean"
-                             />
-                             <span className="w-20 text-right text-2xl font-semibold tabular text-ocean">{roiKm}</span>
-                          </div>
-                       </div>
-
-                       <div className="rounded-panel border border-line bg-tint p-5">
-                          <div className="mb-4 flex items-center justify-between gap-4 pb-4">
-                             <span className="text-sm text-ink-soft">Tiền xăng (ước tính)</span>
-                             <span className="text-right text-lg font-semibold tabular text-red-700">{(gasCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
-                          </div>
-                          <div className="mb-4 flex items-center justify-between gap-4 pb-4">
-                             <span className="text-sm text-ink-soft">Tiền sạc điện</span>
-                             <span className="text-right text-lg font-semibold tabular text-ocean">{(evCostPerKm * roiKm * 30).toLocaleString('vi-VN')} đ/tháng</span>
-                          </div>
-                          <div className="pt-2">
-                             <span className="mb-1 block text-xs text-ink-mute">Tiết kiệm mỗi năm</span>
-                             <span className="text-3xl font-semibold tabular text-ink md:text-4xl">{savingsPerYear.toLocaleString('vi-VN')} VNĐ</span>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-
-                 <div className="rounded-panel border border-line bg-surface p-5 md:p-8">
-                    <h4 className="gcm-h3 mb-6 text-lg">Báo giá cho doanh nghiệp</h4>
-                    <CustomerForm
-                       formType="quote-request"
-                       fields={[
-                          {
-                             name: 'companyName',
-                             label: 'Tên doanh nghiệp',
-                             type: 'text',
-                             placeholder: 'Tên doanh nghiệp',
-                          },
-                          {
-                             name: 'carInterest',
-                             label: 'Quan tâm dòng xe nào?',
-                             type: 'select',
-                             options: [
-                                { value: '', label: 'Quan tâm dòng xe nào?' },
-                                { value: 'taxi', label: 'Taxi (Minio/Herio)' },
-                                { value: 'transport', label: 'Vận tải (EC Van/Ebus)' },
-                             ],
-                          },
-                       ]}
-                       submitButtonText="Gửi yêu cầu tư vấn"
-                       submitButtonClassName="gcm-btn w-full"
-                       showSuccessMessage={false}
-                    />
-                 </div>
-              </div>
-           </div>
         </div>
       </section>
 
