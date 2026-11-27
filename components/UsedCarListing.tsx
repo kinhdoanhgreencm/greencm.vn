@@ -1,341 +1,362 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Search, Gauge, Calendar, MessageCircle, MapPin, Car, Zap, BatteryCharging, CreditCard, CheckCircle } from 'lucide-react';
-import { UsedCarListing as UsedCarListingType } from '../types';
-import { NEW_CARS_FAMILY, NEW_CARS_SERVICE } from '../constants';
-import CustomerForm from './CustomerForm';
+import {
+  ArrowRight, Car, Check, ChevronDown, Droplets, FileCheck2, Gauge,
+  MessageCircle, Phone, ShieldCheck, X,
+} from 'lucide-react';
+import { UsedCarListing as UsedCarListingType, FaqItem } from '../types';
+import { usedCarTitle, batteryLabel, freeChargingLabel, plateAreaLabel, formatPrice } from '../lib/usedCarLabels';
 import UsedCarEmptyState from './UsedCarEmptyState';
 import PageHero from './PageHero';
 
 interface UsedCarListingProps {
   cars: UsedCarListingType[];
   hasActiveFilters: boolean;
+  faq?: FaqItem[];
 }
 
+const MODEL_OPTIONS = ['VF3', 'VF5', 'VF6', 'VF7', 'VF8', 'VF9', 'VF e34', 'Limo Green', 'Minio Green', 'Herio Green', 'Nerio Green'];
+
 const PRICE_BAND_OPTIONS = [
-  { value: '', label: 'Thỏa thuận' },
+  { value: '', label: 'Mọi mức giá' },
   { value: 'under-300', label: 'Dưới 300 triệu' },
-  { value: '300-500', label: '300 - 500 triệu' },
-  { value: '500-800', label: '500 - 800 triệu' },
-  { value: '800-1200', label: '800 triệu - 1,2 tỷ' },
+  { value: '300-500', label: '300 – 500 triệu' },
+  { value: '500-800', label: '500 – 800 triệu' },
+  { value: '800-1200', label: '800 triệu – 1,2 tỷ' },
   { value: 'over-1200', label: 'Trên 1,2 tỷ' },
 ];
 
-const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters }) => {
+const SORTS = [
+  { value: 'moi', label: 'Mới đăng' },
+  { value: 'gia-tang', label: 'Giá thấp đến cao' },
+  { value: 'gia-giam', label: 'Giá cao đến thấp' },
+  { value: 'odo', label: 'Đi ít nhất' },
+];
+
+const ZALO = 'https://zalo.me/0916513720';
+const HOTLINE = 'tel:0916513720';
+
+/* ---------- Thẻ xe ---------- */
+function CarCard({ car }: { car: UsedCarListingType }) {
+  const [imgError, setImgError] = useState(false);
+  const cover = car.images?.[0]?.url;
+  const href = `/xe-vinfast-cu/xe/${car.slug}`;
+  const title = usedCarTitle(car);
+  const tags = [batteryLabel(car), freeChargingLabel(car)].filter(Boolean) as string[];
+  const plate = plateAreaLabel(car);
+  const equipment = car.equipment ?? [];
+
+  return (
+    <article className="group gcm-card gcm-card-hover flex h-full flex-col overflow-hidden">
+      <Link href={href} className="flex flex-1 flex-col" aria-label={`Xem ${title}`}>
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-tint-strong">
+          {cover && !imgError ? (
+            <Image
+              src={cover}
+              alt={`${title} cũ tại Lướt Auto`}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 360px"
+              onError={() => setImgError(true)}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center text-ink-mute"><Car size={40} strokeWidth={1.5} /></div>
+          )}
+          {car.status === 'reserved' && (
+            <span className="absolute left-3 top-3 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800">Đã cọc</span>
+          )}
+        </div>
+
+        <div className="flex flex-1 flex-col p-4">
+          <h3 className="text-base font-semibold leading-snug text-navy transition-colors group-hover:text-ocean">{title}</h3>
+          {tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {tags.map((t) => (
+                <span key={t} className="rounded-control bg-tint px-2 py-0.5 text-xs font-semibold text-ocean-deep">{t}</span>
+              ))}
+            </div>
+          )}
+
+          <ul className="mt-3 space-y-1.5 text-sm text-ink">
+            {plate && (
+              <li className="flex items-start gap-2"><Check size={16} className="mt-0.5 shrink-0 text-ocean" /><span><span className="text-ink-soft">Biển số:</span> {plate}</span></li>
+            )}
+            <li className="flex items-start gap-2"><Check size={16} className="mt-0.5 shrink-0 text-ocean" /><span><span className="text-ink-soft">Odo:</span> <span className="tabular">{car.odoKm.toLocaleString('vi-VN')} km</span></span></li>
+            {equipment.length > 0 && (
+              <li className="flex items-start gap-2"><Check size={16} className="mt-0.5 shrink-0 text-ocean" /><span><span className="text-ink-soft">Trang bị:</span> {equipment.join(', ')}</span></li>
+            )}
+          </ul>
+
+          <div className="flex-1" />
+          <div className="mt-4 flex items-baseline justify-between border-t border-line pt-3">
+            <span className="text-sm text-ink-soft">Giá chào</span>
+            <span className="text-xl font-semibold tabular text-ocean">{formatPrice(car.price)}</span>
+          </div>
+        </div>
+      </Link>
+
+      <div className="flex gap-2 border-t border-line p-3">
+        <Link href={href} className="gcm-btn-ghost flex-1">Xem chi tiết</Link>
+        <a href={ZALO} target="_blank" rel="noopener noreferrer" className="gcm-btn flex-1" aria-label={`Hỏi về ${title} qua Zalo`}>
+          <MessageCircle size={16} /> Zalo
+        </a>
+      </div>
+    </article>
+  );
+}
+
+/* ---------- Ô chọn gọn ---------- */
+function FilterSelect({ value, onChange, options, label, highlight = true }: {
+  value: string; onChange: (v: string) => void; options: { value: string; label: string }[]; label: string; highlight?: boolean;
+}) {
+  return (
+    <label className="relative block min-w-0">
+      <span className="sr-only">{label}</span>
+      <select
+        className={`gcm-input min-h-10 appearance-none py-2 pl-3 pr-9 md:text-sm ${highlight && value ? 'border-ocean bg-tint font-semibold text-ocean-deep' : ''}`}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {options.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+      </select>
+      <ChevronDown size={16} className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-ink-mute" />
+    </label>
+  );
+}
+
+/* ---------- Nhờ tìm xe: Zalo / gọi trước, form 2 ô cho ai không dùng Zalo ---------- */
+function FindCarBlock() {
+  const [phone, setPhone] = useState('');
+  const [model, setModel] = useState('');
+  const [state, setState] = useState<'idle' | 'sending' | 'done' | 'error'>('idle');
+  const [msg, setMsg] = useState('');
+
+  const submit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const clean = phone.replace(/\s+/g, '');
+    if (!/^(0|\+84)[35789][0-9]{8}$/.test(clean)) {
+      setState('error'); setMsg('Số điện thoại chưa đúng.'); return;
+    }
+    setState('sending');
+    try {
+      const res = await fetch('/api/forms', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ formType: 'find-car', name: 'Khách nhờ tìm xe (Lướt Auto)', phone: clean, carInterest: model || 'Chưa chọn' }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || 'Gửi chưa được');
+      setState('done'); setPhone(''); setModel('');
+    } catch (err) {
+      setState('error'); setMsg(err instanceof Error ? err.message : 'Gửi chưa được, anh/chị gọi 0916 513 720 giúp Lướt Auto.');
+    }
+  };
+
+  return (
+    <div className="grid gap-6 rounded-card border border-line bg-surface p-6 md:grid-cols-2 md:gap-10 md:p-8">
+      <div>
+        <span className="gcm-label">Tìm xe theo yêu cầu</span>
+        <h2 className="gcm-h2 mt-2">Chưa thấy xe ưng ý?</h2>
+        <p className="mt-2 text-ink-soft">Nhắn Lướt Auto dòng xe, màu và tầm giá bạn cần. Có xe phù hợp về, Lướt Auto báo bạn trước khi đăng lên trang.</p>
+        <div className="mt-5 grid gap-3 sm:grid-cols-2">
+          <a href={ZALO} target="_blank" rel="noopener noreferrer" className="gcm-btn"><MessageCircle size={18} /> Nhắn Zalo</a>
+          <a href={HOTLINE} className="gcm-btn-ghost"><Phone size={18} /> 0916 513 720</a>
+        </div>
+      </div>
+
+      <form onSubmit={submit} className="border-t border-line pt-6 md:border-l md:border-t-0 md:pl-10 md:pt-0">
+        <p className="text-sm font-semibold text-navy">Hoặc để lại số, Lướt Auto gọi lại</p>
+        {state === 'done' ? (
+          <p className="mt-4 flex items-start gap-2 rounded-panel bg-tint p-4 text-sm text-ink">
+            <Check size={18} className="mt-0.5 shrink-0 text-ocean" /> Đã nhận. Lướt Auto sẽ gọi lại cho bạn trong giờ làm việc.
+          </p>
+        ) : (
+          <div className="mt-4 space-y-3">
+            <label className="block">
+              <span className="mb-1 block text-sm text-ink-soft">Số điện thoại</span>
+              <input type="tel" inputMode="tel" autoComplete="tel" required className="gcm-input" placeholder="09xx xxx xxx"
+                value={phone} onChange={(e) => { setPhone(e.target.value); if (state === 'error') setState('idle'); }} />
+            </label>
+            <label className="block">
+              <span className="mb-1 block text-sm text-ink-soft">Dòng xe quan tâm</span>
+              <FilterSelect label="Dòng xe quan tâm" highlight={false} value={model} onChange={setModel}
+                options={[{ value: '', label: 'Chưa chọn' }, ...MODEL_OPTIONS.map((m) => ({ value: m, label: `VinFast ${m}` }))]} />
+            </label>
+            {state === 'error' && <p className="text-sm text-red-700">{msg}</p>}
+            <button type="submit" disabled={state === 'sending'} className="gcm-btn w-full">
+              {state === 'sending' ? 'Đang gửi…' : 'Gọi lại cho tôi'}
+            </button>
+          </div>
+        )}
+      </form>
+    </div>
+  );
+}
+
+const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters, faq = [] }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
+  const [sort, setSort] = useState('moi');
 
-  const [filterState, setFilterState] = useState({
+  const current = {
     model: searchParams.get('dong-xe') || '',
     priceBand: searchParams.get('gia') || '',
     batteryOwnership: searchParams.get('pin') || '',
     plateColor: searchParams.get('bien') || '',
     maxOdoKm: searchParams.get('odo') || '',
-  });
-
-  const handleImageError = (carId: string) => {
-    setImageErrors(prev => ({ ...prev, [carId]: true }));
   };
 
-  const getFallbackImage = () => 'https://via.placeholder.com/800x600/0B0F19/00D26A?text=GCM+Car';
+  const KEYS: Record<keyof typeof current, string> = { model: 'dong-xe', priceBand: 'gia', batteryOwnership: 'pin', plateColor: 'bien', maxOdoKm: 'odo' };
 
-  const applyFilters = () => {
-    const params = new URLSearchParams();
-    if (filterState.model) params.set('dong-xe', filterState.model);
-    if (filterState.priceBand) params.set('gia', filterState.priceBand);
-    if (filterState.batteryOwnership) params.set('pin', filterState.batteryOwnership);
-    if (filterState.plateColor) params.set('bien', filterState.plateColor);
-    if (filterState.maxOdoKm) params.set('odo', filterState.maxOdoKm);
+  const setFilter = (key: keyof typeof current, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) params.set(KEYS[key], value);
+    else params.delete(KEYS[key]);
     const qs = params.toString();
-    router.push(qs ? `/xe-vinfast-cu?${qs}` : '/xe-vinfast-cu');
+    router.push(qs ? `/xe-vinfast-cu?${qs}#danh-sach` : '/xe-vinfast-cu#danh-sach', { scroll: false });
   };
+
+  const sorted = useMemo(() => {
+    const list = [...cars];
+    if (sort === 'gia-tang') list.sort((a, b) => a.price - b.price);
+    else if (sort === 'gia-giam') list.sort((a, b) => b.price - a.price);
+    else if (sort === 'odo') list.sort((a, b) => a.odoKm - b.odoKm);
+    else list.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    // Xe đã cọc xuống cuối
+    return list.sort((a, b) => Number(a.status === 'reserved') - Number(b.status === 'reserved'));
+  }, [cars, sort]);
 
   return (
     <div className="min-h-screen bg-page">
-      {/* 1. Hero + Filter */}
+      {/* 1. Đầu trang */}
       <PageHero
-        eyebrow="Xe VinFast cũ"
-        title="Xe VinFast cũ tại Cần Thơ"
-        summary={
-          <>
-            <span className="block font-semibold text-navy">Kiểm định 160 điểm, đo pin thực tế (SOH)</span>
-            <span className="mt-2 block">GCM bán xe VinFast đã qua sử dụng và ghi rõ tình trạng pin, loại biển số của từng xe. Có hỗ trợ trả góp; GCM lo trọn thủ tục sang tên và bao kiểm tra xe toàn quốc.</span>
-          </>
-        }
-        crumbs={[{ href: '/xe-vinfast-cu', label: 'Xe VinFast cũ' }]}
+        eyebrow="Lướt Auto · thuộc GCM"
+        title={<><span className="block">Lướt Auto</span><span className="gcm-accent mt-1 block text-[0.6em] leading-tight">Xe VinFast cũ đã kiểm định</span></>}
+        summary="Mỗi tin ghi rõ mua pin hay thuê pin, biển số, odo và trang bị theo xe. Xem xe, lái thử tại Lướt Auto, hỗ trợ trả góp ngân hàng."
+        crumbs={[{ href: '/xe-vinfast-cu', label: 'Lướt Auto' }]}
         image="/images/xe/vf6.webp"
       >
-        <div className="flex flex-wrap gap-3">
-          <Link href="/xe-vinfast-cu/dang-ban" className="gcm-btn">Đăng bán xe của bạn</Link>
-        </div>
+        <a href="#danh-sach" className="gcm-btn">Xem xe đang bán <ArrowRight size={16} /></a>
+        <Link href="/xe-vinfast-cu/dang-ban" className="gcm-btn-ghost">Đăng bán xe của bạn</Link>
       </PageHero>
 
-      {/* Bộ lọc ngay dưới dải đầu trang */}
-      <section className="pt-8 md:pt-10">
+      {/* 2. Cam kết */}
+      <section className="border-b border-line">
         <div className="gcm-container">
-          <div className="w-full">
-            <div className="gcm-card p-4 md:p-6">
-              <div className="mb-4 grid grid-cols-2 gap-4 md:grid-cols-4">
-                <div>
-                  <label className="mb-2 gcm-label block">Dòng xe</label>
-                  <select
-                    className="gcm-input"
-                    value={filterState.model}
-                    onChange={(e) => setFilterState(prev => ({ ...prev, model: e.target.value }))}
-                  >
-                    <option value="">Tất cả dòng</option>
-                    {[...NEW_CARS_FAMILY, ...NEW_CARS_SERVICE].map((car) => (
-                      <option key={car.id} value={car.name}>{car.name}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-2 gcm-label block">Khoảng giá</label>
-                  <select
-                    className="gcm-input"
-                    value={filterState.priceBand}
-                    onChange={(e) => setFilterState(prev => ({ ...prev, priceBand: e.target.value }))}
-                  >
-                    {PRICE_BAND_OPTIONS.map(opt => (
-                      <option key={opt.value} value={opt.value}>{opt.label}</option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-2 gcm-label flex items-center gap-1"><BatteryCharging size={12} /> Tình trạng pin</label>
-                  <select
-                    className="gcm-input"
-                    value={filterState.batteryOwnership}
-                    onChange={(e) => setFilterState(prev => ({ ...prev, batteryOwnership: e.target.value }))}
-                  >
-                    <option value="">Tất cả</option>
-                    <option value="purchased">Mua đứt pin</option>
-                    <option value="leased">Thuê pin</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="mb-2 gcm-label flex items-center gap-1"><CreditCard size={12} /> Loại biển số</label>
-                  <select
-                    className="gcm-input"
-                    value={filterState.plateColor}
-                    onChange={(e) => setFilterState(prev => ({ ...prev, plateColor: e.target.value }))}
-                  >
-                    <option value="">Tất cả</option>
-                    <option value="white">Biển trắng</option>
-                    <option value="yellow">Biển vàng</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="mb-6 grid grid-cols-1 gap-4 pt-4 md:grid-cols-3">
-                <div className="flex items-center gap-2">
-                  <Gauge className="flex-shrink-0 text-ocean" size={16} />
-                  <select
-                    className="gcm-input"
-                    value={filterState.maxOdoKm}
-                    onChange={(e) => setFilterState(prev => ({ ...prev, maxOdoKm: e.target.value }))}
-                  >
-                    <option value="">ODO: Tất cả</option>
-                    <option value="10000">ODO &lt; 10.000 km</option>
-                    <option value="30000">ODO &lt; 30.000 km</option>
-                    <option value="50000">ODO &lt; 50.000 km</option>
-                  </select>
-                </div>
-              </div>
-
-              <button
-                onClick={applyFilters}
-                className="gcm-btn w-full"
-              >
-                <Search size={18} /> Tìm xe
-              </button>
-            </div>
-          </div>
+          <ul className="grid grid-cols-2 gap-x-4 gap-y-5 py-6 md:grid-cols-4 md:py-8">
+            {[
+              { icon: ShieldCheck, t: 'Không đâm đụng', d: 'Khung, thân vỏ nguyên bản' },
+              { icon: Droplets, t: 'Không ngập nước', d: 'Kiểm tra sàn, gầm và hệ thống điện' },
+              { icon: Gauge, t: 'Odo chuẩn', d: 'Số km đúng với lịch sử xe' },
+              { icon: FileCheck2, t: 'Pháp lý chuẩn', d: 'Giấy tờ rõ ràng, sang tên nhanh' },
+            ].map(({ icon: Icon, t, d }) => (
+              <li key={t} className="flex items-start gap-3">
+                <span className="gcm-icon-box shrink-0"><Icon size={20} /></span>
+                <span>
+                  <span className="block text-sm font-semibold text-navy">{t}</span>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-ink-soft">{d}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      {/* 2. Product Grid */}
-      <section className="gcm-section">
+      {/* 3. Danh sách xe */}
+      <section id="danh-sach" className="gcm-section scroll-mt-20">
         <div className="gcm-container">
-          <div className="mb-8 flex flex-col gap-3">
-            <h2 className="gcm-h2">
-              {hasActiveFilters ? 'Kết quả tìm kiếm' : 'Xe VinFast cũ đang bán'}
-            </h2>
-            <p className="gcm-label mt-2">Cam kết</p>
-            <ul className="list-none space-y-1.5 text-sm text-ink-soft">
-              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Không đâm đụng ảnh hưởng đến khung gầm</li>
-              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Không ngập nước, thủy kích</li>
-              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Minh bạch tình trạng pin (mua đứt / thuê pin) và chỉ số SOH</li>
-              <li className="flex items-start gap-2"><CheckCircle size={16} className="mt-0.5 flex-shrink-0 text-ocean" /> Bao kiểm tra xe toàn quốc</li>
-            </ul>
+          <div className="mb-4 flex items-end justify-between gap-3">
+            <div>
+              <h2 className="gcm-h2">{hasActiveFilters ? 'Kết quả tìm xe' : 'Xe đang bán'}</h2>
+              <p className="mt-1 text-sm text-ink-soft">
+                <span className="font-semibold tabular text-ink">{cars.length}</span> xe{hasActiveFilters ? ' khớp bộ lọc' : ' sẵn sàng xem và lái thử'}
+              </p>
+            </div>
+            <div className="w-40 shrink-0 md:w-44">
+              <FilterSelect label="Sắp xếp" highlight={false} value={sort} onChange={setSort} options={SORTS} />
+            </div>
+          </div>
+
+          {/* Bộ lọc: một hàng gọn */}
+          <div className="mb-6 grid grid-cols-2 gap-2 border-y border-line py-3 md:grid-cols-[repeat(4,minmax(0,1fr))_auto] md:items-center">
+            <FilterSelect label="Dòng xe" value={current.model} onChange={(v) => setFilter('model', v)}
+              options={[{ value: '', label: 'Tất cả dòng xe' }, ...MODEL_OPTIONS.map((m) => ({ value: m, label: `VinFast ${m}` }))]} />
+            <FilterSelect label="Khoảng giá" value={current.priceBand} onChange={(v) => setFilter('priceBand', v)} options={PRICE_BAND_OPTIONS} />
+            <FilterSelect label="Pin" value={current.batteryOwnership} onChange={(v) => setFilter('batteryOwnership', v)}
+              options={[{ value: '', label: 'Loại pin' }, { value: 'purchased', label: 'Mua pin' }, { value: 'leased', label: 'Thuê pin' }]} />
+            <FilterSelect label="Odo" value={current.maxOdoKm} onChange={(v) => setFilter('maxOdoKm', v)}
+              options={[{ value: '', label: 'Mọi số km' }, { value: '10000', label: 'Odo dưới 10.000 km' }, { value: '30000', label: 'Odo dưới 30.000 km' }, { value: '50000', label: 'Odo dưới 50.000 km' }]} />
+            {hasActiveFilters && (
+              <button type="button" onClick={() => router.push('/xe-vinfast-cu#danh-sach', { scroll: false })}
+                className="col-span-2 inline-flex items-center justify-center gap-1 text-sm font-medium text-ocean hover:text-ocean-deep md:col-span-1 md:px-2">
+                <X size={16} /> Xoá lọc
+              </button>
+            )}
           </div>
 
           {cars.length === 0 ? (
             <UsedCarEmptyState hasActiveFilters={hasActiveFilters} />
           ) : (
-            <div className="gcm-grid">
-              {cars.map((car) => {
-                const coverImage = car.images?.[0]?.url;
-                return (
-                  <div key={car.id} className="group gcm-card gcm-card-hover flex flex-col overflow-hidden">
-                    <div className="gcm-photo aspect-[16/9] w-full rounded-none">
-                      <Image
-                        src={imageErrors[car.id] || !coverImage ? getFallbackImage() : coverImage}
-                        alt={`${car.brand} ${car.model} ${car.trim || ''} ${car.modelYear} cũ tại Green CM`}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        onError={() => handleImageError(car.id)}
-                      />
-                      {car.status === 'sold' && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-night-900/70">
-                          <span className="text-lg font-semibold text-white">Đã bán</span>
-                        </div>
-                      )}
-                      {car.status === 'reserved' && (
-                        <span className="absolute left-3 top-3 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-0.5 text-xs font-semibold text-amber-800">Đã cọc</span>
-                      )}
-                      <div className="absolute bottom-2 right-2 flex items-center gap-1 rounded-full bg-night-900/75 px-2.5 py-1 text-xs text-white">
-                        <MapPin size={10} /> {car.region}
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-4">
-                      <h3 className="gcm-h3 mb-3 line-clamp-1 text-base transition-colors group-hover:text-ocean">
-                        {car.brand} {car.model} {car.trim} {car.modelYear}
-                      </h3>
-
-                      <div className="mb-4 grid grid-cols-3 gap-2">
-                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
-                          <Gauge size={16} className="mb-1 text-ink-mute" />
-                          <span className="text-xs font-medium tabular text-ink">{car.odoKm.toLocaleString('vi-VN')} km</span>
-                        </div>
-                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
-                          <BatteryCharging size={16} className="mb-1 text-ink-mute" />
-                          <span className="text-xs font-medium tabular text-ink">
-                            {car.batterySohPercent ? `SOH ${car.batterySohPercent}%` : '—'}
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center rounded-control border border-line bg-tint p-2">
-                          <Calendar size={16} className="mb-1 text-ink-mute" />
-                          <span className="text-xs font-medium tabular text-ink">{car.modelYear}</span>
-                        </div>
-                      </div>
-
-                      <div className="mb-4">
-                        <div className="text-lg font-semibold tabular text-ocean">{car.price.toLocaleString('vi-VN')}₫</div>
-                        {car.oldPrice && (
-                          <div className="text-sm font-medium tabular text-ink-mute line-through">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
-                        )}
-                      </div>
-
-                      <div className="mt-auto flex flex-col gap-2">
-                        <Link
-                          href={`/xe-vinfast-cu/xe/${car.slug}`}
-                          className="gcm-btn-ghost w-full"
-                        >
-                          Xem chi tiết
-                        </Link>
-                        <a
-                          href="https://zalo.me/0916513720"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="gcm-btn w-full"
-                        >
-                          <MessageCircle size={14} /> Chat Zalo
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {sorted.map((car) => <CarCard key={car.id} car={car} />)}
             </div>
           )}
         </div>
       </section>
 
-      {/* 3. Inspection Process */}
-      <section className="gcm-section">
+      {/* 4. Ký gửi bán xe */}
+      <section className="gcm-section pt-0">
         <div className="gcm-container">
-          <div className="mb-8 flex flex-col gap-3">
-            <span className="gcm-label">Kiểm định</span>
-            <h2 className="gcm-h2">GCM kiểm định xe điện cũ qua 3 bước</h2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div className="gcm-card flex flex-col p-6">
-              <div className="gcm-icon-box mb-4">
-                <Search size={20} />
-              </div>
-              <h3 className="gcm-h3 mb-2">1. Kiểm tra ngoại thất và nội thất</h3>
-              <p className="text-sm leading-relaxed text-ink-soft">Xem xe từng đâm đụng hay ngập nước chưa, keo chỉ còn nguyên bản không.</p>
+          <div className="grid items-center gap-6 rounded-card border border-line bg-tint p-6 md:grid-cols-[1fr_auto] md:p-8">
+            <div>
+              <span className="gcm-label">Ký gửi bán xe</span>
+              <h2 className="gcm-h2 mt-2">Có xe VinFast muốn bán?</h2>
+              <p className="mt-2 max-w-[60ch] text-ink-soft">
+                Đăng tin miễn phí. Lướt Auto gọi xác minh, kiểm tra xe rồi đưa lên trang này. Chỉ thu phí môi giới khi xe bán được.
+              </p>
             </div>
-            <div className="gcm-card flex flex-col p-6">
-              <div className="gcm-icon-box mb-4">
-                <Zap size={20} />
-              </div>
-              <h3 className="gcm-h3 mb-2">2. Quét lỗi và đo pin</h3>
-              <p className="text-sm leading-relaxed text-ink-soft">Máy quét chuyên dụng đọc mã lỗi, đo độ chai pin (SOH) thực tế và lấy lịch sử sạc.</p>
-            </div>
-            <div className="gcm-card flex flex-col p-6">
-              <div className="gcm-icon-box mb-4">
-                <Car size={20} />
-              </div>
-              <h3 className="gcm-h3 mb-2">3. Lái thử</h3>
-              <p className="text-sm leading-relaxed text-ink-soft">Chạy xe trên đường để nghe tiếng ồn động cơ, thử phanh và hệ thống treo.</p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/xe-vinfast-cu/dang-ban" className="gcm-btn">Đăng bán xe <ArrowRight size={16} /></Link>
+              <a href={HOTLINE} className="gcm-btn-ghost"><Phone size={16} /> 0916 513 720</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. Form tìm xe */}
+      {/* 7. Nhờ tìm xe */}
       <section className="gcm-section pt-0">
         <div className="gcm-container">
-          <div className="mx-auto max-w-3xl">
-            <div className="gcm-card relative overflow-hidden bg-tint p-6 md:p-8">
-              <div className="relative z-10">
-                <h3 className="gcm-h3 mb-2 text-lg">Chưa tìm thấy xe ưng ý?</h3>
-                <p className="mb-6 text-sm text-ink-soft">Cho GCM biết bạn cần xe gì. Khi có xe phù hợp về, GCM sẽ báo bạn.</p>
-                <CustomerForm
-                  formType="find-car"
-                  fields={[
-                    {
-                      name: 'carInterest',
-                      label: 'Dòng xe quan tâm',
-                      type: 'select',
-                      gridCols: 2,
-                      options: [
-                        { value: '', label: 'Chọn dòng xe' },
-                        ...([...NEW_CARS_FAMILY, ...NEW_CARS_SERVICE].map((car) => ({ value: car.id, label: car.name }))),
-                      ],
-                    },
-                    {
-                      name: 'budget',
-                      label: 'Tài chính dự kiến',
-                      type: 'select',
-                      gridCols: 2,
-                      options: PRICE_BAND_OPTIONS.filter(o => o.value).map(o => ({ value: o.value, label: o.label })),
-                    },
-                    {
-                      name: 'specialRequirements',
-                      label: 'Yêu cầu đặc biệt',
-                      type: 'textarea',
-                      placeholder: 'Ví dụ: VF5, màu trắng, ODO 20.000km',
-                    },
-                  ]}
-                  submitButtonText="Tìm xe giúp tôi"
-                  submitButtonClassName="gcm-btn w-full"
-                  showSuccessMessage={true}
-                />
+          <FindCarBlock />
+        </div>
+      </section>
+      {/* 8. Hỏi đáp (cuối trang) */}
+      {faq.length > 0 && (
+        <section className="gcm-section pt-0">
+          <div className="gcm-container">
+            <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
+              <div>
+                <span className="gcm-label">Hỏi đáp</span>
+                <h2 className="gcm-h2 mt-2">Câu hỏi thường gặp khi mua xe điện cũ</h2>
+              </div>
+              <div className="divide-y divide-line rounded-card border border-line">
+                {faq.map((f) => (
+                  <details key={f.question} className="group/faq px-5 py-4">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-navy">
+                      {f.question}
+                      <ChevronDown size={18} className="shrink-0 text-ink-mute transition-transform group-open/faq:rotate-180" />
+                    </summary>
+                    <p className="mt-2 text-sm leading-relaxed text-ink-soft">{f.answer}</p>
+                  </details>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
     </div>
   );
 };

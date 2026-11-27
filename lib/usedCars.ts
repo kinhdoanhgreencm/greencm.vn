@@ -16,6 +16,8 @@ interface UsedCarRow {
   battery_soh_percent: number | null;
   soh_measured_at: string | null;
   plate_color: 'white' | 'yellow' | null;
+  plate_area?: 'tinh' | 'thanh-pho' | null;
+  equipment?: string[] | null;
   warranty_remaining: string | null;
   free_charging_until: string | null;
   previous_owners_count: number | null;
@@ -51,6 +53,8 @@ function mapRow(row: UsedCarRow): UsedCarListing {
     batterySohPercent: row.battery_soh_percent,
     sohMeasuredAt: row.soh_measured_at,
     plateColor: row.plate_color,
+    plateArea: row.plate_area ?? null,
+    equipment: row.equipment ?? null,
     warrantyRemaining: row.warranty_remaining,
     freeChargingUntil: row.free_charging_until,
     previousOwnersCount: row.previous_owners_count,
@@ -130,10 +134,11 @@ export function hasAnyUsedCarFilter(searchParams: Record<string, string | string
  * Dùng cho trang danh sách /xe-vinfast-cu (server component).
  */
 export async function getAvailableUsedCars(filters: UsedCarFilters = {}): Promise<UsedCarListing[]> {
+  // Xe đã cọc vẫn hiện (gắn nhãn) để khách thấy xe có người mua thật
   let query = supabase
     .from('used_cars')
     .select('*')
-    .eq('status', 'available')
+    .in('status', ['available', 'reserved'])
     .order('created_at', { ascending: false });
 
   if (filters.model) {

@@ -47,6 +47,10 @@ export interface UsedCarListing {
   batterySohPercent?: number | null;
   sohMeasuredAt?: string | null;
   plateColor?: 'white' | 'yellow' | null;
+  /** Biển số đăng ký: 'tinh' (Tỉnh) hoặc 'thanh-pho' (Thành phố) */
+  plateArea?: 'tinh' | 'thanh-pho' | null;
+  /** Trang bị theo xe: phim cách nhiệt, lót sàn, cam hành trình... */
+  equipment?: string[] | null;
   warrantyRemaining?: string | null;
   freeChargingUntil?: string | null;
   previousOwnersCount?: number | null;

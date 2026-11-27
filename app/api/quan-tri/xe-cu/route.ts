@@ -57,6 +57,7 @@ function carRow(input: Record<string, unknown>, partial = false): Record<string,
     ['warrantyRemaining', 'warranty_remaining', 120],
     ['usageHistoryNote', 'usage_history_note', 2000],
     ['description', 'description', 4000],
+    ['freeChargingUntil', 'free_charging_until', 40],
     ['ward', 'ward', 80],
     ['videoUrl', 'video_url', 300],
     ['inspectionReportUrl', 'inspection_report_url', 300],
@@ -72,6 +73,15 @@ function carRow(input: Record<string, unknown>, partial = false): Record<string,
   if (has('plateColor')) {
     const p = input.plateColor;
     row.plate_color = p === 'white' || p === 'yellow' ? p : null;
+  }
+  if (has('plateArea')) {
+    const a = input.plateArea;
+    row.plate_area = a === 'tinh' || a === 'thanh-pho' ? a : null;
+  }
+  if (has('equipment')) {
+    const list = Array.isArray(input.equipment) ? input.equipment : String(input.equipment ?? '').split(/\n|,/);
+    const clean = list.map((x: unknown) => String(x).trim().slice(0, 60)).filter(Boolean).slice(0, 20);
+    row.equipment = clean.length ? clean : null;
   }
   if (has('batterySohPercent')) {
     const s = input.batterySohPercent === '' || input.batterySohPercent == null ? null : Number(input.batterySohPercent);

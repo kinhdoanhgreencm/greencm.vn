@@ -21,8 +21,8 @@ const UsedCarEmptyState: React.FC<UsedCarEmptyStateProps> = ({ hasActiveFilters 
         </h2>
         <p className="mx-auto mb-8 max-w-xl leading-relaxed text-ink-soft">
           {hasActiveFilters
-            ? 'Hiện chưa có xe nào khớp với bộ lọc bạn chọn. Để lại yêu cầu, GCM sẽ liên hệ ngay khi có xe phù hợp về.'
-            : 'GCM đang chuẩn bị đợt xe VinFast cũ đã kiểm định đầu tiên. Để lại yêu cầu bên dưới, chúng tôi sẽ liên hệ ngay khi có xe phù hợp với nhu cầu của bạn.'}
+            ? 'Hiện chưa có xe nào khớp với bộ lọc bạn chọn. Để lại yêu cầu, Lướt Auto sẽ liên hệ ngay khi có xe phù hợp về.'
+            : 'Lướt Auto đang chuẩn bị đợt xe VinFast cũ đã kiểm định đầu tiên. Để lại yêu cầu bên dưới, chúng tôi sẽ liên hệ ngay khi có xe phù hợp với nhu cầu của bạn.'}
         </p>
 
         <div className="mx-auto max-w-xl text-left">

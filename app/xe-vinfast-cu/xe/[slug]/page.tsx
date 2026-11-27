@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const carTitle = buildCarTitle(car);
-  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Xe VinFast cũ Cần Thơ`;
-  const description = `${carTitle}, ODO ${car.odoKm.toLocaleString('vi-VN')}km${car.batterySohPercent ? `, pin SOH ${car.batterySohPercent}%` : ''}. Giá ${car.price.toLocaleString('vi-VN')}₫. Kiểm định 160 điểm tại GCM Cần Thơ.`;
+  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Lướt Auto`;
+  const description = `${carTitle}, odo ${car.odoKm.toLocaleString('vi-VN')} km${car.batteryOwnership === 'purchased' ? ', mua pin' : car.batteryOwnership === 'leased' ? ', thuê pin' : ''}. Giá chào ${car.price.toLocaleString('vi-VN')}₫. Cam kết không đâm đụng, không ngập nước, odo chuẩn, pháp lý chuẩn.`;
   const cover = car.images?.[0];
   const ogImage = cover
     ? { url: cover.url, width: cover.width || 1200, height: cover.height || 900 }
@@ -72,7 +72,7 @@ export default async function XeChiTietPage({ params }: PageProps) {
       <BreadcrumbSchema
         items={[
           { name: 'Trang chủ', url: '/' },
-          { name: 'Xe VinFast cũ', url: '/xe-vinfast-cu' },
+          { name: 'Lướt Auto', url: '/xe-vinfast-cu' },
           { name: carTitle, url: `/xe-vinfast-cu/xe/${slug}` },
         ]}
       />

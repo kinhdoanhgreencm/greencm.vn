@@ -93,13 +93,14 @@ function SetPassword({ onDone }: { onDone: () => void }) {
 }
 
 /* ---------- Form xe: dùng cho đăng mới, duyệt tin khách và sửa ---------- */
-const emptyCar: Row = { model: '', trim: '', modelYear: '', odoKm: '', price: '', oldPrice: '', region: 'Cần Thơ', ward: '', color: '', batteryOwnership: '', batterySohPercent: '', plateColor: 'white', warrantyRemaining: '', description: '', usageHistoryNote: '', status: 'available', images: [] };
+const emptyCar: Row = { model: '', trim: '', modelYear: '', odoKm: '', price: '', oldPrice: '', region: 'Cần Thơ', ward: '', color: '', batteryOwnership: '', batterySohPercent: '', plateColor: 'white', plateArea: '', freeChargingUntil: '', equipment: '', warrantyRemaining: '', description: '', usageHistoryNote: '', status: 'available', images: [] };
 
 function carFromDb(c: Row): Row {
   return {
     model: c.model, trim: c.trim ?? '', modelYear: c.model_year ?? '', odoKm: c.odo_km ?? '', price: c.price ?? c.asking_price ?? '',
     oldPrice: c.old_price ?? '', region: c.region ?? c.province ?? 'Cần Thơ', ward: c.ward ?? '', color: c.color ?? '',
-    batteryOwnership: c.battery_ownership ?? '', batterySohPercent: c.battery_soh_percent ?? '', plateColor: c.plate_color ?? 'white',
+    batteryOwnership: c.battery_ownership ?? '', batterySohPercent: c.battery_soh_percent ?? '', plateColor: c.plate_color ?? 'white', plateArea: c.plate_area ?? '', freeChargingUntil: c.free_charging_until ?? '',
+    equipment: Array.isArray(c.equipment) ? c.equipment.join('\n') : '',
     warrantyRemaining: c.warranty_remaining ?? '', description: c.description ?? c.note ?? '', usageHistoryNote: c.usage_history_note ?? '',
     status: c.status && STATUS_LABEL[c.status] ? c.status : 'available', images: c.images ?? [],
   };
@@ -156,8 +157,7 @@ function CarEditor({ token, initial, submitLabel, onSubmit, onCancel }: {
         {inp('trim', 'Phiên bản')}
         {inp('modelYear', 'Năm SX *', { inputMode: 'numeric' })}
         {inp('odoKm', 'Số km *', { inputMode: 'numeric' })}
-        {inp('price', `Giá bán * ${money(Number(c.price))}`, { inputMode: 'numeric' })}
-        {inp('oldPrice', 'Giá cũ (gạch ngang)', { inputMode: 'numeric' })}
+        {inp('price', `Giá chào * ${money(Number(c.price))}`, { inputMode: 'numeric' })}
         <label className="block text-sm">
           <span className="mb-1 block font-medium text-ink">Tỉnh/thành</span>
           <select className="gcm-input" value={c.region} onChange={set('region')}>
@@ -172,14 +172,19 @@ function CarEditor({ token, initial, submitLabel, onSubmit, onCancel }: {
             <option value="">Chưa rõ</option><option value="purchased">Mua pin</option><option value="leased">Thuê pin</option>
           </select>
         </label>
-        {inp('batterySohPercent', 'SOH pin (%)', { inputMode: 'decimal' })}
+        {inp('freeChargingUntil', 'Free sạc (vd: KGH)')}
         <label className="block text-sm">
-          <span className="mb-1 block font-medium text-ink">Biển</span>
-          <select className="gcm-input" value={c.plateColor} onChange={set('plateColor')}>
-            <option value="white">Trắng</option><option value="yellow">Vàng</option>
+          <span className="mb-1 block font-medium text-ink">Biển số</span>
+          <select className="gcm-input" value={c.plateArea} onChange={set('plateArea')}>
+            <option value="">Chưa rõ</option><option value="tinh">Tỉnh</option><option value="thanh-pho">Thành phố</option>
           </select>
         </label>
-        {inp('warrantyRemaining', 'Bảo hành còn lại')}
+        <label className="block text-sm">
+          <span className="mb-1 block font-medium text-ink">Màu biển</span>
+          <select className="gcm-input" value={c.plateColor} onChange={set('plateColor')}>
+            <option value="white">Trắng</option><option value="yellow">Vàng (kinh doanh)</option>
+          </select>
+        </label>
         <label className="block text-sm">
           <span className="mb-1 block font-medium text-ink">Trạng thái</span>
           <select className="gcm-input" value={c.status} onChange={set('status')}>
@@ -187,6 +192,10 @@ function CarEditor({ token, initial, submitLabel, onSubmit, onCancel }: {
           </select>
         </label>
       </div>
+      <label className="block text-sm">
+        <span className="mb-1 block font-medium text-ink">Xe được trang bị (mỗi dòng một món)</span>
+        <textarea className="gcm-input h-24" placeholder={'Phim cách nhiệt\nLót sàn\nCam hành trình'} value={c.equipment} onChange={set('equipment')} />
+      </label>
       <label className="block text-sm">
         <span className="mb-1 block font-medium text-ink">Mô tả công khai</span>
         <textarea className="gcm-input h-24" value={c.description} onChange={set('description')} />

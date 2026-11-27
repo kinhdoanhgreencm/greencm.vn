@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Gauge, Calendar, BatteryCharging, CreditCard, ShieldCheck, MessageCircle, FileText, MapPin, ArrowUpRight } from 'lucide-react';
+import { Check, MessageCircle, MapPin, ArrowUpRight } from 'lucide-react';
+import { usedCarTitle, batteryLabel, freeChargingLabel, plateAreaLabel, formatPrice, COMMITMENTS } from '../lib/usedCarLabels';
 import { UsedCarListing } from '../types';
 import CustomerForm from './CustomerForm';
 import PageHero from './PageHero';
@@ -15,33 +16,26 @@ interface UsedCarDetailViewProps {
 
 const getFallbackImage = () => 'https://via.placeholder.com/1200x900/0B0F19/00D26A?text=GCM+Car';
 
-const BATTERY_OWNERSHIP_LABEL: Record<string, string> = {
-  purchased: 'Đã mua đứt pin',
-  leased: 'Còn hợp đồng thuê pin',
-};
-
-const PLATE_COLOR_LABEL: Record<string, string> = {
-  white: 'Biển trắng',
-  yellow: 'Biển vàng (chạy dịch vụ)',
-};
-
 const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars }) => {
   const [activeImage, setActiveImage] = useState(0);
   const [imageError, setImageError] = useState(false);
   const images = car.images && car.images.length > 0 ? car.images : [];
-  const carTitle = `${car.brand} ${car.model} ${car.trim || ''} ${car.modelYear}`.replace(/\s+/g, ' ').trim();
+  const carTitle = usedCarTitle(car);
+  const tags = [batteryLabel(car), freeChargingLabel(car)].filter(Boolean) as string[];
+  const plate = plateAreaLabel(car);
+  const equipment = car.equipment ?? [];
 
   return (
     <div className="min-h-screen bg-page">
       <PageHero
-        eyebrow="Xe VinFast cũ"
-        title={`${carTitle} cũ tại Cần Thơ`}
+        eyebrow="Lướt Auto · xe VinFast cũ"
+        title={carTitle}
         summary={
           <span className="inline-flex items-center gap-2">
             <MapPin size={16} /> {car.region}
           </span>
         }
-        crumbs={[{ href: '/xe-vinfast-cu', label: 'Xe VinFast cũ' }]}
+        crumbs={[{ href: '/xe-vinfast-cu', label: 'Lướt Auto' }]}
       />
       <div className="gcm-container pt-8 pb-16 md:pt-10">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-10">
@@ -81,82 +75,48 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
               </div>
             )}
 
-            {/* Spec table */}
+            {/* Thông số */}
             <div className="gcm-card mb-8 p-6">
-              <h2 className="gcm-h3 mb-4">Thông số và tình trạng xe</h2>
-              <dl className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <Gauge className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Số km đã đi</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.odoKm.toLocaleString('vi-VN')} km</dd>
+              <h2 className="gcm-h3 mb-4">Thông số xe</h2>
+              {tags.length > 0 && (
+                <div className="mb-4 flex flex-wrap gap-2">
+                  {tags.map((t) => (
+                    <span key={t} className="rounded-control bg-tint px-2.5 py-1 text-sm font-semibold text-ocean-deep">{t}</span>
+                  ))}
                 </div>
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <Calendar className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Năm sản xuất</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.modelYear}{car.registrationYear ? ` / ĐK ${car.registrationYear}` : ''}</dd>
-                </div>
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <BatteryCharging className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Chỉ số pin (SOH)</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">
-                    {car.batterySohPercent ? `${car.batterySohPercent}%` : 'Đang cập nhật'}
-                  </dd>
-                </div>
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <ShieldCheck className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Tình trạng pin</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">
-                    {car.batteryOwnership ? BATTERY_OWNERSHIP_LABEL[car.batteryOwnership] : 'Đang cập nhật'}
-                  </dd>
-                </div>
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <CreditCard className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Loại biển số</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">
-                    {car.plateColor ? PLATE_COLOR_LABEL[car.plateColor] : 'Đang cập nhật'}
-                  </dd>
-                </div>
-                <div className="flex flex-col items-center rounded-panel border border-line bg-tint p-4 text-center">
-                  <ShieldCheck className="text-ocean mb-2" size={20} />
-                  <dt className="text-xs text-ink-mute">Bảo hành còn lại</dt>
-                  <dd className="mt-0.5 font-semibold tabular text-ink">{car.warrantyRemaining || 'Đang cập nhật'}</dd>
-                </div>
-              </dl>
+              )}
+              <ul className="space-y-2.5 text-ink">
+                {plate && <li className="flex gap-2"><Check size={18} className="mt-0.5 shrink-0 text-ocean" /><span><span className="text-ink-soft">Biển số:</span> {plate}</span></li>}
+                <li className="flex gap-2"><Check size={18} className="mt-0.5 shrink-0 text-ocean" /><span><span className="text-ink-soft">Odo:</span> <span className="tabular">{car.odoKm.toLocaleString('vi-VN')} km</span></span></li>
+                {equipment.length > 0 && (
+                  <li className="flex gap-2">
+                    <Check size={18} className="mt-0.5 shrink-0 text-ocean" />
+                    <span>
+                      <span className="text-ink-soft">Xe được trang bị:</span>
+                      <ul className="mt-1 list-disc space-y-0.5 pl-5">
+                        {equipment.map((e) => <li key={e}>{e}</li>)}
+                      </ul>
+                    </span>
+                  </li>
+                )}
+              </ul>
 
               {car.description && (
-                <p className="mt-4 whitespace-pre-line pt-4 text-ink-soft">{car.description}</p>
+                <p className="mt-4 whitespace-pre-line border-t border-line pt-4 text-ink-soft">{car.description}</p>
               )}
 
-              {car.source === 'khach' && (
-                <p className="mt-4 rounded-panel border border-line bg-tint p-3 text-sm text-ink-soft">
-                  Tin do chủ xe đăng qua GCM. Gọi GCM để hẹn xem xe, kiểm tra pin và giấy tờ trước khi đặt cọc.
-                </p>
-              )}
-
-              {(car.previousOwnersCount || car.usageHistoryNote) && (
-                <p className="mt-4 pt-4 text-sm text-ink-soft">
-                  {car.previousOwnersCount && <>Đã qua {car.previousOwnersCount} chủ. </>}
-                  {car.usageHistoryNote}
-                </p>
-              )}
-
-              {car.inspectionReportUrl && (
-                <a
-                  href={car.inspectionReportUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="gcm-link mt-4"
-                >
-                  <FileText size={16} /> Xem biên bản kiểm định 160 điểm (PDF)
-                </a>
-              )}
+              <div className="mt-5 rounded-panel border border-line bg-tint p-4">
+                <p className="text-sm font-semibold text-navy">Cam kết</p>
+                <p className="mt-1 text-sm text-ink-soft">{COMMITMENTS.map((c, i) => (i ? c.toLowerCase() : c)).join(', ')}.</p>
+                <p className="mt-1 text-sm text-ink-soft">Hỗ trợ trả góp ngân hàng, lái thử xe.</p>
+              </div>
             </div>
 
             {car.videoUrl && (
               <div className="mb-8">
                 <h2 className="gcm-h3 mb-4">Video thực tế</h2>
                 <a href={car.videoUrl} target="_blank" rel="noopener noreferrer" className="gcm-link">
-                  Xem video xe thật trên kênh của GCM →
+                  Xem video xe thật trên kênh của Lướt Auto →
                 </a>
               </div>
             )}
@@ -165,17 +125,12 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
           {/* Sidebar: price + CTA */}
           <div className="lg:col-span-1">
             <div className="gcm-card sticky top-24 p-6">
-              <div className="mb-6">
-                <div className="text-3xl font-semibold tabular text-ocean">{car.price.toLocaleString('vi-VN')}₫</div>
-                {car.oldPrice && (
-                  <div className="tabular text-ink-mute line-through">{car.oldPrice.toLocaleString('vi-VN')}₫</div>
-                )}
-                {car.monthlyInstallment && (
-                  <div className="mt-1 text-sm text-ink-soft">
-                    Trả góp từ <strong className="tabular text-ink">{car.monthlyInstallment.toLocaleString('vi-VN')}₫/tháng</strong>
-                  </div>
-                )}
-              </div>
+              <dl className="mb-6 space-y-3">
+                <div className="flex items-baseline justify-between gap-3">
+                  <dt className="text-sm text-ink-soft">Giá chào</dt>
+                  <dd className="text-3xl font-semibold tabular text-ocean">{formatPrice(car.price)}</dd>
+                </div>
+              </dl>
 
               {car.status === 'sold' ? (
                 <div className="mb-6 rounded-panel border border-line bg-tint p-4 text-center text-sm text-ink-soft">
@@ -227,8 +182,8 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                   </div>
                   <div className="flex items-start justify-between gap-4 p-4">
                     <div>
-                      <h3 className="gcm-h3 mb-1">{similar.brand} {similar.model} {similar.trim} {similar.modelYear}</h3>
-                      <div className="font-semibold tabular text-ocean">{similar.price.toLocaleString('vi-VN')}₫</div>
+                      <h3 className="gcm-h3 mb-1">{usedCarTitle(similar)}</h3>
+                      <div className="font-semibold tabular text-ocean">Giá chào {formatPrice(similar.price)}</div>
                     </div>
                     <span className="gcm-arrow-box">
                       <ArrowUpRight size={16} />
