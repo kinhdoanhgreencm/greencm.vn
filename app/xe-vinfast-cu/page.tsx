@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { OG_BASE } from '@/lib/seo';
 import XeVinfastCuClient from './XeVinfastCuClient';
 import { BreadcrumbSchema, ItemListSchema } from '../../components/SchemaMarkup';
@@ -123,7 +124,21 @@ export default async function XeVinfastCuPage({ searchParams }: PageProps) {
         }}
       />
 
-      <XeVinfastCuClient cars={cars} hasActiveFilters={isFiltered} faq={faqData} />
+      <XeVinfastCuClient
+        cars={cars}
+        hasActiveFilters={isFiltered}
+        faq={faqData}
+        localSection={
+          <section className="pb-8">
+            <div className="gcm-container">
+              <p className="text-sm text-ink-soft">
+                Xem theo khu vực:{' '}
+                <Link href="/xe-vinfast-cu/tp-hcm" className="font-semibold text-ocean hover:text-ocean-deep">Xe VinFast cũ TP.HCM</Link>
+              </p>
+            </div>
+          </section>
+        }
+      />
     </>
   );
 }

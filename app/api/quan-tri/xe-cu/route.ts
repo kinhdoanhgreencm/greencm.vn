@@ -158,8 +158,19 @@ export async function POST(req: NextRequest) {
       const row = carRow(body.car ?? {}, true);
       if (typeof row === 'string') return bad(row);
       row.updated_at = new Date().toISOString();
-      const { data, error } = await admin.from('used_cars').update(row).eq('id', id).select('*').single();
-      if (error) return bad(error.message, 500);
+      // Ghi ngày bán để trang xe tự noindex sau 60 ngày; bỏ bán thì xoá ngày
+      if ('status' in row) {
+        const { data: cur } = await admin.from('used_cars').select('status').eq('id', id).single();
+        if (row.status === 'sold' && cur?.status !== 'sold') row.sold_at = row.updated_at;
+        if (row.status !== 'sold') row.sold_at = null;
+      }
+      let { data, error } = await admin.from('used_cars').update(row).eq('id', id).select('*').single();
+      if (error && 'sold_at' in row && /sold_at/.test(error.message)) {
+        // Chưa chạy migration 004: lưu mà không có ngày bán
+        delete row.sold_at;
+        ({ data, error } = await admin.from('used_cars').update(row).eq('id', id).select('*').single());
+      }
+      if (error || !data) return bad(error?.message || 'Không lưu được', 500);
       refresh(data.slug);
       return NextResponse.json({ car: data });
     }

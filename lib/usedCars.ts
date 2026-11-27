@@ -34,6 +34,7 @@ interface UsedCarRow {
   video_url: string | null;
   images: UsedCarImage[] | null;
   view_count: number;
+  sold_at?: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -73,7 +74,22 @@ function mapRow(row: UsedCarRow): UsedCarListing {
     viewCount: row.view_count,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
+    soldAt: row.sold_at ?? null,
   };
+}
+
+/** Tin đã bán giữ cho Google lập chỉ mục bao nhiêu ngày, sau đó noindex và rời sitemap. */
+export const SOLD_INDEX_DAYS = 60;
+
+/**
+ * true nếu xe đã bán quá SOLD_INDEX_DAYS ngày. Chưa có sold_at (chưa chạy migration 004)
+ * thì lấy updated_at làm mốc gần đúng.
+ */
+export function isStaleSold(car: { status: string; soldAt?: string | null; updatedAt: string }): boolean {
+  if (car.status !== 'sold') return false;
+  const since = Date.parse(car.soldAt || car.updatedAt);
+  if (Number.isNaN(since)) return false;
+  return Date.now() - since > SOLD_INDEX_DAYS * 24 * 60 * 60 * 1000;
 }
 
 export interface UsedCarFilters {
@@ -83,7 +99,15 @@ export interface UsedCarFilters {
   priceBand?: 'under-300' | '300-500' | '500-800' | '800-1200' | 'over-1200';
   maxOdoKm?: number;
   yearFrom?: number;
+  /** Lọc theo tỉnh/thành xe đang ở (cột region), nhận nhiều cách viết */
+  regions?: string[];
 }
+
+/** Các cách viết TP.HCM có thể có trong cột region */
+export const HCM_REGIONS = ['TP.HCM', 'TP HCM', 'TP. HCM', 'Hồ Chí Minh', 'TP. Hồ Chí Minh', 'TP Hồ Chí Minh'];
+
+/** Số xe tối thiểu ở TP.HCM để trang /xe-vinfast-cu/tp-hcm cho Google lập chỉ mục */
+export const HCM_MIN_CARS_TO_INDEX = 3;
 
 const PRICE_BAND_RANGES: Record<NonNullable<UsedCarFilters['priceBand']>, [number, number | null]> = {
   'under-300': [0, 300_000_000],
@@ -141,6 +165,9 @@ export async function getAvailableUsedCars(filters: UsedCarFilters = {}): Promis
     .in('status', ['available', 'reserved'])
     .order('created_at', { ascending: false });
 
+  if (filters.regions && filters.regions.length > 0) {
+    query = query.in('region', filters.regions);
+  }
   if (filters.model) {
     query = query.ilike('model', filters.model);
   }
@@ -190,7 +217,10 @@ export async function getUsedCarBySlug(slug: string): Promise<UsedCarListing | n
   return mapRow(data as UsedCarRow);
 }
 
-/** Xe tương tự để gợi ý trên trang xe đã bán — cùng dòng xe, đang còn bán. */
+/**
+ * Xe gợi ý trên trang xe đã bán: ưu tiên cùng dòng xe đang còn bán,
+ * thiếu thì bù xe khác đang bán để trang không thành ngõ cụt.
+ */
 export async function getSimilarUsedCars(model: string, excludeSlug: string, limit = 3): Promise<UsedCarListing[]> {
   const { data, error } = await supabase
     .from('used_cars')
@@ -198,18 +228,47 @@ export async function getSimilarUsedCars(model: string, excludeSlug: string, lim
     .eq('status', 'available')
     .ilike('model', model)
     .neq('slug', excludeSlug)
+    .order('created_at', { ascending: false })
     .limit(limit);
 
-  if (error || !data) return [];
-  return (data as UsedCarRow[]).map(mapRow);
+  const sameModel = error || !data ? [] : (data as UsedCarRow[]).map(mapRow);
+  if (sameModel.length >= limit) return sameModel;
+
+  const { data: more, error: e2 } = await supabase
+    .from('used_cars')
+    .select('*')
+    .eq('status', 'available')
+    .neq('slug', excludeSlug)
+    .order('created_at', { ascending: false })
+    .limit(limit * 2);
+  if (e2 || !more) return sameModel;
+
+  const seen = new Set(sameModel.map((c) => c.slug));
+  const others = (more as UsedCarRow[]).map(mapRow).filter((c) => !seen.has(c.slug));
+  return [...sameModel, ...others].slice(0, limit);
 }
 
-/** Toàn bộ slug xe (mọi trạng thái) — dùng cho sitemap. */
+/** Slug xe cho sitemap: xe đang bán, đã cọc và đã bán trong SOLD_INDEX_DAYS ngày. */
 export async function getAllUsedCarSlugsForSitemap(): Promise<{ slug: string; updatedAt: string }[]> {
+  // select('*') để chạy được cả khi chưa có cột sold_at
   const { data, error } = await supabase
     .from('used_cars')
-    .select('slug, updated_at');
+    .select('*');
 
   if (error || !data) return [];
-  return (data as { slug: string; updated_at: string }[]).map(r => ({ slug: r.slug, updatedAt: r.updated_at }));
+  return (data as UsedCarRow[])
+    .map(mapRow)
+    .filter((c) => !isStaleSold(c))
+    .map((c) => ({ slug: c.slug, updatedAt: c.updatedAt }));
+}
+
+/** Đếm xe đang bán/đã cọc theo khu vực — dùng cho sitemap và quyết định noindex. */
+export async function countAvailableUsedCarsInRegions(regions: string[]): Promise<number> {
+  const { count, error } = await supabase
+    .from('used_cars')
+    .select('id', { count: 'exact', head: true })
+    .in('status', ['available', 'reserved'])
+    .in('region', regions);
+  if (error) return 0;
+  return count ?? 0;
 }

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { BLOG_POSTS } from '../../../constants'; // Check lại đường dẫn import này nhé
 import { newsPageCount } from '../../../lib/news';
 import { TMT_PRODUCTS } from '../../../lib/tmtProducts';
-import { getAllUsedCarSlugsForSitemap } from '../../../lib/usedCars';
+import { getAllUsedCarSlugsForSitemap, countAvailableUsedCarsInRegions, HCM_REGIONS, HCM_MIN_CARS_TO_INDEX } from '../../../lib/usedCars';
 
 // Hàm Clean URL để tránh lỗi XML (quan trọng)
 function escapeXml(unsafe: string) {
@@ -48,6 +48,10 @@ export async function GET(
       { path: 'dieu-khoan-su-dung', changefreq: 'yearly', priority: '0.3' },
       { path: 'chinh-sach-bao-mat', changefreq: 'yearly', priority: '0.3' },
     ];
+    // Trang xe cũ TP.HCM chỉ vào sitemap khi đã đủ xe (cùng ngưỡng với noindex)
+    if ((await countAvailableUsedCarsInRegions(HCM_REGIONS)) >= HCM_MIN_CARS_TO_INDEX) {
+      pages.push({ path: 'xe-vinfast-cu/tp-hcm', changefreq: 'daily', priority: '0.85' });
+    }
     // Trang riêng từng mẫu trụ TMT-EGREEN
     TMT_PRODUCTS.forEach((p) => pages.push({ path: `tram-sac-tmt-egreen/${p.slug}`, changefreq: 'monthly', priority: '0.7' }));
     // Trang 2 trở đi của /tin-tuc

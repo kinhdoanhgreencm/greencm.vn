@@ -3,7 +3,8 @@ import { OG_BASE, OG_IMAGES } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import XeChiTietClient from './XeChiTietClient';
 import { BreadcrumbSchema, CarSchema } from '../../../../components/SchemaMarkup';
-import { getUsedCarBySlug, getSimilarUsedCars } from '../../../../lib/usedCars';
+import { getUsedCarBySlug, getSimilarUsedCars, isStaleSold } from '../../../../lib/usedCars';
+import { usedCarSeoTitle, usedCarSeoDescription } from '../../../../lib/usedCarLabels';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://greencm.vn';
 
@@ -27,8 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   const carTitle = buildCarTitle(car);
-  const pageTitle = `${carTitle} cũ${car.status === 'sold' ? ' (đã bán)' : ''} | Lướt Auto`;
-  const description = `${carTitle}, odo ${car.odoKm.toLocaleString('vi-VN')} km${car.batteryOwnership === 'purchased' ? ', mua pin' : car.batteryOwnership === 'leased' ? ', thuê pin' : ''}. Giá chào ${car.price.toLocaleString('vi-VN')}₫. Cam kết không đâm đụng, không ngập nước, odo chuẩn, pháp lý chuẩn.`;
+  const pageTitle = usedCarSeoTitle(car);
+  const description = usedCarSeoDescription(car);
   const cover = car.images?.[0];
   const ogImage = cover
     ? { url: cover.url, width: cover.width || 1200, height: cover.height || 900 }
@@ -36,9 +37,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const url = `${baseUrl}/xe-vinfast-cu/xe/${slug}`;
 
   return {
-    title: pageTitle,
+    // absolute: tiêu đề đã có "| Lướt Auto", không gắn thêm hậu tố chung của web
+    title: { absolute: pageTitle },
     description,
     alternates: { canonical: url },
+    // Bán quá 60 ngày: vẫn mở cho người có link, nhưng Google gỡ dần khỏi kết quả
+    robots: isStaleSold(car) ? { index: false, follow: true } : undefined,
     openGraph: {
       ...OG_BASE,
       title: pageTitle,

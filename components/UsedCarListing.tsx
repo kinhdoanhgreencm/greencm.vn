@@ -13,13 +13,39 @@ import { usedCarTitle, batteryLabel, freeChargingLabel, plateAreaLabel, formatPr
 import UsedCarEmptyState from './UsedCarEmptyState';
 import PageHero from './PageHero';
 
+export interface UsedCarHero {
+  eyebrow: string;
+  title: React.ReactNode;
+  summary: string;
+  image: string;
+  crumbs: { href: string; label: string }[];
+}
+
 interface UsedCarListingProps {
   cars: UsedCarListingType[];
   hasActiveFilters: boolean;
   faq?: FaqItem[];
+  /** Đường dẫn trang đang xem, để bộ lọc giữ nguyên trang (mặc định /xe-vinfast-cu) */
+  basePath?: string;
+  /** Thay phần đầu trang (trang theo khu vực) */
+  hero?: UsedCarHero;
+  /** Tiêu đề khối danh sách khi không lọc */
+  listTitle?: string;
+  /** Nội dung riêng chèn sau danh sách xe (trang theo khu vực) */
+  localSection?: React.ReactNode;
+  /** Tiêu đề khối hỏi đáp */
+  faqTitle?: string;
 }
 
-const MODEL_OPTIONS = ['VF3', 'VF5', 'VF6', 'VF7', 'VF8', 'VF9', 'VF e34', 'Limo Green', 'Minio Green', 'Herio Green', 'Nerio Green'];
+const DEFAULT_HERO: UsedCarHero = {
+  eyebrow: 'Lướt Auto · thuộc GCM',
+  title: <><span className="block">Lướt Auto</span><span className="gcm-accent mt-1 block text-[0.6em] leading-tight">Xe VinFast cũ đã kiểm định</span></>,
+  summary: 'Mỗi tin ghi rõ mua pin hay thuê pin, biển số, odo và trang bị theo xe. Xem xe, lái thử tại Lướt Auto, hỗ trợ trả góp ngân hàng.',
+  image: '/images/xe/vf6.webp',
+  crumbs: [{ href: '/xe-vinfast-cu', label: 'Lướt Auto' }],
+};
+
+const MODEL_OPTIONS = ['VF2', 'VF3', 'VF5', 'VF6', 'VF7', 'VF8', 'VF9', 'VF e34', 'Limo Green', 'Minio Green', 'Herio Green', 'Nerio Green'];
 
 const PRICE_BAND_OPTIONS = [
   { value: '', label: 'Mọi mức giá' },
@@ -196,7 +222,10 @@ function FindCarBlock() {
   );
 }
 
-const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters, faq = [] }) => {
+const UsedCarListing: React.FC<UsedCarListingProps> = ({
+  cars, hasActiveFilters, faq = [], basePath = '/xe-vinfast-cu', hero = DEFAULT_HERO,
+  listTitle = 'Xe đang bán', localSection, faqTitle = 'Câu hỏi thường gặp khi mua xe điện cũ',
+}) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sort, setSort] = useState('moi');
@@ -216,7 +245,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
     if (value) params.set(KEYS[key], value);
     else params.delete(KEYS[key]);
     const qs = params.toString();
-    router.push(qs ? `/xe-vinfast-cu?${qs}#danh-sach` : '/xe-vinfast-cu#danh-sach', { scroll: false });
+    router.push(qs ? `${basePath}?${qs}#danh-sach` : `${basePath}#danh-sach`, { scroll: false });
   };
 
   const sorted = useMemo(() => {
@@ -233,11 +262,11 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
     <div className="min-h-screen bg-page">
       {/* 1. Đầu trang */}
       <PageHero
-        eyebrow="Lướt Auto · thuộc GCM"
-        title={<><span className="block">Lướt Auto</span><span className="gcm-accent mt-1 block text-[0.6em] leading-tight">Xe VinFast cũ đã kiểm định</span></>}
-        summary="Mỗi tin ghi rõ mua pin hay thuê pin, biển số, odo và trang bị theo xe. Xem xe, lái thử tại Lướt Auto, hỗ trợ trả góp ngân hàng."
-        crumbs={[{ href: '/xe-vinfast-cu', label: 'Lướt Auto' }]}
-        image="/images/xe/vf6.webp"
+        eyebrow={hero.eyebrow}
+        title={hero.title}
+        summary={hero.summary}
+        crumbs={hero.crumbs}
+        image={hero.image}
       >
         <a href="#danh-sach" className="gcm-btn">Xem xe đang bán <ArrowRight size={16} /></a>
         <Link href="/xe-vinfast-cu/dang-ban" className="gcm-btn-ghost">Đăng bán xe của bạn</Link>
@@ -270,7 +299,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
         <div className="gcm-container">
           <div className="mb-4 flex items-end justify-between gap-3">
             <div>
-              <h2 className="gcm-h2">{hasActiveFilters ? 'Kết quả tìm xe' : 'Xe đang bán'}</h2>
+              <h2 className="gcm-h2">{hasActiveFilters ? 'Kết quả tìm xe' : listTitle}</h2>
               <p className="mt-1 text-sm text-ink-soft">
                 <span className="font-semibold tabular text-ink">{cars.length}</span> xe{hasActiveFilters ? ' khớp bộ lọc' : ' sẵn sàng xem và lái thử'}
               </p>
@@ -290,7 +319,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
             <FilterSelect label="Odo" value={current.maxOdoKm} onChange={(v) => setFilter('maxOdoKm', v)}
               options={[{ value: '', label: 'Mọi số km' }, { value: '10000', label: 'Odo dưới 10.000 km' }, { value: '30000', label: 'Odo dưới 30.000 km' }, { value: '50000', label: 'Odo dưới 50.000 km' }]} />
             {hasActiveFilters && (
-              <button type="button" onClick={() => router.push('/xe-vinfast-cu#danh-sach', { scroll: false })}
+              <button type="button" onClick={() => router.push(`${basePath}#danh-sach`, { scroll: false })}
                 className="col-span-2 inline-flex items-center justify-center gap-1 text-sm font-medium text-ocean hover:text-ocean-deep md:col-span-1 md:px-2">
                 <X size={16} /> Xoá lọc
               </button>
@@ -306,6 +335,8 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
           )}
         </div>
       </section>
+
+      {localSection}
 
       {/* 4. Ký gửi bán xe */}
       <section className="gcm-section pt-0">
@@ -339,7 +370,7 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters,
             <div className="grid gap-6 md:grid-cols-[1fr_2fr]">
               <div>
                 <span className="gcm-label">Hỏi đáp</span>
-                <h2 className="gcm-h2 mt-2">Câu hỏi thường gặp khi mua xe điện cũ</h2>
+                <h2 className="gcm-h2 mt-2">{faqTitle}</h2>
               </div>
               <div className="divide-y divide-line rounded-card border border-line">
                 {faq.map((f) => (

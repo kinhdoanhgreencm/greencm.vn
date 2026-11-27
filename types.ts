@@ -69,6 +69,8 @@ export interface UsedCarListing {
   viewCount: number;
   createdAt: string;
   updatedAt: string;
+  /** Ngày chuyển sang "Đã bán" (null nếu chưa bán hoặc chưa chạy migration 004) */
+  soldAt?: string | null;
 }
 
 export interface AccessoryProduct {

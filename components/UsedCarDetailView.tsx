@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Check, MessageCircle, MapPin, ArrowUpRight } from 'lucide-react';
-import { usedCarTitle, batteryLabel, freeChargingLabel, plateAreaLabel, formatPrice, COMMITMENTS } from '../lib/usedCarLabels';
+import { usedCarTitle, batteryLabel, freeChargingLabel, plateAreaLabel, formatPrice, COMMITMENTS, usedCarPlace, usedCarSummary } from '../lib/usedCarLabels';
 import { UsedCarListing } from '../types';
 import CustomerForm from './CustomerForm';
 import PageHero from './PageHero';
@@ -32,7 +32,7 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
         title={carTitle}
         summary={
           <span className="inline-flex items-center gap-2">
-            <MapPin size={16} /> {car.region}
+            <MapPin size={16} /> {usedCarPlace(car)}
           </span>
         }
         crumbs={[{ href: '/xe-vinfast-cu', label: 'Lướt Auto' }]}
@@ -101,9 +101,10 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                 )}
               </ul>
 
-              {car.description && (
-                <p className="mt-4 whitespace-pre-line border-t border-line pt-4 text-ink-soft">{car.description}</p>
-              )}
+              <div className="mt-4 space-y-2 border-t border-line pt-4 text-ink-soft">
+                <p>{usedCarSummary(car)}</p>
+                {car.description && <p className="whitespace-pre-line">{car.description}</p>}
+              </div>
 
               <div className="mt-5 rounded-panel border border-line bg-tint p-4">
                 <p className="text-sm font-semibold text-navy">Cam kết</p>

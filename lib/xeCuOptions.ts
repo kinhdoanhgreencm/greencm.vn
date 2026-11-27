@@ -1,6 +1,6 @@
 // Danh sách dùng chung cho form khách đăng bán và trang quản trị.
 export const VINFAST_MODELS = [
-  'VF3', 'VF5', 'VF6', 'VF7', 'VF8', 'VF9', 'VF e34',
+  'VF2', 'VF3', 'VF5', 'VF6', 'VF7', 'VF8', 'VF9', 'VF e34',
   'Limo Green', 'Herio Green', 'Nerio Green', 'Minio Green',
   'Fadil', 'Lux A2.0', 'Lux SA2.0', 'President',
 ] as const;
