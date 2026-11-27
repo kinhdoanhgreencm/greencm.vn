@@ -123,6 +123,16 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                 </div>
               </dl>
 
+              {car.description && (
+                <p className="mt-4 whitespace-pre-line pt-4 text-ink-soft">{car.description}</p>
+              )}
+
+              {car.source === 'khach' && (
+                <p className="mt-4 rounded-panel border border-line bg-tint p-3 text-sm text-ink-soft">
+                  Tin do chủ xe đăng qua GCM. Gọi GCM để hẹn xem xe, kiểm tra pin và giấy tờ trước khi đặt cọc.
+                </p>
+              )}
+
               {(car.previousOwnersCount || car.usageHistoryNote) && (
                 <p className="mt-4 pt-4 text-sm text-ink-soft">
                   {car.previousOwnersCount && <>Đã qua {car.previousOwnersCount} chủ. </>}

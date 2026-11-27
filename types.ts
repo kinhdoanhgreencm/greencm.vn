@@ -51,6 +51,9 @@ export interface UsedCarListing {
   freeChargingUntil?: string | null;
   previousOwnersCount?: number | null;
   usageHistoryNote?: string | null;
+  description?: string | null;
+  ward?: string | null;
+  source?: 'gcm' | 'khach';
   inspectionReportUrl?: string | null;
   price: number;
   oldPrice?: number | null;

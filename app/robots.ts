@@ -11,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           '/api/',        // Chặn API route (không chứa content SEO)
           '/admin/',      // Chặn trang quản trị
+          '/quan-tri/',   // Trang quản trị xe cũ
           '/dashboard/',  // Chặn trang dashboard user
           '/private/',    // Chặn thư mục riêng tư
           '/search',      // Chặn trang kết quả tìm kiếm (tránh lỗi spam index)

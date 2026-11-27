@@ -37,6 +37,7 @@ export async function GET(
       { path: 'oto-vinfast', changefreq: 'weekly', priority: '0.9' },
       { path: 'oto-vinfast/limo-green', changefreq: 'monthly', priority: '0.85' },
       { path: 'xe-vinfast-cu', changefreq: 'daily', priority: '0.9' },
+      { path: 'xe-vinfast-cu/dang-ban', changefreq: 'monthly', priority: '0.7' },
       { path: 'tram-sac-vinfast', changefreq: 'weekly', priority: '0.8' },
       { path: 'tram-sac-tmt-egreen', changefreq: 'weekly', priority: '0.8' },
       { path: 'tram-sac-tmt-egreen/bang-gia', changefreq: 'weekly', priority: '0.85' },

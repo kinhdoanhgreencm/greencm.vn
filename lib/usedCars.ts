@@ -20,6 +20,9 @@ interface UsedCarRow {
   free_charging_until: string | null;
   previous_owners_count: number | null;
   usage_history_note: string | null;
+  description?: string | null;
+  ward?: string | null;
+  source?: 'gcm' | 'khach';
   inspection_report_url: string | null;
   price: number;
   old_price: number | null;
@@ -52,6 +55,9 @@ function mapRow(row: UsedCarRow): UsedCarListing {
     freeChargingUntil: row.free_charging_until,
     previousOwnersCount: row.previous_owners_count,
     usageHistoryNote: row.usage_history_note,
+    description: row.description ?? null,
+    ward: row.ward ?? null,
+    source: row.source ?? 'gcm',
     inspectionReportUrl: row.inspection_report_url,
     price: row.price,
     oldPrice: row.old_price,

@@ -69,7 +69,11 @@ const UsedCarListing: React.FC<UsedCarListingProps> = ({ cars, hasActiveFilters 
         }
         crumbs={[{ href: '/xe-vinfast-cu', label: 'Xe VinFast cũ' }]}
         image="/images/xe/vf6.webp"
-      />
+      >
+        <div className="flex flex-wrap gap-3">
+          <Link href="/xe-vinfast-cu/dang-ban" className="gcm-btn">Đăng bán xe của bạn</Link>
+        </div>
+      </PageHero>
 
       {/* Bộ lọc ngay dưới dải đầu trang */}
       <section className="pt-8 md:pt-10">
