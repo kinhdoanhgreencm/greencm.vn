@@ -119,7 +119,7 @@ function CarCard({ car }: { car: UsedCarListingType }) {
 
           <div className="flex-1" />
           <div className="mt-4 flex items-baseline justify-between border-t border-line pt-3">
-            <span className="text-sm text-ink-soft">Giá chào</span>
+            <span className="text-sm text-ink-soft">Giá bán</span>
             <span className="text-xl font-semibold tabular text-ocean">{formatPrice(car.price)}</span>
           </div>
         </div>

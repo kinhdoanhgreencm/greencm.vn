@@ -157,7 +157,7 @@ function CarEditor({ token, initial, submitLabel, onSubmit, onCancel }: {
         {inp('trim', 'Phiên bản')}
         {inp('modelYear', 'Năm SX *', { inputMode: 'numeric' })}
         {inp('odoKm', 'Số km *', { inputMode: 'numeric' })}
-        {inp('price', `Giá chào * ${money(Number(c.price))}`, { inputMode: 'numeric' })}
+        {inp('price', `Giá bán * ${money(Number(c.price))}`, { inputMode: 'numeric' })}
         <label className="block text-sm">
           <span className="mb-1 block font-medium text-ink">Tỉnh/thành</span>
           <select className="gcm-input" value={c.region} onChange={set('region')}>

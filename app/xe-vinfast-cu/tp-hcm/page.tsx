@@ -64,7 +64,7 @@ const faqData = [
   },
   {
     question: 'Xe VinFast cũ ở TP.HCM giá bao nhiêu?',
-    answer: 'Tuỳ dòng xe, đời xe, số km và pin mua hay thuê. Xe thuê pin thường rẻ hơn xe mua pin cùng đời vì người mua trả thêm phí thuê pin hằng tháng. Mỗi tin trên trang ghi giá chào, bạn so trực tiếp.',
+    answer: 'Tuỳ dòng xe, đời xe, số km và pin mua hay thuê. Xe thuê pin thường rẻ hơn xe mua pin cùng đời vì người mua trả thêm phí thuê pin hằng tháng. Mỗi tin trên trang ghi giá bán, bạn so trực tiếp.',
   },
   {
     question: 'Nên mua xe VinFast cũ bản mua pin hay thuê pin?',

@@ -128,7 +128,7 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
             <div className="gcm-card sticky top-24 p-6">
               <dl className="mb-6 space-y-3">
                 <div className="flex items-baseline justify-between gap-3">
-                  <dt className="text-sm text-ink-soft">Giá chào</dt>
+                  <dt className="text-sm text-ink-soft">Giá bán</dt>
                   <dd className="text-3xl font-semibold tabular text-ocean">{formatPrice(car.price)}</dd>
                 </div>
               </dl>
@@ -184,7 +184,7 @@ const UsedCarDetailView: React.FC<UsedCarDetailViewProps> = ({ car, similarCars 
                   <div className="flex items-start justify-between gap-4 p-4">
                     <div>
                       <h3 className="gcm-h3 mb-1">{usedCarTitle(similar)}</h3>
-                      <div className="font-semibold tabular text-ocean">Giá chào {formatPrice(similar.price)}</div>
+                      <div className="font-semibold tabular text-ocean">Giá bán {formatPrice(similar.price)}</div>
                     </div>
                     <span className="gcm-arrow-box">
                       <ArrowUpRight size={16} />

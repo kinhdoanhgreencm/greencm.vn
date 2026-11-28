@@ -52,7 +52,7 @@ export function usedCarSeoDescription(c: UsedCarListing): string {
     plateAreaLabel(c) ? `biển ${plateAreaLabel(c)!.toLowerCase()}` : null,
     freeChargingLabel(c)?.toLowerCase(),
   ].filter(Boolean);
-  const status = c.status === 'sold' ? 'Xe đã bán, xem xe tương tự đang có.' : `Giá chào ${formatPrice(c.price)}.`;
+  const status = c.status === 'sold' ? 'Xe đã bán, xem xe tương tự đang có.' : `Giá bán ${formatPrice(c.price)}.`;
   return `${parts.join(', ')}. ${status} Xem xe tại ${usedCarPlace(c)}. Không đâm đụng, không ngập nước.`;
 }
 
